@@ -1,0 +1,23 @@
+<%= form_for @user do |f| %>
+  
+  <%= @user.errors.full_messages %>
+
+  <p><%= f.label :first_name %></p>
+  <%= f.text_field :first_name %>
+
+  <p><%= f.label :last_name %></p>
+  <%= f.text_field :last_name %>
+
+  <p><%= f.label :email %></p>
+  <%= f.text_field :email %>
+
+  <p><%= f.label :phone %></p>
+  <%= f.text_field :phone %>
+
+  <% if current_user.admin? %>
+    <p><%= f.label :role %></p>
+    <%= f.select :role, User.roles.map {|k, v| [k.humanize.capitalize, k]} %>
+  <% end %>
+
+  <p><%= f.submit 'Save', :class => 'btn btn-primary' %></p>
+<% end %>
