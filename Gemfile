@@ -14,7 +14,8 @@ gem 'american_date'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'devise'
+gem 'devise',           '~> 4.2'
+gem 'devise_invitable', '~> 1.7.0'
 
 
 group :assets do
