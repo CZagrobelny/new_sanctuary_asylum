@@ -4,10 +4,18 @@ class UsersController < ApplicationController
   before_action :require_admin, only: :index
   
   def index
+    @users = User.all
   end
 
   def edit
     @user = User.find(params[:id])
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    if @user.destroy
+      redirect_to users_path
+    end
   end
 
   def update
@@ -27,7 +35,7 @@ class UsersController < ApplicationController
   end
 
   def permitted_user_params
-    permitted_user_params = [:first_name, :last_name, :email, :phone]
+    permitted_user_params = [:first_name, :last_name, :email, :phone, :volunteer_type]
     if current_user.admin?
       permitted_user_params << :role
     end

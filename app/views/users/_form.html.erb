@@ -22,10 +22,15 @@
     <%= f.text_field :phone, class: 'form-control' %>
   </div>
 
+  <div class='form-group'>
+    <%= f.label :volunteer_type %>
+    <%= f.select :volunteer_type, User.volunteer_types.map {|k, v| [k.humanize.titleize, k]}, {:prompt => "Select"}, { :class => 'form-control input-md'} %>
+  </div>
+
   <% if current_user.admin? %>
     <div class='form-group'>
       <%= f.label :role %>
-      <%= f.select :role, User.roles.map {|k, v| [k.humanize.capitalize, k]}, class: 'form-control' %>
+      <%= f.select :role, User.roles.map {|k, v| [k.humanize.titleize, k]}, {}, {class: 'form-control input-md'} %>
     </div>
   <% end %>
 
