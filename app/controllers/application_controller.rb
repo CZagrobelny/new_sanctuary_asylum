@@ -1,7 +1,11 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  include ControllerHelpers
   protect_from_forgery prepend: true
 
+  def require_admin
+    not_found unless current_user.admin?
+  end
+
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
 end
