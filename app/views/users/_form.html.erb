@@ -2,34 +2,34 @@
   
   <%= display_validation_errors(@user) %>
 
-  <div class="form-group">
+  <div class='form-group'>
     <%= f.label :first_name %>
     <%= f.text_field :first_name, class: 'form-control' %>
   </div>
 
-  <div class="form-group">
+  <div class='form-group'>
     <%= f.label :last_name %>
     <%= f.text_field :last_name, class: 'form-control' %>
   </div>
 
-  <div class="form-group">
+  <div class='form-group'>
     <%= f.label :email %>
     <%= f.text_field :email, class: 'form-control' %>
   </div>
 
-  <div class="form-group">
+  <div class='form-group'>
     <%= f.label :phone %>
     <%= f.text_field :phone, class: 'form-control' %>
   </div>
 
   <% if current_user.admin? %>
-    <div class="form-group">
+    <div class='form-group'>
       <%= f.label :role %>
       <%= f.select :role, User.roles.map {|k, v| [k.humanize.capitalize, k]}, class: 'form-control' %>
     </div>
   <% end %>
 
-  <div class="form-group">
+  <div class='form-group'>
     <%= f.submit 'Save', :class => 'btn btn-primary' %>
   </div>
 <% end %>
