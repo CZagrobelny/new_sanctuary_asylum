@@ -1,29 +1,39 @@
 <div class='col-md-10 col-md-offset-1'>
-  <h1>Users</h1>
-
+  <div class='row'>
+    <%= link_to 'Invite User', new_user_invitation_path, class: 'btn btn-primary pull-right'%>
+  </div>
+  <div class='row' style='display: inline-block;'>
+    <%= link_to "<h1 style='float: left;'>Users</h1>".html_safe, users_path %>
+    <span style='float: right; width: 300px; margin-top:20px;'>
+      <%= form_tag users_path, :method => :get do %>
+        <%= text_field_tag :query, params[:query], placeholder: 'Search by first name, last name, or email', class: 'form-control input-md' %>
+      <% end %>
+    </span>
   <table class='table table-bordered'>
     <thead>
       <tr>
+        <th>ID</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email</th>
         <th>Phone Number</th>
         <th>Type</th>
         <th>Admin?</th>
-        <th>Confirmed?</th>
+        <th>Created</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <% @users.each do |user| %>
         <tr>
+          <td><%= user.id %></td>
           <td><%= user.first_name %></td>
           <td><%= user.last_name %></td>
           <td><%= user.email %></td>
           <td><%= user.phone %></td>
           <td><%= user.volunteer_type.try(:titleize) %></td>
           <td><%= user.admin? ? 'YES' : 'NO' %></td>
-          <td><%= user.confirmed? ? 'YES' : 'NO' %></td>
+          <td><%= user.created_at.strftime('%m/%d/%y') %></td>
           <td>
             <div class='btn-group'>
               <button type='button' class='btn btn-default'><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_user_path(user) %></button>
@@ -39,4 +49,7 @@
       <% end %>
     </tbody>
   </table>
+  <div class='pull-right'>
+    <%= will_paginate @users %>
+  </div>
 </div>
