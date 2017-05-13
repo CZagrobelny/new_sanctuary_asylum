@@ -25,7 +25,7 @@
     </thead>
     <tbody>
       <% @users.each do |user| %>
-        <tr>
+        <tr id="user-<%=user.id%>">
           <td><%= user.id %></td>
           <td><%= user.first_name %></td>
           <td><%= user.last_name %></td>
@@ -36,7 +36,7 @@
           <td><%= user.created_at.strftime('%m/%d/%y') %></td>
           <td>
             <div class='btn-group'>
-              <button type='button' class='btn btn-default'><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_user_path(user) %></button>
+              <button type='button' class='btn btn-default'><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_user_path(user), id: "edit-user-#{user.id}" %></button>
               <button type='button' class='btn dropdown-toggle btn-default' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                 <span class='caret'></span>
               </button>

@@ -4,8 +4,7 @@ class User < ActiveRecord::Base
   enum role: [:volunteer, :admin]
   enum volunteer_type: [:english_speaking, :spanish_interpreter, :lawyer]
 
-  validates :first_name, :last_name, :email, :phone, :presence => true
-  validates :volunteer_type, :presence => true, unless: :admin?
+  validates :first_name, :last_name, :email, :presence => true
   validates :email, :uniqueness => true
 
   def volunteer?
