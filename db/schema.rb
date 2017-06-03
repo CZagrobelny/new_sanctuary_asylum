@@ -10,25 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170412215118) do
+ActiveRecord::Schema.define(version: 20170603140903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "friends", force: :cascade do |t|
-    t.integer  "role",       default: 0, null: false
-    t.string   "first_name",             null: false
-    t.string   "last_name",              null: false
+    t.integer  "role",                                          default: 0,     null: false
+    t.string   "first_name",                                                    null: false
+    t.string   "last_name",                                                     null: false
     t.string   "phone"
     t.string   "email"
     t.string   "a_number"
-    t.string   "address"
-    t.string   "address2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
+    t.string   "middle_name"
+    t.boolean  "no_a_number",                                   default: false, null: false
+    t.integer  "ethnicity"
+    t.string   "other_ethnicity"
+    t.integer  "gender"
+    t.date     "date_of_birth"
+    t.integer  "status"
+    t.date     "date_of_entry"
+    t.text     "notes"
+    t.integer  "asylum_status"
+    t.date     "date_asylum_application_submitted"
+    t.text     "lawyer_notes"
+    t.integer  "work_authorization_status"
+    t.date     "date_eligible_to_apply_for_work_authorization"
+    t.date     "date_work_authorization_submitted"
+    t.text     "work_authorization_notes"
+    t.integer  "sidj_status"
+    t.date     "date_sidj_submitted"
+    t.text     "sidj_notes"
   end
 
   create_table "users", force: :cascade do |t|
