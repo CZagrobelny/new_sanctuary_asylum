@@ -1,0 +1,16 @@
+.form-inputs {
+  .row {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  label {
+    &.required:after {
+      content: ' *';
+    }
+  }
+  input[type='checkbox'] {
+    margin-right: 10px;
+    margin-left: 10px;
+    zoom: 1.5;
+  }
+}

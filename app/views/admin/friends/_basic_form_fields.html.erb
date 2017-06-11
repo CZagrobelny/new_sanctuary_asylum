@@ -1,0 +1,74 @@
+<h3>Basic</h3>
+<br>
+
+<div class="form-group">
+  <div class='row'>
+    <%= f.label :first_name, 'First Name', class: 'col-md-2 control-label required' %>
+    <div class='col-md-6'>
+      <%= f.text_field :first_name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <%= f.label :middle_name, 'Middle Name', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.text_field :middle_name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <%= f.label :last_name, 'Last Name', class: 'col-md-2 control-label required' %>
+    <div class='col-md-6'>
+      <%= f.text_field :last_name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <%= f.label :a_number, 'A Number', class: 'col-md-2 control-label required' %>
+    <div class='col-md-6'>
+      <%= f.text_field :a_number, class: 'form-control' %>
+      <div class='row'>
+        <%= f.check_box :no_a_number %>
+        <%= f.label :no_a_number, 'Friend does not have an A Number' %>
+      </div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <%= f.label :phone, class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.text_field :phone, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <%= f.label :email, class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.text_field :email, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <%= f.label :gender, class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.select :gender, options_for_select(Friend.genders), {include_blank: true}, {class: 'form-control'} %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <%= f.label :ethnicity, class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.select :ethnicity, options_for_select(Friend.ethnicities), {include_blank: true}, {class: 'form-control'} %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <%= f.label :other_ethnicity, class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.text_field :other_ethnicity, class: 'form-control' %>
+    </div>
+  </div>
+</div>
+
+
+
