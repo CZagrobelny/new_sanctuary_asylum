@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170605030257) do
+ActiveRecord::Schema.define(version: 20170611203422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "friend_languages", force: :cascade do |t|
+    t.integer  "friend_id",   null: false
+    t.integer  "language_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["friend_id"], name: "index_friend_languages_on_friend_id", using: :btree
+    t.index ["language_id"], name: "index_friend_languages_on_language_id", using: :btree
+  end
 
   create_table "friends", force: :cascade do |t|
     t.string   "first_name",                                                    null: false
@@ -43,6 +52,10 @@ ActiveRecord::Schema.define(version: 20170605030257) do
     t.date     "date_sidj_submitted"
     t.text     "sidj_notes"
     t.text     "asylum_notes"
+  end
+
+  create_table "languages", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "users", force: :cascade do |t|

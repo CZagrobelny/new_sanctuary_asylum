@@ -5,6 +5,8 @@ class Admin::FriendsController < ApplicationController
 
   def new
     @friend = Friend.new
+    @all_languages = Language.all
+    @friend_language = @friend.languages.build 
   end
 
   def edit

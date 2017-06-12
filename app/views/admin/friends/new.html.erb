@@ -1,1 +1,26 @@
-<%= render 'form' %>
+<%= form_for([:admin, @friend]) do |f| %>
+  <div class= 'row'>
+    <div class='col-md-10 col-md-offset-1'>
+      
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#basic" role="tab">Basic</a>
+        </li>
+      </ul>
+      
+    <!-- Tab panes -->
+      <div class="tab-content form-inputs">
+        <div class="tab-pane active" id="basic" role="tabpanel">
+          <%= render 'basic_form_fields', f: f %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-md-10 col-md-offset-1'>
+      <%= f.submit 'Save', :class => 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>

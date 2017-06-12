@@ -27,7 +27,7 @@
     <%= f.label :a_number, 'A Number', class: 'col-md-2 control-label required' %>
     <div class='col-md-6'>
       <%= f.text_field :a_number, class: 'form-control' %>
-      <div class='row'>
+      <div class='co-md-12'>
         <%= f.check_box :no_a_number %>
         <%= f.label :no_a_number, 'Friend does not have an A Number' %>
       </div>
@@ -63,12 +63,27 @@
   </div>
 
   <div class='row'>
-    <%= f.label :other_ethnicity, class: 'col-md-2 control-label' %>
+    <%= f.label :other_ethnicity,'Other Ethnicity', class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
       <%= f.text_field :other_ethnicity, class: 'form-control' %>
     </div>
   </div>
+
+  <div class='row'>
+    <%= fields_for(@friend.languages.build) do |fl| %>
+      <%= fl.label :languages,'Languages', class: 'col-md-2 control-label' %>
+      <div class='col-md-6'>
+        <%= collection_select(:friend, :language_ids, Language.all, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+      </div>
+    <% end %>    
+  </div>
 </div>
 
+<script>
+  $('.chzn-select').chosen({
+    allow_single_deselect: true,
+    no_results_text: 'No results matched'
+  });
+</script>
 
 

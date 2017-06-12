@@ -53,6 +53,10 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    chosen-rails (1.5.2)
+      coffee-rails (>= 3.2)
+      railties (>= 3.0)
+      sass-rails (>= 3.2)
     cliver (0.3.2)
     coderay (1.1.1)
     coffee-rails (4.1.1)
@@ -259,6 +263,7 @@ DEPENDENCIES
   american_date
   byebug
   capybara (~> 2.10.1)
+  chosen-rails
   coffee-rails (~> 4.1.0)
   database_cleaner (~> 1.5.3)
   devise (~> 4.2)
