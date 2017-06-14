@@ -8,6 +8,7 @@ class Friend < ActiveRecord::Base
 
   has_many :languages, :through => :friend_languages
   has_many :friend_languages, :dependent => :destroy
+  has_one :country
 
   validates :first_name, :last_name, presence: true
   validates :a_number, presence: { if: :a_number_available? }, numericality: { if: :a_number_available? }

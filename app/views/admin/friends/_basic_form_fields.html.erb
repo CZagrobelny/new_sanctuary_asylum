@@ -62,7 +62,7 @@
     </div>
   </div>
 
-  <div class='row'>
+  <div class='row other_ethnicity_wrapper', style="<%= 'display:none;' unless friend.other? %>">
     <%= f.label :other_ethnicity,'Other Ethnicity', class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
       <%= f.text_field :other_ethnicity, class: 'form-control' %>
@@ -77,12 +77,51 @@
       </div>
     <% end %>    
   </div>
+
+  <div class='row'>
+    <%= f.label :country_id,'Country of Origin', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= collection_select(:friend, :country_id, Country.all, :id, :name, {prompt: true}, {class: 'chzn-select form-control'}) %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <%= f.label :date_of_birth, 'Date of Birth', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.date_select :date_of_birth, { start_year: 1930, end_year: Date.current.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <%= f.label :status, class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.select :status, options_for_select(Friend.statuses), {include_blank: true}, {class: 'form-control'} %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <%= f.label :date_of_entry, 'Date of Entry', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.date_select :date_of_entry, { start_year: 1930, end_year: Date.current.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+    </div>
+  </div>
+
 </div>
 
 <script>
   $('.chzn-select').chosen({
-    allow_single_deselect: true,
+    allow_single_deselect: false,
     no_results_text: 'No results matched'
+  });
+  $('#friend_ethnicity').change(function() {
+    if ($(this).find('option:selected').text() == "other") {
+      $('.other_ethnicity_wrapper').show();
+    } else {
+      if ($('.other_ethnicity_wrapper').is(":visible")) {
+        $('#friend_other_ethnicity').val('');
+        $('.other_ethnicity_wrapper').hide();
+      }
+    }
   });
 </script>
 

@@ -14,3 +14,15 @@
     zoom: 1.5;
   }
 }
+
+.inline-date-select {
+  width: initial;
+  margin-right: 20px;
+  display: inline-block;
+}
+
+// style chosen element like bootstrap fields
+.chosen-choices {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

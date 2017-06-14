@@ -5,7 +5,6 @@ class Admin::FriendsController < ApplicationController
 
   def new
     @friend = Friend.new
-    @all_languages = Language.all
     @friend_language = @friend.languages.build 
   end
 
@@ -55,7 +54,8 @@ class Admin::FriendsController < ApplicationController
       :work_authorization_status,
       :sidj_status,
       :date_sidj_submitted,
-      :sidj_notes
+      :sidj_notes,
+      :country_id
     )
   end
 end
