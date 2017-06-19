@@ -55,7 +55,8 @@ class Admin::FriendsController < ApplicationController
       :sidj_status,
       :date_sidj_submitted,
       :sidj_notes,
-      :country_id
+      :country_id,
+      :language_ids => []
     )
   end
 end

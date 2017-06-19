@@ -51,14 +51,14 @@
   <div class='row'>
     <%= f.label :gender, class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
-      <%= f.select :gender, options_for_select(Friend.genders), {include_blank: true}, {class: 'form-control'} %>
+      <%= f.select :gender, options_for_select(Friend.genders.map { |key, value| [key.humanize, key] }), {include_blank: true}, {class: 'form-control'} %>
     </div>
   </div>
 
   <div class='row'>
     <%= f.label :ethnicity, class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
-      <%= f.select :ethnicity, options_for_select(Friend.ethnicities), {include_blank: true}, {class: 'form-control'} %>
+      <%= f.select :ethnicity, options_for_select(Friend.ethnicities.map { |key, value| [key.humanize, key] }), {include_blank: true}, {class: 'form-control'} %>
     </div>
   </div>
 
@@ -95,7 +95,7 @@
   <div class='row'>
     <%= f.label :status, class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
-      <%= f.select :status, options_for_select(Friend.statuses), {include_blank: true}, {class: 'form-control'} %>
+      <%= f.select :status, options_for_select(Friend.statuses.map { |key, value| [key.humanize, key] }), {include_blank: true}, {class: 'form-control'} %>
     </div>
   </div>
 
@@ -103,6 +103,13 @@
     <%= f.label :date_of_entry, 'Date of Entry', class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
       <%= f.date_select :date_of_entry, { start_year: 1930, end_year: Date.current.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <%= f.label :notes, class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.text_area :notes, class: 'form-control', style: 'height: 300px;' %>
     </div>
   </div>
 

@@ -14,6 +14,8 @@ class Friend < ActiveRecord::Base
   validates :a_number, presence: { if: :a_number_available? }, numericality: { if: :a_number_available? }
   validates :a_number, length: { minimum: 8, maximum: 9 }, if: :a_number_available?
 
+  attr_accessor :language_ids
+
 
   private
 
