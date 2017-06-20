@@ -15,8 +15,10 @@ class Admin::FriendsController < ApplicationController
   def create
     @friend = Friend.new(friend_params)
     if @friend.save
+      flash[:success] = 'Friend record saved.'
       redirect_to edit_admin_friend_path(@friend)
     else
+      flash.now[:error] = 'Friend record not saved.'
       render :new
     end
   end
