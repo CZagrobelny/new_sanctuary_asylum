@@ -11,8 +11,11 @@
           <a class="nav-link" data-toggle="tab" href="#activities" role="tab">Activities</a>
         </li>
       </ul>
+
+      <!-- Validation errors -->
+      <%= render 'shared/form_errors', object: @friend %>
       
-    <!-- Tab panes -->
+      <!-- Tab panes -->
       <div class="tab-content form-inputs">
         <div class="tab-pane active" id="basic" role="tabpanel">
           <%= render 'basic_form_fields', f: f, friend: @friend %>
@@ -25,10 +28,9 @@
   </div>
 
   <div class='row'>
-    <div class='col-md-10 col-md-offset-1'>
+    <div class='col-md-1 col-md-offset-10'>
       <%= f.submit 'Save', :class => 'btn btn-primary' %>
     </div>
   </div>
 <% end %>
-
 

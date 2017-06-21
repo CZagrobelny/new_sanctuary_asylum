@@ -13,6 +13,22 @@
     margin-right: 10px;
     zoom: 1.5;
   }
+  .field_with_errors {
+    color: #b30000;
+    input {
+      border-color: #b30000;
+    }
+  }
+  .control-label {
+    padding-top: 5px;
+  }
+}
+
+.error-list {
+  margin-top: 20px;
+  li {
+    color: #b30000;
+  }
 }
 
 .inline-date-select {

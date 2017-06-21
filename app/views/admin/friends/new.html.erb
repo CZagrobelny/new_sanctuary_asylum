@@ -8,8 +8,11 @@
           <a class="nav-link active" data-toggle="tab" href="#basic" role="tab">Basic</a>
         </li>
       </ul>
-      
-    <!-- Tab panes -->
+
+      <!-- Validation errors -->
+      <%= render 'shared/form_errors', object: @friend %>
+
+      <!-- Tab panes -->
       <div class="tab-content form-inputs">
         <div class="tab-pane active" id="basic" role="tabpanel">
           <%= render 'basic_form_fields', f: f, friend: @friend %>
