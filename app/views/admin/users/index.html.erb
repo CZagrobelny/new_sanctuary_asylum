@@ -3,9 +3,9 @@
     <%= link_to 'Invite User', new_user_invitation_path, class: 'btn btn-primary pull-right'%>
   </div>
   <div class='row' style='display: inline-block;'>
-    <%= link_to "<h1 style='float: left;'>Users</h1>".html_safe, users_path %>
+    <%= link_to "<h1 style='float: left;'>Users</h1>".html_safe, admin_users_path %>
     <span style='float: right; width: 300px; margin-top:20px;'>
-      <%= form_tag users_path, :method => :get do %>
+      <%= form_tag admin_users_path, :method => :get do %>
         <%= text_field_tag :query, params[:query], placeholder: 'Search by first name, last name, or email', class: 'form-control input-md' %>
       <% end %>
     </span>
