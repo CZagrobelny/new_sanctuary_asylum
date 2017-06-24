@@ -20,9 +20,9 @@ RSpec.describe 'User management', type: :feature do
     it 'allows editing' do
       visit admin_users_path
       click_link "edit-user-#{volunteer.id}"
-      expect(current_path).to eq edit_user_path(volunteer)
+      expect(current_path).to eq edit_admin_user_path(volunteer)
 
-      fill_in 'Last name', with: 'New Name'
+      fill_in 'Last Name', with: 'New Name'
       click_button 'Save'
 
       expect(current_path).to eq admin_users_path

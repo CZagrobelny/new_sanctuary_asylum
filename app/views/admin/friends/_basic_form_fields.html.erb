@@ -87,7 +87,7 @@
 <div class='row form-group'>
   <%= f.label :date_of_birth, 'Date of Birth', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= f.date_select :date_of_birth, { start_year: 1930, end_year: Date.current.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+    <%= f.date_select :date_of_birth, { start_year: Date.current.year, end_year: 1930, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
   </div>
 </div>
 
@@ -101,7 +101,7 @@
 <div class='row form-group'>
   <%= f.label :date_of_entry, 'Date of Entry', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= f.date_select :date_of_entry, { start_year: 1930, end_year: Date.current.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+    <%= f.date_select :date_of_entry, { start_year: Date.current.year, end_year: 1930, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
   </div>
 </div>
 
@@ -111,27 +111,3 @@
     <%= f.text_area :notes, class: 'form-control', style: 'height: 300px;' %>
   </div>
 </div>
-
-<script>
-  $('.chzn-select').chosen({
-    allow_single_deselect: false,
-    no_results_text: 'No results matched'
-  });
-  $('#friend_ethnicity').change(function() {
-    if ($(this).find('option:selected').text() == "other") {
-      $('.other_ethnicity_wrapper').show();
-    } else {
-      if ($('.other_ethnicity_wrapper').is(":visible")) {
-        $('#friend_other_ethnicity').val('');
-        $('.other_ethnicity_wrapper').hide();
-      }
-    }
-  });
-  $('#friend_no_a_number').change(function() {
-    if ($(this).prop('checked')) {
-      $('#friend_a_number').val('');
-    }
-  });
-</script>
-
-

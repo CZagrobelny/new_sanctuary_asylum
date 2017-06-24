@@ -10,12 +10,12 @@ RSpec.describe 'User account management', type: :feature do
     it 'allows editing' do
       visit edit_user_path(volunteer)
       
-      expect(page).to have_content('Edit User Account')
+      expect(page).to have_content('My Information')
 
-      fill_in 'Last name', with: 'New Name'
+      fill_in 'Last Name', with: 'New Name'
       click_button 'Save'
 
-      expect(current_path).to eq 'whatever we wind up redirecting to'
+      expect(current_path).to eq dashboard_path
 
       within(".navbar") do
         expect(page).to have_content 'New Name'

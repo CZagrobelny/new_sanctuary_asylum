@@ -1,4 +1,4 @@
-<div class='col-md-offset-3 col-md-6'>
+<div class='col-md-offset-3'>
   <h2><%= t 'devise.invitations.edit.header' %></h2>
   <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f| %>
     <%= devise_error_messages! %>
@@ -6,14 +6,14 @@
     
     <div class='form-inputs'>
       <div class='row form-group'>
-        <%= f.label :first_name, class: 'col-md-2 control-label required' %>
+        <%= f.label :first_name, 'First Name', class: 'col-md-2 control-label required' %>
         <div class='col-md-6'>
           <%= f.text_field :first_name, class: 'form-control' %>
         </div>
       </div>
 
       <div class='row form-group'>
-        <%= f.label :last_name, class: 'col-md-2 control-label required' %>
+        <%= f.label :last_name, 'Last Name', class: 'col-md-2 control-label required' %>
         <div class='col-md-6'>
           <%= f.text_field :last_name, class: 'form-control' %>
         </div>
@@ -27,7 +27,7 @@
       </div>
 
       <div class='row form-group'>
-        <%= f.label :volunteer_type, class: 'col-md-2 control-label required' %>
+        <%= f.label :volunteer_type, 'Type', class: 'col-md-2 control-label required' %>
         <div class='col-md-6'>
           <%= f.select :volunteer_type, User.volunteer_types.map {|k, v| [k.humanize.titleize, k]}, {:prompt => "Select"}, { :class => 'form-control input-md'} %>
         </div>
@@ -41,7 +41,7 @@
       </div>
 
       <div class="row form-group">
-        <%= f.label :password_confirmation, class: 'col-md-2 control-label required' %>
+        <%= f.label :password_confirmation, 'Password Confirmation', class: 'col-md-2 control-label' %>
         <div class='col-md-6'>
           <%= f.password_field :password_confirmation, class: 'form-control' %>
         </div>
