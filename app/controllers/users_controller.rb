@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_admin_or_account_owner, only: [:edit, :update]
+  before_action :require_account_owner, only: [:edit, :update]
 
   def edit
     @user = User.find(params[:id])
@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   end
 
   private
+
   def user_params
     params.require(:user).permit(
       :first_name, 
@@ -26,8 +27,8 @@ class UsersController < ApplicationController
     )
   end
 
-  def require_admin_or_account_owner
-    unless current_user.admin? || current_user.id.to_s == params[:id]
+  def require_account_owner
+    unless current_user.id.to_s == params[:id]
       not_found
     end
   end

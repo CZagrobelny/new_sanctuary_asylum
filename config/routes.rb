@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { invitations: "invitations"}
   
-  root to: 'devise/sessions#new'
+  authenticated :user do
+    root :to => 'dashboard#index', as: :authenticated_root
+  end
+  root to: 'home#index'
   get 'admin', to: 'admin/dashboard#index'
-  get 'dashboard', to: 'user/dashboard#index'
+  get 'dashboard', to: 'dashboard#index'
 
   resources :users, only: [:edit, :update]
   namespace :admin do

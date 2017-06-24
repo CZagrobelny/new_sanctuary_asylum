@@ -1,16 +1,16 @@
-<div class='col-md-4 col-md-offset-4'>
-  <h2><%= t "devise.invitations.new.header" %></h2>
+<div class='col-md-offset-3 col-md-6'>
+  <h2>Send Invitation</h2>
 
   <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
     <%= devise_error_messages! %>
+  <div class='form-inputs'>
+    <% resource.class.invite_key_fields.each do |field| -%>
+      <div class='form-group field'>
+        <%= f.label field %> </ br>
+        <%= f.text_field field, class: 'form-control' %>
+      </div>
+    <% end -%>
 
-  <% resource.class.invite_key_fields.each do |field| -%>
-    <div class="form-group">
-      <%= f.label field %>
-      <%= f.text_field field, class: 'form-control' %>
-    </div>
-  <% end -%>
-
-    <p><%= f.submit t("devise.invitations.new.submit_button"), class: 'btn btn-primary' %></p>
+    <p><%= f.submit t('devise.invitations.new.submit_button'), class: 'btn btn-primary' %></p>
   <% end %>
 </div>

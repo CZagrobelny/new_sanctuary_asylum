@@ -1,4 +1,4 @@
-<%= form_for @user do |f| %>
+<%= form_for([:admin, @user]) do |f| %>
   
   <%= display_validation_errors(@user) %>
 
@@ -35,6 +35,13 @@
       <%= f.label :volunteer_type, 'Type', class: 'col-md-2 control-label required' %>
       <div class='col-md-6'>
         <%= f.select :volunteer_type, User.volunteer_types.map {|k, v| [k.humanize.titleize, k]}, {:prompt => "Select"}, { :class => 'form-control input-md'} %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :role, class: 'col-md-2 control-label required' %>
+      <div class='col-md-6'>
+        <%= f.select :role, User.roles.map {|k, v| [k.humanize.titleize, k]}, {}, {class: 'form-control input-md'} %>
       </div>
     </div>
   </div>

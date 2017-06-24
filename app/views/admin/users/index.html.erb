@@ -1,14 +1,14 @@
-<div class='col-md-10 col-md-offset-1'>
-  <div class='row'>
-    <%= link_to 'Invite User', new_user_invitation_path, class: 'btn btn-primary pull-right'%>
-  </div>
-  <div class='row' style='display: inline-block;'>
-    <%= link_to "<h1 style='float: left;'>Users</h1>".html_safe, admin_users_path %>
-    <span style='float: right; width: 300px; margin-top:20px;'>
-      <%= form_tag admin_users_path, :method => :get do %>
-        <%= text_field_tag :query, params[:query], placeholder: 'Search by first name, last name, or email', class: 'form-control input-md' %>
-      <% end %>
-    </span>
+<div class='row'>
+  <%= link_to 'Invite User', new_user_invitation_path, class: 'btn btn-primary pull-right'%>
+</div>
+<div class='row' style='display: inline-block;'>
+  <%= link_to "<h1 style='float: left;'>Users</h1>".html_safe, admin_users_path %>
+  <span style='float: right; width: 300px; margin-top:20px;'>
+    <%= form_tag admin_users_path, :method => :get do %>
+      <%= text_field_tag :query, params[:query], placeholder: 'Search by first name, last name, or email', class: 'form-control input-md' %>
+    <% end %>
+  </span>
+<% if @users.present? %>
   <table class='table table-bordered'>
     <thead>
       <tr>
@@ -25,7 +25,7 @@
     </thead>
     <tbody>
       <% @users.each do |user| %>
-        <tr id="user-<%=user.id%>">
+        <tr id="user-<%=user.id%>" style="<%= 'color: #b3b3b3;' unless user.confirmed? %>">
           <td><%= user.id %></td>
           <td><%= user.first_name %></td>
           <td><%= user.last_name %></td>
@@ -36,12 +36,12 @@
           <td><%= user.created_at.strftime('%m/%d/%y') %></td>
           <td>
             <div class='btn-group'>
-              <button type='button' class='btn btn-default'><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_user_path(user), id: "edit-user-#{user.id}" %></button>
+              <button type='button' class='btn btn-default'><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_user_path(user), id: "edit-user-#{user.id}" %></button>
               <button type='button' class='btn dropdown-toggle btn-default' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                 <span class='caret'></span>
               </button>
               <ul class='dropdown-menu'>
-                <li><%= link_to 'Delete', user_path(user), method: :delete, confirm: true %></li>
+                <li><%= link_to 'Delete', admin_user_path(user), method: :delete, confirm: true %></li>
               </ul>
             </div>
           </td>
@@ -52,4 +52,6 @@
   <div class='pull-right'>
     <%= will_paginate @users %>
   </div>
-</div>
+<% else %>
+  <p>No search results matched your criteria.</p>
+<% end %>

@@ -1,6 +1,13 @@
-class Admin::FriendsController < ApplicationController
+class Admin::FriendsController < AdminController
   def index
-    @friends = Friend.all
+    if params[:query].present?
+      query = '%' + params[:query].downcase + '%'
+      @friends = Friend.where('lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR a_number LIKE ?', query, query, query)
+                    .order('created_at desc')
+                    .paginate(:page => params[:page])
+    else
+      @friends = Friend.all.order('created_at desc').paginate(:page => params[:page])
+    end
   end
 
   def new
@@ -20,6 +27,14 @@ class Admin::FriendsController < ApplicationController
     else
       flash.now[:error] = 'Friend record not saved.'
       render :new
+    end
+  end
+
+  def destroy
+    @friend = Friend.find(params[:id])
+    if @friend.destroy
+      flash[:success] = 'Friend record destroyed.'
+      redirect_to admin_friends_path
     end
   end
 

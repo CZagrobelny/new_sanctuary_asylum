@@ -1,4 +1,4 @@
-class Admin::UsersController < ApplicationController
+class Admin::UsersController < AdminController
   def index
     if params[:query].present?
       query = '%' + params[:query].downcase + '%'
@@ -13,8 +13,13 @@ class Admin::UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     if @user.destroy
+      flash[:success] = 'User record saved.'
       redirect_to admin_users_path
     end
+  end
+
+  def edit
+    @user = User.find(params[:id])
   end
 
   def update

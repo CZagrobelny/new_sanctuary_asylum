@@ -1,118 +1,115 @@
 <h3>Basic</h3>
 <br>
 
-<div class="form-group">
-  <div class='row'>
-    <%= f.label :first_name, 'First Name', class: 'col-md-2 control-label required' %>
+<div class='row form-group'>
+  <%= f.label :first_name, 'First Name', class: 'col-md-2 control-label required' %>
+  <div class='col-md-6'>
+    <%= f.text_field :first_name, class: 'form-control' %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :middle_name, 'Middle Name', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.text_field :middle_name, class: 'form-control' %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :last_name, 'Last Name', class: 'col-md-2 control-label required' %>
+  <div class='col-md-6'>
+    <%= f.text_field :last_name, class: 'form-control' %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :a_number, 'A Number', class: 'col-md-2 control-label required' %>
+  <div class='col-md-6'>
+    <%= f.text_field :a_number, class: 'form-control' %>
+    <div class='co-md-12'>
+      <%= f.check_box :no_a_number %>
+      <%= f.label :no_a_number, 'Friend does not have an A Number' %>
+    </div>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :phone, class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.text_field :phone, class: 'form-control' %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :email, class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.text_field :email, class: 'form-control' %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :gender, class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.select :gender, options_for_select(Friend.genders.map { |key, value| [key.humanize, key] }), {include_blank: true}, {class: 'form-control'} %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :ethnicity, class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.select :ethnicity, options_for_select(Friend.ethnicities.map { |key, value| [key.humanize, key] }), {include_blank: true}, {class: 'form-control'} %>
+  </div>
+</div>
+
+<div class='row form-group other_ethnicity_wrapper', style="<%= 'display:none;' unless friend.other? %>">
+  <%= f.label :other_ethnicity,'Other Ethnicity', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.text_field :other_ethnicity, class: 'form-control' %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= fields_for(@friend.languages.build) do |fl| %>
+    <%= fl.label :languages,'Languages', class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
-      <%= f.text_field :first_name, class: 'form-control' %>
+      <%= collection_select(:friend, :language_ids, Language.all, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
     </div>
-  </div>
+  <% end %>    
+</div>
 
-  <div class='row'>
-    <%= f.label :middle_name, 'Middle Name', class: 'col-md-2 control-label' %>
-    <div class='col-md-6'>
-      <%= f.text_field :middle_name, class: 'form-control' %>
-    </div>
+<div class='row form-group'>
+  <%= f.label :country_id,'Country of Origin', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= collection_select(:friend, :country_id, Country.all, :id, :name, {prompt: true}, {class: 'chzn-select form-control'}) %>
   </div>
+</div>
 
-  <div class='row'>
-    <%= f.label :last_name, 'Last Name', class: 'col-md-2 control-label required' %>
-    <div class='col-md-6'>
-      <%= f.text_field :last_name, class: 'form-control' %>
-    </div>
+<div class='row form-group'>
+  <%= f.label :date_of_birth, 'Date of Birth', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.date_select :date_of_birth, { start_year: 1930, end_year: Date.current.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
   </div>
+</div>
 
-  <div class='row'>
-    <%= f.label :a_number, 'A Number', class: 'col-md-2 control-label required' %>
-    <div class='col-md-6'>
-      <%= f.text_field :a_number, class: 'form-control' %>
-      <div class='co-md-12'>
-        <%= f.check_box :no_a_number %>
-        <%= f.label :no_a_number, 'Friend does not have an A Number' %>
-      </div>
-    </div>
+<div class='row form-group'>
+  <%= f.label :status, class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.select :status, options_for_select(Friend.statuses.map { |key, value| [key.humanize, key] }), {include_blank: true}, {class: 'form-control'} %>
   </div>
+</div>
 
-  <div class='row'>
-    <%= f.label :phone, class: 'col-md-2 control-label' %>
-    <div class='col-md-6'>
-      <%= f.text_field :phone, class: 'form-control' %>
-    </div>
+<div class='row form-group'>
+  <%= f.label :date_of_entry, 'Date of Entry', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.date_select :date_of_entry, { start_year: 1930, end_year: Date.current.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
   </div>
+</div>
 
-  <div class='row'>
-    <%= f.label :email, class: 'col-md-2 control-label' %>
-    <div class='col-md-6'>
-      <%= f.text_field :email, class: 'form-control' %>
-    </div>
+<div class='row form-group'>
+  <%= f.label :notes, class: 'col-md-2 control-label' %>
+  <div class='col-md-10'>
+    <%= f.text_area :notes, class: 'form-control', style: 'height: 300px;' %>
   </div>
-
-  <div class='row'>
-    <%= f.label :gender, class: 'col-md-2 control-label' %>
-    <div class='col-md-6'>
-      <%= f.select :gender, options_for_select(Friend.genders.map { |key, value| [key.humanize, key] }), {include_blank: true}, {class: 'form-control'} %>
-    </div>
-  </div>
-
-  <div class='row'>
-    <%= f.label :ethnicity, class: 'col-md-2 control-label' %>
-    <div class='col-md-6'>
-      <%= f.select :ethnicity, options_for_select(Friend.ethnicities.map { |key, value| [key.humanize, key] }), {include_blank: true}, {class: 'form-control'} %>
-    </div>
-  </div>
-
-  <div class='row other_ethnicity_wrapper', style="<%= 'display:none;' unless friend.other? %>">
-    <%= f.label :other_ethnicity,'Other Ethnicity', class: 'col-md-2 control-label' %>
-    <div class='col-md-6'>
-      <%= f.text_field :other_ethnicity, class: 'form-control' %>
-    </div>
-  </div>
-
-  <div class='row'>
-    <%= fields_for(@friend.languages.build) do |fl| %>
-      <%= fl.label :languages,'Languages', class: 'col-md-2 control-label' %>
-      <div class='col-md-6'>
-        <%= collection_select(:friend, :language_ids, Language.all, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
-      </div>
-    <% end %>    
-  </div>
-
-  <div class='row'>
-    <%= f.label :country_id,'Country of Origin', class: 'col-md-2 control-label' %>
-    <div class='col-md-6'>
-      <%= collection_select(:friend, :country_id, Country.all, :id, :name, {prompt: true}, {class: 'chzn-select form-control'}) %>
-    </div>
-  </div>
-
-  <div class='row'>
-    <%= f.label :date_of_birth, 'Date of Birth', class: 'col-md-2 control-label' %>
-    <div class='col-md-6'>
-      <%= f.date_select :date_of_birth, { start_year: 1930, end_year: Date.current.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
-    </div>
-  </div>
-
-  <div class='row'>
-    <%= f.label :status, class: 'col-md-2 control-label' %>
-    <div class='col-md-6'>
-      <%= f.select :status, options_for_select(Friend.statuses.map { |key, value| [key.humanize, key] }), {include_blank: true}, {class: 'form-control'} %>
-    </div>
-  </div>
-
-  <div class='row'>
-    <%= f.label :date_of_entry, 'Date of Entry', class: 'col-md-2 control-label' %>
-    <div class='col-md-6'>
-      <%= f.date_select :date_of_entry, { start_year: 1930, end_year: Date.current.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
-    </div>
-  </div>
-
-  <div class='row'>
-    <%= f.label :notes, class: 'col-md-2 control-label' %>
-    <div class='col-md-10'>
-      <%= f.text_area :notes, class: 'form-control', style: 'height: 300px;' %>
-    </div>
-  </div>
-
 </div>
 
 <script>
