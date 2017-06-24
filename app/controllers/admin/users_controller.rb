@@ -3,10 +3,10 @@ class Admin::UsersController < AdminController
     if params[:query].present?
       query = '%' + params[:query].downcase + '%'
       @users = User.where('lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR lower(email) LIKE ?', query, query, query)
-                    .order('last_name asc')
+                    .order('created_at desc')
                     .paginate(:page => params[:page])
     else
-      @users = User.all.order('last_name asc').paginate(:page => params[:page])
+      @users = User.all.order('created_at desc').paginate(:page => params[:page])
     end
   end
 

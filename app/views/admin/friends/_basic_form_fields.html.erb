@@ -50,14 +50,14 @@
 <div class='row form-group'>
   <%= f.label :gender, class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= f.select :gender, options_for_select(Friend.genders.map { |key, value| [key.humanize, key] }), {include_blank: true}, {class: 'form-control'} %>
+    <%= f.select :gender, options_for_select(Friend.genders.map { |key, value| [key.humanize, key] }, @friend.gender), {include_blank: true}, {class: 'form-control'} %>
   </div>
 </div>
 
 <div class='row form-group'>
   <%= f.label :ethnicity, class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= f.select :ethnicity, options_for_select(Friend.ethnicities.map { |key, value| [key.humanize, key] }), {include_blank: true}, {class: 'form-control'} %>
+    <%= f.select :ethnicity, options_for_select(Friend.ethnicities.map { |key, value| [key.humanize, key] }, @friend.ethnicity), {include_blank: true}, {class: 'form-control'} %>
   </div>
 </div>
 
@@ -94,7 +94,7 @@
 <div class='row form-group'>
   <%= f.label :status, class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= f.select :status, options_for_select(Friend.statuses.map { |key, value| [key.humanize, key] }), {include_blank: true}, {class: 'form-control'} %>
+    <%= f.select :status, options_for_select(Friend.statuses.map { |key, value| [key.humanize, key] }, @friend.status), {include_blank: true}, {class: 'form-control'} %>
   </div>
 </div>
 
@@ -125,6 +125,11 @@
         $('#friend_other_ethnicity').val('');
         $('.other_ethnicity_wrapper').hide();
       }
+    }
+  });
+  $('#friend_no_a_number').change(function() {
+    if ($(this).prop('checked')) {
+      $('#friend_a_number').val('');
     }
   });
 </script>

@@ -1,13 +1,16 @@
 <div class='row'>
   <%= link_to 'Invite User', new_user_invitation_path, class: 'btn btn-primary pull-right'%>
 </div>
-<div class='row' style='display: inline-block;'>
-  <%= link_to "<h1 style='float: left;'>Users</h1>".html_safe, admin_users_path %>
-  <span style='float: right; width: 300px; margin-top:20px;'>
+<div class='row'>
+  <div class='col-md-3'>
+    <%= link_to "<h1>Users</h1>".html_safe, admin_users_path %>
+  </div>
+  <div class='col-md-4 col-md-offset-5'>
     <%= form_tag admin_users_path, :method => :get do %>
-      <%= text_field_tag :query, params[:query], placeholder: 'Search by first name, last name, or email', class: 'form-control input-md' %>
+      <%= text_field_tag :query, params[:query], placeholder: 'Search by first name, last name, or email', class: 'form-control input-md', style: 'margin-top: 1.6em;' %>
     <% end %>
-  </span>
+  </div>
+</div>
 <% if @users.present? %>
   <table class='table table-bordered'>
     <thead>
@@ -53,5 +56,5 @@
     <%= will_paginate @users %>
   </div>
 <% else %>
-  <p>No search results matched your criteria.</p>
+  <h3>No search results matched your criteria.</h3>
 <% end %>
