@@ -5,15 +5,14 @@
 #### Database setup
 ```
 rake db:setup
-rake db:seed
 ```
 Populate Countries
 ```
-rake ''
+rake populate_countries
 ```
 Populate Languages
 ```
-rake ''
+rake populate_languages
 ```
 
 #### Gems
@@ -32,39 +31,45 @@ bundle install
 rspec
 ```
 
-Circle CI is set up for the app, I think you might have access to the builds, since it's public, but let me know if you don't see it.
+CircleCI is set up for the app, I think you might have access to the builds, since it's public, but let me know if you don't see it.
+
 
 ## What are we building?
 
-Software to support the core work of the New Sanctuary Coalition: helping our friends fill out applications for asylum and accompanying them to their hearings and check-ins
+Software to support the core work of the New Sanctuary Coalition: helping our friends fill out applications for asylum and accompanying them to their hearings and check-ins.
 
 ### User Roles
 Admin (has access to everything)
-Volunteer (has limited access. Enough to submit an asylum application for a friend record they are given access to and to sign up to accompany friends)
-
-### We know we have an MVP when...
-- An admin can invite new users
-- An admin can view/search/edit friends and users
-- An admin 
-
-
+Volunteer (has limited access)
 
 
 ## How are we building it?
 
-### Standard helpers and patterns for forms!
-Bootstrap styles
-We are using chosen
-Ajax to submit forms within modals to centralize the locations that an admin has to interact with the software
-Pagination
-If there is anything else you think is essential, let's talk about it. Trying to keep the gem list short, reliable, and maintainable..and keep our js libraries under control. 
+### Gems & Libraries!
+Aiming to keep our list of dependencies short, maintainable, and reliable!
+
+Here are the big ones:
+Bootstrap: http://getbootstrap.com 
+Chosen: https://github.com/harvesthq/chosen (nice, searchable dropdowns)
+Will Paginate: https://github.com/mislav/will_paginate
+
+If there is anything else you think is essential, let's talk about it. 
 
 ### Test Coverage!
+Aiming to cover the functionality we build with:
 - model tests
 - feature tests to cover the main pathways through the app
 
 ### Hosting
-somewhere
+**Info coming soon.**
+
+## Contributing
+1. Select a story from the Trello board
+2. Create a feature branch off master
+3. Complete feature with tests!
+4. Check CircleCI to make sure tests are passing.
+5. Make a pull request and tag me, Christine, to review.
+6. Merge into master upon approval of the pull request.
 
 
 
