@@ -17,4 +17,18 @@ FactoryGirl.define do
   trait :volunteer do
   	role :volunteer
   end
+
+  trait :unconfirmed do
+    first_name nil
+    last_name nil
+    email { FFaker::Internet.safe_email }
+    phone nil
+    volunteer_type nil
+    password nil
+    password_confirmation nil
+    invitation_accepted_at nil
+    invitation_token '1gFcPwUnKCzzuntMepu1'
+    invitation_created_at Time.now
+    invitation_sent_at Time.now
+  end 
 end

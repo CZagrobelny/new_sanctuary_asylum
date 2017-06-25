@@ -10,13 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613232807) do
+ActiveRecord::Schema.define(version: 20170624202316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "countries", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "family_members", force: :cascade do |t|
+    t.integer  "friend_id",    null: false
+    t.integer  "relation_id",  null: false
+    t.integer  "relationship", null: false
+    t.integer  "parent_id"
+    t.integer  "child_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["friend_id"], name: "index_family_members_on_friend_id", using: :btree
+    t.index ["relation_id"], name: "index_family_members_on_relation_id", using: :btree
   end
 
   create_table "friend_languages", force: :cascade do |t|
