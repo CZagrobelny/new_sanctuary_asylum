@@ -16,16 +16,25 @@ RSpec.describe 'Friend management', type: :feature do
     end
   end
 
-  describe 'user editing' do
+  describe 'friend editing' do
     it 'allows editing' do
       visit admin_friends_path
       click_link "edit-friend-#{friend.id}"
       expect(current_path).to eq edit_admin_friend_path(friend)
-
-      fill_in 'Last Name', with: 'New Name'
-      click_button 'Save'
-
-      expect(find_field('Last Name').value).to eq 'New Name'
     end
-  end    
+  end 
+
+  describe 'friend deletion' do
+  end
+
+  describe 'friend search' do
+    scenario 'by first name' do
+    end
+
+    scenario 'by last name' do
+    end
+
+    scenario 'by a number' do
+    end
+  end   
 end

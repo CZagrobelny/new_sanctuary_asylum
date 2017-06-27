@@ -10,9 +10,6 @@
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#family" role="tab">Family</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#activities" role="tab">Activities</a>
-        </li>
       </ul>
 
       <!-- Validation errors -->
@@ -23,11 +20,8 @@
         <div class="tab-pane active" id="basic" role="tabpanel">
           <%= render 'basic_form_fields', f: f, friend: @friend %>
         </div>
-        <div class="tab-pane" id="basic" role="tabpanel">
+        <div class="tab-pane" id="family" role="tabpanel">
           <%= render 'family_form_fields', f: f, friend: @friend %>
-        </div>
-        <div class="tab-pane" id="activities" role="tabpanel">
-          <%= render 'activities_form_fields', f: f %>
         </div>
       </div>
     </div>
@@ -40,28 +34,4 @@
   </div>
 <% end %>
 
-<%= form_for([:admin, @friend.family_members.build], :remote => true) do |f| %>
-  <div class='form-inputs'>
-    <div class='row form-group'>
-    <%= f.label :relationship, class: 'col-md-2 control-label' %>
-    <div class='col-md-6'>
-      <%= f.select :relationship, options_for_select(FamilyMember.relationships.map { |key, value| [key.humanize, key] }), {include_blank: true}, {class: 'form-control'} %>
-    </div>
-  </div>
-
-  <div class='row form-group'>
-    <%= f.label :relation_id, 'Friend', class: 'col-md-2 control-label' %>
-    <div class='col-md-6'>
-      <%= collection_select(:family_member, :relation_id, Friend.all, :id, :full_name, {prompt: true}, {class: 'chzn-select form-control'}) %>
-    </div>
-  </div>
-
-  <div class='row'>
-    <div class='col-md-1 col-md-offset-10'>
-      <%= f.submit 'Save', :class => 'btn btn-primary' %>
-    </div>
-  </div>
-</div>
-<% end %>
-
-
+<%= render partial: 'family_modal', locals: { friend: @friend} %>

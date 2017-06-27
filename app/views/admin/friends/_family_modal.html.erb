@@ -1,0 +1,38 @@
+<div class='modal ajax-modal'>
+  <div class='modal-dialog'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <%= button_tag 'X', class: 'close', data: { dismiss: 'modal' } %>
+        <h4>
+          <div class='modal-title'>Family Member</div>
+        </h4>
+      <div class='modal-body'>
+        <%= form_for([:admin, FamilyMember.new], :remote => true, format: :js) do |f| %>
+
+          <%= f.hidden_field :friend_id, value: @friend.id %>
+          <div class='form-inputs'>
+            <div class='row form-group'>
+              <%= f.label :relationship, class: 'col-md-2 control-label' %>
+              <div class='col-md-6'>
+                <%= f.select :relationship, options_for_select(FamilyMember.relationships.map { |key, value| [key.humanize, key] }), {include_blank: true}, {class: 'form-control'} %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <%= f.label :relation_id, 'Friend', class: 'col-md-2 control-label' %>
+              <div class='col-md-6'>
+                <%= collection_select(:family_member, :relation_id, Friend.all, :id, :full_name, {prompt: true}, {class: 'chzn-select form-control'}) %>
+              </div>
+            </div>
+
+            <div class='row'>
+              <div class='col-md-1 col-md-offset-10'>
+                <%= f.submit 'Add', :class => 'btn btn-primary' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,8 @@
 $(document).ready(function () {
   $('.chzn-select').chosen({
     allow_single_deselect: false,
-    no_results_text: 'No results matched'
+    no_results_text: 'No results matched',
+    width: '100%'
   });
 
   $('#friend_ethnicity').change(function() {
