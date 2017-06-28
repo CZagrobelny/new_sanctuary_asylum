@@ -7,14 +7,13 @@
           <div class='modal-title'>Family Member</div>
         </h4>
       <div class='modal-body'>
-        <%= form_for([:admin, FamilyMember.new], :remote => true, format: :js) do |f| %>
-
-          <%= f.hidden_field :friend_id, value: @friend.id %>
+        <%= form_for([:admin, FamilyMember.new], url: admin_family_members_path, action: :post, remote: true) do |f| %>
           <div class='form-inputs'>
             <div class='row form-group'>
+              <%= f.hidden_field :friend_id, value: @friend.id %>
               <%= f.label :relationship, class: 'col-md-2 control-label' %>
               <div class='col-md-6'>
-                <%= f.select :relationship, options_for_select(FamilyMember.relationships.map { |key, value| [key.humanize, key] }), {include_blank: true}, {class: 'form-control'} %>
+                <%= f.select :relationship, options_for_select(FamilyMember::RELATIONSHIPS), {include_blank: true}, {class: 'form-control'} %>
               </div>
             </div>
 

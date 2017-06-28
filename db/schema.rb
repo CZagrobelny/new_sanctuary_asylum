@@ -19,18 +19,6 @@ ActiveRecord::Schema.define(version: 20170624202316) do
     t.string "name"
   end
 
-  create_table "family_members", force: :cascade do |t|
-    t.integer  "friend_id",    null: false
-    t.integer  "relation_id",  null: false
-    t.integer  "relationship", null: false
-    t.integer  "parent_id"
-    t.integer  "child_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["friend_id"], name: "index_family_members_on_friend_id", using: :btree
-    t.index ["relation_id"], name: "index_family_members_on_relation_id", using: :btree
-  end
-
   create_table "friend_languages", force: :cascade do |t|
     t.integer  "friend_id",   null: false
     t.integer  "language_id", null: false
@@ -73,6 +61,20 @@ ActiveRecord::Schema.define(version: 20170624202316) do
 
   create_table "languages", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "parent_child_relationships", force: :cascade do |t|
+    t.integer  "parent_id",  null: false
+    t.integer  "child_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "spousal_relationships", force: :cascade do |t|
+    t.integer  "first_spsouse_id", null: false
+    t.integer  "second_spouse_id", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "users", force: :cascade do |t|
