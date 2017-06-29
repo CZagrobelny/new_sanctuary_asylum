@@ -71,10 +71,10 @@ ActiveRecord::Schema.define(version: 20170624202316) do
   end
 
   create_table "spousal_relationships", force: :cascade do |t|
-    t.integer  "first_spsouse_id", null: false
-    t.integer  "second_spouse_id", null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.integer  "friend_id",  null: false
+    t.integer  "spouse_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

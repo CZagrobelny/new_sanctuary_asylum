@@ -1,5 +1,7 @@
 <h3>Family</h3>
 
 <div id='family-list' >
-  <%= render partial: 'family', locals: { friend: @friend} %>
+  <%= render partial: 'family_members', locals: { friend: @friend} %>
 </div>
+
+<button type='button' class='btn btn-primary' data-toggle='modal' data-target='.add-family-member-modal'>Add Family Member</button>

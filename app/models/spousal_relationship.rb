@@ -1,6 +1,6 @@
 class SpousalRelationship < ActiveRecord::Base
-  attr_accessor :first_spouse_id, :second_spouse_id
   belongs_to :friend
+  belongs_to :spouse, class_name: 'Friend'
 
-  validates :first_spouse_id, :second_spouse_id, presence: true 
+  validates :friend_id, :spouse_id, presence: true 
 end

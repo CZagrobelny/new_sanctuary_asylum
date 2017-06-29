@@ -9,7 +9,7 @@ class FamilyMember
   def self.create(params)
     case params[:relationship]
     when 'spouse'
-      SpousalRelationship.create(first_spouse_id: params[:friend_id], second_spouse_id: params[:related_id])
+      SpousalRelationship.create(friend_id: params[:friend_id], spouse_id: params[:relation_id])
     when 'parent'
       ParentChildRelationship.create(parent_id: params[:relation_id].to_i, child_id: params[:friend_id].to_i)
     when 'child'
