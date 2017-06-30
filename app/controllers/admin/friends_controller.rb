@@ -12,7 +12,6 @@ class Admin::FriendsController < AdminController
 
   def new
     @friend = Friend.new
-    @friend_language = @friend.languages.build 
   end
 
   def edit

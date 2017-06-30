@@ -6,13 +6,17 @@
         <h4 class='modal-title'>Add a Family Member</h4>
       </div>
       <div class='modal-body'>
-        <%= form_for([:admin, FamilyMember.new], url: admin_family_members_path, action: :post, remote: true) do |f| %>
+        <% family_member_constructor ||= FamilyMemberConstructor.new(friend_id: @friend.id) %>
+        <% if family_member_constructor.errors.present? %>
+          <%= display_validation_errors(family_member_constructor) %>
+        <% end %>
+        <%= form_for([:admin, family_member_constructor], url: admin_family_members_path, action: :post, remote: true) do |f| %>
           <div class='form-inputs'>
             <div class='row form-group'>
-              <%= f.hidden_field :friend_id, value: @friend.id %>
+              <%= f.hidden_field :friend_id, value: family_member_constructor.friend_id %>
               <%= f.label :relationship, class: 'col-md-12 control-label' %>
               <div class='col-md-12'>
-                <%= f.select :relationship, options_for_select(FamilyMember::RELATIONSHIPS), {include_blank: true}, {class: 'form-control'} %>
+                <%= f.select :relationship, options_for_select(FamilyMemberConstructor::RELATIONSHIPS), {include_blank: true}, {class: 'form-control'} %>
               </div>
             </div>
 
