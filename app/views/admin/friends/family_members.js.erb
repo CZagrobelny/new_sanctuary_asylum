@@ -1,2 +1,4 @@
 $('#family-list').html("<%= escape_javascript(render partial: 'admin/friends/family_members', locals: { friend: friend } ) %>");
+$('#family_member_constructor_relationship').val('');
+$('#family_member_constructor_relation_id').val('').trigger("chosen:updated");
 $('.add-family-member-modal').modal('hide');

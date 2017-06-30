@@ -7,9 +7,9 @@ class FamilyMemberConstructor
   validates :friend_id, :relation_id, :relationship, presence: true
 
   def initialize(params = {})
-    @friend_id = params[:friend_id].to_i
-    @relation_id = params[:relation_id].to_i
-    @relationship = params[:relationship]
+    @friend_id = params[:friend_id].present? ? params[:friend_id].to_i : nil
+    @relation_id = params[:relation_id].present? ? params[:relation_id].to_i : nil
+    @relationship = params[:relationship] || nil
   end
 
   def run

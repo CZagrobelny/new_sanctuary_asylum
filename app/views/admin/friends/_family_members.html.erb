@@ -2,7 +2,7 @@
   <h4>Spouse</h4>
   <% friend.spousal_relationships.each do |spousal_relationship| %>
     <p>
-      <%= link_to spousal_relationship.spouse.full_name, edit_admin_friend_path(spousal_relationship.spouse) %>
+      <%= link_to spousal_relationship.spouse.full_name, edit_admin_friend_path(spousal_relationship.spouse), target: '_blank' %>
     </p>
   <% end %>
 
