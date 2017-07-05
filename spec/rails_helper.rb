@@ -17,15 +17,18 @@ require 'database_cleaner'
 require 'launchy'
 
 require 'support/wait_for_ajax'
+require 'support/select_from_chosen'
 
 
 Capybara.javascript_driver = :poltergeist
+Phantomjs.path
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, {
     js_errors: true,
     debug: false,
     inspect: false,
-    phantomjs_options: ['--ssl-protocol=any']
+    phantomjs_options: ['--ssl-protocol=any'],
+    :phantomjs => Phantomjs.path
   })
 end
 
@@ -53,6 +56,8 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers
   config.include Rails.application.routes.url_helpers
   config.include WaitForAjax, type: :feature
+  ##Helper to select from chosen js dropdowns
+  config.include SelectFromChosen, type: :feature
 
   config.before(:each) do
     Rails.application.routes.default_url_options[:host] = 'test.host'

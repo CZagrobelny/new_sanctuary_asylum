@@ -5,23 +5,36 @@ RSpec.describe 'Friend edit', type: :feature do
   let!(:admin) { create(:user, :admin) }
   let!(:friend) { create(:friend) }
 
-  before { login_as(admin) }
+  before do
+    3.times { create(:friend) }
+    login_as(admin)
+    visit edit_admin_friend_path(friend)
+  end
 
-  
-  describe 'friend editing' do
-
-    it 'displays all tabs' do
+  describe 'adding a family member', js: true do
+    before do
+      click_link 'Family'
+      click_button 'Add Family Member'
     end
 
-    it 'allows editing' do
-      fill_in 'Last Name', with: 'New Name'
-      click_button 'Save'
+    describe 'with valid information' do
+      it 'displays the new family member' do
+        family_member = Friend.last
+        select 'Spouse', from: 'Relationship'
+        select_from_chosen(family_member.full_name, from: 'family_member_constructor_relation_id')
+        click_button 'Add'
 
-      expect(find_field('Last Name').value).to eq 'New Name'
+        within '#family-list' do
+          expect(page).to have_content(family_member.full_name)
+        end
+      end
     end
 
-    describe 'adding a family member' do
-      
+    describe 'with incomplete information' do
+      it 'displays validation errors' do
+        click_button 'Add'
+        expect(page).to have_content("Relationship can't be blank")
+      end
     end
-  end    
+  end
 end

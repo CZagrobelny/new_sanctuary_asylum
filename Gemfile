@@ -18,6 +18,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise',           '~> 4.2'
 gem 'devise_invitable', '~> 1.7.0'
 gem 'chosen-rails'
+gem 'phantomjs'
 
 group :assets do
   gem 'sprockets', '~> 3.5.0'

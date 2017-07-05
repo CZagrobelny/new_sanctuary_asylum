@@ -126,6 +126,7 @@ GEM
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
     pg (0.18.4)
+    phantomjs (2.1.1.0)
     poltergeist (1.11.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -277,6 +278,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   multi_json (~> 1.11.2)
   pg (~> 0.18.4)
+  phantomjs
   poltergeist (~> 1.11.0)
   pry
   rails (~> 5.0.0)
