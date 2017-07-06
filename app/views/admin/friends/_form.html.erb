@@ -27,6 +27,7 @@
     </div>
   </div>
 
+  </br>
   <div class='row'>
     <div class='col-md-1 col-md-offset-10'>
       <%= f.submit 'Save', :class => 'btn btn-primary' %>
@@ -34,4 +35,4 @@
   </div>
 <% end %>
 
-<%= render partial: 'family_modal', locals: { friend: @friend } %>
+<%= render partial: 'admin/family_members/modal', locals: { friend: @friend } %>
