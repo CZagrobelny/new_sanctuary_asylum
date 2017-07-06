@@ -58,11 +58,11 @@ Aiming to cover the functionality we build with:
 **Info coming soon.**
 
 ## Contributing
-1. Select a story from the Trello board.
+1. Select a story from the Trello board: https://trello.com/b/nSt2qssz/new-sanctuary
 2. Create a feature branch off master.
 3. Complete feature with tests!
 4. Check CircleCI to make sure tests are passing.
-5. Make a pull request and tag me, Christine, to review.
+5. Make a pull request and tag me, CZagrobelny, to review.
 6. Merge into master upon approval of the pull request.
 
 
