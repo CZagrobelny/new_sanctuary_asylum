@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Friend edit', type: :feature do
+RSpec.describe 'Friend edit', type: :feature, js: true do
 
   let!(:admin) { create(:user, :admin) }
   let!(:friend) { create(:friend) }
@@ -21,7 +21,7 @@ RSpec.describe 'Friend edit', type: :feature do
 
   describe 'editing "Family" information' do
 
-    describe 'adding a new family relationship', js: true do
+    describe 'adding a new family relationship' do
       before do
         click_link 'Family'
         click_button 'Add Family Member'
