@@ -24,7 +24,7 @@ RSpec.describe 'User account management', type: :feature do
 
     it 'does not allow editing other user accounts' do
       @other_user = create(:user, :volunteer)
-      expect { visit edit_user_path(@other_user) }.to raise_error
+      expect { visit edit_user_path(@other_user) }.to raise_error ActionController::RoutingError
     end
   end    
 end
