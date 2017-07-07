@@ -1,0 +1,80 @@
+<h3>Other Case Info</h3>
+
+<br>
+<h4>Lawyer</h4>
+
+<div class='row form-group'>
+  <%= f.label :lawyer_referred_to,'Referred to', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= collection_select(:friend, :lawyer_referred_to, Lawyer.all, :id, :name, {prompt: true}, {class: 'form-control'}) %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :lawyer_represented_by,'Represented by', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= collection_select(:friend, :lawyer_represented_by, Lawyer.all, :id, :name, {prompt: true}, {class: 'form-control'}) %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :lawyer_notes, 'Notes', class: 'col-md-2 control-label' %>
+  <div class='col-md-10'>
+    <%= f.text_area :lawyer_notes, class: 'form-control', style: 'height: 300px;' %>
+  </div>
+</div>
+
+<br>
+<h4>Work Authorization</h4>
+
+<div class='row form-group'>
+  <%= f.label :work_authorization_status, 'Status', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.select :work_authorization_status, options_for_select(Friend.work_authorization_statuses.map { |key, value| [key.humanize, key] }, @friend.work_authorization_status), {include_blank: true}, {class: 'form-control'} %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :date_eligible_to_apply_for_work_authorization, 'Date Eligible to Apply', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.date_select :date_eligible_to_apply_for_work_authorization, { start_year: Date.current.year, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :date_work_authorization_submitted, 'Date Submitted', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.date_select :date_work_authorization_submitted, { start_year: Date.current.year, end_year: 5.years.ago.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :work_authorization_notes, 'Notes', class: 'col-md-2 control-label' %>
+  <div class='col-md-10'>
+    <%= f.text_area :work_authorization_notes, class: 'form-control', style: 'height: 300px;' %>
+  </div>
+</div>
+
+<h4>SIDJ</h4>
+
+<div class='row form-group'>
+  <%= f.label :sidj_status, 'Status', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.select :sidj_status, options_for_select(Friend.sidj_statuses.map { |key, value| [key.humanize, key] }, @friend.sidj_status), {include_blank: true}, {class: 'form-control'} %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :date_sidj_submitted, 'Date Submitted', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.date_select :date_sidj_submitted, { start_year: Date.current.year, end_year: 5.years.ago.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :sidj_notes, 'Notes', class: 'col-md-2 control-label' %>
+  <div class='col-md-10'>
+    <%= f.text_area :sidj_notes, class: 'form-control', style: 'height: 300px;' %>
+  </div>
+</div>
+

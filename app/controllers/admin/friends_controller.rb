@@ -72,6 +72,8 @@ class Admin::FriendsController < AdminController
       :date_sidj_submitted,
       :sidj_notes,
       :country_id,
+      :lawyer_represented_by,
+      :lawyer_referred_to,
       :language_ids => []
     )
   end

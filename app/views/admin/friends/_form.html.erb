@@ -10,6 +10,9 @@
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#family" role="tab">Family</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#other_case_info" role="tab">Other Case Info</a>
+        </li>
       </ul>
 
       <!-- Validation errors -->
@@ -22,6 +25,9 @@
         </div>
         <div class="tab-pane" id="family" role="tabpanel">
           <%= render 'family_form_fields', f: f, friend: @friend %>
+        </div>
+        <div class="tab-pane" id="other_case_info" role="tabpanel">
+          <%= render 'other_case_info_form_fields', f: f, friend: @friend %>
         </div>
       </div>
     </div>

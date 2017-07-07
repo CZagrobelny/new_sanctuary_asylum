@@ -11,3 +11,8 @@ User.create(first_name: 'Virginia', last_name: 'Woolf', email: 'virginia.woolf@e
 #Friends
 Friend.create(first_name: 'Amelia', last_name: 'Earhart', a_number: '430580439')
 Friend.create(first_name: 'Lynn', last_name: 'Nottage', a_number: '679854093')
+
+#Lawyers
+Lawyer.create(first_name: 'Ruth', last_name: 'Bader Ginsburg')
+Lawyer.create(first_name: 'Sonia', last_name: 'Sotomayor')
+Lawyer.create(first_name: 'Elena', last_name: 'Kagan')
