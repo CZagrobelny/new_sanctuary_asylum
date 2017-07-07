@@ -1,0 +1,27 @@
+<% if asylum_application_draft.errors.present? %>
+  <%= display_validation_errors(asylum_application_draft) %>
+<% end %>
+<%= form_for([:admin, asylum_application_draft], url: admin_asylum_application_drafts_path, action: :post, remote: true) do |f| %>
+  <div class='form-inputs'>
+    <%= f.hidden_field :friend_id, value: asylum_application_draft.friend_id %>
+    
+    <div class='row form-group'>
+      <%= f.label :notes, class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.text_area :notes, {class: 'form-control'} %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :users, 'Volunteers', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= collection_select(:asylum_application_draft, :user_ids, User.all, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+      </div>
+
+    <div class='row'>
+      <div class='col-md-1 col-md-offset-10'>
+        <%= f.submit 'Add', :class => 'btn btn-primary', id: 'add-asylum-application-draft-link' %>
+      </div>
+    </div>
+  </div>
+<% end %>

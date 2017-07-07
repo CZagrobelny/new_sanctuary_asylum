@@ -14,9 +14,12 @@ class Friend < ActiveRecord::Base
   has_many :parents, through: :parent_relationships
   has_many :children, through: :child_relationships
   has_many :spousal_relationships
-  has_many :spouses, :through => :spousal_relationships
-  has_many :inverse_spousal_relationships, :class_name => 'SpousalRelationship', :foreign_key => 'spouse_id'
-  has_many :inverse_spouses, :through => :inverse_spousal_relationships, :source => :friend
+  has_many :spouses, through: :spousal_relationships
+  has_many :inverse_spousal_relationships, class_name: 'SpousalRelationship', foreign_key: 'spouse_id'
+  has_many :inverse_spouses, through: :inverse_spousal_relationships, source: :friend
+  has_many :user_friend_associations, dependent: :destroy
+  has_many :users, :through => :user_friend_associations
+  has_many :asylum_application_drafts, dependent: :destroy
 
   validates :first_name, :last_name, presence: true
   validates :a_number, presence: { if: :a_number_available? }, numericality: { if: :a_number_available? }

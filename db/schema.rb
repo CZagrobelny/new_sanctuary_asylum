@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170707014008) do
+ActiveRecord::Schema.define(version: 20170707202506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "asylum_application_drafts", force: :cascade do |t|
+    t.text     "notes"
+    t.integer  "friend_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "countries", force: :cascade do |t|
     t.string "name"
@@ -84,6 +91,22 @@ ActiveRecord::Schema.define(version: 20170707014008) do
     t.integer  "spouse_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "user_asylum_application_draft_associations", force: :cascade do |t|
+    t.integer  "user_id",                     null: false
+    t.integer  "asylum_application_draft_id", null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  create_table "user_friend_associations", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "friend_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["friend_id"], name: "index_user_friend_associations_on_friend_id", using: :btree
+    t.index ["user_id"], name: "index_user_friend_associations_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|

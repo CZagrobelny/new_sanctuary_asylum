@@ -74,7 +74,8 @@ class Admin::FriendsController < AdminController
       :country_id,
       :lawyer_represented_by,
       :lawyer_referred_to,
-      :language_ids => []
+      :language_ids => [],
+      :user_ids => []
     )
   end
 end

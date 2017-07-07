@@ -16,5 +16,6 @@ Rails.application.routes.draw do
       delete :destroy_spousal_relationship
       delete :destroy_parent_child_relationship
     end
+    resources :asylum_application_drafts
   end
 end
