@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170707014008) do
+ActiveRecord::Schema.define(version: 20170708002402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "event"
+    t.integer  "location_id"
+    t.integer  "friend_id"
+    t.integer  "judge_id"
+    t.datetime "occured_at"
+    t.text     "notes"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "countries", force: :cascade do |t|
     t.string "name"
@@ -61,6 +72,13 @@ ActiveRecord::Schema.define(version: 20170707014008) do
     t.integer  "lawyer_represented_by"
   end
 
+  create_table "judges", force: :cascade do |t|
+    t.text     "first_name"
+    t.text     "last_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "languages", force: :cascade do |t|
     t.string "name"
   end
@@ -70,6 +88,10 @@ ActiveRecord::Schema.define(version: 20170707014008) do
     t.string   "last_name",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "parent_child_relationships", force: :cascade do |t|

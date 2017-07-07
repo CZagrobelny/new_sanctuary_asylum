@@ -1,0 +1,12 @@
+<h3>Activites</h3>
+
+<div id='activity-list-upcoming'>
+  <%= render partial: 'admin/activities/show/upcoming', locals: { friend: @friend } %>
+</div>
+
+<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#add_activity_modal'>Add activity</button>
+
+<div id='activity-list-past'>
+  <%= render partial: 'admin/activities/show/past', locals: { friend: @friend } %>
+</div>
+
