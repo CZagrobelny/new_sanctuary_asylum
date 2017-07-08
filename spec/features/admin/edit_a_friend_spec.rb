@@ -48,4 +48,29 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
       end
     end
   end
+
+  describe 'editing "Asylum" information' do
+
+    describe 'adding a new asylum application draft' do
+      before do
+        click_link 'Asylum'
+        click_link 'Add Asylum Application Draft'
+      end
+
+      describe 'with valid information' do
+        it 'displays the new asylum application draft' do
+          volunteer = User.last
+          within '#add_asylum_application_draft_modal' do
+            select_from_chosen(volunteer.name, from: {id: 'asylum_application_draft_user_ids'})
+            fill_in 'Notes', with: 'This is the first draft.'
+            click_button 'Save'
+          end
+
+          within '#asylum-application-draft-list' do
+            expect(page).to have_content('This is the first draft.')
+          end
+        end
+      end
+    end
+  end
 end
