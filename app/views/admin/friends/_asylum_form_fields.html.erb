@@ -30,13 +30,13 @@
   <% end %>    
 </div>
 
+<div class='col-md-2 col-md-offset-10'>
+  <%= link_to 'Add Asylum Application Draft', new_admin_friend_asylum_application_draft_path(@friend), remote: true, class: 'btn btn-primary', data: {toggle: 'modal', target: '#add_asylum_application_draft_modal'} %>
+</div>
+
 <h4>Asylum Application Drafts</h4>
 
 <div id='asylum-application-draft-list' >
   <%= render partial: 'asylum_application_drafts/list', locals: { friend: @friend} %>
 </div>
-
-</br>
-
-<%= link_to 'Add Asylum Application Draft', new_admin_friend_asylum_application_draft_path(@friend), remote: true, class: 'btn btn-primary', data: {toggle: 'modal', target: '#add_asylum_application_draft_modal'} %>
 
