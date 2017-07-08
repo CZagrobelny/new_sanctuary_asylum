@@ -1,5 +1,26 @@
 <% friend.asylum_application_drafts.each do |draft| %>
-  <p>
-    <%= draft.notes %>
-  </p>
+  <div>
+    <p>
+      <%= link_to 'Placeholder for File Name', edit_admin_friend_asylum_application_draft_path(friend, draft), remote: true, class: 'open_asylum_application_draft_edit_modal' %>
+      <%= link_to 'Remove', admin_friend_asylum_application_draft_path(friend, draft), method: :delete, :remote => true, class: 'delete' %>
+    </p>
+    <% if draft.users.present? %>
+      <h5>Team</h5>
+      <%= draft.users.map(&:name).to_sentence %>
+    <% end %>
+
+    <% if draft.notes.present? %>
+      <h5>Notes</h5>
+      <%= draft.notes %>
+    <% end %> 
+  </div>
+  <br>
 <% end %>
+
+<script>
+  $(document).ready(function () {
+    $('.open_asylum_application_draft_edit_modal').click(function() {
+      $('#add_asylum_application_draft_modal').modal('show');
+    });
+  });
+</script>

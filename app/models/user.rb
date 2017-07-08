@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :user_friend_associations, dependent: :destroy
   has_many :friends, through: :user_friend_associations
   has_many :user_asylum_application_draft_associations, dependent: :destroy
-  has_many :asylum_application_drafts, through: :user_asylum_application_draft_association
+  has_many :asylum_application_drafts, through: :user_asylum_application_draft_associations
 
 
   def volunteer?

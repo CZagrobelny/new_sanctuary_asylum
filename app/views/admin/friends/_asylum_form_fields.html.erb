@@ -37,5 +37,6 @@
 </div>
 
 </br>
-<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#add_asylum_application_draft_modal'>Add Asylum Application Draft</button>
+
+<%= link_to 'Add Asylum Application Draft', new_admin_friend_asylum_application_draft_path(@friend), remote: true, class: 'btn btn-primary', data: {toggle: 'modal', target: '#add_asylum_application_draft_modal'} %>
 

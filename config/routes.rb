@@ -11,11 +11,12 @@ Rails.application.routes.draw do
   resources :users, only: [:edit, :update]
   namespace :admin do
   	resources :users
-    resources :friends
+    resources :friends do
+      resources :asylum_application_drafts
+    end
     resources :family_members do
       delete :destroy_spousal_relationship
       delete :destroy_parent_child_relationship
     end
-    resources :asylum_application_drafts
   end
 end
