@@ -16,6 +16,7 @@ class Admin::FriendsController < AdminController
 
   def edit
     @friend ||= Friend.find(params[:id])
+    @current_tab = current_tab
   end
 
   def create
@@ -40,7 +41,15 @@ class Admin::FriendsController < AdminController
   def update
     @friend = Friend.find(params[:id])
     @friend.update(friend_params)
-    render :edit
+    redirect_to edit_admin_friend_path(@friend, tab: current_tab)
+  end
+
+  def current_tab
+    if params[:tab].present?
+      params[:tab]
+    else
+      '#basic'
+    end
   end
 
   private

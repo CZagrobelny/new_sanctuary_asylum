@@ -21,4 +21,5 @@ $(document).ready(function () {
       $('#friend_a_number').val('');
     }
   });
+
 });

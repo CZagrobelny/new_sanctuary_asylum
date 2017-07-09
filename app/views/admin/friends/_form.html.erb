@@ -4,8 +4,8 @@
       
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item active">
-          <a class="nav-link active" data-toggle="tab" href="#basic" role="tab">Basic</a>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#basic" role="tab">Basic</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#family" role="tab">Family</a>
@@ -23,7 +23,7 @@
       
       <!-- Tab panes -->
       <div class="tab-content form-inputs">
-        <div class="tab-pane active" id="basic" role="tabpanel">
+        <div class="tab-pane" id="basic" role="tabpanel">
           <%= render 'basic_form_fields', f: f, friend: @friend %>
         </div>
         <div class="tab-pane" id="family" role="tabpanel">
@@ -40,6 +40,8 @@
   </div>
 
   </br>
+
+  <%= hidden_field_tag :tab, value: @current_tab %>
   <div class='row'>
     <div class='col-md-1 col-md-offset-10'>
       <%= f.submit 'Save', :class => 'btn btn-primary' %>
@@ -49,3 +51,12 @@
 
 <%= render partial: 'admin/family_members/modal', locals: { friend: @friend } %>
 <%= render partial: 'asylum_application_drafts/modal', locals: { friend: @friend } %>
+
+<script>
+  $(document).ready(function () {
+    $('a[href="<%= @current_tab %>"]').click();
+    $('.nav-link').on( "click", function() {
+      $('#tab').val($( this ).attr('href'));
+    });
+  });
+</script>
