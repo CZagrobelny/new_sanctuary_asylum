@@ -8,7 +8,6 @@ class Friend < ActiveRecord::Base
 
   has_many :languages, through: :friend_languages
   has_many :friend_languages, dependent: :destroy
-  has_one :country
   has_many :parent_relationships, class_name: 'ParentChildRelationship', foreign_key: 'child_id', dependent: :destroy
   has_many :child_relationships, class_name: 'ParentChildRelationship', foreign_key: 'parent_id', dependent: :destroy
   has_many :parents, through: :parent_relationships
@@ -31,6 +30,9 @@ class Friend < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def ethnicity=(ethnicity)
+    ethnicity ? ethnicity : self.other_ethnicity
+  end
 
   private
 
