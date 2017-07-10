@@ -17,6 +17,10 @@ $(document).on('turbolinks:load', function () {
       $('#friend_a_number').val('');
     }
   });
+  
+  $('.chzn-select').chosen().change(function(){
+    $('#friend_user_ids').submit();
+  });
 });
 
 function activateChosen() {
