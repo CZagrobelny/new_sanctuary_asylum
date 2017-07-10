@@ -1,7 +1,7 @@
 <% if asylum_application_draft.errors.present? %>
   <%= display_validation_errors(asylum_application_draft) %>
 <% end %>
-<%= form_for([:admin, @friend, asylum_application_draft], remote: true) do |f| %>
+<%= form_for([@friend, asylum_application_draft], remote: true) do |f| %>
   <div class='form-inputs'>
     
     <div class='row form-group'>

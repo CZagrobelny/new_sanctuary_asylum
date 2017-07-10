@@ -1,4 +1,5 @@
-class Admin::AsylumApplicationDraftsController < AdminController
+class AsylumApplicationDraftsController < ApplicationController
+
   def new
     @asylum_application_draft = friend.asylum_application_drafts.new
     respond_to do |format|
@@ -59,5 +60,11 @@ class Admin::AsylumApplicationDraftsController < AdminController
       :notes,
       :user_ids => []
     )
+  end
+
+  def require_admin_or_access_to_friend
+    unless current_user.admin? || UserFriendAssociation.where(friend_id: params[:id], user_id: current_user.id).present?
+      not_found
+    end
   end
 end
