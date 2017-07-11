@@ -1,0 +1,42 @@
+<h3>Asylum</h3>
+
+<div class='row form-group'>
+  <%= f.label :asylum_status, 'Status', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.select :asylum_status, options_for_select(Friend.asylum_statuses.map { |key, value| [key.humanize, key] }, @friend.asylum_status), {include_blank: true}, {class: 'form-control'} %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :date_asylum_application_submitted, 'Date Submitted', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.date_select :date_asylum_application_submitted, { start_year: Date.current.year, end_year: 5.years.ago.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :asylum_notes, 'Notes', class: 'col-md-2 control-label' %>
+  <div class='col-md-10'>
+    <%= f.text_area :asylum_notes, class: 'form-control', style: 'height: 300px;' %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= fields_for(@friend.user_friend_associations.build) do |fl| %>
+    <%= fl.label :users,'Volunteers with Access', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= collection_select(:friend, :user_ids, User.all, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+    </div>
+  <% end %>    
+</div>
+
+<div class='col-md-2 col-md-offset-10'>
+  <%= link_to 'Add Asylum Application Draft', new_friend_asylum_application_draft_path(@friend), remote: true, class: 'btn btn-primary', data: {toggle: 'modal', target: '#add_asylum_application_draft_modal'} %>
+</div>
+
+<h4>Asylum Application Drafts</h4>
+
+<div id='asylum-application-draft-list' >
+  <%= render partial: 'asylum_application_drafts/list', locals: { friend: @friend} %>
+</div>
+

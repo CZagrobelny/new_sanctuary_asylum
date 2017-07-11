@@ -20,4 +20,4 @@
 .DS_Store
 
 # Ignore Byebug History
- .byebug_history
+.byebug_history

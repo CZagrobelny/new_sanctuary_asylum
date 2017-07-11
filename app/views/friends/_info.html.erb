@@ -1,0 +1,50 @@
+<h2>Info</h2>
+
+<h3>Basic</h3>
+
+<p><strong>First Name:  </strong><%= friend.first_name %></p>
+<p><strong>Middle Name:  </strong><%= friend.middle_name %></p>
+<p><strong>Last Name:  </strong><%= friend.last_name %></p>
+<p><strong>A Number:  </strong><%= friend.a_number %></p>
+<p><strong>Phone:  </strong><%= friend.phone %></p>
+<p><strong>Email:  </strong><%= friend.email %></p>
+<p><strong>Gender:  </strong><%= friend.gender.try(:humanize) %></p>
+<p><strong>Ethnicity:  </strong><%= friend.ethnicity.try(:humanize) %></p>
+<p><strong>Languages:  </strong><%= friend.languages.map(&:name).to_sentence %></p>
+<p><strong>Country of Origin:  </strong><%= Country.find(friend.country_id) if friend.country_id.present? %></p>
+<p><strong>Date of Birth:  </strong><%= friend.date_of_birth.strftime('%m/%d/%y') if friend.date_of_birth.present? %></p>
+<p><strong>Status:  </strong><%= friend.status.try(:humanize) %></p>
+<p><strong>Date of Entry:  </strong><%= friend.date_of_entry.strftime('%m/%d/%y') if friend.date_of_entry.present? %></p>
+<p><strong>Notes:  </strong><%= friend.notes %></p>
+
+<h3>Family</h3>
+
+<% if friend.spouses.present? || friend.inverse_spouses.present? %>
+  <p><strong>Spouse:  </strong><%= (friend.spouses.map(&:full_name) + friend.inverse_spouses.map(&:full_name)).to_sentence %></p>
+<% end %>
+
+<% if friend.parents.present? %>
+  <p><strong>Parents:  </strong><%= friend.parents.map(&:full_name).to_sentence %></p>
+<% end %>
+
+<% if friend.children.present? %>
+  <p><strong>Children:  </strong><%= friend.children.map(&:full_name).to_sentence %></p>
+<% end %>
+
+<h3>Other Case Info</h3>
+
+<h4>Lawyer</h4>
+<p><strong>Lawyer Referred to:  </strong><%= Lawyer.find(friend.lawyer_referred_to).name if friend.lawyer_referred_to.present? %></p>
+<p><strong>Lawyer Represented by:  </strong><%= Lawyer.find(friend.lawyer_represented_by).name if friend.lawyer_represented_by.present? %></p>
+<p><strong>Notes:  </strong><%= friend.lawyer_notes %></p>
+<br>
+<h4>Work Authorization</h4>
+<p><strong>Status:  </strong><%= friend.work_authorization_status.try(:humanize) %></p>
+<p><strong>Date Eligible to Apply:  </strong><%= friend.date_eligible_to_apply_for_work_authorization.strftime('%m/%d/%y') if friend.date_eligible_to_apply_for_work_authorization.present? %></p>
+<p><strong>Date Submitted:  </strong><%= friend.date_work_authorization_submitted.strftime('%m/%d/%y') if friend.date_work_authorization_submitted.present? %></p>
+<p><strong>Notes:  </strong><%= friend.work_authorization_notes %></p>
+<br>
+<h4>SIDJ</h4>
+<p><strong>Status:  </strong><%= friend.sidj_status.try(:humanize) %></p>
+<p><strong>Date Submitted:  </strong><%= friend.date_sidj_submitted.strftime('%m/%d/%y') if friend.date_sidj_submitted.present? %></p>
+<p><strong>Notes:  </strong><%= friend.sidj_notes %></p>

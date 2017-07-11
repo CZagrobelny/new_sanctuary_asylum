@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'dashboard#index'
 
   resources :users, only: [:edit, :update]
+  resources :friends, only: [:index, :show, :update] do
+    resources :asylum_application_drafts
+  end
+
   namespace :admin do
   	resources :users
     resources :friends
