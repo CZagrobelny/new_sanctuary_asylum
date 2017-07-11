@@ -15,7 +15,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
   	resources :users
-    resources :friends
+    resources :friends do
+      resources :activities
+    end
     resources :family_members do
       delete :destroy_spousal_relationship
       delete :destroy_parent_child_relationship

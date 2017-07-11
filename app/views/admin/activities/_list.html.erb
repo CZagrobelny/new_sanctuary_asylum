@@ -1,0 +1,17 @@
+<h4>Upcoming</h4>
+<% friend.activities.upcoming.order('occured_at desc').each do |activity| %>
+  <%= render partial: 'admin/activities/item', locals: { friend: friend, activity: activity } %>
+<% end %>
+
+<h4>Past</h4>
+<% friend.activities.past.order('occured_at desc').each do |activity| %>
+  <%= render partial: 'admin/activities/item', locals: { friend: friend, activity: activity } %>
+<% end %>
+
+<script>
+  $(document).ready(function () {
+    $('.open_activity_edit_modal').click(function() {
+      $('#add_activity_modal').modal('show');
+    });
+  });
+</script>

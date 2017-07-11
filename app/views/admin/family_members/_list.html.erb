@@ -2,14 +2,14 @@
   <h4>Spouse</h4>
   <% friend.spousal_relationships.each do |spousal_relationship| %>
     <p>
-      <%= link_to spousal_relationship.spouse.full_name, edit_admin_friend_path(spousal_relationship.spouse), target: '_blank' %>
+      <%= link_to spousal_relationship.spouse.name, edit_admin_friend_path(spousal_relationship.spouse), target: '_blank' %>
       <%= link_to 'Remove', admin_family_member_destroy_spousal_relationship_path(spousal_relationship, friend_id: friend.id), method: :delete, :remote => true, class: 'delete' %>
     </p>
   <% end %>
 
   <% friend.inverse_spousal_relationships.each do |inverse_spousal_relationship| %>
     <p>
-      <%= link_to inverse_spousal_relationship.friend.full_name, edit_admin_friend_path(inverse_spousal_relationship.friend), target: '_blank' %>
+      <%= link_to inverse_spousal_relationship.friend.name, edit_admin_friend_path(inverse_spousal_relationship.friend), target: '_blank' %>
       <%= link_to 'Remove', admin_family_member_destroy_spousal_relationship_path(inverse_spousal_relationship, friend_id: friend.id), method: :delete, :remote => true, class: 'delete' %>
     </p>
   <% end %>
@@ -20,7 +20,7 @@
   <h4>Parents</h4>
   <% friend.parent_relationships.each do |parent_relationship| %>
     <p>
-      <%= link_to parent_relationship.parent.full_name, edit_admin_friend_path(parent_relationship.parent), target: '_blank' %>
+      <%= link_to parent_relationship.parent.name, edit_admin_friend_path(parent_relationship.parent), target: '_blank' %>
       <%= link_to 'Remove', admin_family_member_destroy_parent_child_relationship_path(parent_relationship, friend_id: friend.id), method: :delete, :remote => true, class: 'delete' %>
     </p>
   <% end %>
@@ -31,7 +31,7 @@
   <h4>Children</h4>
   <% friend.child_relationships.each do |child_relationship| %>
     <p>
-      <%= link_to child_relationship.child.full_name, edit_admin_friend_path(child_relationship.child), target: '_blank' %>
+      <%= link_to child_relationship.child.name, edit_admin_friend_path(child_relationship.child), target: '_blank' %>
       <%= link_to 'Remove', admin_family_member_destroy_parent_child_relationship_path(child_relationship, friend_id: friend.id), method: :delete, :remote => true, class: 'delete' %>
     </p>
   <% end %>

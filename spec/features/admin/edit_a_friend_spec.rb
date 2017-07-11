@@ -31,11 +31,11 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
         it 'displays the new family member' do
           family_member = Friend.last
           select 'Spouse', from: 'Relationship'
-          select_from_chosen(family_member.full_name, from: {id: 'family_member_constructor_relation_id'})
+          select_from_chosen(family_member.name, from: {id: 'family_member_constructor_relation_id'})
           click_button 'Add'
 
           within '#family-list' do
-            expect(page).to have_content(family_member.full_name)
+            expect(page).to have_content(family_member.name)
           end
         end
       end

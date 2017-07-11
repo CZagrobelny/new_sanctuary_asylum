@@ -1,0 +1,4 @@
+$('#activity-list').html("<%= escape_javascript(render partial: 'admin/activities/list', locals: { friend: friend } ) %>");
+$('#activity_notes').val('');
+// $('#asylum_application_draft_user_ids').val('').trigger("chosen:updated");
+$('#activity_modal').modal('hide');

@@ -6,8 +6,9 @@
         <h4 class='modal-title'>Add an Activity</h4>
       </div>
       <div class='modal-body'>
+        <% activity ||= Activity.new(friend_id: @friend.id) %>
         <div id='activity-form'>
-          <%= render partial: 'admin/activities/form' %>
+          <%= render partial: 'admin/activities/form', locals: {activity: activity} %>
         </div>
       </div>
     </div>

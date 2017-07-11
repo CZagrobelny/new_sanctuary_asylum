@@ -14,7 +14,7 @@
     <div class='row form-group'>
       <%= f.label :relation_id, 'Friend', class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
-        <%= collection_select(:family_member_constructor, :relation_id, Friend.all, :id, :full_name, {prompt: true}, {class: 'chzn-select form-control'}) %>
+        <%= collection_select(:family_member_constructor, :relation_id, Friend.all, :id, :name, {prompt: true}, {class: 'chzn-select form-control'}) %>
       </div>
     </div>
 

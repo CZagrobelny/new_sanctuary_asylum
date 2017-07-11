@@ -20,15 +20,15 @@
 <h3>Family</h3>
 
 <% if friend.spouses.present? || friend.inverse_spouses.present? %>
-  <p><strong>Spouse:  </strong><%= (friend.spouses.map(&:full_name) + friend.inverse_spouses.map(&:full_name)).to_sentence %></p>
+  <p><strong>Spouse:  </strong><%= (friend.spouses.map(&:name) + friend.inverse_spouses.map(&:name)).to_sentence %></p>
 <% end %>
 
 <% if friend.parents.present? %>
-  <p><strong>Parents:  </strong><%= friend.parents.map(&:full_name).to_sentence %></p>
+  <p><strong>Parents:  </strong><%= friend.parents.map(&:name).to_sentence %></p>
 <% end %>
 
 <% if friend.children.present? %>
-  <p><strong>Children:  </strong><%= friend.children.map(&:full_name).to_sentence %></p>
+  <p><strong>Children:  </strong><%= friend.children.map(&:name).to_sentence %></p>
 <% end %>
 
 <h3>Other Case Info</h3>

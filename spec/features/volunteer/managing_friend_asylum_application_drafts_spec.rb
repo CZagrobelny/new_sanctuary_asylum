@@ -14,11 +14,11 @@ RSpec.describe 'Volunteer managing asylum application drafts for shared friends'
     end
 
     it 'displays friend records associated with the volunteer' do
-      expect(page).to have_content(shared_friend.full_name)
+      expect(page).to have_content(shared_friend.name)
     end
 
     it 'does not display friend records NOT associated with the volunteer' do
-      expect(page).not_to have_content(not_shared_friend.full_name)
+      expect(page).not_to have_content(not_shared_friend.name)
     end
   end
 

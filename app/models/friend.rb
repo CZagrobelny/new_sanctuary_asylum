@@ -27,7 +27,7 @@ class Friend < ActiveRecord::Base
 
   attr_accessor :language_ids
 
-  def full_name
+  def name
     "#{first_name} #{last_name}"
   end
 
