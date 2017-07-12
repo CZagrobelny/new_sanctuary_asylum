@@ -5,14 +5,14 @@ class Activity < ActiveRecord::Base
   belongs_to :judge
   belongs_to :location
 
-  validates :event, :occured_at, :location_id, :friend_id, presence: true
+  validates :event, :occur_at, :location_id, :friend_id, presence: true
 
   def self.upcoming
-    where('occured_at >= ?', Date.today)
+    where('occur_at >= ?', Date.today)
   end
 
   def self.past
-    where('occured_at < ?', Date.today)
+    where('occur_at < ?', Date.today)
   end
 
 end

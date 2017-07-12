@@ -1,11 +1,15 @@
-<h4>Upcoming</h4>
-<% friend.activities.upcoming.order('occured_at desc').each do |activity| %>
-  <%= render partial: 'admin/activities/item', locals: { friend: friend, activity: activity } %>
+<% if friend.activities.upcoming.present? %>
+  <h4>Upcoming</h4>
+  <% friend.activities.upcoming.order('occur_at desc').each do |activity| %>
+    <%= render partial: 'admin/activities/item', locals: { friend: friend, activity: activity } %>
+  <% end %>
 <% end %>
 
-<h4>Past</h4>
-<% friend.activities.past.order('occured_at desc').each do |activity| %>
-  <%= render partial: 'admin/activities/item', locals: { friend: friend, activity: activity } %>
+<% if friend.activities.past.present? %>
+  <h4>Past</h4>
+  <% friend.activities.past.order('occur_at desc').each do |activity| %>
+    <%= render partial: 'admin/activities/item', locals: { friend: friend, activity: activity } %>
+  <% end %>
 <% end %>
 
 <script>

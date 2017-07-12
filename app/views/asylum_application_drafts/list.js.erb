@@ -1,4 +1,2 @@
 $('#asylum-application-draft-list').html("<%= escape_javascript(render partial: 'asylum_application_drafts/list', locals: { friend: friend } ) %>");
-$('#asylum_application_draft_notes').val('');
-$('#asylum_application_draft_user_ids').val('').trigger("chosen:updated");
 $('#add_asylum_application_draft_modal').modal('hide');

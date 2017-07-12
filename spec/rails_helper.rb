@@ -57,7 +57,7 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers
   config.include WaitForAjax, type: :feature
   ##Helper to select from chosen js dropdowns
-  config.include SelectFromChosen, type: :feature
+  config.include Select, type: :feature
 
   config.before(:each) do
     Rails.application.routes.default_url_options[:host] = 'test.host'

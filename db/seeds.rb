@@ -13,10 +13,15 @@ Friend.create(first_name: 'Amelia', last_name: 'Earhart', a_number: '430580439')
 Friend.create(first_name: 'Lynn', last_name: 'Nottage', a_number: '679854093')
 
 #Lawyers
-Lawyer.create(first_name: 'Ruth', last_name: 'Bader Ginsburg')
-Lawyer.create(first_name: 'Sonia', last_name: 'Sotomayor')
-Lawyer.create(first_name: 'Elena', last_name: 'Kagan')
+Lawyer.create(first_name: 'Michelle', last_name: 'Obama')
+Lawyer.create(first_name: 'Arrabella', last_name: 'Mansfield')
+Lawyer.create(first_name: 'Amal', last_name: 'Clooney')
 
 #Locations
 Location.create(name: '26 Federal Plaza')
+
+#Judges
+Judge.create(first_name: 'Ruth', last_name: 'Bader Ginsburg')
+Judge.create(first_name: 'Sonia', last_name: 'Sotomayor')
+Judge.create(first_name: 'Elena', last_name: 'Kagan')
 

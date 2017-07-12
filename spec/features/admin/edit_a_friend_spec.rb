@@ -4,6 +4,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
 
   let!(:admin) { create(:user, :admin) }
   let!(:friend) { create(:friend) }
+  let!(:location) { create(:location) }
 
   before do
     3.times { create(:friend) }
@@ -44,6 +45,41 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
         it 'displays validation errors' do
           click_button 'Add'
           expect(page).to have_content("Relationship can't be blank")
+        end
+      end
+    end
+  end
+
+  describe 'editing "Activity" information' do
+
+    describe 'adding a new activity' do
+      before do
+        click_link 'Activities'
+        click_link 'Add Activity'
+      end
+
+      describe 'with valid information' do
+        it 'displays the new family member' do
+          select 'Individual hearing', from: 'Type'
+          select location.name, from: 'Location'
+          select_date_and_time(Time.now.beginning_of_hour, from: 'activity_occur_at')
+          within '#new_activity' do
+            click_button 'Save'
+          end
+
+          within '#activity-list' do
+            expect(page).to have_content('Individual hearing')
+            expect(page).to have_content(location.name)
+          end
+        end
+      end
+
+      describe 'with incomplete information' do
+        it 'displays validation errors' do
+          within '#new_activity' do
+            click_button 'Save'
+          end
+          expect(page).to have_content("Location can't be blank")
         end
       end
     end

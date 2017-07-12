@@ -1,7 +1,7 @@
 class Admin::ActivitiesController < AdminController
 
   def new
-    @activity = friend.activities.new
+    activity = friend.activities.new
     respond_to do |format|
       format.js { render :file => 'admin/activities/modal', locals: {friend: friend, activity: activity}}
     end
@@ -61,7 +61,7 @@ class Admin::ActivitiesController < AdminController
       :location_id,
       :friend_id,
       :judge_id,
-      :occured_at,
+      :occur_at,
       :notes
     )
   end

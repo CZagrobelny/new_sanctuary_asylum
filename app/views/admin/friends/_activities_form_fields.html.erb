@@ -1,8 +1,10 @@
-<h3>Activites</h3>
-
-<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#add_activity_modal'>Add activity</button>
+<div class='row'>
+  <div class='col-md-2'><h3>Activites</h3></div>
+  <div class='col-md-2 col-md-offset-8' style='margin-top: 20px;'>
+    <%= link_to 'Add Activity', new_admin_friend_activity_path(@friend), remote: true, class: 'btn btn-primary', data: {toggle: 'modal', target: '#add_activity_modal'} %>
+  </div>
+</div>
 
 <div id='activity-list' >
   <%= render partial: 'admin/activities/list', locals: { friend: @friend} %>
 </div>
-

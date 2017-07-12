@@ -1,7 +1,7 @@
 <div>
   <p>
     <%= link_to activity.event.humanize, edit_admin_friend_activity_path(friend, activity), remote: true, class: 'open_activity_edit_modal' %>
-    <%= activity.occured_at.strftime("-- %A, %B %-d, %Y") %>
+    <%= activity.occur_at.strftime("-- %I:%M %p, %A, %B %-d, %Y") %>
     <%= link_to 'Remove', admin_friend_activity_path(friend, activity), method: :delete, :remote => true, class: 'delete' %>
   </p>
   <% if activity.location.present? %>
@@ -11,7 +11,7 @@
     <p><strong>Judge:  </strong><%= activity.judge.name %></p>
   <% end %>
   <% if activity.notes.present? %>
-    <p><strong>Notes:  </strong><%= draft.notes %></p>
+    <p><strong>Notes:  </strong><%= activity.notes %></p>
   <% end %> 
 </div>
 <br>
