@@ -1,0 +1,17 @@
+<h1>Accompaniements</h1>
+
+<h3 class='text-center'>Current Week: <%= Activity.current_week_dates %></h3>
+<% @current_week_activities.each do |activities_by_day| %>
+  <h4><%= activities_by_day[0].strftime("%B %-d, %Y") %></h4>
+  <% activities_by_day[1].each do |activity| %>
+    <%= render partial: 'item', locals: {activity: activity} %>
+  <% end %>
+<% end %>
+<br>
+<h3 class='text-center'>Next Week: <%= Activity.next_week_dates %></h3>
+<% @next_week_activities.each do |activities_by_day| %>
+  <h4><%= activities_by_day[0].strftime("%B %-d, %Y") %></h4>
+  <% activities_by_day[1].each do |activity| %>
+    <%= render partial: 'item', locals: {activity: activity} %>
+  <% end %>
+<% end %>
