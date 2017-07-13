@@ -1,5 +1,5 @@
 <nav class='navbar navbar-default'>
-  <div class='navbar-brand'>New Sanctuary Coalition</div>
+  <div class='navbar-brand'><%= link_to 'New Sanctuary Coalition', root_path %></div>
   <ul class='nav navbar-nav navbar-right' style='margin-right:10px;'>
     <% if current_user %>
       <% if current_user.admin? %>

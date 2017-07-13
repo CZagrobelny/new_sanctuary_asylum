@@ -15,4 +15,27 @@ class Activity < ActiveRecord::Base
     where('occur_at < ?', Date.today)
   end
 
+  def self.current_week
+    where('occur_at >= ? AND occur_at <= ? ', Date.today.beginning_of_week, Date.today.end_of_week).order('occur_at asc').group_by {|activity| activity.occur_at.to_date }
+  end
+
+  def self.next_week
+    where('occur_at >= ? AND occur_at <= ? ', 1.week.from_now.beginning_of_week, 1.week.from_now.end_of_week).order('occur_at asc').group_by {|activity| activity.occur_at.to_date }
+  end
+
+  def self.accompaniement_eligible
+    where(event: ['check_in', 'master_calendar_hearing', 'individual_hearing'])
+  end
+
+  def self.current_week_dates
+    beginning_of_week = Date.today.beginning_of_week.strftime('%B %-d')
+    end_of_week = (Date.today.end_of_week - 2.days).strftime('%B %-d')
+    "#{beginning_of_week} - #{end_of_week}"
+  end
+
+  def self.next_week_dates
+    beginning_of_week = 1.week.from_now.beginning_of_week.strftime('%B %-d')
+    end_of_week = (1.week.from_now.end_of_week - 2.days).strftime('%B %-d')
+    "#{beginning_of_week} - #{end_of_week}"
+  end
 end
