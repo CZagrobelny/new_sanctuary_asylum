@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170711130426) do
+ActiveRecord::Schema.define(version: 20170713123703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accompaniements", force: :cascade do |t|
+    t.integer "activity_id"
+    t.integer "user_id"
+    t.text    "availability_notes"
+  end
 
   create_table "activities", force: :cascade do |t|
     t.integer  "event"

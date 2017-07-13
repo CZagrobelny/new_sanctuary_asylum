@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   has_many :friends, through: :user_friend_associations
   has_many :user_asylum_application_draft_associations, dependent: :destroy
   has_many :asylum_application_drafts, through: :user_asylum_application_draft_associations
-
+  has_many :accompaniements, dependent: :destroy
 
   def volunteer?
   	self.role == 'volunteer'
