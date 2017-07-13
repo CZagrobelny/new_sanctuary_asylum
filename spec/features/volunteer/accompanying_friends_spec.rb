@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: true do
+RSpec.describe 'Volunteer signing up for accompaniments', type: :feature do
   let!(:volunteer) { create(:user, :volunteer)
 
   describe 'viewing upcoming accompaniments' do

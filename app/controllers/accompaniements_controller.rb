@@ -1,0 +1,3 @@
+class AccompaniementsController < ApplicationController
+  
+end

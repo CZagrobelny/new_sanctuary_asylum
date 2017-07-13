@@ -19,9 +19,7 @@
   <%= link_to 'Add Asylum Application Draft', new_friend_asylum_application_draft_path(friend), remote: true, class: 'btn btn-primary', data: {toggle: 'modal', target: '#add_asylum_application_draft_modal'} %>
 </div>
 
-<div class='row'>
-  <h4>Asylum Application Drafts</h4>
-
+<div class='col-md-12'>
   <div id='asylum-application-draft-list' >
     <%= render partial: 'asylum_application_drafts/list', locals: { friend: friend} %>
   </div>
