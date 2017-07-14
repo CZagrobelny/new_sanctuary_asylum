@@ -28,4 +28,8 @@ class User < ActiveRecord::Base
   def name
     "#{first_name} #{last_name}"
   end
+
+  def attending?(activity)
+    activity.volunteers.include?(self)
+  end
 end
