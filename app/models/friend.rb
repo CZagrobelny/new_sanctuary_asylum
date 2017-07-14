@@ -35,17 +35,6 @@ class Friend < ActiveRecord::Base
     ethnicity ? ethnicity : self.other_ethnicity
   end
 
-  def self.search(query_string, page)
-    query = '%' + query_string.downcase + '%'
-
-    Friend.where('lower(first_name) LIKE ? 
-                 OR lower(last_name) LIKE ? 
-                 OR lower(email) LIKE ?', 
-                 query, query, query).order('created_at desc')
-                                     .paginate(page: page)
-
-  end
-
   private
 
   def a_number_available?
