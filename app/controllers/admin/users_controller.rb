@@ -1,13 +1,10 @@
 class Admin::UsersController < AdminController
   def index
-    if params[:query].present?
-      query = '%' + params[:query].downcase + '%'
-      @users = User.where('lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR lower(email) LIKE ?', query, query, query)
-                    .order('created_at desc')
-                    .paginate(:page => params[:page])
-    else
-      @users = User.all.order('created_at desc').paginate(:page => params[:page])
-    end
+    @users = if params[:query].present? 
+               search.perform
+             else
+               User.all.order('created_at desc').paginate(:page => params[:page])
+             end
   end
 
   def destroy
@@ -32,6 +29,11 @@ class Admin::UsersController < AdminController
   end
 
   private
+
+  def search
+    Search.new("user", params[:query], params[:page])
+  end
+  
   def user_params
     params.require(:user).permit(
       :first_name, 

@@ -17,6 +17,16 @@ class User < ActiveRecord::Base
   	self.role == 'volunteer'
   end
 
+  def self.search(query_string, page)
+    query = '%' + query_string.downcase + '%'
+
+    User.where('lower(first_name) LIKE ? 
+               OR lower(last_name) LIKE ? 
+               OR lower(email) LIKE ?', 
+               query, query, query).order('created_at desc')
+                                   .paginate(page: page)
+  end
+
   def admin?
   	self.role == 'admin'
   end
