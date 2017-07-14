@@ -4,7 +4,7 @@ class AccompaniementsController < ApplicationController
     if params[:attending] == 'true'
       accompaniement = Accompaniement.new(accompaniement_params)
       if accompaniement.save
-        flash[:success] = 'RSVP successful.'
+        flash[:success] = 'Your RSVP was successful.'
         redirect_to activities_path
       end
     else
@@ -21,7 +21,7 @@ class AccompaniementsController < ApplicationController
       end
     else
       if accompaniement.destroy
-        flash[:success] = 'RSVP deleted.'
+        flash[:success] = 'Your RSVP was deleted.'
         redirect_to activities_path
       end
     end
