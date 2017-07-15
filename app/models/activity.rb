@@ -17,27 +17,36 @@ class Activity < ActiveRecord::Base
     where('occur_at < ?', Date.today)
   end
 
-  def self.current_week
-    where('occur_at >= ? AND occur_at <= ? ', Date.today.beginning_of_week, Date.today.end_of_week).order('occur_at asc').group_by {|activity| activity.occur_at.to_date }
+  def self.for_week(beginning_of_week:, end_of_week:, events: Activity.events.keys)
+    { dates: "#{beginning_of_week.strftime('%B %-d')} - #{(end_of_week - 2.days).strftime('%B %-d')}", 
+      activities: Activity.where(event: events)
+                          .where('occur_at >= ? AND occur_at <= ? ', beginning_of_week, end_of_week)
+                          .order('occur_at asc').group_by {|activity| activity.occur_at.to_date } }
   end
 
-  def self.next_week
-    where('occur_at >= ? AND occur_at <= ? ', 1.week.from_now.beginning_of_week, 1.week.from_now.end_of_week).order('occur_at asc').group_by {|activity| activity.occur_at.to_date }
+  def self.upcoming_two_weeks
+    activities = [ Activity.for_week(beginning_of_week: Date.today.beginning_of_week, end_of_week: Date.today.end_of_week, events: ['check_in', 'master_calendar_hearing', 'individual_hearing']) ]
+    activities << Activity.for_week(beginning_of_week: 1.weeks.from_now.beginning_of_week, end_of_week: 1.weeks.from_now.end_of_week,  events: ['check_in', 'master_calendar_hearing', 'individual_hearing'])
+    activities
   end
 
-  def self.accompaniement_eligible
-    where(event: ['check_in', 'master_calendar_hearing', 'individual_hearing'])
+  def self.current_month
+    activities = [ Activity.for_week(beginning_of_week: Date.today.beginning_of_week, end_of_week: Date.today.end_of_week) ]
+    (1..4).each do |i|
+      beginning_of_week = i.weeks.from_now.beginning_of_week
+      end_of_week = i.weeks.from_now.end_of_week
+      activities << Activity.for_week(beginning_of_week: beginning_of_week, end_of_week: end_of_week)
+    end
+    activities
   end
 
-  def self.current_week_dates
-    beginning_of_week = Date.today.beginning_of_week.strftime('%B %-d')
-    end_of_week = (Date.today.end_of_week - 2.days).strftime('%B %-d')
-    "#{beginning_of_week} - #{end_of_week}"
-  end
-
-  def self.next_week_dates
-    beginning_of_week = 1.week.from_now.beginning_of_week.strftime('%B %-d')
-    end_of_week = (1.week.from_now.end_of_week - 2.days).strftime('%B %-d')
-    "#{beginning_of_week} - #{end_of_week}"
+  def self.last_month
+    activities = [ Activity.for_week(beginning_of_week: Date.today.beginning_of_week, end_of_week: Date.today.end_of_week) ]
+    (1..4).each do |i|
+      beginning_of_week = i.weeks.from_now.beginning_of_week
+      end_of_week = i.weeks.from_now.end_of_week
+      activities << Activity.for_week(beginning_of_week: beginning_of_week, end_of_week: end_of_week)
+    end
+    activities
   end
 end

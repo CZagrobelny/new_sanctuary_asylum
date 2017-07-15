@@ -1,5 +1,10 @@
 class Admin::ActivitiesController < AdminController
 
+  def index
+    @current_month_activities = Activity.current_month
+    @next_month_activities = Activity.last_month
+  end
+
   def new
     activity = friend.activities.new
     respond_to do |format|
