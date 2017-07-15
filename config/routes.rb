@@ -24,5 +24,6 @@ Rails.application.routes.draw do
       delete :destroy_spousal_relationship
       delete :destroy_parent_child_relationship
     end
+    resources :activities, only: [:index]
   end
 end
