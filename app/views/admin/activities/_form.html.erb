@@ -1,7 +1,7 @@
 <% if activity.errors.present? %>
   <%= display_validation_errors(activity) %>
 <% end %>
-<%= form_for([:admin, @friend, activity], remote: true) do |f| %>
+<%= form_for([:admin, activity.friend, activity], remote: true) do |f| %>
   <div class='form-inputs'>
     
     <div class='row form-group'>

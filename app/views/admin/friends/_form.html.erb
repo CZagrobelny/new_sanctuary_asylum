@@ -47,7 +47,7 @@
 
   </br>
 
-  <%= hidden_field_tag :tab, value: @current_tab %>
+  <%= hidden_field_tag :tab, @current_tab %>
   <div class='row'>
     <div class='col-md-1 col-md-offset-10'>
       <%= f.submit 'Save', :class => 'btn btn-primary' %>
@@ -55,9 +55,9 @@
   </div>
 <% end %>
 
-<%= render partial: 'admin/activities/modal', locals: { friend: @friend } %>
-<%= render partial: 'admin/family_members/modal', locals: { friend: @friend } %>
-<%= render partial: 'asylum_application_drafts/modal', locals: { friend: @friend } %>
+<%= render partial: 'admin/activities/modal', locals: { activity: Activity.new(friend_id: @friend.id) } %>
+<%= render partial: 'admin/friends/family_members/modal', locals: { friend: @friend } %>
+<%= render partial: 'friends/asylum_application_drafts/modal', locals: { friend: @friend } %>
 
 <script>
   $(document).ready(function () {

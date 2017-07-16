@@ -25,7 +25,7 @@
   <%= fields_for(@friend.user_friend_associations.build) do |fl| %>
     <%= fl.label :users,'Volunteers with Access', class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
-      <%= collection_select(:friend, :user_ids, User.all, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+      <%= collection_select(:friend, :user_ids, User.all, :id, :name, {include_hidden: false}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
     </div>
   <% end %>    
 </div>
@@ -34,9 +34,7 @@
   <%= link_to 'Add Asylum Application Draft', new_friend_asylum_application_draft_path(@friend), remote: true, class: 'btn btn-primary', data: {toggle: 'modal', target: '#add_asylum_application_draft_modal'} %>
 </div>
 
-<h4>Asylum Application Drafts</h4>
-
 <div id='asylum-application-draft-list' >
-  <%= render partial: 'asylum_application_drafts/list', locals: { friend: @friend} %>
+  <%= render partial: 'friends/asylum_application_drafts/list', locals: { friend: @friend} %>
 </div>
 
