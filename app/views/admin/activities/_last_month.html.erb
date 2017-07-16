@@ -1,0 +1,12 @@
+<% @last_month_activities.each do |week| %>
+  <h2><%= week[:dates] %></h2>
+  <% week[:activities].each do |day| %>
+    <h4><%= day[0].strftime('%A, %B %-d') %></h4>
+    <% day[1].each do |activity| %>
+      <div id="activity_<%= activity.id %>">
+        <%= render partial: 'item', locals: {activity: activity, friend: activity.friend} %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+<br>
