@@ -4,11 +4,11 @@ class Admin::FamilyMembersController < AdminController
     family_member_constructor = FamilyMemberConstructor.new(family_member_constructor_params)
     if family_member_constructor.run
       respond_to do |format|
-        format.js { render :file => 'admin/family_members/list', locals: {friend: friend}}
+        format.js { render :file => 'admin/friends/family_members/list', locals: {friend: friend}}
       end
     else
       respond_to do |format|
-        format.js { render :file => 'admin/family_members/modal', locals: {friend: friend, family_member_constructor: family_member_constructor}}
+        format.js { render :file => 'admin/friends/family_members/modal', locals: {friend: friend, family_member_constructor: family_member_constructor}}
       end
     end
   end
@@ -18,7 +18,7 @@ class Admin::FamilyMembersController < AdminController
     @friend = Friend.find(family_member_destroy_params[:friend_id])
     if spousal_relationship.destroy
       respond_to do |format|
-        format.js { render :file => 'admin/family_members/list', locals: {friend: friend}}
+        format.js { render :file => 'admin/friends/family_members/list', locals: {friend: friend}}
       end
     end
   end
@@ -28,7 +28,7 @@ class Admin::FamilyMembersController < AdminController
     @friend = Friend.find(family_member_destroy_params[:friend_id])
     if parent_child_relationship.destroy
       respond_to do |format|
-        format.js { render :file => 'admin/family_members/list', locals: {friend: friend}}
+        format.js { render :file => 'admin/friends/family_members/list', locals: {friend: friend}}
       end
     end
   end

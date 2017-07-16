@@ -3,7 +3,7 @@ class AsylumApplicationDraftsController < ApplicationController
   def new
     @asylum_application_draft = friend.asylum_application_drafts.new
     respond_to do |format|
-      format.js { render :file => 'asylum_application_drafts/modal', locals: {friend: friend, asylum_application_draft: asylum_application_draft}}
+      format.js { render :file => 'friends/asylum_application_drafts/modal', locals: {friend: friend, asylum_application_draft: asylum_application_draft}}
     end
   end
 
@@ -11,29 +11,29 @@ class AsylumApplicationDraftsController < ApplicationController
     asylum_application_draft = friend.asylum_application_drafts.build(asylum_application_draft_params)
     if asylum_application_draft.save
       respond_to do |format|
-        format.js { render :file => 'asylum_application_drafts/list', locals: {friend: friend}}
+        format.js { render :file => 'friends/asylum_application_drafts/list', locals: {friend: friend}}
       end
     else
       respond_to do |format|
-        format.js { render :file => 'asylum_application_drafts/modal', locals: {friend: friend, asylum_application_draft: asylum_application_draft}}
+        format.js { render :file => 'friends/asylum_application_drafts/modal', locals: {friend: friend, asylum_application_draft: asylum_application_draft}}
       end
     end
   end
 
   def edit
     respond_to do |format|
-      format.js { render :file => 'asylum_application_drafts/modal', locals: {friend: friend, asylum_application_draft: asylum_application_draft}}
+      format.js { render :file => 'friends/asylum_application_drafts/modal', locals: {friend: friend, asylum_application_draft: asylum_application_draft}}
     end
   end
 
   def update
     if asylum_application_draft.update(asylum_application_draft_params)
       respond_to do |format|
-        format.js { render :file => 'asylum_application_drafts/list', locals: {friend: friend}}
+        format.js { render :file => 'friends/asylum_application_drafts/list', locals: {friend: friend}}
       end
     else
       respond_to do |format|
-        format.js { render :file => 'asylum_application_drafts/modal', locals: {friend: friend, asylum_application_draft: asylum_application_draft}}
+        format.js { render :file => 'friends/asylum_application_drafts/modal', locals: {friend: friend, asylum_application_draft: asylum_application_draft}}
       end
     end
   end
@@ -49,7 +49,7 @@ class AsylumApplicationDraftsController < ApplicationController
   def destroy
     if asylum_application_draft.destroy
       respond_to do |format|
-        format.js { render :file => 'asylum_application_drafts/list', locals: {friend: friend}}
+        format.js { render :file => 'friends/asylum_application_drafts/list', locals: {friend: friend}}
       end
     end
   end

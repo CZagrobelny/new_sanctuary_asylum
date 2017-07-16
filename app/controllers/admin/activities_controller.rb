@@ -8,37 +8,33 @@ class Admin::ActivitiesController < AdminController
   def new
     activity = friend.activities.new
     respond_to do |format|
-      format.js { render :file => 'admin/activities/modal', locals: {friend: friend, activity: activity}}
+      format.js { render :file => 'admin/activities/modal', locals: {activity: activity}}
     end
   end
 
   def create
     activity = friend.activities.build(activity_params)
     if activity.save
-      respond_to do |format|
-        format.js { render :file => 'admin/activities/list', locals: {friend: friend}}
-      end
+      render_success
     else
       respond_to do |format|
-        format.js { render :file => 'admin/activities/modal', locals: {friend: friend, activity: activity}}
+        format.js { render :file => 'admin/activities/modal', locals: {activity: activity}}
       end
     end
   end
 
   def edit
     respond_to do |format|
-      format.js { render :file => 'admin/activities/modal', locals: {friend: friend, activity: activity}}
+      format.js { render :file => 'admin/activities/modal', locals: {activity: activity}}
     end
   end
 
   def update
     if activity.update(activity_params)
-      respond_to do |format|
-        format.js { render :file => 'admin/activities/list', locals: {friend: friend}}
-      end
+      render_success
     else
       respond_to do |format|
-        format.js { render :file => 'admin/activities/modal', locals: {friend: friend, activity: activity}}
+        format.js { render :file => 'admin/activities/modal', locals: {activity: activity}}
       end
     end
   end
@@ -53,8 +49,41 @@ class Admin::ActivitiesController < AdminController
 
   def destroy
     if activity.destroy
+      render_destroy_success
+    end
+  end
+
+  def referrer
+    uri = URI(request.env['HTTP_REFERER'])
+    if uri.path == "/admin/activities"
+      'activities'
+    else
+      'friend_edit'
+    end
+  end
+
+  def render_success
+    referrer_uri = URI(request.env['HTTP_REFERER'])
+    case referrer_uri.path
+    when "/admin/activities"
       respond_to do |format|
-        format.js { render :file => 'admin/activities/list', locals: {friend: friend}}
+        format.js { render :file => 'admin/activities/item', locals: {activity: activity}}
+      end
+    else
+      respond_to do |format|
+        format.js { render :file => 'admin/friends/activities/list', locals: {friend: friend}}
+      end
+    end
+  end
+
+  def render_destroy_success
+    referrer_uri = URI(request.env['HTTP_REFERER'])
+    case referrer_uri.path
+    when "/admin/activities"
+      redirect_to admin_activities_path
+    else
+      respond_to do |format|
+        format.js { render :file => 'admin/activities/item', locals: {activity: activity}}
       end
     end
   end

@@ -1,6 +1,6 @@
-<div class='row' style='margin-left:5px;' id="activity_<%= activity.id %>">
+<div class='row' style='margin-left:5px;'>
   <strong>
-    <%= link_to "#{activity.event.humanize} for #{friend.name}", edit_admin_friend_activity_path(friend, activity), remote: true, class: 'open_activity_edit_modal' %>
+    <%= link_to "#{activity.event.humanize} for #{friend.name}", edit_admin_friend_activity_path(friend, activity), remote: true, class: 'open_activity_modal' %>
     <%= activity.occur_at.strftime("-- %I:%M %p, %A, %B %-d, %Y") %>
     <%= link_to 'Remove', admin_friend_activity_path(friend, activity), method: :delete, :remote => true, class: 'delete' %>
   </strong><br>

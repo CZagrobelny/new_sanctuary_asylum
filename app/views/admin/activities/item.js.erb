@@ -1,0 +1,2 @@
+$("#activity_<%= activity.id %>").html("<%= escape_javascript(render partial: 'admin/activities/item', locals: { activity: activity, friend: activity.friend } ) %>");
+$('#activity_modal').modal('hide');
