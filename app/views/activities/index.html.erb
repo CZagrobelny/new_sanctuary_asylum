@@ -4,7 +4,7 @@
   <% week[:activities].each do |day| %>
     <h4><%= day[0].strftime('%A, %B %-d') %></h4>
     <% day[1].each do |activity| %>
-      <%= render partial: 'item', locals: {activity: activity} %>
+      <%= render partial: 'activity', locals: {activity: activity} %>
       <%= render partial: 'accompaniement_modal', locals: {activity: activity, accompaniement: Accompaniement.find_or_build(activity, current_user) } %>
     <% end %>
   <% end %>
