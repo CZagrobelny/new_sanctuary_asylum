@@ -4,6 +4,9 @@
     <%= activity.occur_at.strftime("-- %I:%M %p, %A, %B %-d, %Y") %>
     <%= link_to 'Remove', admin_friend_activity_path(friend, activity), method: :delete, :remote => true, class: 'delete' %>
   </strong><br>
+  <% if activity.friend.phone.present? %>
+    <strong>Friend Phone Number:  </strong><%= activity.friend.phone %><br>
+  <% end %>
   <% if activity.location.present? %>
     <strong>Location:  </strong><%= activity.location.name %><br>
   <% end %>
