@@ -25,14 +25,12 @@ class Friend < ActiveRecord::Base
   validates :a_number, presence: { if: :a_number_available? }, numericality: { if: :a_number_available? }
   validates :a_number, length: { minimum: 8, maximum: 9 }, if: :a_number_available?
 
-  attr_accessor :language_ids
-
   def name
     "#{first_name} #{last_name}"
   end
 
-  def ethnicity=(ethnicity)
-    ethnicity ? ethnicity : self.other_ethnicity
+  def ethnicity
+    self.other? ? self[:other_ethnicity] : self[:ethnicity]
   end
 
   private
