@@ -66,9 +66,7 @@ class Admin::ActivitiesController < AdminController
     referrer_uri = URI(request.env['HTTP_REFERER'])
     case referrer_uri.path
     when "/admin/activities"
-      respond_to do |format|
-        format.js { render :file => 'admin/activities/item', locals: {activity: activity}}
-      end
+      redirect_to admin_activities_path
     else
       respond_to do |format|
         format.js { render :file => 'admin/friends/activities/list', locals: {friend: friend}}
@@ -83,7 +81,7 @@ class Admin::ActivitiesController < AdminController
       redirect_to admin_activities_path
     else
       respond_to do |format|
-        format.js { render :file => 'admin/activities/item', locals: {activity: activity}}
+        format.js { render :file => 'admin/friends/activities/list', locals: {friend: friend}}
       end
     end
   end
