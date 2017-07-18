@@ -1,13 +1,10 @@
 class Admin::FriendsController < AdminController
   def index
-    if params[:query].present?
-      query = '%' + params[:query].downcase + '%'
-      @friends = Friend.where('lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR a_number LIKE ?', query, query, query)
-                    .order('created_at desc')
-                    .paginate(:page => params[:page])
-    else
-      @friends = Friend.all.order('created_at desc').paginate(:page => params[:page])
-    end
+    @friends = if params[:query].present?
+                 search.perform
+               else
+                 Friend.all.order('created_at desc').paginate(:page => params[:page])
+               end
   end
 
   def new
@@ -53,6 +50,11 @@ class Admin::FriendsController < AdminController
   end
 
   private
+
+  def search 
+    Search.new("friend", params[:query], params[:page])
+  end
+
   def friend_params
     params.require(:friend).permit(
       :first_name,
