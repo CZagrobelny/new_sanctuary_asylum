@@ -55,14 +55,13 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature do
   end
 
   describe 'canceling an RSVP for an accompaniment' do
-    let!(:activity) { create :activity }
-    let!(:accompaniement) { create(:accompaniement, activity: activity, user: volunteer) }
+    let!(:accompaniement) { create(:accompaniement, activity: current_week_activity, user: volunteer) }
     before do
       visit activities_path
-      within "#activity_#{activity.id}" do
+      within "#activity_#{current_week_activity.id}" do
         click_button 'Edit RSVP'
       end
-      within "#activity_#{activity.id}_accompaniement_modal" do
+      within "#activity_#{current_week_activity.id}_accompaniement_modal" do
         select 'No', from: 'Attending'
         click_button 'Confirm'
       end
@@ -74,12 +73,12 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature do
       end
     end 
     it 'does not list my first name as a "Volunteer" for the activity' do
-      within "#activity_#{activity.id}" do
+      within "#activity_#{current_week_activity.id}" do
         expect(page).to_not have_content(volunteer.first_name)
       end
     end
     it 'displays a button to "Attend" for the activity' do
-      within "#activity_#{activity.id}" do
+      within "#activity_#{current_week_activity.id}" do
         expect(page).to have_content('Attend')
       end
     end
