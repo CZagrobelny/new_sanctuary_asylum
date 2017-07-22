@@ -17,7 +17,12 @@ Rails.application.routes.draw do
 
   namespace :admin do
   	resources :users
-    resources :activities
+    resources :activities, except: [:destroy] do
+      collection do
+        get :current_month
+        get :last_month
+      end
+    end
     resources :friends do
       resources :activities, controller: 'friends/activities'
     end

@@ -1,8 +1,7 @@
-<div class='row' style='margin-left:5px;'>
+<div id="activity_<%=activity.id%>" class='row' style='margin-left:5px;'>
   <strong>
-    <%= link_to "#{activity.event.humanize} for #{friend.name}", edit_admin_friend_activity_path(friend, activity), remote: true, class: 'open_activity_modal' %>
-    <%= activity.occur_at.strftime("-- %I:%M %p, %A, %B %-d, %Y") %>
-    <%= link_to 'Remove', admin_friend_activity_path(friend, activity), method: :delete, :remote => true, class: 'delete' %>
+    <%= link_to "#{activity.event.humanize} for #{friend.name}", edit_admin_activity_path(activity) %>
+    <%= activity.occur_at.strftime("-- %I:%M %p") %>
   </strong><br>
   <% if activity.friend.phone.present? %>
     <strong>Friend Phone Number:  </strong><%= activity.friend.phone %><br>

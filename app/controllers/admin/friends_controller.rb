@@ -12,13 +12,13 @@ class Admin::FriendsController < AdminController
   end
 
   def edit
-    @friend ||= Friend.find(params[:id])
+    @friend = friend
     @current_tab = current_tab
   end
 
   def create
     @friend = Friend.new(friend_params)
-    if @friend.save
+    if friend.save
       flash[:success] = 'Friend record saved.'
       redirect_to edit_admin_friend_path(@friend)
     else
@@ -27,18 +27,28 @@ class Admin::FriendsController < AdminController
     end
   end
 
+  def update
+    if friend.update(friend_params)
+      flash[:success] = 'Friend record saved.'
+      redirect_to edit_admin_friend_path(@friend, tab: current_tab)
+    else
+      flash.now[:error] = 'Friend record not saved.'
+      render :edit
+    end
+  end
+
   def destroy
-    @friend = Friend.find(params[:id])
-    if @friend.destroy
+    if friend.destroy
       flash[:success] = 'Friend record destroyed.'
+      redirect_to admin_friends_path
+    else
+      flash[:success] = 'Friend record not destroyed.'
       redirect_to admin_friends_path
     end
   end
 
-  def update
-    @friend = Friend.find(params[:id])
-    @friend.update(friend_params)
-    redirect_to edit_admin_friend_path(@friend, tab: current_tab)
+  def friend
+    @friend ||= Friend.find(params[:id])
   end
 
   def current_tab
