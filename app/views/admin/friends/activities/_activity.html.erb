@@ -1,0 +1,21 @@
+<div class='row' style='margin-left:5px;'>
+  <strong>
+    <%= link_to "#{activity.event.humanize}", edit_admin_friend_activity_path(friend, activity), remote: true, class: 'open_activity_modal' %>
+    <%= activity.occur_at.strftime("-- %I:%M %p, %A, %B %-d, %Y") %>
+    <%= link_to 'Remove', admin_friend_activity_path(friend, activity), method: :delete, :remote => true, class: 'delete' %>
+  </strong><br>
+  <% if activity.location.present? %>
+    <strong>Location:  </strong><%= activity.location.name %><br>
+  <% end %>
+  <% if activity.judge.present? %>
+    <strong>Judge:  </strong><%= activity.judge.name %><br>
+  <% end %>
+  <% if activity.notes.present? %>
+    <strong>Notes:  </strong><%= activity.notes %><br>
+  <% end %> 
+  <% if activity.volunteers.present? %>
+    <strong>Volunteers:  </strong><br>
+    <%= full_volunteer_details(activity) %>
+  <% end %>
+</div>
+<br>
