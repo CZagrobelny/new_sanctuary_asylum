@@ -1,0 +1,23 @@
+<div id="activity_<%=activity.id%>" class='row' style='margin-left:5px;'>
+  <strong>
+    <%= link_to "#{activity.event.humanize} for #{friend.name}", edit_admin_activity_path(activity) %>
+    <%= activity.occur_at.strftime("-- %I:%M %p") %>
+  </strong><br>
+  <% if activity.friend.phone.present? %>
+    <strong>Friend Phone Number:  </strong><%= activity.friend.phone %><br>
+  <% end %>
+  <% if activity.location.present? %>
+    <strong>Location:  </strong><%= activity.location.name %><br>
+  <% end %>
+  <% if activity.judge.present? %>
+    <strong>Judge:  </strong><%= activity.judge.name %><br>
+  <% end %>
+  <% if activity.notes.present? %>
+    <strong>Notes:  </strong><%= activity.notes %><br>
+  <% end %> 
+  <% if activity.volunteers.present? %>
+    <strong>Volunteers:  </strong><br>
+    <%= full_volunteer_details(activity) %>
+  <% end %>
+</div>
+<br>

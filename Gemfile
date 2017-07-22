@@ -19,6 +19,8 @@ gem 'devise',           '~> 4.2'
 gem 'devise_invitable', '~> 1.7.0'
 gem 'chosen-rails'
 gem 'phantomjs'
+gem 'textacular', '~> 5.0'
+gem 'sendgrid-ruby'
 
 group :assets do
   gem 'sprockets', '~> 3.5.0'

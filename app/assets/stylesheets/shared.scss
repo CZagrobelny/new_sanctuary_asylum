@@ -1,3 +1,6 @@
-.container {
-  margin-bottom: 40px;
+.container-fluid {
+  @media (min-width: 768px) { 
+    margin-right: 6em;
+    margin-left: 6em;
+  }
 }

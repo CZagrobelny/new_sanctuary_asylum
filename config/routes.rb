@@ -12,15 +12,24 @@ Rails.application.routes.draw do
   resources :friends, only: [:index, :show, :update] do
     resources :asylum_application_drafts
   end
+  resources :accompaniements
+  resources :activities, only: [:index]
 
   namespace :admin do
   	resources :users
+    resources :activities, except: [:destroy] do
+      collection do
+        get :current_month
+        get :last_month
+      end
+    end
     resources :friends do
-      resources :activities
+      resources :activities, controller: 'friends/activities'
     end
     resources :family_members do
       delete :destroy_spousal_relationship
       delete :destroy_parent_child_relationship
     end
+    resources :activities, only: [:index]
   end
 end

@@ -8,7 +8,7 @@
       <div class='modal-body'>
         <% family_member_constructor ||= FamilyMemberConstructor.new(friend_id: @friend.id) %>
         <div id='family-member-form'>
-          <%= render partial: 'admin/family_members/form', locals: {family_member_constructor: family_member_constructor} %>
+          <%= render partial: 'admin/friends/family_members/form', locals: {family_member_constructor: family_member_constructor} %>
         </div>
       </div>
     </div>

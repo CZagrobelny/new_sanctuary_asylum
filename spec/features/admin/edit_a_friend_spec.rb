@@ -54,7 +54,9 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
 
     describe 'adding a new activity' do
       before do
-        click_link 'Activities'
+        within '.nav-tabs' do
+          click_link 'Activities'
+        end
         click_link 'Add Activity'
       end
 

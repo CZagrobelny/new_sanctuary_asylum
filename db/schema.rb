@@ -15,6 +15,12 @@ ActiveRecord::Schema.define(version: 20170722183426) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "accompaniements", force: :cascade do |t|
+    t.integer "activity_id"
+    t.integer "user_id"
+    t.text    "availability_notes"
+  end
+
   create_table "activities", force: :cascade do |t|
     t.integer  "event"
     t.integer  "location_id"

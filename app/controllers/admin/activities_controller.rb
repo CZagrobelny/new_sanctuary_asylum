@@ -1,57 +1,44 @@
 class Admin::ActivitiesController < AdminController
 
-  def new
-    activity = friend.activities.new
-    respond_to do |format|
-      format.js { render :file => 'admin/activities/modal', locals: {friend: friend, activity: activity}}
-    end
+  def index
+     @activities = Activity.current_month
   end
 
-  def create
-    activity = friend.activities.build(activity_params)
-    if activity.save
-      respond_to do |format|
-        format.js { render :file => 'admin/activities/list', locals: {friend: friend}}
-      end
-    else
-      respond_to do |format|
-        format.js { render :file => 'admin/activities/modal', locals: {friend: friend, activity: activity}}
-      end
-    end
+  def last_month
+    @activities = Activity.last_month
+  end
+
+  def new
+    @activity = Activity.new
   end
 
   def edit
-    respond_to do |format|
-      format.js { render :file => 'admin/activities/modal', locals: {friend: friend, activity: activity}}
+    @activity = activity
+  end
+
+  def create
+    @activity = Activity.new(activity_params)
+    if activity.save
+      flash[:success] = 'Activity saved.'
+      redirect_to admin_activities_path
+    else
+      flash.now[:error] = 'Activity not saved.'
+      render :new
     end
   end
 
   def update
     if activity.update(activity_params)
-      respond_to do |format|
-        format.js { render :file => 'admin/activities/list', locals: {friend: friend}}
-      end
+      flash[:success] = 'Activity saved.'
+      redirect_to admin_activities_path
     else
-      respond_to do |format|
-        format.js { render :file => 'admin/activities/modal', locals: {friend: friend, activity: activity}}
-      end
+      flash.now[:error] = 'Activity not saved.'
+      render :edit
     end
   end
 
   def activity
     @activity ||= Activity.find(params[:id]) 
-  end
-
-  def friend
-    @friend ||= Friend.find(params[:friend_id])
-  end
-
-  def destroy
-    if activity.destroy
-      respond_to do |format|
-        format.js { render :file => 'admin/activities/list', locals: {friend: friend}}
-      end
-    end
   end
 
   private

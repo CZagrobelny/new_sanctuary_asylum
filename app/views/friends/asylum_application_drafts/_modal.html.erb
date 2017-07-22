@@ -8,7 +8,7 @@
       <div class='modal-body'>
         <% asylum_application_draft ||= AsylumApplicationDraft.new(friend_id: @friend.id) %>
         <div id='asylum-application-draft-form'>
-          <%= render partial: 'asylum_application_drafts/form', locals: {asylum_application_draft: asylum_application_draft} %>
+          <%= render partial: 'friends/asylum_application_drafts/form', locals: {asylum_application_draft: asylum_application_draft} %>
         </div>
       </div>
     </div>

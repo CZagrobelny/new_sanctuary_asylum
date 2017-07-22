@@ -1,3 +1,7 @@
+<% if friend.asylum_application_drafts.present? %>
+  <h4>Asylum Application Drafts</h4>
+<% end %>
+
 <% friend.asylum_application_drafts.order('created_at desc').each do |draft| %>
   <div>
     <p>

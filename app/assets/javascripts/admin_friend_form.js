@@ -17,13 +17,13 @@ $(document).on('turbolinks:load', function () {
       $('#friend_a_number').val('');
     }
   });
-  
-  $('.chzn-select').chosen().change(function(){
-    $('#friend_user_ids').submit();
-  });
 
   $('#add_family_member_modal').on('shown.bs.modal', function(){
     $('#new_family_member_constructor')[0].reset();
+  });
+
+  $('.open_activity_modal').click(function() {
+    $('#activity_modal').modal('show');
   });
 });
 
