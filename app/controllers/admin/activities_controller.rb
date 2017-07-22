@@ -1,31 +1,44 @@
 class Admin::ActivitiesController < AdminController
 
   def index
-    @current_month_activities = Activity.current_month
-    @last_month_activities = Activity.last_month
+     @activities = Activity.current_month
+  end
+
+  def last_month
+    @activities = Activity.last_month
   end
 
   def new
-    
-  end
-
-  def create
-    
+    @activity = Activity.new
   end
 
   def edit
-    
+    @activity = activity
+  end
+
+  def create
+    @activity = Activity.new(activity_params)
+    if activity.save
+      flash[:success] = 'Activity saved.'
+      redirect_to admin_activities_path
+    else
+      flash.now[:error] = 'Activity not saved.'
+      render :new
+    end
   end
 
   def update
-    
+    if activity.update(activity_params)
+      flash[:success] = 'Activity saved.'
+      redirect_to admin_activities_path
+    else
+      flash.now[:error] = 'Activity not saved.'
+      render :edit
+    end
   end
 
   def activity
     @activity ||= Activity.find(params[:id]) 
-  end
-
-  def destroy
   end
 
   private
