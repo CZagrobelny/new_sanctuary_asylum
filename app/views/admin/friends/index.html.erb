@@ -35,7 +35,7 @@
           <td><%= friend.created_at.strftime('%m/%d/%y') %></td>
           <td>
             <div class='btn-group'>
-              <button type='button' class='btn btn-default'><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_friend_path(friend), id: "edit-friend-#{friend.id}" %></button>
+              <%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_friend_path(friend), id: "edit-friend-#{friend.id}", class: 'btn btn-default' %>
               <button type='button' class='btn dropdown-toggle btn-default' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                 <span class='caret'></span>
               </button>
