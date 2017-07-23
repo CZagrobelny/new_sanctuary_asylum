@@ -6,12 +6,22 @@
 	<!-- search box? -->
     </div>
 </div>
+
+
+<script>
+ var submitDeleteForm = function (element)  {
+   if (confirm('Are you sure?')) {
+     $(element).parents('form').submit();
+   }
+ }
+</script>
+
 <% if @judges.present? %>
     <table class='table table-bordered'>
 	<thead>
 	    <tr>
 		<th>First Name</th>
-		<th>last Name</th>
+		<th>Last Name</th>
 		<th style="max-width: 25px;">Remove</th>
 	    </tr>
 	</thead>
@@ -20,7 +30,11 @@
 		<tr>
 		    <td><%= judge.first_name %></td>
 		    <td><%= judge.last_name %></td>
-		    <td><%= fa_icon 'times' %></td>
+		    <td>
+			<%= form_for [:admin, judge], method: :delete do |f| %>
+			    <%= fa_icon 'times', :onclick => "submitDeleteForm(this)" %>
+			<% end %>
+		    </td>
 		</tr>
 	    <% end %>
 	</tbody>
