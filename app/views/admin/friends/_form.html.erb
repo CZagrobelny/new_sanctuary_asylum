@@ -56,7 +56,9 @@
 <% end %>
 
 <%= render partial: 'admin/friends/activities/modal', locals: { activity: Activity.new(friend_id: @friend.id) } %>
-<%= render partial: 'admin/friends/family_members/modal', locals: { friend: @friend } %>
+
+<%= render partial: 'admin/friends/family_members/modal', locals: { family_member_constructor: FamilyMemberConstructor.new, friend: @friend } %>
+
 <%= render partial: 'friends/asylum_application_drafts/modal', locals: { friend: @friend } %>
 
 <script>

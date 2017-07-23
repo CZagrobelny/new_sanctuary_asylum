@@ -19,17 +19,12 @@ Rails.application.routes.draw do
   	resources :users
     resources :activities, except: [:destroy] do
       collection do
-        get :current_month
         get :last_month
       end
     end
     resources :friends do
       resources :activities, controller: 'friends/activities'
+      resources :family_members
     end
-    resources :family_members do
-      delete :destroy_spousal_relationship
-      delete :destroy_parent_child_relationship
-    end
-    resources :activities, only: [:index]
   end
 end

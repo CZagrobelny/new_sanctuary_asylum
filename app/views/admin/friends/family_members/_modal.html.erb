@@ -6,9 +6,8 @@
         <h4 class='modal-title'>Add a Family Member</h4>
       </div>
       <div class='modal-body'>
-        <% family_member_constructor ||= FamilyMemberConstructor.new(friend_id: @friend.id) %>
         <div id='family-member-form'>
-          <%= render partial: 'admin/friends/family_members/form', locals: {family_member_constructor: family_member_constructor} %>
+          <%= render partial: 'admin/friends/family_members/form', locals: {friend: friend, family_member_constructor: family_member_constructor} %>
         </div>
       </div>
     </div>

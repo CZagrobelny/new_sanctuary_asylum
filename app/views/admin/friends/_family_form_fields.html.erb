@@ -5,4 +5,4 @@
 </div>
 
 </br>
-<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#add_family_member_modal'>Add Family Member</button>
+<%= link_to 'Add Family Member', new_admin_friend_family_member_path(@friend), remote: true, class: 'btn btn-primary', data: {toggle: 'modal', target: '#add_family_member_modal'} %>
