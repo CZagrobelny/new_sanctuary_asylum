@@ -7,6 +7,7 @@
     <div class='row form-group'>
       <%= f.label :pdf_draft, 'File Upload', class: 'col-md-12 control-label required' %>
       <div class='col-md-12'>
+        <div id='current-file'><%= "Current File: #{asylum_application_draft.pdf_draft.file.filename}" if asylum_application_draft.pdf_draft.file.present? %></div>
         <%= f.file_field :pdf_draft, class: 'form-control' %>
       </div>
     </div>
@@ -36,5 +37,8 @@
 <script>
   $(document).ready(function () {
     activateChosen();
+    $('#asylum_application_draft_pdf_draft').change(function() {
+      $('#current-file').hide();
+    });
   });
 </script>

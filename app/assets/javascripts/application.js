@@ -15,6 +15,6 @@
 //= require turbolinks
 //= require chosen-jquery
 //= require bootstrap
-//= require_tree .
 //= require jquery.remotipart
+//= require_tree .
 
