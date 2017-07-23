@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Volunteer signing up for accompaniments', type: :feature do
   let!(:volunteer) { create(:user, :volunteer) }
-  let!(:current_week_activity) { create(:activity, occur_at: Time.now ) }
+  let!(:current_week_activity) { create(:activity, occur_at: Date.today.end_of_week - 3.days ) }
   let!(:next_week_activity) { create(:activity, occur_at: 1.week.from_now ) }
   let!(:activity_outside_date_range) { create(:activity, occur_at: 2.weeks.from_now) }
   before { login_as(volunteer) }

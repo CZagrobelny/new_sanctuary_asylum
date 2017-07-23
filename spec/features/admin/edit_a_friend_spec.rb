@@ -25,7 +25,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
     describe 'adding a new family relationship' do
       before do
         click_link 'Family'
-        click_button 'Add Family Member'
+        click_link 'Add Family Member'
       end
 
       describe 'with valid information' do

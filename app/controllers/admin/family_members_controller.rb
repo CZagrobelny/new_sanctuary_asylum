@@ -30,11 +30,11 @@ class Admin::FamilyMembersController < AdminController
   end
 
   def family_member
-    case family_member_destroy_params[:type]
+    case params[:type]
     when 'spousal'
-      SpousalRelationship.find(family_member_destroy_params[:family_member_id])
+      SpousalRelationship.find(params[:id])
     when 'parent_child'
-      ParentChildRelationship.find(family_member_destroy_params[:family_member_id])
+      ParentChildRelationship.find(params[:id])
     end
   end
 
@@ -42,13 +42,6 @@ class Admin::FamilyMembersController < AdminController
     params.require(:family_member_constructor).permit(
       :relationship,
       :relation_id
-    )
-  end
-
-  def family_member_destroy_params
-    params.permit(
-      :family_member_id,
-      :type
     )
   end
 
