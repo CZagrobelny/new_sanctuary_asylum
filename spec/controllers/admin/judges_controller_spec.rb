@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Admin::JudgesController, type: :controller do
   it { should route(:get, '/admin/judges').to(action: :index) }
+  it { should route(:get, '/admin/judges/new').to(action: :new) }
+  it { should route(:post, '/admin/judges').to(action: :create) }
   it { should route(:delete, '/admin/judges/123').to(action: :destroy, id: '123') }
 
   describe 'requests' do
@@ -23,6 +25,51 @@ RSpec.describe Admin::JudgesController, type: :controller do
       it 'assigns @judges' do
         expect(controller.instance_variable_get('@judges').length).to eq 2
       end
+    end
+
+    describe 'GET /admin/judges/new' do
+      before { get :new } 
+      it { should respond_with(:success) }
+    end
+
+    describe 'POST /admin/judges' do
+      context 'valid parmas' do
+        let(:params) { { judge: {first_name: 'first', last_name: 'last' } } }
+
+        it 'creates a new judge' do
+          expect {
+            post :create, params: params
+          }.to change { Judge.count }.by(1)
+        end
+        
+        it 'redirects to admin_judges_path' do
+          post :create, params: params
+          expect(response).to have_http_status 302
+          expect(response.location).to include '/admin/judges'  
+        end
+      end
+
+      context 'missing first name' do
+        let(:params) { { judge: {last_name: 'last' } } }
+        
+        it 'does not create a new judge' do
+          expect {
+            post :create, params: params
+          }.not_to change { Judge.count }
+        end
+
+        it 'renders "new" ' do
+          post :create, params: params
+          expect(response).to render_template(:new)
+        end
+
+        it 'sets flash' do
+          post :create, params: params
+          expect(flash[:error]).to eq "Something went wrong :("
+        end
+
+      end
+
     end
 
     describe 'DELETE /admin/judges/id' do

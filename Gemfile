@@ -39,6 +39,7 @@ group :development, :test do
   gem 'capybara', '~> 2.10.1', require: false
   gem 'poltergeist', '~> 1.11.0', require: false
   gem 'database_cleaner', '~> 1.5.3', require: false
+  gem 'rails-controller-testing'
   gem 'launchy', require: false
   gem 'pry'
 end
