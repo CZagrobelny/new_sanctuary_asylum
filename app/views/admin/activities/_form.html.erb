@@ -37,7 +37,7 @@
       <div class='col-md-6 col-xs-12'>
         <%= f.date_select :occur_at, { start_year: Date.current.year, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
         <%= f.time_select :occur_at, { ignore_date: true, prompt: true, minute_step: 15 }, {class: 'form-control inline-date-select'} %>
-        <span>Eastern Time
+        <span>ET
       </div>
     </div>
 

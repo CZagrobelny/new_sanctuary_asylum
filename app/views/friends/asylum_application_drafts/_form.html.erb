@@ -5,9 +5,9 @@
   <div class='form-inputs'>
     
     <div class='row form-group'>
-      <%= f.label :pdf_draft, 'Pdf File', class: 'col-md-12 control-label' %>
+      <%= f.label :pdf_draft, 'File Upload', class: 'col-md-12 control-label required' %>
       <div class='col-md-12'>
-        <%= f.file_field :pdf_draft %>
+        <%= f.file_field :pdf_draft, class: 'form-control' %>
       </div>
     </div>
 
