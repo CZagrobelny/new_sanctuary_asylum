@@ -25,3 +25,13 @@ Judge.create(first_name: 'Ruth', last_name: 'Bader Ginsburg')
 Judge.create(first_name: 'Sonia', last_name: 'Sotomayor')
 Judge.create(first_name: 'Elena', last_name: 'Kagan')
 
+#Events
+Event.create(location: Location.first, 
+             event_catagory: 'asylum_workshop', 
+             date: Time.now + 3.days, 
+             title: 'Popular Asylum Workshop') 
+
+Event.create(location: Location.first, 
+             event_catagory: 'accompaniment_training', 
+             date: Time.now + 2.days, 
+             title: 'Trainging for Everyone') 
