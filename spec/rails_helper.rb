@@ -59,6 +59,8 @@ RSpec.configure do |config|
   ##Helper to select from chosen js dropdowns
   config.include Select, type: :feature
 
+  config.include Devise::Test::ControllerHelpers, type: :controller
+
   config.before(:each) do
     Rails.application.routes.default_url_options[:host] = 'test.host'
   end

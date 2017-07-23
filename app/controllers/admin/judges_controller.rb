@@ -1,6 +1,7 @@
-class Admin::JudgesController < ApplicationController
+class Admin::JudgesController < AdminController
 
   def index
+    @judges = Judge.order('created_at desc').paginate(:page => params[:page])
   end
 
   def new
