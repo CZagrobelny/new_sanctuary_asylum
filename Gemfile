@@ -20,7 +20,8 @@ gem 'devise_invitable', '~> 1.7.0'
 gem 'chosen-rails'
 gem 'phantomjs'
 gem 'textacular', '~> 5.0'
-gem 'sendgrid-ruby'
+gem 'carrierwave', '~> 1.0'
+gem 'remotipart', '~> 1.2'
 
 group :assets do
   gem 'sprockets', '~> 3.5.0'
@@ -45,6 +46,7 @@ end
 
 group :production do
   gem 'rails_12factor'
+  gem 'sendgrid-ruby'
 end
 
 group :development do

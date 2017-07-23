@@ -58,6 +58,7 @@ class AsylumApplicationDraftsController < ApplicationController
   def asylum_application_draft_params
     params.require(:asylum_application_draft).permit( 
       :notes,
+      :pdf_draft,
       :user_ids => []
     )
   end
