@@ -1,0 +1,16 @@
+production:
+
+development:
+  user: postgres
+  password: password
+  adapter: postgresql
+  database: new_sanctuary_asylum_development
+  host: localhost
+  pool: 30
+
+test: &test
+  user: postgres
+  password: password
+  adapter: postgresql
+  database: new_sanctuary_asylum_test
+  host: localhost
