@@ -26,5 +26,7 @@ Rails.application.routes.draw do
       resources :activities, controller: 'friends/activities'
       resources :family_members
     end
+
+    resources :judges, except: [:show, :edit]
   end
 end
