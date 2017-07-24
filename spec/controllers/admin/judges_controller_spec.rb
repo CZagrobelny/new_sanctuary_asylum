@@ -32,6 +32,30 @@ RSpec.describe Admin::JudgesController, type: :controller do
       it { should respond_with(:success) }
     end
 
+    describe 'GET /admin/judges/:id/edit' do
+      before do
+        @judge = create(:judge)
+        get :edit, params: { id: @judge.id }
+      end
+
+      it { should respond_with(:success) }
+      it { should render_template(:edit) }
+    end
+
+    describe 'POST /admin/judges/1' do
+      before do
+        @judge = create(:judge)
+        post :update, params: { id: @judge.id, judge: { first_name: @judge.first_name, last_name: FFaker::Name.last_name } } 
+      end
+
+      it 'can change the last name' do
+        expect(Judge.find(@judge.id).last_name).not_to eq @judge.last_name
+      end
+
+      it { should redirect_to(admin_judges_path) }
+
+    end
+
     describe 'POST /admin/judges' do
       context 'valid parmas' do
         let(:params) { { judge: {first_name: 'first', last_name: 'last' } } }

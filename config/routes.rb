@@ -27,6 +27,6 @@ Rails.application.routes.draw do
       resources :family_members
     end
 
-    resources :judges, except: [:show, :edit]
+    resources :judges, except: [:show]
   end
 end

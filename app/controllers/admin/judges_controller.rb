@@ -1,5 +1,5 @@
 class Admin::JudgesController < AdminController
-  before_action :set_judge, only: [:destroy]
+  before_action :set_judge, only: [:edit, :destroy, :update]
 
   def index
     @judges = Judge.order('created_at desc').paginate(:page => params[:page])
@@ -7,6 +7,9 @@ class Admin::JudgesController < AdminController
 
   def new
     @judge = Judge.new
+  end
+
+  def edit
   end
 
   def create
@@ -21,6 +24,8 @@ class Admin::JudgesController < AdminController
   end
 
   def update
+    @judge.update(judge_params)
+    redirect_to admin_judges_path
   end
 
   def destroy
