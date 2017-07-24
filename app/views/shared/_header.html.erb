@@ -24,6 +24,9 @@
           <ul class='dropdown-menu'>
             <li><%= link_to 'Log Out', destroy_user_session_path, :method => :delete %></li>
             <li><%= link_to 'Edit My Info', edit_user_path(current_user) %></li>
+	    <% if current_user.admin? %>
+		<li><%= link_to 'Judges', admin_judges_path %></li>
+	    <% end %>
           </ul>
         </li>
       <% else %>
