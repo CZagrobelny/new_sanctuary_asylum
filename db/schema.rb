@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170722183426) do
+ActiveRecord::Schema.define(version: 20170724025434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20170722183426) do
     t.integer  "friend_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "pdf_draft"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -85,9 +86,9 @@ ActiveRecord::Schema.define(version: 20170722183426) do
     t.date     "date_eligible_to_apply_for_work_authorization"
     t.date     "date_work_authorization_submitted"
     t.text     "work_authorization_notes"
-    t.integer  "sidj_status"
-    t.date     "date_sidj_submitted"
-    t.text     "sidj_notes"
+    t.integer  "sijs_status"
+    t.date     "date_sijs_submitted"
+    t.text     "sijs_notes"
     t.text     "asylum_notes"
     t.integer  "country_id"
     t.integer  "lawyer_referred_to"
