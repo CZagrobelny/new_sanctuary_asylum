@@ -37,8 +37,6 @@ To run initial migrations and seed the DB:
 
 ```
 rake db:setup
-rake populate_countries
-rake populate_languages
 ```
 
 ## Environment Variables
