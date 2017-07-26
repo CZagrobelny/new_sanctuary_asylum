@@ -33,7 +33,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5.0', require: false
   gem 'rspec-given', '~> 3.8.0', require: false
   gem 'factory_girl_rails', '~> 4.6.0', require: false
-  gem 'ffaker', '~> 2.2.0', require: false
+  gem 'ffaker', require: false
   gem 'shoulda-matchers', '~> 3.1.1', require: false
   gem 'webmock', '~> 2.1.0', require: false
   gem 'capybara', '~> 2.10.1', require: false
