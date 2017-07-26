@@ -22,6 +22,7 @@ gem 'phantomjs'
 gem 'textacular', '~> 5.0'
 gem 'carrierwave', '~> 1.0'
 gem 'remotipart', '~> 1.2'
+gem 'carrierwave-aws'
 
 group :assets do
   gem 'sprockets', '~> 3.5.0'
@@ -42,6 +43,7 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.5.3', require: false
   gem 'launchy', require: false
   gem 'pry'
+  gem 'dotenv-rails'
 end
 
 group :production do
