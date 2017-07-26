@@ -59,13 +59,6 @@ CircleCI is set up for the app, I think you might have access to the builds, sin
 rails server
 ```
 
-Login as an admin with:
-
-* username: admin@example.com
-* password: password
-
-Find other example users in `db/seeds.rb`
-
 ## What are we building?
 
 Software to support the core work of the New Sanctuary Coalition: helping our friends fill out applications for asylum and accompanying them to their hearings and check-ins.
@@ -80,6 +73,10 @@ Software to support the core work of the New Sanctuary Coalition: helping our fr
 - Can share friend records with specific users (In the 'Asylum' tab when editing a friend, the 'Volunteers with Access' field)
 - Can view detailed information about friend activities in the current month and last month
 
+Login as an Admin with:
+* username: admin@example.com
+* password: password
+
 #### Volunteer Role (has limited access)
 - Can receive an invitation (emailed) and follow the link to create a volunteer account
 - Can view limited details about friend activities (ie. accompaniements) this week and next week
@@ -88,6 +85,9 @@ Software to support the core work of the New Sanctuary Coalition: helping our fr
 - Can add other users to friend records that have been shared with them
 - Can create, edit, and remove asylum application drafts
 
+Login as an Volunteeer with:
+* username: volunteer@example.com
+* password: password
 
 ## How are we building it?
 
