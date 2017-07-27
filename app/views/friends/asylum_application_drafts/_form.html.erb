@@ -5,8 +5,8 @@
   <div class='form-inputs'>
     
     <div class='row form-group'>
-      <%= f.label :pdf_draft, 'File Upload', class: 'col-md-12 control-label required' %>
       <div class='col-md-12'>
+        <%= f.label :pdf_draft, 'File Upload', class: 'control-label required', style: 'padding-right: 20px;' %>
         <%= button_to 'Browse', '#', class: 'btn btn-primary', id: 'browse' %>
         <span id='current-file'><%= asylum_application_draft.pdf_draft.file.filename if asylum_application_draft.pdf_draft.file.present? %></span>
         <%= f.file_field :pdf_draft, class: 'form-control', style: 'display:none;' %>
