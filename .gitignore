@@ -27,3 +27,7 @@
 
 # Ignore Emacs stuff
 *~
+
+.env
+
+
