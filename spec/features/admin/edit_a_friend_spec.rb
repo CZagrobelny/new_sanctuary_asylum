@@ -97,6 +97,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
 
       describe 'with valid information' do
         it 'displays the new asylum application draft' do
+          debugger
           volunteer = User.last
           within '#add_asylum_application_draft_modal' do
             select_from_chosen(volunteer.name, from: {id: 'asylum_application_draft_user_ids'})
