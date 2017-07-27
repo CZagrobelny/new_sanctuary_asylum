@@ -37,8 +37,6 @@ To run initial migrations and seed the DB:
 
 ```
 rake db:setup
-rake populate_countries
-rake populate_languages
 ```
 
 ## Environment Variables
@@ -61,21 +59,35 @@ CircleCI is set up for the app, I think you might have access to the builds, sin
 rails server
 ```
 
-Login as an admin with:
-
-* username: admin@example.com
-* password: password
-
-Find other example users in `db/seeds.rb`
-
 ## What are we building?
 
 Software to support the core work of the New Sanctuary Coalition: helping our friends fill out applications for asylum and accompanying them to their hearings and check-ins.
 
 ### User Roles
-- Admin (has access to everything)
-- Volunteer (has limited access)
 
+#### Admin Role (has access to everything)
+- Can view friends, create new friend records, edit friend records, and delete friend records
+- Can view users, invite users, edit users, and delete users
+- Can create activities for a friend (and can edit them)
+- Can create, edit, and remove asylum application drafts for a friend
+- Can share friend records with specific users (In the 'Asylum' tab when editing a friend, the 'Volunteers with Access' field)
+- Can view detailed information about friend activities in the current month and last month
+
+Login as an Admin with:
+* username: admin@example.com
+* password: password
+
+#### Volunteer Role (has limited access)
+- Can receive an invitation (emailed) and follow the link to create a volunteer account
+- Can view limited details about friend activities (ie. accompaniements) this week and next week
+- Can RSVP to attend a friend activity (ie. accompaniement) and can edit their RSVP
+- Can view friend records that have been shared with them
+- Can add other users to friend records that have been shared with them
+- Can create, edit, and remove asylum application drafts
+
+Login as an Volunteeer with:
+* username: volunteer@example.com
+* password: password
 
 ## How are we building it?
 
