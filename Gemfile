@@ -23,6 +23,7 @@ gem 'textacular', '~> 5.0'
 gem 'carrierwave', '~> 1.0'
 gem 'remotipart', '~> 1.2'
 gem 'carrierwave-aws'
+gem 'ffaker', require: false
 
 group :assets do
   gem 'sprockets', '~> 3.5.0'
@@ -35,7 +36,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5.0', require: false
   gem 'rspec-given', '~> 3.8.0', require: false
   gem 'factory_girl_rails', '~> 4.6.0', require: false
-  gem 'ffaker', require: false
   gem 'shoulda-matchers', '~> 3.1.1', require: false
   gem 'webmock', '~> 2.1.0', require: false
   gem 'capybara', '~> 2.10.1', require: false
