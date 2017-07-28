@@ -55,26 +55,26 @@
   </div>
 </div>
 
-<h4>SIDJ</h4>
+<h4>SIJS</h4>
 
 <div class='row form-group'>
-  <%= f.label :sidj_status, 'Status', class: 'col-md-2 control-label' %>
+  <%= f.label :sijs_status, 'Status', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= f.select :sidj_status, options_for_select(Friend.sidj_statuses.map { |key, value| [key.humanize, key] }, @friend.sidj_status), {include_blank: true}, {class: 'form-control'} %>
+    <%= f.select :sijs_status, options_for_select(Friend.sijs_statuses.map { |key, value| [key.humanize, key] }, @friend.sijs_status), {include_blank: true}, {class: 'form-control'} %>
   </div>
 </div>
 
 <div class='row form-group'>
-  <%= f.label :date_sidj_submitted, 'Date Submitted', class: 'col-md-2 control-label' %>
+  <%= f.label :date_sijs_submitted, 'Date Submitted', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= f.date_select :date_sidj_submitted, { start_year: Date.current.year, end_year: 5.years.ago.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+    <%= f.date_select :date_sijs_submitted, { start_year: Date.current.year, end_year: 5.years.ago.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
   </div>
 </div>
 
 <div class='row form-group'>
-  <%= f.label :sidj_notes, 'Notes', class: 'col-md-2 control-label' %>
+  <%= f.label :sijs_notes, 'Notes', class: 'col-md-2 control-label' %>
   <div class='col-md-10'>
-    <%= f.text_area :sidj_notes, class: 'form-control', style: 'height: 200px;' %>
+    <%= f.text_area :sijs_notes, class: 'form-control', style: 'height: 200px;' %>
   </div>
 </div>
 

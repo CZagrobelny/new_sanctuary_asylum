@@ -11,6 +11,9 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
+# Ignore files w/ secrets
+/config/database.yml
+
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep
@@ -21,3 +24,12 @@
 
 # Ignore Byebug History
 .byebug_history
+
+# Ignore Emacs stuff
+*~
+
+.env
+
+/public/uploads/*
+
+

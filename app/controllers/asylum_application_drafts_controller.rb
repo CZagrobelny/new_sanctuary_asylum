@@ -2,39 +2,33 @@ class AsylumApplicationDraftsController < ApplicationController
 
   def new
     @asylum_application_draft = friend.asylum_application_drafts.new
-    respond_to do |format|
-      format.js { render :file => 'friends/asylum_application_drafts/modal', locals: {friend: friend, asylum_application_draft: asylum_application_draft}}
-    end
+    render_modal
   end
 
   def create
     asylum_application_draft = friend.asylum_application_drafts.build(asylum_application_draft_params)
     if asylum_application_draft.save
-      respond_to do |format|
-        format.js { render :file => 'friends/asylum_application_drafts/list', locals: {friend: friend}}
-      end
+      render_success
     else
-      respond_to do |format|
-        format.js { render :file => 'friends/asylum_application_drafts/modal', locals: {friend: friend, asylum_application_draft: asylum_application_draft}}
-      end
+      render_modal
     end
   end
 
   def edit
-    respond_to do |format|
-      format.js { render :file => 'friends/asylum_application_drafts/modal', locals: {friend: friend, asylum_application_draft: asylum_application_draft}}
-    end
+    render_modal
   end
 
   def update
     if asylum_application_draft.update(asylum_application_draft_params)
-      respond_to do |format|
-        format.js { render :file => 'friends/asylum_application_drafts/list', locals: {friend: friend}}
-      end
+      render_success
     else
-      respond_to do |format|
-        format.js { render :file => 'friends/asylum_application_drafts/modal', locals: {friend: friend, asylum_application_draft: asylum_application_draft}}
-      end
+      render_modal
+    end
+  end
+
+  def destroy
+    if asylum_application_draft.destroy
+      render_success
     end
   end
 
@@ -46,11 +40,15 @@ class AsylumApplicationDraftsController < ApplicationController
     @friend ||= Friend.find(params[:friend_id])
   end
 
-  def destroy
-    if asylum_application_draft.destroy
-      respond_to do |format|
-        format.js { render :file => 'friends/asylum_application_drafts/list', locals: {friend: friend}}
-      end
+  def render_modal
+    respond_to do |format|
+      format.js { render :file => 'friends/asylum_application_drafts/modal', locals: {friend: friend, asylum_application_draft: asylum_application_draft}}
+    end
+  end
+
+  def render_success
+    respond_to do |format|
+      format.js { render :file => 'friends/asylum_application_drafts/list', locals: {friend: friend}}
     end
   end
 
@@ -58,6 +56,7 @@ class AsylumApplicationDraftsController < ApplicationController
   def asylum_application_draft_params
     params.require(:asylum_application_draft).permit( 
       :notes,
+      :pdf_draft,
       :user_ids => []
     )
   end

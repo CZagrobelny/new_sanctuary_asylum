@@ -5,6 +5,15 @@
   <div class='form-inputs'>
     
     <div class='row form-group'>
+      <div class='col-md-12'>
+        <%= f.label :pdf_draft, 'File Upload', class: 'control-label required', style: 'padding-right: 20px;' %>
+        <%= button_to 'Browse', '#', class: 'btn btn-primary', id: 'browse' %>
+        <span id='current-file'><%= asylum_application_draft.pdf_draft.file.filename if asylum_application_draft.pdf_draft.file.present? %></span>
+        <%= f.file_field :pdf_draft, class: 'form-control', style: 'display:none;' %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
       <%= f.label :users, 'Volunteers', class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
         <%= collection_select(:asylum_application_draft, :user_ids, User.all, :id, :name, {include_hidden: false}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
@@ -29,5 +38,13 @@
 <script>
   $(document).ready(function () {
     activateChosen();
+    $('#browse').click(function(e) {
+      e.preventDefault();
+      $('#asylum_application_draft_pdf_draft').click();
+    });
+    $('#asylum_application_draft_pdf_draft').change(function() {
+      var filename = $(this).val().match(/([^\\\][^&]|\\&)+/g).pop();
+      $('#current-file').html(filename);
+    });
   });
 </script>

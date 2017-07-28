@@ -20,7 +20,11 @@ gem 'devise_invitable', '~> 1.7.0'
 gem 'chosen-rails'
 gem 'phantomjs'
 gem 'textacular', '~> 5.0'
-gem 'sendgrid-ruby'
+gem 'carrierwave', '~> 1.0'
+gem 'remotipart', '~> 1.2'
+gem 'carrierwave-aws'
+gem 'ffaker', require: false
+gem 'non-stupid-digest-assets'
 
 group :assets do
   gem 'sprockets', '~> 3.5.0'
@@ -33,7 +37,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5.0', require: false
   gem 'rspec-given', '~> 3.8.0', require: false
   gem 'factory_girl_rails', '~> 4.6.0', require: false
-  gem 'ffaker', '~> 2.2.0', require: false
   gem 'shoulda-matchers', '~> 3.1.1', require: false
   gem 'webmock', '~> 2.1.0', require: false
   gem 'capybara', '~> 2.10.1', require: false
@@ -42,10 +45,12 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'launchy', require: false
   gem 'pry'
+  gem 'dotenv-rails'
 end
 
 group :production do
   gem 'rails_12factor'
+  gem 'sendgrid-ruby'
 end
 
 group :development do
