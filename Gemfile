@@ -24,6 +24,7 @@ gem 'carrierwave', '~> 1.0'
 gem 'remotipart', '~> 1.2'
 gem 'carrierwave-aws'
 gem 'ffaker', require: false
+gem 'non-stupid-digest-assets'
 
 group :assets do
   gem 'sprockets', '~> 3.5.0'
