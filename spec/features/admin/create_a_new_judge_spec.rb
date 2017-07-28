@@ -11,9 +11,9 @@ RSpec.describe 'Admin creates a new judge', type: :feature do
     judge_count = Judge.count
     visit new_admin_judge_path
 
-    fill_in 'First name', with: FFaker::Name.first_name
-    fill_in 'Last name', with: FFaker::Name.last_name
-    click_button 'Create Judge'
+    fill_in 'First Name', with: FFaker::Name.first_name
+    fill_in 'Last Name', with: FFaker::Name.last_name
+    click_button 'Save'
 
     expect(Judge.count).to eq (judge_count + 1)
     expect(current_path).to eq admin_judges_path
