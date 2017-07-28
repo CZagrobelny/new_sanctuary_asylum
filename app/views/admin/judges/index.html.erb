@@ -1,53 +1,45 @@
 <div class="row">
-    <div class="col-md-3">
-	<h1>Judges</h1>
-    </div>
-    <div class='col-md-4 col-md-offset-5'>
-	<!-- search box? -->
-    </div>
+  <%= link_to "Add a new judge", new_admin_judge_path, class: 'btn btn-primary pull-right' %>
+  </div>
+<div class="row">  
+  <h1>Judges</h1>
 </div>
-
+  
+<div class="row">
+  <div class="col-sm-12 col-md-10">
+    <% if @judges.present? %>
+      <table class='table table-bordered'>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th style="max-width: 25px;">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+          <% @judges.each do |judge| %>
+            <tr>
+              <td><%= link_to judge.name, edit_admin_judge_path(judge) %></td>
+              <td>
+                <%= form_for [:admin, judge], method: :delete do |f| %>
+                  <%= fa_icon 'times', :onclick => "submitDeleteForm(this)", :style => 'cursor: pointer;' %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      
+      <div class='pull-right'>
+        <%= will_paginate @judges %>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 <script>
- var submitDeleteForm = function (element)  {
-   if (confirm('Are you sure?')) {
-     $(element).parents('form').submit();
-   }
- }
+  var submitDeleteForm = function (element)  {
+    if (confirm('Are you sure?')) {
+      $(element).parents('form').submit();
+    }
+  }
 </script>
-
-<div class="row">
-    <div class="col-sm-12 col-md-10">
-	<% if @judges.present? %>
-	    <table class='table table-bordered'>
-		<thead>
-		    <tr>
-			<th>Name</th>
-			<th style="max-width: 25px;">Remove</th>
-		    </tr>
-		</thead>
-		<tbody>
-		    <% @judges.each do |judge| %>
-			<tr>
-			    <td><%= link_to judge.name, edit_admin_judge_path(judge) %></td>
-			    <td>
-				<%= form_for [:admin, judge], method: :delete do |f| %>
-				    <%= fa_icon 'times', :onclick => "submitDeleteForm(this)", :style => 'cursor: pointer;' %>
-				<% end %>
-			    </td>
-			</tr>
-		    <% end %>
-		</tbody>
-	    </table>
-	    <div class='pull-right'>
-		<%= will_paginate @judges %>
-	    </div>
-	<% end %>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-12 col-md-10">
-	<%= link_to "Add a new judge", new_admin_judge_path, class: 'btn btn-default' %>
-    </div>
-</div>
