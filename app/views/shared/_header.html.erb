@@ -25,7 +25,9 @@
             <li><%= link_to 'Log Out', destroy_user_session_path, :method => :delete %></li>
             <li><%= link_to 'Edit My Info', edit_user_path(current_user) %></li>
 		        <li role="separator" class="divider"></li>
+            <li><%= link_to 'Lawyers', admin_lawyers_path %></li>
             <li><%= link_to 'Judges', admin_judges_path %></li>
+            <li><%= link_to 'Locations', admin_locations_path %></li>
           </ul>
         </li>
       <% else %>
