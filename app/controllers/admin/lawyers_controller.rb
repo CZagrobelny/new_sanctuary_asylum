@@ -30,9 +30,9 @@ class Admin::LawyersController < AdminController
 
   def destroy
     if @lawyer.destroy
-      flash[:success] = 'Judge successfully removed' 
+      flash[:success] = 'Lawyer successfully removed' 
     else
-      flash[:error] = 'Something went wrong :( the judge could not be removed' 
+      flash[:error] = 'Something went wrong :( the lawyer could not be removed' 
     end
 
     redirect_to admin_lawyers_path
