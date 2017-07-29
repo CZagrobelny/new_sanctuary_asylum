@@ -1,0 +1,45 @@
+<div class="row">
+  <%= link_to "Add a new location", new_admin_location_path, class: 'btn btn-primary pull-right' %>
+  </div>
+<div class="row">  
+  <h1>Locations</h1>
+</div>
+  
+<div class="row">
+  <div class="col-sm-12 col-md-10">
+    <% if @locations.present? %>
+      <table class='table table-bordered'>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th style="max-width: 25px;">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+          <% @locations.each do |location| %>
+            <tr>
+              <td><%= link_to location.name, edit_admin_location_path(location) %></td>
+              <td>
+                <%= form_for [:admin, location], method: :delete do |f| %>
+                  <%= fa_icon 'times', :onclick => "submitDeleteForm(this)", :style => 'cursor: pointer;' %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      
+      <div class='pull-right'>
+        <%= will_paginate @locations %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  var submitDeleteForm = function (element)  {
+    if (confirm('Are you sure?')) {
+      $(element).parents('form').submit();
+    }
+  }
+</script>

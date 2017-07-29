@@ -28,5 +28,6 @@ Rails.application.routes.draw do
     end
 
     resources :judges, except: [:show]
+    resources :locations, except: [:show]
   end
 end

@@ -57,7 +57,7 @@ RSpec.describe Admin::JudgesController, type: :controller do
     end
 
     describe 'POST /admin/judges' do
-      context 'valid parmas' do
+      context 'valid params' do
         let(:params) { { judge: {first_name: 'first', last_name: 'last' } } }
 
         it 'creates a new judge' do
