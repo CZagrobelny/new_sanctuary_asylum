@@ -3,6 +3,8 @@ class Admin::EventsController < AdminController
     @event = event
     @volunteer_attendance = event.user_attendances
     @attending_volunteers = event.users
+    @friend_attendance = event.friend_attendances
+    @attending_friends = event.friends
   end
 
   def event

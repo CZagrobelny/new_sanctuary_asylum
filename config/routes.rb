@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       end
       resources :friend_event_attendances, only: [:create, :destroy]
       resources :user_event_attendances, only: [:create, :destroy]
+      resources :friend_event_attendances, only: [:create, :destroy]
     end
   end
 end

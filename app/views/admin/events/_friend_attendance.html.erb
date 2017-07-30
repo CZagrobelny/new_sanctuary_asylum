@@ -1,0 +1,34 @@
+<h3>Friends Attending</h3>
+<%= form_for [:admin, event, FriendEventAttendance.new], remote: true do |f| %>
+  <%= f.select(:friend_id, options_from_collection_for_select(Friend.all, 'id', 'name', disabled: attending_friends.map(&:id)), {include_hidden: false}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+<% end %>
+<br>
+<table class='table table-bordered'>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      </tr>
+  </thead>
+  <tbody>
+    <% friend_attendance.each do |attendance| %>
+      <tr>
+        <td><%= attendance.friend.name %></td>
+        <td>
+          <%= link_to admin_event_friend_event_attendance_path(event, attendance), method: :delete, remote: true do %>
+            <%= fa_icon 'times' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+  $(document).ready(function(){
+    activateChosen();
+    $('#friend_event_attendance_friend_id').change(function() {
+      $('#new_friend_event_attendance').submit();
+    });
+  });
+</script>

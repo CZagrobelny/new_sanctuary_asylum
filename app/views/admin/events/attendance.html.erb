@@ -1,7 +1,12 @@
 <h1><%= "#{@event.category.titlecase}: #{@event.title}" %></h1>
 
 <div class='row'>
-  <div class='col-md-6' id='volunteer-attendance'>
+  <div class='col-md-5' id='volunteer-attendance'>
     <%= render partial: 'volunteer_attendance', locals: {attending_volunteers: @attending_volunteers, volunteer_attendance: @volunteer_attendance, event: @event} %>
-    </div>
+  </div>
+
+  <div class='col-md-5 col-md-offset-1' id='friend-attendance'>
+    <%= render partial: 'friend_attendance', locals: {attending_friends: @attending_friends, friend_attendance: @friend_attendance, event: @event} %>
+  </div>
 </div>
+

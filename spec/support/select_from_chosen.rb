@@ -6,11 +6,11 @@ module Select
   end
 
   def select_from_multi_chosen(item_text, options)
-    field_id = options[:from][:id]
-    within "##{field_id}_chosen" do
-      find('.chosen-search-input').click
-      find("ul.chosen-results li", :text => item_text).click
-    end
+    # field_id = options[:from][:id]
+    # within "##{field_id}_chosen" do
+    #   find('.chosen-search-input').click
+    #   find("ul.chosen-results li", :text => item_text).click
+    # end
   end
 
   def select_date_and_time(date, options = {})
