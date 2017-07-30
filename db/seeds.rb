@@ -49,6 +49,8 @@ Lawyer.create(first_name: 'Hillary', last_name: 'Rodham')
 
 #Locations
 Location.create(name: '26 Federal Plaza')
+Location.create(name: 'Judson')
+Location.create(name: 'Varick St')
 
 #Judges
 Judge.create(first_name: 'Ruth', last_name: 'Bader Ginsburg')
@@ -72,12 +74,14 @@ Activity.all.each do |activity|
 end
 
 #Events
-Event.create(location: Location.first, 
-             category: 'asylum_workshop', 
-             date: Time.now + 3.days, 
-             title: 'Asylum Workshop') 
+30.times do |t|
+  Event.create(location: Location.order("RANDOM()").first, 
+              category: Event::CATEGORIES.sample[0], 
+              date: FFaker::Time.between(2.months.ago, 2.months.from_now), 
+              title: "Test Event #{t}")
+end
 
-Event.create(location: Location.first, 
-             category: 'accompaniment_training', 
-             date: Time.now + 2.days, 
-             title: 'Training for Everyone') 
+Event.all.each do |event|
+  event.user_event_attendances.create(user_id: User.order("RANDOM()").first.id)
+  event.friend_event_attendances.create(friend_id: Friend.order("RANDOM()").first.id)
+end 

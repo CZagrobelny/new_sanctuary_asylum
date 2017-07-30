@@ -9,14 +9,6 @@ class Activity < ActiveRecord::Base
 
   validates :event, :occur_at, :location_id, :friend_id, presence: true
 
-  def self.upcoming
-    where('occur_at >= ?', Date.today)
-  end
-
-  def self.past
-    where('occur_at < ?', Date.today)
-  end
-
   def self.for_week(beginning_of_week:, end_of_week:, order:, events: Activity.events.keys)
     { dates: "#{beginning_of_week.strftime('%B %-d')} - #{(end_of_week - 2.days).strftime('%B %-d')}", 
 
