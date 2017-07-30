@@ -24,7 +24,7 @@ RSpec.describe 'Take attendance', type: :feature, js: true do
 
     describe 'adding a volunteer to the attendance list' do
       it 'displays the volunteer name' do
-        select_from_chosen(not_attending_volunteer.name, from: {id: 'user_event_attendance_user_id'})
+        select_from_multi_chosen(not_attending_volunteer.name, from: {id: 'user_event_attendance_user_id'})
         expect(page).to have_content(not_attending_volunteer.name)
       end
     end
