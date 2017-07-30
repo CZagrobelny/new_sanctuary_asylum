@@ -27,9 +27,9 @@ Rails.application.routes.draw do
       resources :family_members
     end
 
-    resources :judges, except: [:show]
-    resources :locations, except: [:show]
-    resources :lawyers, except: [:show]
+    resources :judges, except: [:show, :destroy]
+    resources :locations, except: [:show, :destroy]
+    resources :lawyers, except: [:show, :destroy]
 
     resources :events do
       member do

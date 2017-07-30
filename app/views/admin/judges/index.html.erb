@@ -12,18 +12,12 @@
         <thead>
           <tr>
             <th>Name</th>
-            <th style="max-width: 25px;">Remove</th>
             </tr>
         </thead>
         <tbody>
           <% @judges.each do |judge| %>
             <tr>
               <td><%= link_to judge.name, edit_admin_judge_path(judge) %></td>
-              <td>
-                <%= form_for [:admin, judge], method: :delete do |f| %>
-                  <%= fa_icon 'times', :onclick => "submitDeleteForm(this)", :style => 'cursor: pointer;' %>
-                <% end %>
-              </td>
             </tr>
           <% end %>
         </tbody>
@@ -35,11 +29,3 @@
     <% end %>
   </div>
 </div>
-
-<script>
-  var submitDeleteForm = function (element)  {
-    if (confirm('Are you sure?')) {
-      $(element).parents('form').submit();
-    }
-  }
-</script>

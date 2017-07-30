@@ -28,16 +28,6 @@ class Admin::LawyersController < AdminController
     redirect_to admin_lawyers_path
   end
 
-  def destroy
-    if @lawyer.destroy
-      flash[:success] = 'Lawyer successfully removed' 
-    else
-      flash[:error] = 'Something went wrong :( the lawyer could not be removed' 
-    end
-
-    redirect_to admin_lawyers_path
-  end
-
   private
 
   def set_lawyer

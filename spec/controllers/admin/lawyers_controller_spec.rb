@@ -4,7 +4,6 @@ RSpec.describe Admin::LawyersController, type: :controller do
   it { should route(:get, '/admin/lawyers').to(action: :index) }
   it { should route(:get, '/admin/lawyers/new').to(action: :new) }
   it { should route(:post, '/admin/lawyers').to(action: :create) }
-  it { should route(:delete, '/admin/lawyers/123').to(action: :destroy, id: '123') }
 
   describe 'requests' do
     before do
@@ -92,39 +91,6 @@ RSpec.describe Admin::LawyersController, type: :controller do
           expect(flash[:error]).to eq "Something went wrong :("
         end
 
-      end
-
-    end
-
-    describe 'DELETE /admin/lawyers/id' do
-      
-      before do
-        @lawyer = create(:lawyer)
-        expect(Lawyer).to receive(:find).with('123').and_return(@lawyer)
-        @delete_request = proc { delete :destroy, params: {id: '123'} }
-      end
-
-      it 'removes a lawyer' do
-        expect(&@delete_request).to change { Lawyer.count }.by(-1)
-      end
-      
-      it 'redirects to lawyers index' do
-        @delete_request.call
-        expect(response).to have_http_status 302
-        expect(response.location).to include '/admin/lawyers'
-      end
-
-      it 'sets success flash' do
-        @delete_request.call
-        expect(flash[:success].present?).to be true
-        expect(flash[:error].present?).to be false
-      end
-
-      it 'sets failure flash' do
-        expect(@lawyer).to receive(:destroy).and_return(false)
-        @delete_request.call
-        expect(flash[:success].present?).to be false
-        expect(flash[:error].present?).to be true
       end
     end
   end

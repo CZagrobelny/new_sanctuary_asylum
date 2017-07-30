@@ -28,16 +28,6 @@ class Admin::JudgesController < AdminController
     redirect_to admin_judges_path
   end
 
-  def destroy
-    if @judge.destroy
-      flash[:success] = 'Judge successfully removed' 
-    else
-      flash[:error] = 'Something went wrong :( the judge could not be removed' 
-    end
-
-    redirect_to admin_judges_path
-  end
-
   private
 
   def set_judge

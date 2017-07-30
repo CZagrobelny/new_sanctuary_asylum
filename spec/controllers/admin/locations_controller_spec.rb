@@ -4,7 +4,6 @@ RSpec.describe Admin::LocationsController, type: :controller do
   it { should route(:get, '/admin/locations').to(action: :index) }
   it { should route(:get, '/admin/locations/new').to(action: :new) }
   it { should route(:post, '/admin/locations').to(action: :create) }
-  it { should route(:delete, '/admin/locations/123').to(action: :destroy, id: '123') }
 
   describe 'requests' do
     before do
@@ -94,38 +93,6 @@ RSpec.describe Admin::LocationsController, type: :controller do
 
       end
 
-    end
-
-    describe 'DELETE /admin/locations/id' do
-      
-      before do
-        @location = create(:location)
-        expect(Location).to receive(:find).with('123').and_return(@location)
-        @delete_request = proc { delete :destroy, params: {id: '123'} }
-      end
-
-      it 'removes a location' do
-        expect(&@delete_request).to change { Location.count }.by(-1)
-      end
-      
-      it 'redirects to locations index' do
-        @delete_request.call
-        expect(response).to have_http_status 302
-        expect(response.location).to include '/admin/locations'
-      end
-
-      it 'sets success flash' do
-        @delete_request.call
-        expect(flash[:success].present?).to be true
-        expect(flash[:error].present?).to be false
-      end
-
-      it 'sets failure flash' do
-        expect(@location).to receive(:destroy).and_return(false)
-        @delete_request.call
-        expect(flash[:success].present?).to be false
-        expect(flash[:error].present?).to be true
-      end
     end
   end
 end

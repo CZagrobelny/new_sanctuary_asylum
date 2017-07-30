@@ -28,16 +28,6 @@ class Admin::LocationsController < AdminController
     redirect_to admin_locations_path
   end
 
-  def destroy
-    if @location.destroy
-      flash[:success] = 'Location successfully removed' 
-    else
-      flash[:error] = 'Something went wrong :( the location could not be removed' 
-    end
-
-    redirect_to admin_locations_path
-  end
-
   private
 
   def set_location

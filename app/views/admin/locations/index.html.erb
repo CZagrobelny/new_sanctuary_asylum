@@ -12,18 +12,12 @@
         <thead>
           <tr>
             <th>Name</th>
-            <th style="max-width: 25px;">Remove</th>
-            </tr>
+          </tr>
         </thead>
         <tbody>
           <% @locations.each do |location| %>
             <tr>
               <td><%= link_to location.name, edit_admin_location_path(location) %></td>
-              <td>
-                <%= form_for [:admin, location], method: :delete do |f| %>
-                  <%= fa_icon 'times', :onclick => "submitDeleteForm(this)", :style => 'cursor: pointer;' %>
-                <% end %>
-              </td>
             </tr>
           <% end %>
         </tbody>
