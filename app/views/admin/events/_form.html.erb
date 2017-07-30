@@ -1,0 +1,41 @@
+<%= form_for([:admin, @event]) do |f| %>
+  
+  <%= display_validation_errors(@event) %>
+
+  <div class='form-inputs'>
+    <div class='row form-group'>
+      <%= f.label :category, 'Category', class: 'col-md-2 control-label required' %>
+      <div class='col-md-6'>
+        <%= f.select :category, Event::CATEGORIES, {prompt: true}, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :title, 'Title', class: 'col-md-2 control-label required' %>
+      <div class='col-md-6'>
+        <%= f.text_field :title, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :date, 'Date/Time', class: 'col-md-2 control-label required' %>
+      <div class='col-md-8'>
+        <%= f.date_select :date, { start_year: Date.current.year, end_year: 1.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+        <%= f.time_select :date, { ignore_date: true, prompt: true, minute_step: 15 }, {class: 'form-control inline-date-select'} %>
+        <span>ET
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :location_id, 'Location', class: 'col-md-2 control-label required' %>
+      <div class='col-md-6'>
+        <%= collection_select(:event, :location_id, Location.all, :id, :name, {prompt: true}, {class: 'form-control'}) %>
+      </div>
+    </div>
+
+  <div class='row'>
+    <div class='col-md-1 col-md-offset-7'>
+      <%= f.submit 'Save', :class => 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>
