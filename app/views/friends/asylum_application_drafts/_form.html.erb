@@ -38,12 +38,14 @@
 <script>
   $(document).ready(function () {
     activateChosen();
+    // Click on the file input browse button
     $('#browse').click(function(e) {
       e.preventDefault();
       $('#asylum_application_draft_pdf_draft').click();
     });
+    // If the file input changes, display the new filename
     $('#asylum_application_draft_pdf_draft').change(function() {
-      var filename = $(this).val().match(/([^\\\][^&]|\\&)+/g).pop();
+      var filename = $(this).val().split(/(\\|\/)/g).pop();
       $('#current-file').html(filename);
     });
   });
