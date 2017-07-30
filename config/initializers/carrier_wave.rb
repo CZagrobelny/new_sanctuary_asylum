@@ -2,11 +2,10 @@ CarrierWave.configure do |config|
   if Rails.env.production?
     config.storage    = :aws
     config.aws_bucket = ENV.fetch('S3_BUCKET_NAME')
-    config.aws_acl    = 'public-read'
+    config.aws_acl    = 'authenticated-read'
 
     # The maximum period for authenticated_urls is only 7 days.
     config.aws_authenticated_url_expiration = 10.minutes
-    config.fog_public     = false
 
     # Set custom options such as cache control to leverage browser caching
     config.aws_attributes = {
