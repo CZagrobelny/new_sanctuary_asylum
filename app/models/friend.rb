@@ -18,8 +18,9 @@ class Friend < ActiveRecord::Base
   has_many :inverse_spouses, through: :inverse_spousal_relationships, source: :friend
   has_many :activities, dependent: :destroy
   has_many :user_friend_associations, dependent: :destroy
-  has_many :users, :through => :user_friend_associations
+  has_many :users, through: :user_friend_associations
   has_many :asylum_application_drafts, dependent: :destroy
+  has_many :friend_event_attendances, dependent: :destroy
 
   validates :first_name, :last_name, presence: true
   validates :a_number, presence: { if: :a_number_available? }, numericality: { if: :a_number_available? }

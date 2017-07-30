@@ -30,5 +30,13 @@ Rails.application.routes.draw do
     resources :judges, except: [:show]
     resources :locations, except: [:show]
     resources :lawyers, except: [:show]
+
+    resources :events do
+      member do
+        get :attendance
+      end
+      resources :friend_event_attendances, only: [:create, :destroy]
+      resources :user_event_attendances, only: [:create, :destroy]
+    end
   end
 end

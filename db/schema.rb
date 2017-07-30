@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170728235945) do
+ActiveRecord::Schema.define(version: 20170729194623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,10 +47,17 @@ ActiveRecord::Schema.define(version: 20170728235945) do
   create_table "events", force: :cascade do |t|
     t.datetime "date"
     t.integer  "location_id"
-    t.string   "title",          default: ""
-    t.string   "event_catagory"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.string   "title",       default: ""
+    t.string   "category"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "friend_event_attendances", force: :cascade do |t|
+    t.integer  "friend_id",  null: false
+    t.integer  "event_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "friend_languages", force: :cascade do |t|
@@ -138,6 +145,13 @@ ActiveRecord::Schema.define(version: 20170728235945) do
     t.integer  "asylum_application_draft_id", null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+  end
+
+  create_table "user_event_attendances", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "event_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_friend_associations", force: :cascade do |t|

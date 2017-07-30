@@ -73,11 +73,11 @@ end
 
 #Events
 Event.create(location: Location.first, 
-             event_catagory: 'asylum_workshop', 
+             category: 'asylum_workshop', 
              date: Time.now + 3.days, 
              title: 'Asylum Workshop') 
 
 Event.create(location: Location.first, 
-             event_catagory: 'accompaniment_training', 
+             category: 'accompaniment_training', 
              date: Time.now + 2.days, 
              title: 'Training for Everyone') 
