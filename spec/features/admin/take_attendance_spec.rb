@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'Take attendance', type: :feature, js: true do
-  let(:admin) { create(:user, :admin) }
-  let(:event) { create(:event) }
-  let(:attending_volunteer) { create(:user, :volunteer) }
-  let(:not_attending_volunteer) { create(:user, :volunteer) }
-  let(:attending_friend) { create(:friend) }
-  let(:not_attending_friend) { create(:friend) }
+  let!(:admin) { create(:user, :admin) }
+  let!(:event) { create(:event) }
+  let!(:attending_volunteer) { create(:user, :volunteer) }
+  let!(:not_attending_volunteer) { create(:user, :volunteer) }
+  let!(:attending_friend) { create(:friend) }
+  let!(:not_attending_friend) { create(:friend) }
 
   before do
     create(:user_event_attendance, event: event, user: attending_volunteer)
@@ -26,12 +26,12 @@ RSpec.describe 'Take attendance', type: :feature, js: true do
       expect(page).to_not have_content(not_attending_volunteer.name)
     end
 
-    # describe 'adding a volunteer to the attendance list' do
-    #   it 'displays the volunteer name' do
-    #     select_from_multi_chosen(not_attending_volunteer.name, from: {id: 'user_event_attendance_user_id'})
-    #     expect(page).to have_content(not_attending_volunteer.name)
-    #   end
-    # end
+    describe 'adding a volunteer to the attendance list' do
+      it 'displays the volunteer name' do
+        select_from_multi_chosen(not_attending_volunteer.name, from: {id: 'user_event_attendance_user_id'})
+        expect(page).to have_content(not_attending_volunteer.name)
+      end
+    end
   end
 
   describe 'taking friend attendance' do
@@ -43,11 +43,11 @@ RSpec.describe 'Take attendance', type: :feature, js: true do
       expect(page).to_not have_content(not_attending_friend.name)
     end
 
-    # describe 'adding a friend to the attendance list' do
-    #   it 'displays the friend name' do
-    #     select_from_multi_chosen(not_attending_friend.name, from: {id: 'friend_event_attendance_friend_id'})
-    #     expect(page).to have_content(not_attending_friend.name)
-    #   end
-    # end
+    describe 'adding a friend to the attendance list' do
+      it 'displays the friend name' do
+        select_from_multi_chosen(not_attending_friend.name, from: {id: 'friend_event_attendance_friend_id'})
+        expect(page).to have_content(not_attending_friend.name)
+      end
+    end
   end
 end
