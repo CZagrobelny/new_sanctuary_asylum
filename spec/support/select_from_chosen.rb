@@ -8,7 +8,6 @@ module Select
   def select_from_multi_chosen(item_text, options)
     field_id = options[:from][:id]
     within "##{field_id}_chosen" do
-      debugger
       find('.chosen-search-input').click
       find("ul.chosen-results").find("li", :text => item_text).click
     end
