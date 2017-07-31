@@ -72,6 +72,8 @@ Software to support the core work of the New Sanctuary Coalition: helping our fr
 - Can create, edit, and remove asylum application drafts for a friend
 - Can share friend records with specific users (In the 'Asylum' tab when editing a friend, the 'Volunteers with Access' field)
 - Can view detailed information about friend activities in the current month and last month
+- Can manage lawyer records, location records, and judge records
+- Can create, edit, delete NSC events (ie. trainings and workshops) and can take attendance of volunteers and friends attending the event 
 
 Login as an Admin with:
 * username: admin@example.com
