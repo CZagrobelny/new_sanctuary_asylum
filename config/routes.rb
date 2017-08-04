@@ -1,17 +1,23 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { invitations: "invitations"}
   
-  authenticated :user do
-    root :to => 'dashboard#index', as: :authenticated_root
+  devise_scope :user do
+    authenticated do
+      root :to => 'dashboard#index', as: :root
+    end
+
+    unauthenticated do
+      root :to => 'devise/sessions#new', as: :unauthenticated_root
+    end
   end
-  root to: 'home#index'
-  get 'admin', to: 'admin/dashboard#index'
+
+  get 'admin', to: 'admin/activities#index'
   get 'dashboard', to: 'dashboard#index'
   get 'pledge', to: 'home#pledge'
 
   resources :users, only: [:edit, :update]
   resources :friends, only: [:index, :show, :update] do
-    resources :asylum_application_drafts
+    resources :asylum_application_drafts, except: [:destroy]
   end
   resources :accompaniements
   resources :activities, only: [:index]

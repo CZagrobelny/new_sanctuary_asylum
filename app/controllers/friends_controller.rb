@@ -3,7 +3,7 @@ class FriendsController < ApplicationController
   before_action :require_access_to_friend, only: [:update, :show]
 
   def index
-    @friends = current_user.friends
+    @friends = current_user.friends.order('first_name asc')
   end
 
   def show

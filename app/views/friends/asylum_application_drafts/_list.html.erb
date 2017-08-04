@@ -8,7 +8,9 @@
       <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
       <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %>
       <%= link_to '(Edit)', edit_friend_asylum_application_draft_path(friend, draft), remote: true, class: 'open_asylum_application_draft_edit_modal'%>
-      <%= link_to 'Remove', friend_asylum_application_draft_path(friend, draft), method: :delete, :remote => true, class: 'delete' %><br>
+      <% if current_user.admin? %>
+        <%= link_to 'Remove', friend_asylum_application_draft_path(friend, draft), method: :delete, :remote => true, class: 'delete' %><br>
+      <% end %>
     
       <% if draft.users.present? %>
         <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
