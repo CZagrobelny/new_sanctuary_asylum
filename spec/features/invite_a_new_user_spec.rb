@@ -43,6 +43,7 @@ RSpec.describe 'Admin invites a new user', type: :feature do
         select 'English Speaking', :from => 'Type'
         fill_in 'Password', with: 'password'
         fill_in 'Password Confirmation', with: 'password'
+        check 'user_pledge_signed'
         click_button 'Save'
 
         expect(page).to have_content('Your password was set successfully. You are now signed in.')

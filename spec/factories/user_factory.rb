@@ -8,6 +8,7 @@ FactoryGirl.define do
     password { FFaker::Internet.password }
     password_confirmation { password }
     invitation_accepted_at { Time.now }
+    pledge_signed true
   end
 
   trait :admin do

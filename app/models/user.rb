@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :email, :phone, :volunteer_type, :presence => true
   validates :email, uniqueness: true
+  validates_inclusion_of :pledge_signed, :in => [true]
 
   has_many :user_friend_associations, dependent: :destroy
   has_many :friends, through: :user_friend_associations

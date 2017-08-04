@@ -23,7 +23,8 @@ class UsersController < ApplicationController
       :last_name, 
       :email, 
       :phone, 
-      :volunteer_type
+      :volunteer_type,
+      :pledge_signed
     )
   end
 

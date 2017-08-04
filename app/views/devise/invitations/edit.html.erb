@@ -48,6 +48,15 @@
       </div>
     </div>
 
+    <div class='row form-group'>
+      <div class='col-md-6 col-md-offset-2'>
+        <%= f.check_box :pledge_signed %>
+        <%= f.label :pledge_signed do %>
+          I agree to the <%= link_to 'New Sanctuary Coalition Pledge', pledge_path, target: 'blank' %>.
+        <% end %>
+      </div>
+    </div>
+
     <div class='row'>
       <div class='col-md-1 col-md-offset-7'>
         <%= f.submit 'Save', :class => 'btn btn-primary' %>

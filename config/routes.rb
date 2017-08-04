@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
   get 'admin', to: 'admin/dashboard#index'
   get 'dashboard', to: 'dashboard#index'
+  get 'pledge', to: 'home#pledge'
 
   resources :users, only: [:edit, :update]
   resources :friends, only: [:index, :show, :update] do
