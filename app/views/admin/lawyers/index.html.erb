@@ -12,12 +12,18 @@
         <thead>
           <tr>
             <th>Name</th>
+            <th>Organization</th>
+            <th>Phone</th>
+            <th>Email</th>
             </tr>
         </thead>
         <tbody>
           <% @lawyers.each do |lawyer| %>
             <tr>
               <td><%= link_to lawyer.name, edit_admin_lawyer_path(lawyer) %></td>
+              <td><%= lawyer.organization %></td>
+              <td><%= lawyer.phone_number %></td>
+              <td><%= lawyer.email %></td>
             </tr>
           <% end %>
         </tbody>

@@ -3,4 +3,8 @@ class Lawyer < ActiveRecord::Base
   def name
     "#{first_name} #{last_name}"
   end
+
+  def name_and_organization
+  	"#{first_name} #{last_name}, #{organization}"
+  end
 end

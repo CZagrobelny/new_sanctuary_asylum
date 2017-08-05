@@ -4,7 +4,7 @@ Rake::Task['populate_countries'].invoke
 Rake::Task['populate_languages'].invoke
 
 #Admin User
-User.create(first_name: 'Admin', last_name: 'Admin', email: 'admin@example.com', phone: '888 888 8888', password: 'password', password_confirmation: 'password', invitation_accepted_at: Time.now, volunteer_type: 1, role: 1)
+User.create(first_name: 'Admin', last_name: 'Admin', email: 'admin@example.com', phone: '888 888 8888', password: 'password', password_confirmation: 'password', invitation_accepted_at: Time.now, volunteer_type: 1, role: 1, pledge_signed: true)
 
 #Volunteer User
 User.create(first_name: 'Volunteer', last_name: 'Volunteer', email: 'volunteer@example.com', phone: '888 888 8888', password: 'password', password_confirmation: 'password', invitation_accepted_at: Time.now, volunteer_type: 1, role: 0)

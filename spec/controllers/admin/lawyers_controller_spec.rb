@@ -14,7 +14,7 @@ RSpec.describe Admin::LawyersController, type: :controller do
     describe 'GET /admin/lawyers' do
       before do
         expect(Lawyer).to receive(:order)
-                           .with('created_at desc')
+                           .with('organization asc')
                            .and_return(double(:paginate => [build(:lawyer), build(:lawyer)]))
         get :index
       end

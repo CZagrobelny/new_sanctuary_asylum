@@ -6,14 +6,14 @@
 <div class='row form-group'>
   <%= f.label :lawyer_referred_to,'Referred to', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= collection_select(:friend, :lawyer_referred_to, Lawyer.all, :id, :name, {prompt: true}, {class: 'form-control'}) %>
+    <%= collection_select(:friend, :lawyer_referred_to, Lawyer.all.order('organization asc'), :id, :name_and_organization, {include_blank: true}, {class: 'form-control chzn-select'}) %>
   </div>
 </div>
 
 <div class='row form-group'>
   <%= f.label :lawyer_represented_by,'Represented by', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= collection_select(:friend, :lawyer_represented_by, Lawyer.all, :id, :name, {prompt: true}, {class: 'form-control'}) %>
+    <%= collection_select(:friend, :lawyer_represented_by, Lawyer.all.order('organization asc'), :id, :name_and_organization, {include_blank: true}, {class: 'form-control chzn-select'}) %>
   </div>
 </div>
 

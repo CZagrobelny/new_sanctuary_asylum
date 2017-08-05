@@ -2,7 +2,7 @@ class Admin::LawyersController < AdminController
   before_action :set_lawyer, only: [:edit, :destroy, :update]
 
   def index
-    @lawyers = Lawyer.order('created_at desc').paginate(:page => params[:page])
+    @lawyers = Lawyer.order('organization asc').paginate(:page => params[:page])
   end
 
   def new
@@ -35,7 +35,7 @@ class Admin::LawyersController < AdminController
   end
 
   def lawyer_params
-    params.require(:lawyer).permit(:first_name, :last_name)
+    params.require(:lawyer).permit(:first_name, :last_name, :email, :phone_number, :organization)
   end
   
 end

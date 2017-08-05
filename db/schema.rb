@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170804032034) do
+ActiveRecord::Schema.define(version: 20170805134705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,10 +114,13 @@ ActiveRecord::Schema.define(version: 20170804032034) do
   end
 
   create_table "lawyers", force: :cascade do |t|
-    t.string   "first_name", null: false
-    t.string   "last_name",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "first_name",   null: false
+    t.string   "last_name",    null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "email"
+    t.string   "organization"
+    t.string   "phone_number"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -145,13 +148,6 @@ ActiveRecord::Schema.define(version: 20170804032034) do
     t.integer  "asylum_application_draft_id", null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-  end
-
-  create_table "user_event_associations", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "event_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "user_event_attendances", force: :cascade do |t|

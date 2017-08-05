@@ -29,7 +29,7 @@ $(document).on('turbolinks:load', function () {
 
 function activateChosen() {
   $('.chzn-select').chosen({
-    allow_single_deselect: false,
+    allow_single_deselect: true,
     no_results_text: 'No results matched',
     width: '100%'
   });
