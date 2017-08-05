@@ -4,8 +4,9 @@ class Activity < ActiveRecord::Base
   belongs_to :friend
   belongs_to :judge
   belongs_to :location
-  has_many :accompaniements, dependent: :destroy
-  has_many :volunteers, through: :accompaniements, source: :user
+  has_many :accompaniments, dependent: :destroy
+  has_many :volunteers, through: :accompaniments, source: :user
+  has_many :activity_reports, dependent: :destroy
 
   validates :event, :occur_at, :location_id, :friend_id, presence: true
 

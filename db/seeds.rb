@@ -68,9 +68,9 @@ Friend.all[0..25].each do |friend|
     notes: FFaker::Lorem.paragraph)
 end
 
-##Accompaniements
+##Accompaniments
 Activity.all.each do |activity|
-  activity.accompaniements.create(user_id: User.order("RANDOM()").first.id)
+  activity.accompaniments.create(user_id: User.order("RANDOM()").first.id)
 end
 
 #Events

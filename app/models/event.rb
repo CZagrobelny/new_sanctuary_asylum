@@ -6,7 +6,7 @@ class Event < ActiveRecord::Base
   has_many :friends, through: :friend_event_attendances
   validates :date, :location_id, :title, :category, presence: true
 
-  CATEGORIES = ['asylum_workshop', 'asylum_training', 'accompaniement_training', 'social'].map{|category| [category.titlecase, category]}
+  CATEGORIES = ['asylum_workshop', 'asylum_training', 'accompaniment_training', 'social'].map{|category| [category.titlecase, category]}
 
   def user_attendances
     self.user_event_attendances.includes(:user).order('users.first_name asc')

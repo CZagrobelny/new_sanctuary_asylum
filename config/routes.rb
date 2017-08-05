@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :friends, only: [:index, :show, :update] do
     resources :asylum_application_drafts, except: [:destroy]
   end
-  resources :accompaniements
+  resources :accompaniments
   resources :activities, only: [:index]
 
   namespace :admin do

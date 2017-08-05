@@ -81,8 +81,8 @@ Login as an Admin with:
 
 #### Volunteer Role (has limited access)
 - Can receive an invitation (emailed) and follow the link to create a volunteer account
-- Can view limited details about friend activities (ie. accompaniements) this week and next week
-- Can RSVP to attend a friend activity (ie. accompaniement) and can edit their RSVP
+- Can view limited details about friend activities (ie. accompaniments) this week and next week
+- Can RSVP to attend a friend activity (ie. accompaniment) and can edit their RSVP
 - Can view friend records that have been shared with them
 - Can add other users to friend records that have been shared with them
 - Can create, edit, and remove asylum application drafts
