@@ -11,6 +11,7 @@ class AccompanimentLeader::AccompanimentReportsController < AccompanimentLeaderC
 
   def create
     @accompaniment_report = activity.accompaniment_reports.new(accompaniment_report_params)
+    debugger
     if @accompaniment_report.save
       flash[:success] = 'Your accompaniment report was created.'
       redirect_to accompaniment_leader_activities_path

@@ -6,6 +6,10 @@
 <h2>Your Programs</h2>
 <h3><%= link_to 'Asylum Clinic', friends_path %></h3>
 
-<h3><%= link_to 'Accompaniment Program', activities_path %></h3><br>
+<% if current_user.accompaniment_leader? %>
+  <h3><%= link_to 'Accompaniment Program', accompaniment_leader_activities_path %></h3><br>
+<% else %>
+  <h3><%= link_to 'Accompaniment Program', activities_path %></h3><br>
+<% end %>
 
 <h2>Thank you for all your hard work!</h2>
