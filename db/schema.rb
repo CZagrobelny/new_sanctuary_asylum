@@ -10,19 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170805134705) do
+ActiveRecord::Schema.define(version: 20170806134409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "accompaniements", force: :cascade do |t|
+  create_table "accompaniment_report_authorships", force: :cascade do |t|
+    t.integer  "user_id",                 null: false
+    t.integer  "accompaniment_report_id", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  create_table "accompaniment_reports", force: :cascade do |t|
+    t.integer  "activity_id", null: false
+    t.text     "notes"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "accompaniments", force: :cascade do |t|
     t.integer "activity_id"
     t.integer "user_id"
     t.text    "availability_notes"
   end
 
   create_table "activities", force: :cascade do |t|
-    t.integer  "event"
+    t.string   "event"
     t.integer  "location_id"
     t.integer  "friend_id"
     t.integer  "judge_id"
@@ -83,17 +97,17 @@ ActiveRecord::Schema.define(version: 20170805134705) do
     t.string   "other_ethnicity"
     t.integer  "gender"
     t.date     "date_of_birth"
-    t.integer  "status"
+    t.string   "status"
     t.date     "date_of_entry"
     t.text     "notes"
-    t.integer  "asylum_status"
+    t.string   "asylum_status"
     t.date     "date_asylum_application_submitted"
     t.text     "lawyer_notes"
-    t.integer  "work_authorization_status"
+    t.string   "work_authorization_status"
     t.date     "date_eligible_to_apply_for_work_authorization"
     t.date     "date_work_authorization_submitted"
     t.text     "work_authorization_notes"
-    t.integer  "sijs_status"
+    t.string   "sijs_status"
     t.date     "date_sijs_submitted"
     t.text     "sijs_notes"
     t.text     "asylum_notes"

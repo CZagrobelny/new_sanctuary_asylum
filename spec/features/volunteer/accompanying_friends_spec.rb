@@ -10,18 +10,18 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature do
   describe 'viewing upcoming accompaniments' do
     before do
       visit root_path
-      click_link 'Accompaniement Program'
+      click_link 'Accompaniment Program'
     end
 
     it 'displays accompaniments in the current week' do
       expect(page).to have_content(current_week_activity.friend.first_name)
     end
 
-    it 'displays accompaniements in the upcoming week' do
+    it 'displays accompaniments in the upcoming week' do
       expect(page).to have_content(next_week_activity.friend.first_name)
     end
 
-    it 'does not display accompaniements outside of the two week date range' do
+    it 'does not display accompaniments outside of the two week date range' do
       expect(page).to_not have_content(activity_outside_date_range.friend.first_name)
     end
   end
@@ -32,7 +32,7 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature do
       within "#activity_#{current_week_activity.id}" do
         click_button 'Attend'
       end
-      within "#activity_#{current_week_activity.id}_accompaniement_modal" do
+      within "#activity_#{current_week_activity.id}_accompaniment_modal" do
         click_button 'Confirm'
       end
     end
@@ -55,13 +55,13 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature do
   end
 
   describe 'canceling an RSVP for an accompaniment' do
-    let!(:accompaniement) { create(:accompaniement, activity: current_week_activity, user: volunteer) }
+    let!(:accompaniment) { create(:accompaniment, activity: current_week_activity, user: volunteer) }
     before do
       visit activities_path
       within "#activity_#{current_week_activity.id}" do
         click_button 'Edit RSVP'
       end
-      within "#activity_#{current_week_activity.id}_accompaniement_modal" do
+      within "#activity_#{current_week_activity.id}_accompaniment_modal" do
         select 'No', from: 'Attending'
         click_button 'Confirm'
       end

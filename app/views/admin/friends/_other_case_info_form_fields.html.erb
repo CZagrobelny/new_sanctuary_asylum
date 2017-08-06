@@ -30,7 +30,7 @@
 <div class='row form-group'>
   <%= f.label :work_authorization_status, 'Status', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= f.select :work_authorization_status, options_for_select(Friend.work_authorization_statuses.map { |key, value| [key.humanize, key] }, @friend.work_authorization_status), {include_blank: true}, {class: 'form-control'} %>
+    <%= f.select :work_authorization_status, options_for_select(Friend::WORK_AUTHORIZATION_STATUSES, @friend.work_authorization_status), {include_blank: true}, {class: 'form-control'} %>
   </div>
 </div>
 
@@ -60,7 +60,7 @@
 <div class='row form-group'>
   <%= f.label :sijs_status, 'Status', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= f.select :sijs_status, options_for_select(Friend.sijs_statuses.map { |key, value| [key.humanize, key] }, @friend.sijs_status), {include_blank: true}, {class: 'form-control'} %>
+    <%= f.select :sijs_status, options_for_select(Friend::SIJS_STATUSES, @friend.sijs_status), {include_blank: true}, {class: 'form-control'} %>
   </div>
 </div>
 

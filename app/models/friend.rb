@@ -1,10 +1,11 @@
 class Friend < ActiveRecord::Base
   enum ethnicity: [:white, :black, :hispanic, :asian, :south_asian, :caribbean, :indigenous, :other]
   enum gender: [:male, :female, :awesome]
-  enum status: [:in_deportation_proceedings, :not_in_deportation_proceedings, :asylum_reciepient, :asylum_application_denied, :legal_permanent_resident, :in_detention, :green_card_holder]
-  enum asylum_status: [:asylum_not_eligible, :asylum_eligible, :asylum_application_started, :asylum_application_completed, :asylum_application_submitted, :asylum_granted, :asylum_denied]
-  enum work_authorization_status: [:work_authorization_not_eligible, :work_authorization_eligible, :work_authorization_application_started, :work_authorization_application_completed, :work_authorization_application_submitted, :work_authorization_granted, :work_authorization_denied]
-  enum sijs_status: [:sijs_not_eligible, :sijs_eligible, :sijs_application_started, :sijs_application_completed, :sijs_application_submitted, :sijs_granted, :sijs_denied]
+  
+  STATUSES = ['in_deportation_proceedings', 'not_in_deportation_proceedings', 'asylum_reciepient', 'asylum_application_denied', 'legal_permanent_resident', 'in_detention', 'green_card_holder'].map{|status| [status.titlecase, status]}
+  ASYLUM_STATUSES = ['not_eligible', 'eligible', 'application_started', 'application_completed', 'application_submitted', 'granted', 'denied'].map{|status| [status.titlecase, status]}
+  WORK_AUTHORIZATION_STATUSES = ['not_eligible', 'eligible', 'application_started', 'application_completed', 'application_submitted', 'granted', 'denied'].map{|status| [status.titlecase, status]}
+  SIJS_STATUSES = ['not_eligible', 'eligible', 'application_started', 'application_completed', 'application_submitted', 'granted', 'denied'].map{|status| [status.titlecase, status]}
 
   has_many :friend_languages, dependent: :destroy
   has_many :languages, through: :friend_languages
