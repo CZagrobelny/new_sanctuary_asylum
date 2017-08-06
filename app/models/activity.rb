@@ -1,5 +1,6 @@
 class Activity < ActiveRecord::Base
-  enum event: [:check_in, :master_calendar_hearing, :individual_hearing, :filing_asylum_application, :filing_work_permit, :detained]
+  EVENT_KEYS = ['check_in', 'master_calendar_hearing', 'individual_hearing', 'filing_asylum_application', 'filing_work_permit', 'detained']
+  EVENTS = EVENT_KEYS.map{|event| [event.titlecase, event]}
   
   belongs_to :friend
   belongs_to :judge
@@ -10,7 +11,7 @@ class Activity < ActiveRecord::Base
 
   validates :event, :occur_at, :location_id, :friend_id, presence: true
 
-  def self.for_week(beginning_of_week:, end_of_week:, order:, events: Activity.events.keys)
+  def self.for_week(beginning_of_week:, end_of_week:, order:, events: EVENT_KEYS)
     { dates: "#{beginning_of_week.strftime('%B %-d')} - #{(end_of_week - 2.days).strftime('%B %-d')}", 
 
       activities: Activity.where(event: events)
