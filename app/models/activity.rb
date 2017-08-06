@@ -6,7 +6,7 @@ class Activity < ActiveRecord::Base
   belongs_to :location
   has_many :accompaniments, dependent: :destroy
   has_many :volunteers, through: :accompaniments, source: :user
-  has_many :activity_reports, dependent: :destroy
+  has_many :accompaniment_reports, dependent: :destroy
 
   validates :event, :occur_at, :location_id, :friend_id, presence: true
 

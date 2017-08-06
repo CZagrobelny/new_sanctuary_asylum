@@ -1,0 +1,42 @@
+<div class='row' id="activity_<%= activity.id %>">
+  <div class='col-md-10 col-sm-8 col-xs-8'>
+    <strong>
+      <%= "#{activity.event.humanize} for #{activity.friend.name}" %>
+      <%= activity.occur_at.strftime("-- %I:%M %p") %>
+    </strong><br>
+    <% if activity.friend.phone.present? %>
+      <strong>Friend Phone Number:  </strong><%= activity.friend.phone %><br>
+    <% end %>
+    <% if activity.location.present? %>
+      <strong>Location:  </strong><%= activity.location.name %><br>
+    <% end %>
+    <% if activity.judge.present? %>
+      <strong>Judge:  </strong><%= activity.judge.name %><br>
+    <% end %>
+    <% if activity.notes.present? %>
+      <strong>Notes:  </strong><%= activity.notes %><br>
+    <% end %> 
+    <% if activity.volunteers.present? %>
+      <strong>Volunteers:  </strong><br>
+      <%= full_volunteer_details(activity) %>
+    <% end %>
+
+    <% if current_user.attending?(activity) %>
+      <% if current_user.accompaniment_report_for(activity).present? %>
+        <%= link_to 'Edit Report', edit_accompaniment_leader_activity_accompaniment_report_path(activity, current_user.accompaniment_report_for(activity)) %>
+      <% else %>
+        <%= link_to 'Create Report', new_accompaniment_leader_activity_accompaniment_report_path(activity) %>
+      <% end %>
+    <% end %>
+
+  </div>
+
+  <div class='col-md-2 col-sm-4 col-xs-4'>
+    <% if current_user.attending?(activity) %>
+      <button type='button' class='btn btn-success pull-right' data-toggle='modal' data-target="#activity_<%= activity.id %>_accompaniment_modal">Edit RSVP</button>
+    <% else %>
+      <button type='button' class='btn btn-primary pull-right' data-toggle='modal' data-target="#activity_<%= activity.id %>_accompaniment_modal">Attend</button>
+    <% end %>
+  </div>
+</div>
+<br>

@@ -5,10 +5,10 @@ class AccompanimentsController < ApplicationController
       accompaniment = Accompaniment.new(accompaniment_params)
       if accompaniment.save
         flash[:success] = 'Your RSVP was successful.'
-        redirect_to activities_path
+        render_activities
       end
     else
-      redirect_to activities_path
+      render_activities
     end
   end
 
@@ -17,12 +17,12 @@ class AccompanimentsController < ApplicationController
     if params['attending'] == 'true'
       if accompaniment.update(accompaniment_params)
         flash[:success] = 'RSVP updated successfully.'
-        redirect_to activities_path
+        render_activities
       end
     else
       if accompaniment.destroy
         flash[:success] = 'Your RSVP was deleted.'
-        redirect_to activities_path
+        render_activities
       end
     end
   end
@@ -33,5 +33,13 @@ class AccompanimentsController < ApplicationController
       :user_id,
       :activity_id
     )
+  end
+
+  def render_activities
+    if current_user.accompaniment_leader?
+      redirect_to accompaniment_leader_activities_path
+    else
+      redirect_to activities_path
+    end
   end
 end

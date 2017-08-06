@@ -1,0 +1,20 @@
+<% if @accompaniment_report.errors.present? %>
+  <%= display_validation_errors(@accompaniment_report) %>
+<% end %>
+<%= form_for([:accompaniment_leader, @activity, @accompaniment_report]) do |f| %>
+  <div class='form-inputs'>
+
+    <div class='row form-group'>
+      <%= f.label :notes, class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.text_area :notes, {class: 'form-control', style: 'height: 200px;'} %>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-md-1 col-md-offset-11'>
+        <%= f.submit 'Save', :class => 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>

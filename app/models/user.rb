@@ -36,4 +36,8 @@ class User < ActiveRecord::Base
   def attending?(activity)
     activity.volunteers.include?(self)
   end
+
+  def accompaniment_report_for(activity)
+    self.accompaniment_reports.where(activity_id: activity.id).first
+  end
 end
