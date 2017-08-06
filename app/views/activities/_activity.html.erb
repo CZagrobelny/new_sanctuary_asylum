@@ -8,9 +8,9 @@
   </div>
   <div class='col-md-2 col-sm-4 col-xs-4'>
     <% if current_user.attending?(activity) %>
-      <button type='button' class='btn btn-success pull-right' data-toggle='modal' data-target="#activity_<%= activity.id %>_accompaniement_modal">Edit RSVP</button>
+      <button type='button' class='btn btn-success pull-right' data-toggle='modal' data-target="#activity_<%= activity.id %>_accompaniment_modal">Edit RSVP</button>
     <% else %>
-      <button type='button' class='btn btn-primary pull-right' data-toggle='modal' data-target="#activity_<%= activity.id %>_accompaniement_modal">Attend</button>
+      <button type='button' class='btn btn-primary pull-right' data-toggle='modal' data-target="#activity_<%= activity.id %>_accompaniment_modal">Attend</button>
     <% end %>
   </div>
 </div>

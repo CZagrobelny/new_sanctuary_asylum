@@ -93,7 +93,7 @@
 <div class='row form-group'>
   <%= f.label :status, class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= f.select :status, options_for_select(Friend.statuses.map { |key, value| [key.humanize, key] }, @friend.status), {include_blank: true}, {class: 'form-control'} %>
+    <%= f.select :status, options_for_select(Friend::STATUSES, @friend.status), {include_blank: true}, {class: 'form-control'} %>
   </div>
 </div>
 

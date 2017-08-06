@@ -1,4 +1,4 @@
-<div class='modal' id="activity_<%= activity.id %>_accompaniement_modal">
+<div class='modal' id="activity_<%= activity.id %>_accompaniment_modal">
   <div class='modal-dialog'>
     <div class='modal-content'>
       <div class='modal-header'>
@@ -6,14 +6,14 @@
         <h4 class='modal-title'>Attendance</h4>
       </div>
       <div class='modal-body'>
-        <div id='activity_<%= activity.id %>_accompaniement_form'>
+        <div id='activity_<%= activity.id %>_accompaniment_form'>
           <div class='row' style='padding-left:15px;'>
             <strong>Who:  </strong><%= activity.friend.first_name %><br>
             <strong>What:  </strong><%= activity.event.humanize %><br>
             <strong>When:  </strong><%= activity.occur_at.strftime("%I:%M %p, %A, %B %-d, %Y") %><br>
             <strong>Where:  </strong><%= activity.location.name %><br>
           </div>
-          <%= form_for(accompaniement) do |f| %>
+          <%= form_for(accompaniment) do |f| %>
             <%= f.hidden_field :activity_id, value: activity.id %>
             <%= f.hidden_field :user_id, value: current_user.id %>
             <div class='form-inputs'>  

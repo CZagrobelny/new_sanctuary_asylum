@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Accompaniement, type: :model do
+RSpec.describe Accompaniment, type: :model do
 
   it { is_expected.to belong_to :activity }
   it { is_expected.to belong_to :user }

@@ -4,7 +4,10 @@ Rake::Task['populate_countries'].invoke
 Rake::Task['populate_languages'].invoke
 
 #Admin User
-User.create(first_name: 'Admin', last_name: 'Admin', email: 'admin@example.com', phone: '888 888 8888', password: 'password', password_confirmation: 'password', invitation_accepted_at: Time.now, volunteer_type: 1, role: 1, pledge_signed: true)
+User.create(first_name: 'Admin', last_name: 'Admin', email: 'admin@example.com', phone: '888 888 8888', password: 'password', password_confirmation: 'password', invitation_accepted_at: Time.now, volunteer_type: 1, role: 2, pledge_signed: true)
+
+#Accompaniment Leader User
+User.create(first_name: 'Accompaniment', last_name: 'Leader', email: 'accompaniment_leader@example.com', phone: '888 888 8888', password: 'password', password_confirmation: 'password', invitation_accepted_at: Time.now, volunteer_type: 1, role: 1, pledge_signed: true)
 
 #Volunteer User
 User.create(first_name: 'Volunteer', last_name: 'Volunteer', email: 'volunteer@example.com', phone: '888 888 8888', password: 'password', password_confirmation: 'password', invitation_accepted_at: Time.now, volunteer_type: 1, role: 0, pledge_signed: true)
@@ -28,12 +31,12 @@ end
     status: 'not_in_deportation_proceedings',
     date_of_entry: FFaker::Time.between(10.years.ago, 40.years.ago),
     notes: FFaker::Lorem.paragraph,
-    asylum_status: ['asylum_not_eligible', 'asylum_eligible', 'asylum_application_started'].sample,
+    asylum_status: ['not_eligible', 'eligible', 'application_started'].sample,
     asylum_notes: FFaker::Lorem.paragraph,
     lawyer_notes: FFaker::Lorem.paragraph,
     work_authorization_notes: FFaker::Lorem.paragraph,
-    work_authorization_status: ['work_authorization_not_eligible', 'work_authorization_eligible', 'work_authorization_application_started'].sample,
-    sijs_status: ['sijs_not_eligible', 'sijs_eligible', 'sijs_application_started'].sample,
+    work_authorization_status: ['not_eligible', 'eligible', 'application_started'].sample,
+    sijs_status: ['not_eligible', 'eligible', 'application_started'].sample,
     sijs_notes: FFaker::Lorem.paragraph,
     country_id: Country.order("RANDOM()").first.id,
     language_ids: [Language.order("RANDOM()").first.id],
@@ -68,9 +71,9 @@ Friend.all[0..25].each do |friend|
     notes: FFaker::Lorem.paragraph)
 end
 
-##Accompaniements
+##Accompaniments
 Activity.all.each do |activity|
-  activity.accompaniements.create(user_id: User.order("RANDOM()").first.id)
+  activity.accompaniments.create(user_id: User.order("RANDOM()").first.id)
 end
 
 #Events

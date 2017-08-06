@@ -19,5 +19,12 @@
     <strong>Volunteers:  </strong><br>
     <%= full_volunteer_details(activity) %>
   <% end %>
+
+  <% if activity.accompaniment_reports.present? %>
+    <% activity.accompaniment_reports.each do |report| %>
+      <strong>Report <%= "by #{report.users.first.name}" if report.users.present? %>:</strong>
+      <%= report.notes %>
+    <% end %>
+  <% end %>
 </div>
 <br>

@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :friends, only: [:index, :show, :update] do
     resources :asylum_application_drafts, except: [:destroy]
   end
-  resources :accompaniements
+  resources :accompaniments
   resources :activities, only: [:index]
 
   namespace :admin do
@@ -45,6 +45,12 @@ Rails.application.routes.draw do
       resources :friend_event_attendances, only: [:create, :destroy]
       resources :user_event_attendances, only: [:create, :destroy]
       resources :friend_event_attendances, only: [:create, :destroy]
+    end
+  end
+
+  namespace :accompaniment_leader do
+    resources :activities, only: [:index] do
+      resources :accompaniment_reports, only: [:edit, :new, :create, :update]
     end
   end
 
