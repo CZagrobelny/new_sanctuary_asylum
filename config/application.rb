@@ -20,5 +20,9 @@ module NewSanctuaryAsylum
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+		#Allow the app to controll it's own error routes (custom 404, etc.)
+		#NOTE:and app erros will still cause the server env to handle errors (Heroku), so these routes are only effective when the app is running
+		config.exceptions_app = self.routes
   end
 end
