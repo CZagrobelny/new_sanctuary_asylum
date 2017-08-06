@@ -19,6 +19,10 @@ FactoryGirl.define do
   	role :volunteer
   end
 
+  trait :accompaniment_leader do
+    role :accompaniment_leader
+  end
+
   trait :unconfirmed do
     first_name nil
     last_name nil

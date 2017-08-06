@@ -10,7 +10,11 @@ module ActivitiesHelper
 
   def accompaniment_details(accompaniment)
     content_tag :div do
-      user_details = "#{accompaniment.user.name}, <i>#{accompaniment.user.phone}, #{accompaniment.user.email}</i>"
+      if accompaniment.user.accompaniment_leader?
+        user_details = "<strong>Team Leader: #{accompaniment.user.name}</strong>, <i>#{accompaniment.user.phone}, #{accompaniment.user.email}</i>"
+      else
+        user_details = "#{accompaniment.user.name}, <i>#{accompaniment.user.phone}, #{accompaniment.user.email}</i>"
+      end
       user_details += " -- #{accompaniment.availability_notes}" if accompaniment.availability_notes.present?
       user_details.html_safe
     end
