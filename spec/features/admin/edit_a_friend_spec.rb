@@ -63,7 +63,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
 
       describe 'with valid information' do
         it 'displays the new family member' do
-          select 'Individual hearing', from: 'Type'
+          select 'Individual Hearing', from: 'Type'
           select location.name, from: 'Location'
           select_date_and_time(Time.now.beginning_of_hour, from: 'activity_occur_at')
           within '#new_activity' do
