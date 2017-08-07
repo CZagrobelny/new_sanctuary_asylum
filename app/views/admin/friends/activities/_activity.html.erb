@@ -14,8 +14,8 @@
     <strong>Notes:  </strong><%= activity.notes %><br>
   <% end %> 
   <% if activity.volunteers.present? %>
-    <strong>Volunteers:  </strong><br>
-    <%= full_volunteer_details(activity) %>
+  <strong>Volunteers:  </strong><br>
+  <%= render partial: 'admin/activities/full_volunteer_details', locals: {activity: activity} %>
   <% end %>
 </div>
 <br>

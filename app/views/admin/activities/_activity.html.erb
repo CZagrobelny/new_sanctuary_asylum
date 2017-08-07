@@ -17,7 +17,7 @@
   <% end %> 
   <% if activity.volunteers.present? %>
     <strong>Volunteers:  </strong><br>
-    <%= full_volunteer_details(activity) %>
+    <%= render partial: 'admin/activities/full_volunteer_details', locals: {activity: activity} %>
   <% end %>
 
   <% if activity.accompaniment_reports.present? %>

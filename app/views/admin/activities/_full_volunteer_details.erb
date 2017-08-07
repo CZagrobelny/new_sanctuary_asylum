@@ -1,0 +1,13 @@
+<ol>
+  <% for accompaniement in activity.accompaniements %>
+    <li>
+      <div>
+        <%= accompaniement.user.name %>,
+        <i><%= accompaniement.user.phone %>, <%= accompaniement.user.email %></i>
+        <% if accompaniement.availability_notes.present? %>
+          <%= accompaniement.availability_notes %>
+        <% end %>
+      </div>
+    </li>
+  <% end %>
+</ol>
