@@ -3,7 +3,7 @@
 </div>
 <div class='row'>
   <div class='col-md-3'>
-    <%= link_to "<h1>Friends</h1>".html_safe, admin_friends_path %>
+    <h1><%= link_to "Friends", admin_friends_path %></h1>
   </div>
   <div class='col-md-4 col-md-offset-5'>
     <%= form_tag admin_friends_path, :method => :get do %>
@@ -35,7 +35,9 @@
           <td><%= friend.created_at.strftime('%m/%d/%y') %></td>
           <td>
             <div class='btn-group'>
-              <%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_friend_path(friend), id: "edit-friend-#{friend.id}", class: 'btn btn-default' %>
+              <%= link_to(edit_admin_friend_path(friend), id: "edit-friend-#{friend.id}", class: 'btn btn-default') do %>
+                <i class="fa fa-edit"></i>
+              <% end %>
               <button type='button' class='btn dropdown-toggle btn-default' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                 <span class='caret'></span>
               </button>
