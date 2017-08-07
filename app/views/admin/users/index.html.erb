@@ -39,7 +39,7 @@
           <td><%= user.created_at.strftime('%m/%d/%y') %></td>
           <td>
             <div class='btn-group'>
-              <%= link_to (edit_admin_user_path(user), id: "edit-user-#{user.id}", class: "btn btn-default") do %>
+              <%= link_to edit_admin_user_path(user), id: "edit-user-#{user.id}", class: "btn btn-default" do %>
                 <i class="fa fa-edit"></i>
               <% end %>
               <button type='button' class='btn dropdown-toggle btn-default' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
