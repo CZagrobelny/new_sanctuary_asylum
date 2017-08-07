@@ -1,11 +1,19 @@
 class Admin::ActivitiesController < AdminController
 
   def index
-     @activities = Activity.current_month
+    @activities = Activity.current_month(events: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS)
   end
 
   def last_month
-    @activities = Activity.last_month
+    @activities = Activity.last_month(events: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS)
+  end
+
+  def accompaniments
+    @activities = Activity.current_month(events: Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS)
+  end
+
+  def last_month_accompaniments
+    @activities = Activity.last_month(events: Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS)
   end
 
   def new

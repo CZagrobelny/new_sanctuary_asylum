@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     resources :activities, except: [:destroy] do
       collection do
         get :last_month
+        get :accompaniments
+        get :last_month_accompaniments
       end
     end
     resources :friends do
