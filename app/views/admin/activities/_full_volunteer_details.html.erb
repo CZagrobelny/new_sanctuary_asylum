@@ -1,0 +1,16 @@
+<ol>
+  <% for accompaniment in activity.accompaniments %>
+    <li>
+      <div>
+        <% if accompaniment.user.accompaniment_leader? %>
+          <strong>Team Leader: </strong>
+        <% end %>
+        <%= accompaniment.user.name %>,
+        <i><%= accompaniment.user.phone %>, <%= accompaniment.user.email %></i>
+        <% if accompaniment.availability_notes.present? %>
+          <%= accompaniment.availability_notes %>
+        <% end %>
+      </div>
+    </li>
+  <% end %>
+</ol>

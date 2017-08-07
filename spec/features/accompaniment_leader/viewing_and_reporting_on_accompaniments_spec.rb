@@ -64,7 +64,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
       it 'displays a flash message that my accompaniment report was NOT created' do
         click_button 'Save'
         within '.alert' do
-          expect(page).to have_content 'There was an error creating your accompaniement report.'
+          expect(page).to have_content 'There was an error creating your accompaniment report.'
         end
       end 
     end
@@ -96,7 +96,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
         fill_in 'Notes', with: ''
         click_button 'Save'
         within '.alert' do
-          expect(page).to have_content 'There was an error saving your accompaniement report.'
+          expect(page).to have_content 'There was an error saving your accompaniment report.'
         end
       end
     end

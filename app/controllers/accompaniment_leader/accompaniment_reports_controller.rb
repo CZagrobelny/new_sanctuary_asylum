@@ -15,7 +15,7 @@ class AccompanimentLeader::AccompanimentReportsController < AccompanimentLeaderC
       flash[:success] = 'Your accompaniment report was created.'
       redirect_to accompaniment_leader_activities_path
     else
-      flash[:error] = 'There was an error creating your accompaniement report.'
+      flash[:error] = 'There was an error creating your accompaniment report.'
       render :edit
     end
   end
@@ -26,7 +26,7 @@ class AccompanimentLeader::AccompanimentReportsController < AccompanimentLeaderC
       redirect_to accompaniment_leader_activities_path
     else
       @activity = activity
-      flash[:error] = 'There was an error saving your accompaniement report.'
+      flash[:error] = 'There was an error saving your accompaniment report.'
       render :edit
     end
   end

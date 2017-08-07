@@ -18,7 +18,7 @@
     <% end %> 
     <% if activity.volunteers.present? %>
       <strong>Volunteers:  </strong><br>
-      <%= full_volunteer_details(activity) %>
+      <%= render partial: 'accompaniment_leader/activities/full_volunteer_details', locals: {activity: activity} %>
     <% end %>
 
     <% if current_user.attending?(activity) %>
