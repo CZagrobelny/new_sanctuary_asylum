@@ -28,15 +28,11 @@ $(document).on('turbolinks:load', function () {
 });
 
 function activateChosen() {
-  // Don't activate if the turbolink's cached version of the page
-  // already has chosen activated.
-  if ($('.chosen-container').length === 0) {
-    $('.chzn-select').chosen({
-      allow_single_deselect: true,
-      no_results_text: 'No results matched',
-      width: '100%'
-    });
-  }
+  $('.chzn-select').chosen({
+    allow_single_deselect: true,
+    no_results_text: 'No results matched',
+    width: '100%'
+  });
 }
 
 
