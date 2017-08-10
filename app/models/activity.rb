@@ -1,8 +1,8 @@
 class Activity < ActiveRecord::Base
   EVENT_KEYS = ['check_in', 'master_calendar_hearing', 'individual_hearing', 'special_accompaniment', 'filing_asylum_application', 'filing_work_permit', 'detained']
   EVENTS = EVENT_KEYS.map{|event| [event.titlecase, event]}
-  ACCOMPANIMENT_ELIGIBLE_EVENTS = ['master_calendar_hearing', 'individual_hearing', 'special_accompaniment']
-  NON_ACCOMPANIMENT_ELIGIBLE_EVENTS = ['check_in', 'filing_asylum_application', 'filing_work_permit', 'detained']
+  ACCOMPANIMENT_ELIGIBLE_EVENTS = ['master_calendar_hearing', 'individual_hearing', 'special_accompaniment', 'check_in']
+  NON_ACCOMPANIMENT_ELIGIBLE_EVENTS = ['filing_asylum_application', 'filing_work_permit', 'detained']
   
   belongs_to :friend
   belongs_to :judge
