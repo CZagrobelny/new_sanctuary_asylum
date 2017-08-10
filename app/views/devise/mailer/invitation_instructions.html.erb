@@ -1,11 +1,15 @@
-<p><%= t("devise.mailer.invitation_instructions.hello", email: @resource.email) %></p>
+<p>Welcome New Sanctuary Coalition Volunteer!</p>
 
-<p><%= t("devise.mailer.invitation_instructions.someone_invited_you", url: root_url) %></p>
-
-<p><%= link_to t("devise.mailer.invitation_instructions.accept"), accept_invitation_url(@resource, :invitation_token => @token) %></p>
+<p>Please follow this link to accept your invitation to the New Sanctuary Coalition software: <%= link_to t("devise.mailer.invitation_instructions.accept"), accept_invitation_url(@resource, :invitation_token => @token) %></p>
 
 <% if @resource.invitation_due_at %>
-  <p><%= t("devise.mailer.invitation_instructions.accept_until", due_date: l(@resource.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format')) %></p>
+  <p>This invitation will expire <%= @resource.invitation_due_at.strftime("%B %d, %Y %I:%M %p") %>.</p>
 <% end %>
 
+<p>Creating an account will allow you to RSVP for accompaniments and upload/download I-589 form drafts for the asylum clinic. Here is a video demo of the volunteer functionality (creating an account from an invitation email, viewing friend records for the asylum clinic, and RSVPing to accompaniments): https://youtu.be/UfYT3luVssg </p>
+
 <p><%= t("devise.mailer.invitation_instructions.ignore").html_safe %></p>
+
+<p>Thank you for all your hard work,</p>
+
+<p>The New Sanctuary Coalition team</p>
