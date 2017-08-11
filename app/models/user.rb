@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  devise :invitable, :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :invite_for => 2.days
+  devise :invitable, :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :invite_for => 2.days
+  attr_reader :raw_invitation_token
   
   enum role: [:volunteer, :accompaniment_leader, :admin]
   enum volunteer_type: [:english_speaking, :spanish_interpreter, :lawyer]
@@ -39,5 +40,12 @@ class User < ActiveRecord::Base
 
   def accompaniment_report_for(activity)
     self.accompaniment_reports.where(activity_id: activity.id).first
+  end
+
+  def generate_new_invitation
+    User.invite!(email: self.email, skip_invitation: true)
+    token = self.raw_invitation_token
+    domain = ENV['MAILER_DOMAIN']
+    "http://#{domain}/users/invitation/accept?invitation_token=#{token}"
   end
 end
