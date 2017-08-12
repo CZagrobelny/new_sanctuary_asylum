@@ -1,5 +1,5 @@
 class AccompanimentsController < ApplicationController
-
+  before_action :authenticate_user!
   def create
     if params[:attending] == 'true'
       accompaniment = Accompaniment.new(accompaniment_params)
