@@ -1,6 +1,6 @@
 Welcome New Sanctuary Coalition Volunteer!
 
-Please follow this link to accept your invitation to the New Sanctuary Coalition software: <%= link_to t("devise.mailer.invitation_instructions.accept"), accept_invitation_url(@resource, :invitation_token => @token) %>
+Please follow this link to accept your invitation to the New Sanctuary Coalition software: <%= accept_invitation_url(@resource, :invitation_token => @token) %>
 
 <% if @resource.invitation_due_at %>
   This invitation will expire <%= @resource.invitation_due_at.strftime("%B %d, %Y %I:%M %p") %>.
