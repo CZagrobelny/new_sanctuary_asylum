@@ -1,6 +1,4 @@
 class AsylumApplicationDraftsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :require_admin_or_access_to_friend
 
   def new
     @asylum_application_draft = friend.asylum_application_drafts.new
