@@ -1,6 +1,6 @@
 require 'csv'
 desc 'Invite users'
-task :import_friends => :environment do
+task :invite_users => :environment do
   CSV.foreach("processed_emails.csv") do |row|
     email = row[0].strip
     unless User.where(email: email).first.present?
