@@ -22,17 +22,48 @@ class Admin::FriendsController < AdminController
       flash[:success] = 'Friend record saved.'
       redirect_to edit_admin_friend_path(@friend)
     else
-      flash.now[:error] = 'Friend record not saved.'
+      flash[:error] = 'Friend record not saved.'
       render :new
     end
   end
 
   def update
     if friend.update(friend_params)
+      debugger
       flash[:success] = 'Friend record saved.'
       redirect_to edit_admin_friend_path(@friend, tab: current_tab)
     else
-      flash.now[:error] = 'Friend record not saved.'
+      flash[:error] = 'Friend record not saved.'
+      render :edit
+    end
+  end
+
+  def render_new_asylum_draft
+    if friend.update(friend_params)
+      redirect_to new_friend_asylum_application_draft(friend)
+    else
+      flash[:error] = 'Please fill in all required friend fields before adding a new asylum application draft.'
+      render :new
+    end
+  end
+
+  def render_edit_asylum_draft
+    if friend.update(friend_params)
+      redirect_to edit_friend_asylum_application_draft
+    else
+      flash[:error] = 'Please fill in all required friend fields before editing this asylum application draft.'
+      render :edit
+    end
+  end
+
+  def destroy_asylum_draft
+    if friend.update(friend_params)
+      asylum_application_draft = AsylumApplicationDraft.find(params[:asylum_application_draft_id])
+      asylum_application_draft.destroy
+      flash[:success] = 'Asylum application successfully destroyed.'
+      redirect_to edit_admin_friend_path(@friend, tab: '#asylum')
+    else
+      flash[:error] = 'Please fill in all required friend fields before destroying this asylum application draft.'
       render :edit
     end
   end
