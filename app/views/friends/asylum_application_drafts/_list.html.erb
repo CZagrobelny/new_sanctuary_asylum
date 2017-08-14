@@ -7,9 +7,9 @@
     <p>
       <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
       <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %>
-      <%= f.submit '(Edit)', name: 'edit_asylum_draft', value: "#{draft.id}", class: 'btn btn-primary' %>
+      <%= link_to edit_friend_asylum_application_draft_path(friend, draft) class: 'btn btn-primary' %>
       <% if current_user.admin? %>
-        <%= f.submit 'Remove', name: 'delete_asylum_draft', value: "#{draft.id}", class: 'delete' %><br>
+        <%= link_to 'Remove', class: 'delete' %><br>
       <% end %>
     
       <% if draft.users.present? %>
@@ -23,11 +23,3 @@
   </div>
   <br>
 <% end %>
-
-<script>
-  $(document).ready(function () {
-    $('.open_asylum_application_draft_edit_modal').click(function() {
-      $('#add_asylum_application_draft_modal').modal('show');
-    });
-  });
-</script>

@@ -1,6 +1,6 @@
 class AsylumApplicationDraftsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_access_to_friend
+  before_action :require_admin_or_access_to_friend
   before_action :require_admin, only: [:destroy]
 
   def new
@@ -32,6 +32,10 @@ class AsylumApplicationDraftsController < ApplicationController
       flash.now[:error] = 'Friend record not saved.'
       render :edit
     end 
+  end
+
+  def index
+    @friend = friend
   end
 
   def render_success
