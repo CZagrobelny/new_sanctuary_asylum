@@ -45,7 +45,7 @@
     // If the file input changes, display the new filename
     $('#asylum_application_draft_pdf_draft').change(function() {
       var filename = $(this).val().split(/(\\|\/)/g).pop();
-      $('#current-file').html(filename);
+      $('#current-file').text(filename);
     });
   });
 </script>
