@@ -24,7 +24,6 @@ gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-aws'
 gem 'ffaker', require: false
 gem 'non-stupid-digest-assets'
-gem 'airbrake', '~> 6.2'
 
 group :assets do
   gem 'sprockets', '~> 3.5.0'

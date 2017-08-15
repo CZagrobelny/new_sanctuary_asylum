@@ -40,9 +40,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
-    airbrake (6.2.1)
-      airbrake-ruby (~> 2.3, >= 2.3.1)
-    airbrake-ruby (2.3.2)
     american_date (1.1.1)
     arel (7.1.4)
     aws-sdk (2.10.17)
@@ -304,7 +301,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake (~> 6.2)
   american_date
   byebug
   capybara (~> 2.10.1)

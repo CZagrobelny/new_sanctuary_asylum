@@ -16,7 +16,7 @@
     <div class='row form-group'>
       <%= f.label :users, 'Volunteers', class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
-        <%= collection_select(:asylum_application_draft, :user_ids, User.all, :id, :name, {include_hidden: false}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+        <%= collection_select(:asylum_application_draft, :user_ids, User.all, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
       </div>
     </div>
 
