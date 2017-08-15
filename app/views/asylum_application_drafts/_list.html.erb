@@ -19,7 +19,7 @@
 
       <%= link_to 'Edit', edit_friend_asylum_application_draft_path(friend, draft) %>
       <% if current_user.admin? %>
-        <%= link_to 'Remove', friend_asylum_application_draft_path(friend, draft), method: :delete, class: 'delete' %><br>
+        <%= link_to 'Delete', friend_asylum_application_draft_path(friend, draft), method: :delete, confirm: true, class: 'delete' %><br>
       <% end %>
     </p> 
   </div>

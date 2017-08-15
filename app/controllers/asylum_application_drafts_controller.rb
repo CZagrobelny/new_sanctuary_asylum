@@ -41,7 +41,7 @@ class AsylumApplicationDraftsController < ApplicationController
   def destroy
     if asylum_application_draft.destroy
       flash[:success] = 'Asylum application draft destroyed.'
-      render_success
+      redirect_to edit_admin_friend_path(friend, tab: '#asylum')
     else
       flash[:error] = 'Error destroying asylum application draft.'
       redirect_to friend_asylum_application_drafts_path(friend)
