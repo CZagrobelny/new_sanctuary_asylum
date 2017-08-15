@@ -25,7 +25,7 @@
   <%= fields_for(@friend.user_friend_associations.build) do |fl| %>
     <%= fl.label :users,'Volunteers with Access', class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
-      <%= collection_select(:friend, :user_ids, User.all, :id, :name, {include_hidden: false}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+      <%= collection_select(:friend, :user_ids, User.all, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
     </div>
   <% end %>    
 </div>
