@@ -38,6 +38,16 @@ class AsylumApplicationDraftsController < ApplicationController
     @friend = friend
   end
 
+  def destroy
+    if asylum_application_draft.destroy
+      flash[:success] = 'Asylum application draft destroyed.'
+      render_success
+    else
+      flash[:error] = 'Error destroying asylum application draft.'
+      redirect_to friend_asylum_application_drafts_path(friend)
+    end
+  end
+
   def render_success
     if current_user.admin?
       redirect_to edit_admin_friend_path(friend, tab: '#asylum')
