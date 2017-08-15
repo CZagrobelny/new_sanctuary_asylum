@@ -42,8 +42,7 @@
   <div>
     <p>
       <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
-      <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %>
-      <%= link_to '(Edit)', edit_friend_asylum_application_draft_path(@friend, draft), class: 'btn btn-primary' %>
+      <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
     
       <% if draft.users.present? %>
         <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>

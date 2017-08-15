@@ -9,7 +9,7 @@ class AsylumApplicationDraftsController < ApplicationController
   end
 
   def create
-    @asylum_application_draft = AsylumApplicationDraft.new(asylum_application_draft_params)
+    @asylum_application_draft = friend.asylum_application_drafts.new(asylum_application_draft_params)
     if @asylum_application_draft.save
       flash[:success] = 'Asylum application draft saved.'
       render_success
@@ -25,7 +25,7 @@ class AsylumApplicationDraftsController < ApplicationController
   end
 
   def update
-    if @asylum_application_draft.update(asylum_application_draft_params)
+    if asylum_application_draft.update(asylum_application_draft_params)
       flash[:success] = 'Asylum application draft saved.'
       render_success
     else
@@ -40,9 +40,9 @@ class AsylumApplicationDraftsController < ApplicationController
 
   def render_success
     if current_user.admin?
-      redirect_to edit_admin_friend_path(@friend, tab: '#asylum')
+      redirect_to edit_admin_friend_path(friend, tab: '#asylum')
     else
-      redirect_to friend_path(@friend)
+      redirect_to friend_path(friend)
     end
   end
 
@@ -64,7 +64,7 @@ class AsylumApplicationDraftsController < ApplicationController
   end
 
   def require_admin_or_access_to_friend
-    unless current_user.admin? || UserFriendAssociation.where(friend_id: params[:id], user_id: current_user.id).present?
+    unless current_user.admin? || UserFriendAssociation.where(friend_id: params[:friend_id], user_id: current_user.id).present?
       not_found
     end
   end
