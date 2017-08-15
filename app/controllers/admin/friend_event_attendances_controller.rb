@@ -1,6 +1,8 @@
 class Admin::FriendEventAttendancesController < AdminController
   def create
-    @friend_event_attendance = FriendEventAttendance.new(event_id: event.id, friend_id: friend_event_attendance_params[:friend_id][0].to_i)
+    friend_id_array = friend_event_attendance_params[:friend_id].reject { |f| f.empty? }
+    friend_id = friend_id_array[0].to_i
+    @friend_event_attendance = FriendEventAttendance.new(event_id: event.id, friend_id: friend_id)
     if @friend_event_attendance.save
       render_success
     end
