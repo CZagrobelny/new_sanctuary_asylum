@@ -1,6 +1,8 @@
 class Admin::UserEventAttendancesController < AdminController
   def create
-    @user_event_attendance = UserEventAttendance.new(event_id: event.id, user_id: user_event_attendance_params[:user_id][0].to_i)
+    user_id_array = user_event_attendance_params[:user_id].reject { |u| u.empty? }
+    user_id = user_id_array[0].to_i
+    @user_event_attendance = UserEventAttendance.new(event_id: event.id, user_id: user_id)
     if @user_event_attendance.save
       render_success
     end

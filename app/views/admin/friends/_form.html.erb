@@ -59,8 +59,6 @@
 
 <%= render partial: 'admin/friends/family_members/modal', locals: { family_member_constructor: FamilyMemberConstructor.new, friend: @friend } %>
 
-<%= render partial: 'friends/asylum_application_drafts/modal', locals: { friend: @friend } %>
-
 <script>
   $(document).ready(function () {
     $('a[href="<%= @current_tab %>"]').click();

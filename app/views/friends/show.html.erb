@@ -5,24 +5,22 @@
     
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-      <li class="nav-item active">
-        <a class="nav-link active" data-toggle="tab" href="#info" role="tab">Basic</a>
-      </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#asylum" role="tab">Asylum</a>
+        <a class="nav-link" data-toggle="tab" href="#info" role="tab">Basic</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link active" data-toggle="tab" href="#asylum" role="tab">Asylum</a>
       </li>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content form-inputs">
-      <div class="tab-pane active" id="info" role="tabpanel">
+      <div class="tab-pane" id="info" role="tabpanel">
         <%= render 'info', friend: @friend %>
       </div>
-      <div class="tab-pane" id="asylum" role="tabpanel">
+      <div class="tab-pane active" id="asylum" role="tabpanel">
         <%= render 'asylum', friend: @friend %>
       </div>
     </div>
   </div>
 </div>
-
-<%= render partial: 'friends/asylum_application_drafts/modal', locals: { friend: @friend } %>

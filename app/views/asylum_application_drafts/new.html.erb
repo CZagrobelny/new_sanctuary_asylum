@@ -1,0 +1,5 @@
+<% unless current_user.admin? %>
+  <div class='row'><%= link_to 'Back to Friend Record', friend_path(@friend) %></div>
+<% end %>
+<h2>New Asylum Application Draft</h2>
+<%= render 'form' %>

@@ -12,8 +12,8 @@ Airbrake.configure do |c|
   # project_key navigate to your project's General Settings and copy the values
   # from the right sidebar.
   # https://github.com/airbrake/airbrake-ruby#project_id--project_key
-  c.project_id = 150886
-  c.project_key = '54b41db4a7af8897526bc032587975ce'
+  c.project_id = ENV['AIRBRAKE_PROJECT_ID']
+  c.project_key = ENV['AIRBRAKE_API_KEY']
 
   # Configures the root directory of your project. Expects a String or a
   # Pathname, which represents the path to your project. Providing this option
@@ -39,7 +39,7 @@ Airbrake.configure do |c|
   # unwanted environments such as :test.
   # NOTE: This option *does not* work if you don't set the 'environment' option.
   # https://github.com/airbrake/airbrake-ruby#ignore_environments
-  c.ignore_environments = %w(test)
+  c.ignore_environments = %w(test development)
 
   # A list of parameters that should be filtered out of what is sent to
   # Airbrake. By default, all "password" attributes will have their contents
