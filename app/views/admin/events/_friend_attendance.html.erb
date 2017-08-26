@@ -13,7 +13,7 @@
   <tbody>
     <% friend_attendance.each do |attendance| %>
       <tr>
-        <td><%= attendance.friend.nil? ? "" : attendance.friend.name %></td>
+        <td><%= attendance.friend.name %></td>
         <td>
           <%= link_to admin_event_friend_event_attendance_path(event, attendance), method: :delete, remote: true do %>
             <%= fa_icon 'times' %>
