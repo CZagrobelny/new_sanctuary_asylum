@@ -22,13 +22,26 @@ class Activity < ActiveRecord::Base
   end
 
   def self.upcoming_two_weeks
-    activities = [ Activity.for_week(beginning_of_week: Date.today.beginning_of_week.beginning_of_day, 
-                                     end_of_week: Date.today.end_of_week.end_of_day, 
+
+    if Date.today.cwday == 5 && !Activity.remaining_this_week?
+      week_1_beg = 1.weeks.from_now.beginning_of_week.beginning_of_day
+      week_1_end = 1.weeks.from_now.end_of_week.end_of_day
+      week_2_beg = 2.weeks.from_now.beginning_of_week.beginning_of_day
+      week_2_end = 2.weeks.from_now.end_of_week.end_of_day
+    else
+      week_1_beg = Date.today.beginning_of_week.beginning_of_day
+      week_1_end = Date.today.end_of_week.end_of_day
+      week_2_beg = 1.weeks.from_now.beginning_of_week.beginning_of_day
+      week_2_end = 1.weeks.from_now.end_of_week.end_of_day
+    end
+
+    activities = [ Activity.for_week(beginning_of_week: week_1_beg, 
+                                     end_of_week: week_1_end, 
                                      order: 'asc', 
                                      events: ACCOMPANIMENT_ELIGIBLE_EVENTS) ]
 
-    activities << Activity.for_week(beginning_of_week: 1.weeks.from_now.beginning_of_week, 
-                                    end_of_week: 1.weeks.from_now.end_of_week, 
+    activities << Activity.for_week(beginning_of_week: week_2_beg, 
+                                    end_of_week: week_2_end, 
                                     order: 'asc',  
                                     events: ACCOMPANIMENT_ELIGIBLE_EVENTS)
     activities
@@ -52,5 +65,9 @@ class Activity < ActiveRecord::Base
       activities << Activity.for_week(beginning_of_week: beginning_of_week, end_of_week: end_of_week, order: 'desc', events: events)
     end
     activities
+  end
+
+  def self.remaining_this_week?
+    Activity.where(event: ACCOMPANIMENT_ELIGIBLE_EVENTS).where('occur_at >= ? AND occur_at <= ? ', Time.now, Date.today.end_of_week.end_of_day).present?
   end
 end
