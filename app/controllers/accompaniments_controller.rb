@@ -1,5 +1,7 @@
 class AccompanimentsController < ApplicationController
   before_action :authenticate_user!
+  before_action :require_accompaniment_owner
+
   def create
     if params[:attending] == 'true'
       accompaniment = Accompaniment.new(accompaniment_params)
@@ -40,6 +42,13 @@ class AccompanimentsController < ApplicationController
       redirect_to accompaniment_leader_activities_path
     else
       redirect_to activities_path
+    end
+  end
+
+  private
+  def require_accompaniment_owner
+    unless current_user.id.to_s == accompaniment_params[:user_id]
+      not_found
     end
   end
 end
