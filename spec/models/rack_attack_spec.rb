@@ -35,7 +35,7 @@ RSpec.describe Rack::Attack do
     context "number of requests is lower than the limit" do
       it "does not change the request status" do
         limit.times do |i|
-          post "/users/sign_in", { email: "example3#{i}@gmail.com" }, "REMOTE_ADDR" => "1.2.3.7"
+          post "/users/sign_in", { email: "example3#{i}@example.com" }, "REMOTE_ADDR" => "1.2.3.7"
           expect(last_response.status).to_not eq(429)
         end
       end
@@ -44,7 +44,7 @@ RSpec.describe Rack::Attack do
     context "number of user requests is higher than the limit" do
       it "changes the request status to 429" do
         (limit * 2).times do |i|
-          post "/users/sign_in", { email: "example4#{i}@gmail.com" }, "REMOTE_ADDR" => "1.2.3.9"
+          post "/users/sign_in", { email: "example4#{i}@example.com" }, "REMOTE_ADDR" => "1.2.3.9"
           expect(last_response.status).to eq(429) if i > limit
         end
       end
@@ -57,7 +57,7 @@ RSpec.describe Rack::Attack do
     context "number of requests is lower than the limit" do
       it "does not change the request status" do
         limit.times do |i|
-          post "/users/sign_in", { email: "example7@gmail.com" }, "REMOTE_ADDR" => "#{i}.2.6.9"
+          post "/users/sign_in", { email: "example7@example.com" }, "REMOTE_ADDR" => "#{i}.2.6.9"
           expect(last_response.status).to_not eq(429)
         end
       end
@@ -66,7 +66,7 @@ RSpec.describe Rack::Attack do
     context "number of requests is higher than the limit" do
       it "changes the request status to 429" do
         (limit * 2).times do |i|
-          post "/users/sign_in", { email: "example8@gmail.com" }, "REMOTE_ADDR" => "#{i}.2.7.9"
+          post "/users/sign_in", { email: "example8@example.com" }, "REMOTE_ADDR" => "#{i}.2.7.9"
           expect(last_response.status).to eq(429) if i > limit
         end
       end
