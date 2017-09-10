@@ -23,6 +23,7 @@ module NewSanctuaryAsylum
 
 		#Allow the app to controll it's own error routes (custom 404, etc.)
 		#NOTE:and app erros will still cause the server env to handle errors (Heroku), so these routes are only effective when the app is running
-		config.exceptions_app = self.routes
+	config.exceptions_app = self.routes
+    config.middleware.use Rack::Attack
   end
 end
