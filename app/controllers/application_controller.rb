@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery prepend: true
+  protect_from_forgery with: :exception, prepend: true
 
   def require_admin
     not_found unless current_user.admin?
