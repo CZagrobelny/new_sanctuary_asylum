@@ -42,7 +42,6 @@ function activateChosen() {
       $(chosen_select).next().next().remove();
     }
   }
-
 }
 
 
