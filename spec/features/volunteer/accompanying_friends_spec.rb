@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Volunteer signing up for accompaniments', type: :feature do
+RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: true do
   let!(:volunteer) { create(:user, :volunteer) }
   let!(:current_week_activity) { create(:activity, occur_at: Date.today.end_of_week - 3.days ) }
   let!(:next_week_activity) { create(:activity, occur_at: 1.week.from_now ) }
@@ -64,6 +64,7 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature do
       within "#activity_#{current_week_activity.id}_accompaniment_modal" do
         select 'No', from: 'Attending'
         click_button 'Confirm'
+        wait_for_ajax
       end
     end
 
