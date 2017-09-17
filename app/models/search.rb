@@ -37,7 +37,10 @@ class Search
   end
 
   def sanitize_query
-    query.gsub(' ', '|')
+    ## remove special characters that textacular uses for search
+    query.gsub!(/[&|!]/,'')
+    ## make sure that the query does not have extra spaces
+    query.split(' ').join('|')
   end
 
   def query_string_length

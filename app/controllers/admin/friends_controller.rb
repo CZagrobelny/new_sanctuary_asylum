@@ -75,8 +75,7 @@ class Admin::FriendsController < AdminController
   private
 
   def search 
-		safeQuery = params[:query].rstrip
-    Search.new("friend", safeQuery, params[:page])
+    Search.new("friend", params[:query], params[:page])
   end
 
   def friend_params
