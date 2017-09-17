@@ -44,10 +44,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
 
   describe 'creating an accompaniment report' do
     before do
-      visit accompaniment_leader_activities_path
-      within "#activity_#{current_week_activity.id}" do
-        click_link 'Create Report'
-      end
+      visit new_accompaniment_leader_activity_accompaniment_report_path(current_week_activity)
     end
 
     describe 'with valid info' do
@@ -75,10 +72,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
     let!(:accompaniment_report_authorship) { create(:accompaniment_report_authorship, accompaniment_report: accompaniment_report, user: team_leader)}
     
     before do
-      visit accompaniment_leader_activities_path
-      within "#activity_#{current_week_activity.id}" do
-        click_link 'Edit Report'
-      end
+      visit edit_accompaniment_leader_activity_accompaniment_report_path(current_week_activity, team_leader.accompaniment_report_for(current_week_activity))
     end
 
     describe 'with valid info' do
