@@ -23,18 +23,4 @@ RSpec.describe 'Friend management', type: :feature do
       expect(current_path).to eq edit_admin_friend_path(friend)
     end
   end 
-
-  describe 'friend deletion' do
-  end
-
-  describe 'friend search' do
-    scenario 'by first name' do
-    end
-
-    scenario 'by last name' do
-    end
-
-    scenario 'by a number' do
-    end
-  end   
 end

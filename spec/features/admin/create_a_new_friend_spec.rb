@@ -46,7 +46,6 @@ RSpec.describe 'Admin creates a new friend record', type: :feature do
       end
 
       expect(page).to have_content "First name can't be blank"
-
     end
   end   
 end
