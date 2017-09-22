@@ -10,9 +10,9 @@ require 'factory_girl_rails'
 require 'shoulda/matchers'
 require 'ffaker'
 
+require 'selenium/webdriver'
 require 'capybara/rspec'
 require 'capybara/rails'
-require 'capybara/poltergeist'
 require 'database_cleaner'
 require 'launchy'
 
@@ -20,17 +20,21 @@ require 'support/wait_for_ajax'
 require 'support/select_from_chosen'
 
 
-Capybara.javascript_driver = :poltergeist
-Phantomjs.path
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, {
-    js_errors: false,
-    debug: false,
-    inspect: false,
-    phantomjs_options: ['--ssl-protocol=any'],
-    :phantomjs => Phantomjs.path
-  })
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
+
+Capybara.register_driver :headless_chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: %w(headless disable-gpu) }
+  )
+
+  Capybara::Selenium::Driver.new app,
+    browser: :chrome,
+    desired_capabilities: capabilities
+end
+
+Capybara.javascript_driver = :headless_chrome
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
