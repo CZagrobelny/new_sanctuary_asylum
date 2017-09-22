@@ -5,16 +5,13 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
   let!(:current_week_activity) { create(:activity, occur_at: Date.today.end_of_week - 3.days ) }
   let!(:next_week_activity) { create(:activity, occur_at: 1.week.from_now ) }
   let!(:accompaniment) { create(:accompaniment, user: team_leader, activity: current_week_activity) }
-  before { login_as(team_leader) }
+  before do
+    login_as(team_leader)
+  end
 
   describe 'viewing upcoming accompaniments' do
     before do
-      visit root_path
-      click_link 'Accompaniment Program'
-    end
-
-    it 'displays the accompaniment leader activities page' do
-      expect(page).to have_current_path(accompaniment_leader_activities_path)
+      visit accompaniment_leader_activities_path
     end
 
     it 'displays full details of accompaniments in the current week' do
@@ -26,13 +23,12 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
       expect(page).to have_content(next_week_activity.friend.first_name)
       expect(page).to have_content(current_week_activity.friend.phone)
     end
-  end
 
-  describe 'attending an activity' do
-    it 'lists me as "Team Leader" for the activity' do
-      visit accompaniment_leader_activities_path
-      within "#activity_#{current_week_activity.id}" do
-        expect(page).to have_content("Team Leader: #{team_leader.name}")
+    describe 'when the team leader is attending an activity' do
+      it 'lists me as "Team Leader" for the activity' do
+        within "#activity_#{current_week_activity.id}" do
+          expect(page).to have_content("Team Leader: #{team_leader.name}")
+        end
       end
     end
   end
