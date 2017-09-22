@@ -30,7 +30,6 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: tr
       within "#activity_#{current_week_activity.id}_accompaniment_modal" do
         click_button 'Confirm'
       end
-      wait_for_ajax
     end
 
     it 'creates an RSVP' do
@@ -59,7 +58,6 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: tr
         select 'No', from: 'Attending'
         click_button 'Confirm'
       end
-      wait_for_ajax
     end
 
     it 'deletes the RSVP' do
