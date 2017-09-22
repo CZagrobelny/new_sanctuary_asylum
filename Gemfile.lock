@@ -334,7 +334,6 @@ DEPENDENCIES
   poltergeist (~> 1.11.0)
   pry
   rack-attack
-  rack-test
   rails (~> 5.0.0)
   rails-controller-testing
   redis (~> 3.3.1)

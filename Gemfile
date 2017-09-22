@@ -49,10 +49,6 @@ group :development, :test do
   gem 'dotenv-rails'
 end
 
-group :test do
-  gem 'rack-test', require: 'rack/test'
-end
-
 group :production do
   gem 'sendgrid-ruby'
   gem 'rack-attack'
