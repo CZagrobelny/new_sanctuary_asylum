@@ -4,7 +4,6 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
   let!(:team_leader) { create(:user, :accompaniment_leader) }
   let!(:current_week_activity) { create(:activity, occur_at: Date.today.end_of_week - 3.days ) }
   let!(:next_week_activity) { create(:activity, occur_at: 1.week.from_now ) }
-  let!(:activity_outside_date_range) { create(:activity, occur_at: 2.weeks.from_now) }
   let!(:accompaniment) { create(:accompaniment, user: team_leader, activity: current_week_activity) }
   before { login_as(team_leader) }
 
@@ -26,10 +25,6 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
     it 'displays full details of accompaniments in the upcoming week' do
       expect(page).to have_content(next_week_activity.friend.first_name)
       expect(page).to have_content(current_week_activity.friend.phone)
-    end
-
-    it 'does not display accompaniments outside of the two week date range' do
-      expect(page).to_not have_content(activity_outside_date_range.friend.first_name)
     end
   end
 
