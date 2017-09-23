@@ -4,16 +4,8 @@
 
 ### System Dependencies
 
-* ruby v 2.3.3
-* ruby c headers
-* postgres v 9.6
-* postgres c headers
-
-To install on debian/ubuntu:
-
-``` shell
-sudo apt install ruby libpq-dev ruby-dev
-```
+* ruby (see Gemfile for version)
+* postgres
 
 ### Ruby Dependencies
 
@@ -41,7 +33,7 @@ rake db:setup
 
 ## Environment Variables
 
-**Placeholder (none at this time)**
+FROM_ADDRESS='test@example.com'
 
 
 ## Running the test suite
@@ -61,7 +53,7 @@ rails server
 
 ## What are we building?
 
-Software to support the core work of the New Sanctuary Coalition: helping our friends fill out applications for asylum and accompanying them to their hearings and check-ins.
+Software to support the core work of the New Sanctuary Coalition: helping our friends (undocumented immigrants) fill out applications for asylum and accompanying them to their hearings and check-ins.
 
 ### User Roles
 
@@ -91,6 +83,15 @@ Login as an Volunteeer with:
 * username: volunteer@example.com
 * password: password
 
+#### Accompaniment Leader Role
+- Can do everything a volunteer can do
+- Can view contact information about friends and volunteers involved in accompaniments
+- Can create report for accompaniments they attend
+
+Login as an Volunteeer with:
+* username: accompaniment_leader@example.com
+* password: password
+
 ## How are we building it?
 
 ### Gems & Libraries!
@@ -100,21 +101,17 @@ Here are the big ones:
 - Bootstrap: http://getbootstrap.com
 - Chosen: https://github.com/harvesthq/chosen (nice, searchable dropdowns)
 - Will Paginate: https://github.com/mislav/will_paginate
-
-If there is anything else you think is essential, let's talk about it.
+- Textacular: https://github.com/textacular/textacular
 
 ### Test Coverage!
 Aiming to cover the functionality we build with:
 - model tests
 - feature tests to cover the main pathways through the app
 
-### Hosting
-**Info coming soon.**
-
 ## Contributing
 1. Select a story from the Trello board: https://trello.com/b/nSt2qssz/new-sanctuary
 2. Create a feature branch off master.
 3. Complete feature with tests!
 4. Check CircleCI to make sure tests are passing.
-5. Make a pull request and tag me, CZagrobelny, to review.
-6. Merge into master upon approval of the pull request.
+5. Make a pull request and tag CZagrobelny to review.
+6. CZagrobelny will leave feedback and merge into master upon approval of the pull request.
