@@ -8,7 +8,7 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: tr
 
   describe 'viewing upcoming accompaniments' do
     before do
-      visit visit activities_path
+      visit activities_path
     end
 
     it 'displays accompaniments in the current week' do
