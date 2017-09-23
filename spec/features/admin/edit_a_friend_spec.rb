@@ -35,6 +35,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
           select 'Spouse', from: 'Relationship'
           select_from_chosen(family_member.name, from: {id: 'family_member_constructor_relation_id'})
           click_button 'Add'
+          wait_for_ajax
 
           within '#family-list' do
             expect(page).to have_content(family_member.name)
@@ -45,6 +46,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
       describe 'with incomplete information' do
         it 'displays validation errors' do
           click_button 'Add'
+          wait_for_ajax
           expect(page).to have_content("Relationship can't be blank")
         end
       end
@@ -69,6 +71,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
           within '#new_activity' do
             click_button 'Save'
           end
+          wait_for_ajax
 
           within '#activity-list' do
             expect(page).to have_content('Individual hearing')
@@ -82,6 +85,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
           within '#new_activity' do
             click_button 'Save'
           end
+          wait_for_ajax
           expect(page).to have_content("Location can't be blank")
         end
       end

@@ -1,16 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe 'Volunteer signing up for accompaniments', type: :feature do
+RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: true do
   let!(:volunteer) { create(:user, :volunteer) }
   let!(:current_week_activity) { create(:activity, occur_at: Date.today.end_of_week - 3.days ) }
   let!(:next_week_activity) { create(:activity, occur_at: 1.week.from_now ) }
-  let!(:activity_outside_date_range) { create(:activity, occur_at: 2.weeks.from_now) }
   before { login_as(volunteer) }
 
   describe 'viewing upcoming accompaniments' do
     before do
-      visit root_path
-      click_link 'Accompaniment Program'
+      visit activities_path
     end
 
     it 'displays accompaniments in the current week' do
@@ -19,10 +17,6 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature do
 
     it 'displays accompaniments in the upcoming week' do
       expect(page).to have_content(next_week_activity.friend.first_name)
-    end
-
-    it 'does not display accompaniments outside of the two week date range' do
-      expect(page).to_not have_content(activity_outside_date_range.friend.first_name)
     end
   end
 
@@ -35,23 +29,22 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature do
       within "#activity_#{current_week_activity.id}_accompaniment_modal" do
         click_button 'Confirm'
       end
+      wait_for_ajax
     end
 
-    it 'displays a flash message that my RSVP was successful' do
+    it 'creates an RSVP' do
       within '.alert' do
         expect(page).to have_content 'Your RSVP was successful.'
       end
-    end  
-    it 'lists my first name as a "Volunteer" for the activity' do
+
       within "#activity_#{current_week_activity.id}" do
         expect(page).to have_content(volunteer.first_name)
       end
-    end
-    it 'displays a button to "Edit RSVP" for the activity' do
+
       within "#activity_#{current_week_activity.id}" do
         expect(page).to have_content('Edit RSVP')
       end
-    end
+    end  
   end
 
   describe 'canceling an RSVP for an accompaniment' do
@@ -65,19 +58,16 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature do
         select 'No', from: 'Attending'
         click_button 'Confirm'
       end
+      wait_for_ajax
     end
 
-    it 'displays a flash message that my RSVP was deleted' do
+    it 'deletes the RSVP' do
       within '.alert' do
         expect(page).to have_content 'Your RSVP was deleted.'
       end
-    end 
-    it 'does not list my first name as a "Volunteer" for the activity' do
       within "#activity_#{current_week_activity.id}" do
         expect(page).to_not have_content(volunteer.first_name)
       end
-    end
-    it 'displays a button to "Attend" for the activity' do
       within "#activity_#{current_week_activity.id}" do
         expect(page).to have_content('Attend')
       end
