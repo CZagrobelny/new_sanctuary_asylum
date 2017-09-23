@@ -26,8 +26,6 @@ gem 'ffaker', require: false
 gem 'non-stupid-digest-assets'
 gem 'airbrake', '~> 6.2'
 gem 'newrelic_rpm'
-gem 'rack-attack'
-gem 'rack-test', require: 'rack/test'
 
 group :assets do
   gem 'sprockets', '~> 3.5.0'
@@ -53,6 +51,7 @@ end
 
 group :production do
   gem 'sendgrid-ruby'
+  gem 'rack-attack'
 end
 
 group :development do

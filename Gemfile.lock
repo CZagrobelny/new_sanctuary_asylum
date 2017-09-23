@@ -334,7 +334,6 @@ DEPENDENCIES
   pry
   puma (~> 3.9.0)
   rack-attack
-  rack-test
   rails (~> 5.0.0)
   rails-controller-testing
   redis (~> 3.3.1)

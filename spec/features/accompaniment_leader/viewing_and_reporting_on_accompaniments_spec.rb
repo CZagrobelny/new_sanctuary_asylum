@@ -4,18 +4,14 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
   let!(:team_leader) { create(:user, :accompaniment_leader) }
   let!(:current_week_activity) { create(:activity, occur_at: Date.today.end_of_week - 3.days ) }
   let!(:next_week_activity) { create(:activity, occur_at: 1.week.from_now ) }
-  let!(:activity_outside_date_range) { create(:activity, occur_at: 2.weeks.from_now) }
   let!(:accompaniment) { create(:accompaniment, user: team_leader, activity: current_week_activity) }
-  before { login_as(team_leader) }
+  before do
+    login_as(team_leader)
+  end
 
   describe 'viewing upcoming accompaniments' do
     before do
-      visit root_path
-      click_link 'Accompaniment Program'
-    end
-
-    it 'displays the accompaniment leader activities page' do
-      expect(page).to have_current_path(accompaniment_leader_activities_path)
+      visit accompaniment_leader_activities_path
     end
 
     it 'displays full details of accompaniments in the current week' do
@@ -28,26 +24,18 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
       expect(page).to have_content(current_week_activity.friend.phone)
     end
 
-    it 'does not display accompaniments outside of the two week date range' do
-      expect(page).to_not have_content(activity_outside_date_range.friend.first_name)
-    end
-  end
-
-  describe 'attending an activity' do
-    it 'lists me as "Team Leader" for the activity' do
-      visit accompaniment_leader_activities_path
-      within "#activity_#{current_week_activity.id}" do
-        expect(page).to have_content("Team Leader: #{team_leader.name}")
+    describe 'when the team leader is attending an activity' do
+      it 'lists me as "Team Leader" for the activity' do
+        within "#activity_#{current_week_activity.id}" do
+          expect(page).to have_content("Team Leader: #{team_leader.name}")
+        end
       end
     end
   end
 
   describe 'creating an accompaniment report' do
     before do
-      visit accompaniment_leader_activities_path
-      within "#activity_#{current_week_activity.id}" do
-        click_link 'Create Report'
-      end
+      visit new_accompaniment_leader_activity_accompaniment_report_path(current_week_activity)
     end
 
     describe 'with valid info' do
@@ -75,10 +63,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
     let!(:accompaniment_report_authorship) { create(:accompaniment_report_authorship, accompaniment_report: accompaniment_report, user: team_leader)}
     
     before do
-      visit accompaniment_leader_activities_path
-      within "#activity_#{current_week_activity.id}" do
-        click_link 'Edit Report'
-      end
+      visit edit_accompaniment_leader_activity_accompaniment_report_path(current_week_activity, team_leader.accompaniment_report_for(current_week_activity))
     end
 
     describe 'with valid info' do
