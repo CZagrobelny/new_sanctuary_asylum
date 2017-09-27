@@ -26,6 +26,7 @@ gem 'ffaker', require: false
 gem 'non-stupid-digest-assets'
 gem 'airbrake', '~> 6.2'
 gem 'newrelic_rpm'
+gem 'secure_headers'
 
 group :assets do
   gem 'sprockets', '~> 3.5.0'

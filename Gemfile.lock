@@ -246,6 +246,8 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    secure_headers (4.0.0)
+      useragent (>= 0.15.0)
     sendgrid-ruby (5.0.0)
       ruby_http_client (~> 3.0)
       sinatra (>= 1.4.7, < 3)
@@ -285,6 +287,7 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    useragent (0.16.8)
     warden (1.2.7)
       rack (>= 1.0)
     web-console (3.5.1)
@@ -341,6 +344,7 @@ DEPENDENCIES
   rspec-rails (~> 3.5.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  secure_headers
   sendgrid-ruby
   shoulda-matchers (~> 3.1.1)
   spring
