@@ -55,7 +55,7 @@ class Admin::FriendsController < AdminController
       flash[:success] = 'Friend record destroyed.'
       redirect_to admin_friends_path
     else
-      flash[:success] = 'Friend record not destroyed.'
+      flash[:error] = 'Friend record has Asylum Application Drafts and/or Activities. It cannot be deleted until these are removed.'
       redirect_to admin_friends_path
     end
   end

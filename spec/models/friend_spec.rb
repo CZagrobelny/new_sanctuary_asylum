@@ -26,6 +26,27 @@ RSpec.describe Friend, type: :model do
 
   		end
   	end
+  end
 
+  describe '#destroy' do
+    let!(:friend) { create :friend }
+
+    it 'is deleted' do
+      expect{ friend.destroy }.to change{ Friend.count }
+    end
+
+    context 'has an associated Activity' do
+      before { create :activity, friend: friend }
+      it 'is not deleted' do
+        expect{ friend.destroy }.not_to change{ Friend.count }
+      end
+    end
+   
+    context 'has an associated Asylum Application Draft' do
+      before { create :asylum_application_draft, friend: friend }
+      it 'is not deleted' do
+        expect{ friend.destroy }.not_to change{ Friend.count }
+      end
+    end
   end
 end
