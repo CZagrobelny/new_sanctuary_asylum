@@ -10,7 +10,7 @@ RSpec.describe 'Volunteer managing asylum application drafts for shared friends'
   describe 'viewing shared friend records' do
     before do
       visit root_path
-      click_link 'Asylum Clinic'
+      click_link 'Clinic'
     end
 
     it 'displays friend records associated with the volunteer' do

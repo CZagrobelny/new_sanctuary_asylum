@@ -56,7 +56,3 @@
 <p><strong>Date Submitted:  </strong><%= friend.date_work_authorization_submitted.strftime('%m/%d/%y') if friend.date_work_authorization_submitted.present? %></p>
 <p><strong>Notes:  </strong><%= friend.work_authorization_notes %></p>
 <br>
-<h4>SIJS</h4>
-<p><strong>Status:  </strong><%= friend.sijs_status.try(:humanize) %></p>
-<p><strong>Date Submitted:  </strong><%= friend.date_sijs_submitted.strftime('%m/%d/%y') if friend.date_sijs_submitted.present? %></p>
-<p><strong>Notes:  </strong><%= friend.sijs_notes %></p>

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :users, only: [:edit, :update]
   resources :friends, only: [:index, :show, :update] do
     resources :asylum_application_drafts
+    resources :sijs_application_drafts
   end
   resources :accompaniments
   resources :activities, only: [:index]

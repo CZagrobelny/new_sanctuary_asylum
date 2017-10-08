@@ -30,6 +30,8 @@ class Admin::FriendsController < AdminController
   def update
     if params['manage_asylum_drafts'].present?
       update_and_render_asylum_drafts
+    elsif params['manage_sijs_drafts'].present?
+      update_and_render_sijs_drafts
     else
       if friend.update(friend_params)
         flash[:success] = 'Friend record saved.'
@@ -44,6 +46,15 @@ class Admin::FriendsController < AdminController
   def update_and_render_asylum_drafts
     if friend.update(friend_params)
       redirect_to friend_asylum_application_drafts_path(friend)
+    else
+      flash[:error] = 'Please fill in all required friend fields before managing asylum application drafts.'
+      render :edit
+    end
+  end
+
+  def update_and_render_sijs_drafts
+    if friend.update(friend_params)
+      redirect_to friend_sijs_application_drafts_path(friend)
     else
       flash[:error] = 'Please fill in all required friend fields before managing asylum application drafts.'
       render :edit

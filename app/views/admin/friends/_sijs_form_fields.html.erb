@@ -21,6 +21,13 @@
   </div>
 </div>
 
+<div class='row form-group'>
+  <%= f.label :sijs_notes, 'Notes', class: 'col-md-2 control-label' %>
+  <div class='col-md-10'>
+    <%= f.text_area :sijs_notes, class: 'form-control', style: 'height: 200px;' %>
+  </div>
+</div>
+
 <div class='col-md-2 col-md-offset-10'>
   <%= f.submit 'Manage SIJS Application Drafts', name: 'manage_sijs_drafts', :class => 'btn btn-primary' %>
 </div>
