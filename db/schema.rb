@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171008150036) do
+ActiveRecord::Schema.define(version: 20171008152532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(version: 20171008150036) do
     t.integer  "country_id"
     t.integer  "lawyer_referred_to"
     t.integer  "lawyer_represented_by"
+    t.integer  "sijs_lawyer"
   end
 
   create_table "judges", force: :cascade do |t|

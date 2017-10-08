@@ -105,6 +105,7 @@ class Admin::FriendsController < AdminController
       :sijs_status,
       :date_sijs_submitted,
       :sijs_notes,
+      :sijs_lawyer,
       :country_id,
       :lawyer_represented_by,
       :lawyer_referred_to,

@@ -55,22 +55,6 @@
   </div>
 </div>
 
-<h4>SIJS</h4>
-
-<div class='row form-group'>
-  <%= f.label :sijs_status, 'Status', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= f.select :sijs_status, options_for_select(Friend::SIJS_STATUSES, @friend.sijs_status), {include_blank: true}, {class: 'form-control'} %>
-  </div>
-</div>
-
-<div class='row form-group'>
-  <%= f.label :date_sijs_submitted, 'Date Submitted', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= f.date_select :date_sijs_submitted, { start_year: 2017, end_year: 5.years.ago.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
-  </div>
-</div>
-
 <div class='row form-group'>
   <%= f.label :sijs_notes, 'Notes', class: 'col-md-2 control-label' %>
   <div class='col-md-10'>
