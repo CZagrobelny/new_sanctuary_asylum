@@ -23,6 +23,7 @@ class Friend < ActiveRecord::Base
   has_many :asylum_application_drafts, dependent: :restrict_with_error
   has_many :friend_event_attendances, dependent: :destroy
   has_many :events, through: :friend_event_attendances
+  has_many :sijs_application_drafts, dependent: :restrict_with_error
 
   validates :first_name, :last_name, presence: true
   validates :a_number, presence: { if: :a_number_available? }, numericality: { if: :a_number_available? }
