@@ -52,7 +52,7 @@ class AsylumApplicationDraftsController < ApplicationController
     if current_user.admin?
       redirect_to edit_admin_friend_path(friend, tab: '#asylum')
     else
-      redirect_to friend_path(friend)
+      redirect_to friend_path(friend, tab: '#asylum')
     end
   end
 

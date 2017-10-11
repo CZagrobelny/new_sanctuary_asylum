@@ -8,6 +8,7 @@ class FriendsController < ApplicationController
 
   def show
     @friend = Friend.find(params[:id])
+    @current_tab = current_tab
   end
 
   def update
@@ -29,5 +30,13 @@ class FriendsController < ApplicationController
     params.require(:friend).permit(
       :user_ids => []
     )
+  end
+
+  def current_tab
+    if params[:tab].present?
+      params[:tab]
+    else
+      '#basic'
+    end
   end
 end

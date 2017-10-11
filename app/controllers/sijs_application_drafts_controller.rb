@@ -41,7 +41,7 @@ class SijsApplicationDraftsController < ApplicationController
   def destroy
     if sijs_application_draft.destroy
       flash[:success] = 'SIJS application draft destroyed.'
-      redirect_to edit_admin_friend_path(friend, tab: '#sijs')
+      redirect_to friend_path(friend, tab: '#sijs')
     else
       flash[:error] = 'Error destroying SIJS application draft.'
       redirect_to friend_asylum_application_drafts_path(friend)
@@ -52,12 +52,12 @@ class SijsApplicationDraftsController < ApplicationController
     if current_user.admin?
       redirect_to edit_admin_friend_path(friend, tab: '#sijs')
     else
-      redirect_to friend_path(friend)
+      redirect_to friend_path(friend, tab: '#sijs')
     end
   end
 
-  def asylum_application_draft
-    @asylum_application_draft ||= AsylumApplicationDraft.find(params[:id]) 
+  def sijs_application_draft
+    @sijs_application_draft ||= SijsApplicationDraft.find(params[:id]) 
   end
 
   def friend
