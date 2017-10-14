@@ -5,7 +5,7 @@ class Friend < ActiveRecord::Base
   STATUSES = ['in_deportation_proceedings', 'not_in_deportation_proceedings', 'asylum_reciepient', 'asylum_application_denied', 'legal_permanent_resident', 'in_detention', 'green_card_holder'].map{|status| [status.titlecase, status]}
   ASYLUM_STATUSES = ['not_eligible', 'eligible', 'application_started', 'application_completed', 'application_submitted', 'granted', 'denied'].map{|status| [status.titlecase, status]}
   WORK_AUTHORIZATION_STATUSES = ['not_eligible', 'eligible', 'application_started', 'application_completed', 'application_submitted', 'granted', 'denied'].map{|status| [status.titlecase, status]}
-  SIJS_STATUSES = ['qualifies', 'guardianship_requested', 'first_family_court', 'special_findings_form_finished', 'second_family_court', 'application_submitted_to_uscis', 'application_granted_by_uscis', 'application_denied_by_uscis'].map{|status| [status.titlecase, status]}
+  SIJS_STATUSES = ['qualifies', 'in_progress', 'submitted', 'approved', 'denied'].map{|status| [status.titlecase, status]}
 
   has_many :friend_languages, dependent: :destroy
   has_many :languages, through: :friend_languages

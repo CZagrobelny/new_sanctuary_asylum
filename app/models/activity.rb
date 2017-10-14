@@ -1,8 +1,8 @@
 class Activity < ActiveRecord::Base
-  EVENT_KEYS = ['check_in', 'master_calendar_hearing', 'individual_hearing', 'special_accompaniment', 'filing_asylum_application', 'filing_work_permit', 'detained']
+  ACCOMPANIMENT_ELIGIBLE_EVENTS = ['master_calendar_hearing', 'individual_hearing', 'special_accompaniment', 'check_in', 'family_court']
+  NON_ACCOMPANIMENT_ELIGIBLE_EVENTS = ['filing_asylum_application', 'filing_work_permit', 'detained', 'guardianship_requested', 'sijs_special_findings_form_finished', 'sijs_application_submitted', 'sijs_granted', 'sijs_denied']
+  EVENT_KEYS = ACCOMPANIMENT_ELIGIBLE_EVENTS + NON_ACCOMPANIMENT_ELIGIBLE_EVENTS
   EVENTS = EVENT_KEYS.map{|event| [event.titlecase, event]}
-  ACCOMPANIMENT_ELIGIBLE_EVENTS = ['master_calendar_hearing', 'individual_hearing', 'special_accompaniment', 'check_in']
-  NON_ACCOMPANIMENT_ELIGIBLE_EVENTS = ['filing_asylum_application', 'filing_work_permit', 'detained']
   
   belongs_to :friend
   belongs_to :judge
@@ -11,7 +11,7 @@ class Activity < ActiveRecord::Base
   has_many :volunteers, through: :accompaniments, source: :user
   has_many :accompaniment_reports, dependent: :destroy
 
-  validates :event, :occur_at, :location_id, :friend_id, presence: true
+  validates :event, :occur_at, :friend_id, presence: true
 
   def self.for_week(beginning_of_week:, end_of_week:, order:, events:)
     { dates: "#{beginning_of_week.strftime('%B %-d')} - #{(end_of_week - 2.days).strftime('%B %-d')}", 
