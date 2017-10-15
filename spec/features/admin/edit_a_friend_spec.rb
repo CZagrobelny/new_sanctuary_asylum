@@ -86,7 +86,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
             click_button 'Save'
           end
           wait_for_ajax
-          expect(page).to have_content("Location can't be blank")
+          expect(page).to have_content("Event can't be blank")
         end
       end
     end
