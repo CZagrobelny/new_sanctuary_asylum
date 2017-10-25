@@ -10,10 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171008152532) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20171025003626) do
 
   create_table "accompaniment_report_authorships", force: :cascade do |t|
     t.integer  "user_id",                 null: false
@@ -79,8 +76,8 @@ ActiveRecord::Schema.define(version: 20171008152532) do
     t.integer  "language_id", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["friend_id"], name: "index_friend_languages_on_friend_id", using: :btree
-    t.index ["language_id"], name: "index_friend_languages_on_language_id", using: :btree
+    t.index ["friend_id"], name: "index_friend_languages_on_friend_id"
+    t.index ["language_id"], name: "index_friend_languages_on_language_id"
   end
 
   create_table "friends", force: :cascade do |t|
@@ -115,6 +112,7 @@ ActiveRecord::Schema.define(version: 20171008152532) do
     t.integer  "lawyer_referred_to"
     t.integer  "lawyer_represented_by"
     t.integer  "sijs_lawyer"
+    t.integer  "neighborhood_id"
   end
 
   create_table "judges", force: :cascade do |t|
@@ -139,6 +137,10 @@ ActiveRecord::Schema.define(version: 20171008152532) do
   end
 
   create_table "locations", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "neighborhoods", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -185,8 +187,8 @@ ActiveRecord::Schema.define(version: 20171008152532) do
     t.integer  "friend_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["friend_id"], name: "index_user_friend_associations_on_friend_id", using: :btree
-    t.index ["user_id"], name: "index_user_friend_associations_on_user_id", using: :btree
+    t.index ["friend_id"], name: "index_user_friend_associations_on_friend_id"
+    t.index ["user_id"], name: "index_user_friend_associations_on_user_id"
   end
 
   create_table "user_sijs_application_draft_associations", force: :cascade do |t|
@@ -211,8 +213,8 @@ ActiveRecord::Schema.define(version: 20171008152532) do
     t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -227,12 +229,12 @@ ActiveRecord::Schema.define(version: 20171008152532) do
     t.integer  "invitations_count",      default: 0
     t.integer  "volunteer_type"
     t.boolean  "pledge_signed",          default: false
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
-    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
-    t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
-    t.index ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invitations_count"], name: "index_users_on_invitations_count"
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end

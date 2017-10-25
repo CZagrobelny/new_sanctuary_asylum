@@ -42,6 +42,13 @@
     </p>
   <% end %>
 <% end %>
+<!-- Wasn't sure where you wanted it in this file -->
+<div class='row form-group'>
+  <%= f.label :neighborhood_id,'Neighborhood', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= collection_select(:friend, :neighborhood_id, Neighborhood.all, :id, :name, {prompt: true}, {class: 'form-control'}) %>
+  </div>
+</div>
 
 <h3>Other Case Info</h3>
 

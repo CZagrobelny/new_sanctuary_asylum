@@ -1,7 +1,7 @@
 class Friend < ActiveRecord::Base
   enum ethnicity: [:white, :black, :hispanic, :asian, :south_asian, :caribbean, :indigenous, :other]
   enum gender: [:male, :female, :awesome]
-  
+
   STATUSES = ['in_deportation_proceedings', 'not_in_deportation_proceedings', 'asylum_reciepient', 'asylum_application_denied', 'legal_permanent_resident', 'in_detention', 'green_card_holder'].map{|status| [status.titlecase, status]}
   ASYLUM_STATUSES = ['not_eligible', 'eligible', 'application_started', 'application_completed', 'application_submitted', 'granted', 'denied'].map{|status| [status.titlecase, status]}
   WORK_AUTHORIZATION_STATUSES = ['not_eligible', 'eligible', 'application_started', 'application_completed', 'application_submitted', 'granted', 'denied'].map{|status| [status.titlecase, status]}
@@ -24,6 +24,7 @@ class Friend < ActiveRecord::Base
   has_many :friend_event_attendances, dependent: :destroy
   has_many :events, through: :friend_event_attendances
   has_many :sijs_application_drafts, dependent: :restrict_with_error
+  belongs_to :neighborhood
 
   validates :first_name, :last_name, presence: true
   validates :a_number, presence: { if: :a_number_available? }, numericality: { if: :a_number_available? }
