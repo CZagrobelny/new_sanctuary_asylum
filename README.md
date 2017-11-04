@@ -28,6 +28,7 @@ docker run --name new_sanctuary -p "127.0.0.1:5432:5432" -e POSTGRES_PASSWORD=pa
 To run initial migrations and seed the DB:
 
 ```
+cp config/database.yml.sample config/database.yml
 rake db:setup
 ```
 
