@@ -1,12 +1,10 @@
 source 'https://rubygems.org'
 
-ruby '2.3.4'
+ruby '2.3.5'
 
 gem 'rails', '~> 5.0.0'
 
-
-gem 'sqlite3'
-# gem 'pg', '~> 0.18.4'
+gem 'pg', '~> 0.18.4'
 gem 'redis', '~> 3.3.1'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5.x'
@@ -63,3 +61,4 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring-commands-rspec'
 end
+

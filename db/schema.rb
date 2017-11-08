@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20171025003626) do
 
+  # These are extensions that must be enabled in order to support this database    
+  enable_extension "plpgsql"
+
   create_table "accompaniment_report_authorships", force: :cascade do |t|
     t.integer  "user_id",                 null: false
     t.integer  "accompaniment_report_id", null: false
@@ -76,8 +79,8 @@ ActiveRecord::Schema.define(version: 20171025003626) do
     t.integer  "language_id", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["friend_id"], name: "index_friend_languages_on_friend_id"
-    t.index ["language_id"], name: "index_friend_languages_on_language_id"
+    t.index ["friend_id"], name: "index_friend_languages_on_friend_id", using: :btree
+    t.index ["language_id"], name: "index_friend_languages_on_language_id", using: :btree
   end
 
   create_table "friends", force: :cascade do |t|
@@ -187,8 +190,8 @@ ActiveRecord::Schema.define(version: 20171025003626) do
     t.integer  "friend_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["friend_id"], name: "index_user_friend_associations_on_friend_id"
-    t.index ["user_id"], name: "index_user_friend_associations_on_user_id"
+    t.index ["friend_id"], name: "index_user_friend_associations_on_friend_id", using: :btree
+    t.index ["user_id"], name: "index_user_friend_associations_on_user_id", using: :btree
   end
 
   create_table "user_sijs_application_draft_associations", force: :cascade do |t|
