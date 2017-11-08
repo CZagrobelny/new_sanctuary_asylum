@@ -28,8 +28,7 @@ class FriendsController < ApplicationController
 
   def friend_params
     params.require(:friend).permit(
-      :user_ids => [],
-      :neighborhood_id
+      :user_ids => []
     )
   end
 

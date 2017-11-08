@@ -1,4 +1,4 @@
-class Neighborhood < ApplicationRecord
+class Neighborhood < ActiveRecord::Base
   has_many :friends
-  validates :name
+  validates :name, presence: true
 end
