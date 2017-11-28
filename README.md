@@ -1,5 +1,9 @@
 # New Sanctuary Coalition
 
+## What are we building?
+
+Software to support the core work of the New Sanctuary Coalition: helping our friends (undocumented immigrants) fill out applications for asylum and accompanying them to their hearings and check-ins.
+
 ## Getting setup
 
 ### System Dependencies
@@ -17,8 +21,10 @@ bundle install
 
 ### Database setup
 
-Run your favorite database server in your favorite way. To run postgres in a docker container, you can do the following:
+Run your favorite database server in your favorite way. 
+Postgres.app is a great option on Mac:  https://postgresapp.com
 
+To run postgres in a docker container, you can do the following:
 
 ```shell
 docker pull postgres:9.6
@@ -52,11 +58,7 @@ CircleCI is set up for the app, I think you might have access to the builds, sin
 rails server
 ```
 
-## What are we building?
-
-Software to support the core work of the New Sanctuary Coalition: helping our friends (undocumented immigrants) fill out applications for asylum and accompanying them to their hearings and check-ins.
-
-### User Roles
+## User Roles
 
 #### Admin Role (has access to everything)
 - Can view friends, create new friend records, edit friend records, and delete friend records
@@ -110,9 +112,15 @@ Aiming to cover the functionality we build with:
 - feature tests to cover the main pathways through the app
 
 ## Contributing
-1. Select a story from the Trello board: https://trello.com/b/nSt2qssz/new-sanctuary
-2. Create a feature branch off master.
-3. Complete feature with tests!
-4. Check CircleCI to make sure tests are passing.
-5. Make a pull request and tag CZagrobelny to review.
-6. CZagrobelny will leave feedback and merge into master upon approval of the pull request.
+1. Contact Christine at newsanctuary.tech@gmail.com to request access to the Trello board (backlog) and github repo.
+2. Select a story from the Trello board: https://trello.com/b/nSt2qssz/new-sanctuary
+3. Create a feature branch off master.
+4. Complete feature with tests!
+5. Check CircleCI to make sure tests are passing.
+6. Make a pull request and tag CZagrobelny to review.
+7. CZagrobelny will leave feedback and merge into master upon approval of the pull request.
+
+## Questions?
+- Questions about a Trello card, leave a comment tagging '@Christine Zagrobelny'
+- Questions about a PR, tag CZagrobelny in a comment on the PR
+- Other questions, email newsanctuary.tech@gmail.com
