@@ -50,7 +50,7 @@ FROM_ADDRESS='test@example.com'
 rspec
 ```
 
-CircleCI is set up for the app, and will run the full test suite when you push to github.  There are still some flappy specs, unfortunately :/ ...so, if the specs pass locally, but not on CircleCI, feel free to leave a note. 
+CircleCI is set up for the app, and will run the full test suite when you push to github.  There are still some flappy specs, unfortunately :/ ...so, if the specs pass locally, but not on CircleCI, feel free to leave a note when you create your PR. 
 
 
 ## Running the App Locally
