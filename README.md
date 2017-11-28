@@ -22,6 +22,7 @@ bundle install
 ### Database setup
 
 Run your favorite database server in your favorite way. 
+
 Postgres.app is a great option on Mac:  https://postgresapp.com
 
 To run postgres in a docker container, you can do the following:
@@ -38,7 +39,7 @@ cp config/database.yml.sample config/database.yml
 rake db:setup
 ```
 
-## Environment Variables
+### Environment Variables
 
 FROM_ADDRESS='test@example.com'
 
@@ -49,7 +50,7 @@ FROM_ADDRESS='test@example.com'
 rspec
 ```
 
-CircleCI is set up for the app, I think you might have access to the builds, since it's public, but let me know if you don't see it.
+CircleCI is set up for the app, and will run the full test suite when you push to github.  There are still some flappy specs, unfortunately :/ ...so, if the specs pass locally, but not on CircleCI, feel free to leave a note. 
 
 
 ## Running the App Locally
