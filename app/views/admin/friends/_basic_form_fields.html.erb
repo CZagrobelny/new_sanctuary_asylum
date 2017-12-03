@@ -84,6 +84,13 @@
 </div>
 
 <div class='row form-group'>
+  <%= f.label :zip_code,'Zip Code', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.text_field :zip_code, class: 'form-control' %>
+  </div>
+</div>
+
+<div class='row form-group'>
   <%= f.label :date_of_birth, 'Date of Birth', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
     <%= f.date_select :date_of_birth, { start_year: Date.current.year, end_year: 1930, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
