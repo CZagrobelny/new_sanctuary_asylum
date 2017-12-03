@@ -19,15 +19,15 @@ end
 
 #Friends
 30.times do
-  Friend.create(first_name: FFaker::Name.first_name, 
-    last_name: FFaker::Name.last_name, 
-    a_number: rand.to_s[2..10], 
+  Friend.create(first_name: FFaker::Name.first_name,
+    last_name: FFaker::Name.last_name,
+    a_number: rand.to_s[2..10],
     middle_name: FFaker::Name.first_name,
     email: FFaker::Internet.safe_email,
     phone: FFaker::PhoneNumber.short_phone_number,
     ethnicity: ['white', 'black', 'hispanic', 'asian', 'south_asian', 'caribbean', 'indigenous'].sample,
     gender: ['male', 'female', 'awesome'].sample,
-    date_of_birth: FFaker::Time.between(10.years.ago, 40.years.ago), 
+    date_of_birth: FFaker::Time.between(10.years.ago, 40.years.ago),
     status: 'not_in_deportation_proceedings',
     date_of_entry: FFaker::Time.between(10.years.ago, 40.years.ago),
     notes: FFaker::Lorem.paragraph,
@@ -67,7 +67,7 @@ Friend.all[0..25].each do |friend|
     location_id: Location.first.id,
     friend_id: Friend.order("RANDOM()").first.id,
     judge_id: Judge.first.id,
-    occur_at: FFaker::Time.between(1.month.ago, 1.month.from_now),
+    occur_at: FFaker::Time.between(3.month.ago, 3.month.from_now),
     notes: FFaker::Lorem.paragraph)
 end
 
@@ -78,13 +78,13 @@ end
 
 #Events
 30.times do |t|
-  Event.create(location: Location.order("RANDOM()").first, 
-              category: Event::CATEGORIES.sample[0], 
-              date: FFaker::Time.between(2.months.ago, 2.months.from_now), 
+  Event.create(location: Location.order("RANDOM()").first,
+              category: Event::CATEGORIES.sample[0],
+              date: FFaker::Time.between(2.months.ago, 2.months.from_now),
               title: "Test Event #{t}")
 end
 
 Event.all.each do |event|
   event.user_event_attendances.create(user_id: User.order("RANDOM()").first.id)
   event.friend_event_attendances.create(friend_id: Friend.order("RANDOM()").first.id)
-end 
+end
