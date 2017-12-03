@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/reports', to: 'reports#generate'
-    get '/reports/new', to: 'reports#new'
+    get '/reports/new', to: 'reports#new', as: 'new_report'
   	resources :users
     resources :activities, except: [:destroy] do
       collection do
