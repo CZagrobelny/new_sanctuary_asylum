@@ -18,6 +18,14 @@ class PdfDraftUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
+  # Whitelist content types to allow all image file types
+  # NOTE: Not using this method in favor of #extension_whitelist to allow more
+  # flexibility in specifiying content-types & one method for both text & image
+  # files.
+  # def content_type_whitelist
+  #   /image\//
+  # end
+
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url(*args)
   #   # For Rails 3.1+ asset pipeline compatibility:
@@ -38,11 +46,10 @@ class PdfDraftUploader < CarrierWave::Uploader::Base
   #   process resize_to_fit: [50, 50]
   # end
 
-  # Add a white list of extensions which are allowed to be uploaded.
-  # For images you might use something like this:
-  # def extension_whitelist
-  #   %w(jpg jpeg gif png)
-  # end
+  # Whitelist for permitted extensions (both text and images)
+  def extension_whitelist
+    %w(jpg jpeg gif png doc docx pdf txt pages)
+  end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
