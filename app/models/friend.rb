@@ -26,7 +26,7 @@ class Friend < ActiveRecord::Base
   has_many :sijs_application_drafts, dependent: :restrict_with_error
 
   validates :first_name, :last_name, presence: true
-  validates :zip_code, length: { is: 5 }, numericality: true
+  validates :zip_code, length: { is: 5 }, allow_blank: true, numericality: true
   validates :a_number, presence: { if: :a_number_available? }, numericality: { if: :a_number_available? }
   validates :a_number, length: { minimum: 8, maximum: 9 }, if: :a_number_available?
   validates_uniqueness_of :a_number, if: :a_number_available?

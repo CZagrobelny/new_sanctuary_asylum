@@ -28,6 +28,7 @@ class Admin::FriendsController < AdminController
   end
 
   def update
+   # raise params.inspect
     if params['manage_asylum_drafts'].present?
       update_and_render_asylum_drafts
     elsif params['manage_sijs_drafts'].present?
@@ -120,8 +121,10 @@ class Admin::FriendsController < AdminController
       :country_id,
       :lawyer_represented_by,
       :lawyer_referred_to,
+      :zip_code,
       :language_ids => [],
       :user_ids => []
+     
     )
   end
 end
