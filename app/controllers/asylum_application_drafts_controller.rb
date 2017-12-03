@@ -1,3 +1,5 @@
+require 'pry'
+
 class AsylumApplicationDraftsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_admin_or_access_to_friend
@@ -21,7 +23,7 @@ class AsylumApplicationDraftsController < ApplicationController
 
   def edit
     @asylum_application_draft = asylum_application_draft
-    @friend = friend   
+    @friend = friend
   end
 
   def update
@@ -29,9 +31,13 @@ class AsylumApplicationDraftsController < ApplicationController
       flash[:success] = 'Asylum application draft saved.'
       render_success
     else
+      # TODO: Figure out why we needed to redefine our @friend variable in
+      # this half of the conditional, w/o it, @friend = nil even though
+      # params[:friend_id] is == to friend_id.
+      @friend = friend
       flash.now[:error] = 'Friend record not saved.'
       render :edit
-    end 
+    end
   end
 
   def index
@@ -57,7 +63,7 @@ class AsylumApplicationDraftsController < ApplicationController
   end
 
   def asylum_application_draft
-    @asylum_application_draft ||= AsylumApplicationDraft.find(params[:id]) 
+    @asylum_application_draft ||= AsylumApplicationDraft.find(params[:id])
   end
 
   def friend
@@ -66,7 +72,7 @@ class AsylumApplicationDraftsController < ApplicationController
 
   private
   def asylum_application_draft_params
-    params.require(:asylum_application_draft).permit( 
+    params.require(:asylum_application_draft).permit(
       :notes,
       :pdf_draft,
       :user_ids => []
