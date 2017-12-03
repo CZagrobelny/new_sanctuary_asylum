@@ -120,6 +120,7 @@ class Admin::FriendsController < AdminController
       :country_id,
       :lawyer_represented_by,
       :lawyer_referred_to,
+      :neighborhood_id,
       :language_ids => [],
       :user_ids => []
     )

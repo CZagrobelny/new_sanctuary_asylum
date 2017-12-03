@@ -15,6 +15,7 @@
 <p><strong>Date of Birth:  </strong><%= friend.date_of_birth.strftime('%m/%d/%y') if friend.date_of_birth.present? %></p>
 <p><strong>Status:  </strong><%= friend.status.try(:humanize) %></p>
 <p><strong>Date of Entry:  </strong><%= friend.date_of_entry.strftime('%m/%d/%y') if friend.date_of_entry.present? %></p>
+<p><strong>Neighborhood:  </strong><%= friend.neighborhood.name if friend.neighborhood.present? %></p>
 <p><strong>Notes:  </strong><%= friend.notes %></p>
 
 <h3>Family</h3>
