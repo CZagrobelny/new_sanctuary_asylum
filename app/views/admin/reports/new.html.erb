@@ -1,0 +1,31 @@
+<h1>Reports</h1>
+
+<%= form_for :report, url: admin_reports_create_path do |f| %>
+  <div class='row form-group'>
+    <%= f.label :type, 'Type', class: 'col-md-3 col-xs-12 control-label' %>
+    <div class='col-md-6 col-xs-12'>
+      <%= f.select :type, options_for_select([['Activity', 'activity'], ['Event', 'event']]), {include_blank: true}, {class: 'form-control'} %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :start_date, 'Start Date', class: 'col-md-3 col-xs-12 control-label' %>
+    <div class='col-md-6 col-xs-12'>
+      <%= f.date_select :start_date, { start_year: 2017, end_year: Date.today.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :end_date, 'End Date', class: 'col-md-3 col-xs-12 control-label' %>
+    <div class='col-md-6 col-xs-12'>
+      <%= f.date_select :end_date, { start_year: 2017, end_year: Date.today.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-md-1 col-md-offset-10'>
+      <%= f.submit 'Generate', :class => 'btn btn-primary' %>
+    </div>
+  </div>
+
+<% end %>

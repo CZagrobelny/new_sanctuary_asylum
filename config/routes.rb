@@ -49,6 +49,9 @@ Rails.application.routes.draw do
       resources :user_event_attendances, only: [:create, :destroy]
       resources :friend_event_attendances, only: [:create, :destroy]
     end
+
+    get 'reports/new', to: 'reports#new'
+    post 'reports/create', to: 'reports#create'
   end
 
   namespace :accompaniment_leader do

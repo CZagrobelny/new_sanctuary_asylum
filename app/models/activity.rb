@@ -70,4 +70,8 @@ class Activity < ActiveRecord::Base
   def self.remaining_this_week?
     Activity.where(event: ACCOMPANIMENT_ELIGIBLE_EVENTS).where('occur_at >= ? AND occur_at <= ? ', Time.now, Date.today.end_of_week.end_of_day).present?
   end
+
+  def self.between_dates(start_date, end_date)
+    where('occur_at > ? AND occur_at < ?', start_date, end_date)
+  end
 end
