@@ -29,9 +29,6 @@ class AsylumApplicationDraftsController < ApplicationController
       flash[:success] = 'Asylum application draft saved.'
       render_success
     else
-      # TODO: Figure out why we needed to redefine our @friend variable in
-      # this half of the conditional, w/o it, @friend = nil even though
-      # params[:friend_id] is == to friend_id.
       @friend = friend
       flash.now[:error] = 'Friend record not saved.'
       render :edit

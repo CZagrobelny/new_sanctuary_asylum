@@ -67,7 +67,7 @@ Friend.all[0..25].each do |friend|
     location_id: Location.first.id,
     friend_id: Friend.order("RANDOM()").first.id,
     judge_id: Judge.first.id,
-    occur_at: FFaker::Time.between(3.month.ago, 3.month.from_now),
+    occur_at: FFaker::Time.between(1.month.ago, 1.month.from_now),
     notes: FFaker::Lorem.paragraph)
 end
 

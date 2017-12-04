@@ -19,5 +19,7 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
-  hello: "Hello world"
+en:  
+  errors:
+    messages:
+      extension_white_list_error: 'File could not be uploaded. Only text and image files are permitted.'
