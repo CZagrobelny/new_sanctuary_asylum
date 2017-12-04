@@ -23,7 +23,7 @@ class ActivityReport
   def csv_filename
     formatted_start_date = start_date.strftime('%-m.%-d.%Y')
     formatted_end_date = end_date.strftime('%-m.%-d.%Y')
-    "#{type} #{formatted_start_date}-#{formatted_end_date}.csv"
+    "activities #{formatted_start_date}-#{formatted_end_date}.csv"
   end
 
   def has_data?
