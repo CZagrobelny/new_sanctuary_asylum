@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { invitations: "invitations"}
-  
+
   devise_scope :user do
     authenticated do
       root :to => 'dashboard#index', as: :root
@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   resources :activities, only: [:index]
 
   namespace :admin do
+    get '/reports', to: 'reports#generate'
+    get '/reports/new', to: 'reports#new', as: 'new_report'
   	resources :users
     resources :activities, except: [:destroy] do
       collection do

@@ -1,0 +1,12 @@
+<%= form_tag '/reports', method: :post do%>
+<div class='row form-group'>
+  <%=label_tag :occur_at, 'Date/Time', class: 'col-md-3 col-xs-12 control-label' %>
+  <div class='col-md-6 col-xs-12'>
+    <%= select_year(Date.today, :start_year => Date.today.year, :end_year => 8.year.from_now.year) %>
+    <%= date_select :occur_at, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+    <span>ET
+  </div>
+</div>
+
+<button name="button" type="submit">Generate</button>
+<% end %>

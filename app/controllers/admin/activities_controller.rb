@@ -46,12 +46,12 @@ class Admin::ActivitiesController < AdminController
   end
 
   def activity
-    @activity ||= Activity.find(params[:id]) 
+    @activity ||= Activity.find(params[:id])
   end
 
   private
   def activity_params
-    params.require(:activity).permit( 
+    params.require(:activity).permit(
       :event,
       :location_id,
       :friend_id,
@@ -59,5 +59,9 @@ class Admin::ActivitiesController < AdminController
       :occur_at,
       :notes
     )
+  end
+
+  def get_reports
+    
   end
 end
