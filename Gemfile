@@ -22,7 +22,6 @@ gem 'phantomjs'
 gem 'textacular', '~> 5.0'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-aws'
-gem 'carrierwave-i18n'
 gem 'ffaker', require: false
 gem 'non-stupid-digest-assets'
 gem 'airbrake', '~> 6.2'
