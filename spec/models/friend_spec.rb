@@ -32,7 +32,6 @@ RSpec.describe Friend, type: :model do
     end
 
     context 'zip_code is invalid if not a number' do
-      before {friend.zip_code = 'abcde'}
       it { should validate_numericality_of(:zip_code) }
     end
   end
