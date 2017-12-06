@@ -25,7 +25,16 @@ RSpec.describe Friend, type: :model do
   			friend.save
 
   		end
-  	end
+    end
+    
+    context 'zip_code is invalid if not 5 characters' do
+     it {should validate_length_of(:zip_code).is_equal_to(5)}
+    end
+
+    context 'zip_code is invalid if not a number' do
+      before {friend.zip_code = 'abcde'}
+      it { should validate_numericality_of(:zip_code) }
+    end
   end
 
   describe '#destroy' do
