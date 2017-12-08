@@ -1,3 +1,4 @@
+require 'csv'
 class Admin::ReportsController < AdminController
   def new
     @report = Report.new
@@ -6,11 +7,9 @@ class Admin::ReportsController < AdminController
   def create
     if report.valid?
       if report.has_data?
-        #Implement something like:
-        # respond_to do |format|
-        #   format.html
-        #   format.csv { send_data report.csv_string, filename: report.filename }
-        # end
+        respond_to do |format|
+          format.csv { send_data report.csv_string, file_name: report.csv_filename }
+        end
       else
         # flash info message letting them know that there are no records for the selected date range and render :new
       end
