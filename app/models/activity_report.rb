@@ -9,10 +9,10 @@ class ActivityReport < Report
 
       data.each do |activity|
         row = []
-        row << activity.event
+        row << activity.event.humanize
         row << activity.occur_at.to_s
-        row << activity.location.name
-        row << activity.judge.name
+        row << activity.location.try(:name)
+        row << activity.judge.try(:name)
         row << activity.accompaniments.count.to_s
         csv << row
       end
