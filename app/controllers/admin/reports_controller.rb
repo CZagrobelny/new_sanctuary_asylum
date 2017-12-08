@@ -9,7 +9,8 @@ class Admin::ReportsController < AdminController
       if report.has_data?
          send_data report.csv_string, file_name: report.csv_filename, type: :csv
       else
-        # flash info message letting them know that there are no records for the selected date range and render :new
+        flash.now[:notice] = 'No records found for that date range.'
+        render :new
       end
     else
       flash.now[:error] = 'Report not created.'
