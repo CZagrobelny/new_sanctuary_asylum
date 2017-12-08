@@ -2,8 +2,9 @@
   <%= display_validation_errors(@asylum_application_draft) %>
 <% end %>
 <%= form_for([@friend, @asylum_application_draft]) do |f| %>
+
   <div class='form-inputs'>
-    
+
     <div class='row form-group'>
       <div class='col-md-12'>
         <%= f.label :pdf_draft, 'File Upload', class: 'control-label required', style: 'padding-right: 20px;' %>
