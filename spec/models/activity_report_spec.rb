@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 require 'csv'
 
@@ -31,7 +29,6 @@ RSpec.describe ActivityReport do
         expect(CSV.parse(subject)[0]).to eq(column_headers)
 
         expect(subject).to include(activity.event.humanize)
-        expect(subject).to include(activity.occur_at.to_s)
         expect(subject).to include(activity.location.name)
         expect(subject).to include(activity.judge.name)
         expect(subject).to include(activity.accompaniments.count.to_s)

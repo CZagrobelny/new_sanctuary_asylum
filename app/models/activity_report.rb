@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 class ActivityReport < Report
 
   def csv_string
@@ -10,7 +9,7 @@ class ActivityReport < Report
       data.each do |activity|
         row = []
         row << activity.event.humanize
-        row << activity.occur_at.to_s
+        row << activity.occur_at.strftime('%m/%d/%Y')
         row << activity.location.try(:name)
         row << activity.judge.try(:name)
         row << activity.accompaniments.count.to_s

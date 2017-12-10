@@ -1,4 +1,3 @@
-require 'csv'
 class Admin::ReportsController < AdminController
   def new
     @report = Report.new
