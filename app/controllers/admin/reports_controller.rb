@@ -1,3 +1,4 @@
+require 'csv'
 class Admin::ReportsController < AdminController
   def new
     @report = Report.new
@@ -22,6 +23,7 @@ class Admin::ReportsController < AdminController
                 when 'activity'
                   ActivityReport.new(report_params)
                 when 'event'
+                  EventReport.new(report_params)
                 else
                   Report.new(report_params)
                 end

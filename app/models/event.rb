@@ -15,4 +15,8 @@ class Event < ActiveRecord::Base
   def friend_attendances
     self.friend_event_attendances.includes(:friend).order('friends.first_name asc')
   end
+
+  def self.between_dates(start_date, end_date)
+    where('date > ? AND date < ?', start_date, end_date)
+  end
 end

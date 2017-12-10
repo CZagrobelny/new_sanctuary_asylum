@@ -5,7 +5,7 @@ RSpec.describe ActivityReport do
   describe '.csv_string' do
     let(:judge) { FactoryGirl.create(:judge) }
     let!(:activity) { FactoryGirl.create(:activity, judge: judge) }
-    let(:accompaniment) { FactoryGirl.create(:accompaniment, activity: activity) }
+    let!(:accompaniment) { FactoryGirl.create(:accompaniment, activity: activity) }
 
     let(:start_date) { Date.today.beginning_of_month }
     let(:end_date) { Date.today.end_of_month }

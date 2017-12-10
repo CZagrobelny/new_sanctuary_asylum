@@ -23,7 +23,7 @@ class ActivityReport < Report
 
   def data
     Activity.includes(:location, :judge)
-					  .between_dates(start_date, end_date)
-					  .order(:occur_at)
+            .between_dates(start_date, end_date)
+            .order(:occur_at)
   end
 end
