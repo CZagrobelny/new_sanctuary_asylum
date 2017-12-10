@@ -16,8 +16,10 @@
 #
 # This would use the information in config/locales/es.yml.
 #
-# To learn more, please read the Rails Internationalization guide
+# To learn more about this, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  errors:
+    messages:
+      extension_whitelist_error: 'File could not be uploaded. Only text and image files are permitted.'

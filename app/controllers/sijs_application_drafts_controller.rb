@@ -21,7 +21,7 @@ class SijsApplicationDraftsController < ApplicationController
 
   def edit
     @sijs_application_draft = sijs_application_draft
-    @friend = friend   
+    @friend = friend
   end
 
   def update
@@ -31,7 +31,7 @@ class SijsApplicationDraftsController < ApplicationController
     else
       flash.now[:error] = 'Friend record not saved.'
       render :edit
-    end 
+    end
   end
 
   def index
@@ -57,7 +57,7 @@ class SijsApplicationDraftsController < ApplicationController
   end
 
   def sijs_application_draft
-    @sijs_application_draft ||= SijsApplicationDraft.find(params[:id]) 
+    @sijs_application_draft ||= SijsApplicationDraft.find(params[:id])
   end
 
   def friend
@@ -66,7 +66,7 @@ class SijsApplicationDraftsController < ApplicationController
 
   private
   def sijs_application_draft_params
-    params.require(:sijs_application_draft).permit( 
+    params.require(:sijs_application_draft).permit(
       :notes,
       :pdf_draft,
       :user_ids => []
