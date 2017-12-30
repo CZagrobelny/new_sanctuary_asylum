@@ -1,0 +1,63 @@
+<h3>Detention</h3>
+
+<br>
+<h4>General Information</h4>
+
+<div class='form-group'>
+  <div class='col-md-12'>
+    <%= f.check_box :visited_the_clinic %>
+    <%= f.label :visited_the_clinic, 'Visited the Clinic?' %>
+  </div>
+</div>
+
+<div class='form-group'>
+  <div class='col-md-12'>
+    <%= f.check_box :has_a_lawyer_for_detention %>
+    <%= f.label :has_a_lawyer_for_detention, 'Has a Lawyer?' %>
+  </div>
+</div>
+
+<div class='form-group'>
+  <div class='col-md-12'>
+    <%= f.check_box :final_order_of_removal %>
+    <%= f.label :final_order_of_removal, 'Final Order of Removal?' %>
+  </div>
+</div>
+
+<div class='form-group'>
+  <div class='col-md-12'>
+    <%= f.check_box :criminal_conviction %>
+    <%= f.label :criminal_conviction, 'Criminal Conviction' %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :criminal_conviction_notes, 'Criminal Conviction Notes', class: 'col-md-12 control-label' %>
+  <div class='col-md-8'>
+    <%= f.text_area :criminal_conviction_notes, class: 'form-control', style: 'height: 100px;' %>
+  </div>
+</div>
+
+<br>
+<h4>Detention Advocate Contact</h4>
+
+<div class='row form-group'>
+  <%= f.label :detention_advocate_contact_name, 'Name', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.text_field :detention_advocate_contact_name, class: 'form-control' %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :detention_advocate_contact_phone, 'Phone', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.text_field :detention_advocate_contact_phone, class: 'form-control' %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :detention_advocate_contact_notes, 'Notes', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.text_area :detention_advocate_contact_notes, class: 'form-control', style: 'height: 100px;' %>
+  </div>
+</div>

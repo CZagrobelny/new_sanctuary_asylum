@@ -121,6 +121,14 @@ class Admin::FriendsController < AdminController
       :lawyer_represented_by,
       :lawyer_referred_to,
       :zip_code,
+      :visited_the_clinic,
+      :criminal_conviction,
+      :criminal_conviction_notes,
+      :final_order_of_removal,
+      :has_a_lawyer_for_detention,
+      :detention_advocate_contact_name,
+      :detention_advocate_contact_phone,
+      :detention_advocate_contact_notes,
       :language_ids => [],
       :user_ids => []
      

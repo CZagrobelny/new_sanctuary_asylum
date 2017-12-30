@@ -23,6 +23,9 @@
           <a class="nav-link" data-toggle="tab" href="#sijs" role="tab">SIJS</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#detention" role="tab">Detention</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#other_case_info" role="tab">Other Case Info</a>
         </li>
         <li class="nav-item">
@@ -49,6 +52,9 @@
         </div>
         <div class="tab-pane" id="sijs" role="tabpanel">
           <%= render 'sijs_form_fields', f: f, friend: @friend %>
+        </div>
+        <div class="tab-pane" id="detention" role="tabpanel">
+          <%= render 'detention_form_fields', f: f, friend: @friend %>
         </div>
         <div class="tab-pane" id="other_case_info" role="tabpanel">
           <%= render 'other_case_info_form_fields', f: f, friend: @friend %>
