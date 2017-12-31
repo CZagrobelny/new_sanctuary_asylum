@@ -3,16 +3,10 @@ require 'csv'
 
 RSpec.describe EventReport do
   let!(:event) { FactoryGirl.create(:event) }
-
-  let(:start_date) { Date.today.beginning_of_month }
-  let(:end_date) { Date.today.end_of_month }
-
-  let(:event_report) { EventReport.new }
-
-  before(:each) do
-    event_report.assign_attributes(start_date: start_date, 
-                                      end_date: end_date)
-  end
+  let(:start_date) { 1.month.ago }
+  let(:end_date) { 1.month.from_now }
+  let(:report_params) { {"type"=>"event", "start_date(2i)"=>start_date.strftime('%m'), "start_date(3i)"=>start_date.strftime('%d'), "start_date(1i)"=>start_date.strftime('%Y'), "end_date(2i)"=>end_date.strftime('%m'), "end_date(3i)"=>end_date.strftime('%d'), "end_date(1i)"=>end_date.strftime('%Y')} }
+  let(:event_report) { EventReport.new(report_params) }
 
   describe '.csv_string' do
     it 'returns a String' do
