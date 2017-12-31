@@ -65,7 +65,6 @@ Friend.all[0..25].each do |friend|
   friend.activities.create(
     event: ['check_in', 'master_calendar_hearing', 'individual_hearing'].sample,
     location_id: Location.first.id,
-    friend_id: Friend.order("RANDOM()").first.id,
     judge_id: Judge.first.id,
     occur_at: FFaker::Time.between(1.month.ago, 1.month.from_now),
     notes: FFaker::Lorem.paragraph)
@@ -88,3 +87,14 @@ Event.all.each do |event|
   event.user_event_attendances.create(user_id: User.order("RANDOM()").first.id)
   event.friend_event_attendances.create(friend_id: Friend.order("RANDOM()").first.id)
 end
+
+#Detentions
+Friend.all[0..25].each do |friend|
+  friend.detentions.create(
+    date_detained: FFaker::Time.between(8.months.ago, 7.months.ago),
+    date_released: FFaker::Time.between(1.months.ago, 2.months.ago),
+    case_status: ['immigration_court', 'bia', 'circuit_court'].sample,
+    location_id: Location.last.id,
+    notes: FFaker::Lorem.paragraph)
+end
+
