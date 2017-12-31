@@ -1,0 +1,11 @@
+$('#detention-form').html("<%= escape_javascript(render partial: 'admin/friends/detentions/form', locals: {detention: detention, friend: friend}) %>");
+$('#detention_case_status').change(function() {
+  if ($(this).find('option:selected').text() == "Other") {
+    $('.other_case_status_wrapper').show();
+  } else {
+    if ($('.other_case_status_wrapper').is(":visible")) {
+      $('#detention_other_case_status').val('');
+      $('.other_case_status_wrapper').hide();
+    }
+  }
+});

@@ -61,3 +61,13 @@
     <%= f.text_area :detention_advocate_contact_notes, class: 'form-control', style: 'height: 100px;' %>
   </div>
 </div>
+
+<br>
+<div class='pull-right'>
+  <%= link_to 'Add Detention', new_admin_friend_detention_path(@friend), remote: true, class: 'btn btn-primary', data: {toggle: 'modal', target: '#detention_modal'} %>
+</div>
+
+<h4>Detentions</h4>
+<div id='detention-list' >
+  <%= render partial: 'admin/friends/detentions/list', locals: { friend: @friend} %>
+</div>

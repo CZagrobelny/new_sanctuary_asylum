@@ -1,0 +1,14 @@
+<br>
+<% if @friend.detentions.present? %>
+  <% @friend.detentions.order('date_detained desc').each do |detention| %>
+    <%= render partial: 'admin/friends/detentions/detention', locals: { friend: @friend, detention: detention } %>
+  <% end %>
+<% end %>
+
+<script>
+  $(document).ready(function () {
+    $('.open_detention_modal').click(function() {
+      $('#detention_modal').modal('show');
+    });
+  });
+</script>

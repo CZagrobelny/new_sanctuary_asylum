@@ -1,0 +1,55 @@
+<% if detention.errors.present? %>
+  <%= display_validation_errors(detention) %>
+<% end %>
+<%= form_for([:admin, friend, detention], controller: 'friends/detentions', remote: true) do |f| %>
+  <div class='form-inputs'>
+
+    <div class='row form-group'>
+      <%= f.label :date_detained, 'Date Detained', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.date_select :date_detained, { start_year: Date.current.year, end_year: 1990, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :date_released, 'Date Released', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.date_select :date_released, { start_year: Date.current.year, end_year: 1990, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :location_id, 'Location', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= collection_select(:detention, :location_id, Location.all, :id, :name, {prompt: true}, {class: 'form-control'}) %>
+      </div>
+    </div>
+    
+    <div class='row form-group'>
+      <%= f.label :case_status, 'Case Status', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.select :case_status, options_for_select(Detention::CASE_STATUSES, detention.case_status), {include_blank: true}, {class: 'form-control'} %>
+      </div>
+    </div>
+
+    <div class='row form-group other_case_status_wrapper', style="<%= 'display:none;' unless detention.case_status == 'other' %>">
+      <%= f.label :other_case_status,'Other Case Status', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.text_field :other_case_status, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :notes, class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.text_area :notes, {class: 'form-control', style: 'height: 200px;'} %>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-md-1 col-md-offset-10'>
+        <%= f.submit 'Save', :class => 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>

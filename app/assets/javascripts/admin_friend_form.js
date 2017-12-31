@@ -12,6 +12,17 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
+  $('#detention_case_status').change(function() {
+    if ($(this).find('option:selected').text() == "Other") {
+      $('.other_case_status_wrapper').show();
+    } else {
+      if ($('.other_case_status_wrapper').is(":visible")) {
+        $('#detention_other_case_status').val('');
+        $('.other_case_status_wrapper').hide();
+      }
+    }
+  });
+
   $('#friend_no_a_number').change(function() {
     if ($(this).prop('checked')) {
       $('#friend_a_number').val('');
@@ -24,6 +35,10 @@ $(document).on('turbolinks:load', function () {
 
   $('.open_activity_modal').click(function() {
     $('#activity_modal').modal('show');
+  });
+
+  $('.open_detention_modal').click(function() {
+    $('#detention_modal').modal('show');
   });
 });
 

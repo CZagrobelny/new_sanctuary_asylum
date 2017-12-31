@@ -80,6 +80,8 @@
 
 <%= render partial: 'admin/friends/family_members/modal', locals: { family_member_constructor: FamilyMemberConstructor.new, friend: @friend } %>
 
+<%= render partial: 'admin/friends/detentions/modal', locals: { detention: Detention.new(friend_id: @friend.id) } %>
+
 <script>
   $(document).ready(function () {
     $('a[href="<%= @current_tab %>"]').click();
