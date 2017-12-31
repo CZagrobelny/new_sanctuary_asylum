@@ -44,14 +44,35 @@
   <% end %>
 <% end %>
 
-<h3>Other Case Info</h3>
+<h3>Detention</h3>
+<p><strong>Visited the Clinic?  </strong><%= 'Yes' if friend.visited_the_clinic %></p>
+<p><strong>Has a Lawyer for Detention?  </strong><%= 'Yes' if friend.has_a_lawyer_for_detention %></p>
+<p><strong>Final Order of Removal?  </strong><%= 'Yes' if friend.final_order_of_removal %></p>
+<p><strong>Criminal Conviction?  </strong><%= 'Yes' if friend.criminal_conviction %></p>
+<p><strong>Criminal Conviction Notes  </strong><%= friend.criminal_conviction_notes %></p>
+<p><strong>Detention Advocate Contact Name  </strong><%= friend.detention_advocate_contact_name %></p>
+<p><strong>Detention Advocate Contact Phone  </strong><%= friend.detention_advocate_contact_phone %></p>
+<p><strong>Detention Advocate Contact Notes  </strong><%= friend.detention_advocate_contact_notes %></p>
 
-<h4>Lawyer</h4>
+<% if friend.detentions.present? %>
+  <h3>Detention History</h3>
+  <% friend.detentions.each do |detention| %>
+    <p>
+      <strong>Date Detained:  </strong><%= detention.date_detained.strftime('%m/%d/%Y') if detention.date_detained.present? %><br>
+      <strong>Date Released:  </strong><%= detention.date_released.strftime('%m/%d/%Y') if detention.date_released.present? %><br>
+      <strong>Location Detained:  </strong><%=  detention.location.name if detention.location.present? %><br>
+      <strong>Case Status:  </strong><%=  detention.display_case_status %><br>
+      <strong>Notes:  </strong><%=  detention.notes if detention.notes.present? %><br>
+    </p>
+  <% end %>
+<% end %>
+
+<h3>Lawyer</h3>
 <p><strong>Lawyer Referred to:  </strong><%= Lawyer.find(friend.lawyer_referred_to).name if friend.lawyer_referred_to.present? %></p>
 <p><strong>Lawyer Represented by:  </strong><%= Lawyer.find(friend.lawyer_represented_by).name if friend.lawyer_represented_by.present? %></p>
 <p><strong>Notes:  </strong><%= friend.lawyer_notes %></p>
-<br>
-<h4>Work Authorization</h4>
+
+<h3>Work Authorization</h3>
 <p><strong>Status:  </strong><%= friend.work_authorization_status.try(:humanize) %></p>
 <p><strong>Date Eligible to Apply:  </strong><%= friend.date_eligible_to_apply_for_work_authorization.strftime('%m/%d/%y') if friend.date_eligible_to_apply_for_work_authorization.present? %></p>
 <p><strong>Date Submitted:  </strong><%= friend.date_work_authorization_submitted.strftime('%m/%d/%y') if friend.date_work_authorization_submitted.present? %></p>
