@@ -10,7 +10,7 @@
 <div class='row form-group'>
   <%= f.label :date_asylum_application_submitted, 'Date Submitted', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= f.date_select :date_asylum_application_submitted, { start_year: 2017, end_year: 5.years.ago.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+    <%= f.date_select :date_asylum_application_submitted, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
   </div>
 </div>
 
