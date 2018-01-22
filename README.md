@@ -23,9 +23,9 @@ bundle install
 
 Run your favorite database server in your favorite way. 
 
-Postgres.app is a great option on Mac:  https://postgresapp.com
+Postgres.app is the best option on Mac:  https://postgresapp.com
 
-To run postgres in a docker container, you can do the following:
+If you are not working on a Mac, I recommend running Postgres in a docker container. To run Postgres on docker, you can do the following:
 
 ```shell
 docker pull postgres:9.6
@@ -42,6 +42,8 @@ rake db:setup
 ### Environment Variables
 
 FROM_ADDRESS='test@example.com'
+
+For local development, create a '.env' file in the root directory of the application and put the environment variable in there.
 
 
 ## Running the test suite
