@@ -6,7 +6,7 @@
           <strong>Team Leader: </strong>
         <% end %>
         <%= accompaniment.user.name %>,
-        <i><%= accompaniment.user.phone %>, <%= accompaniment.user.email %></i>
+        <i><%= accompaniment.user.phone %>, <%= accompaniment.user.email %>, <%= accompaniment.user.volunteer_type.humanize.titlecase %></i>
         <% if accompaniment.availability_notes.present? %>
           <%= accompaniment.availability_notes %>
         <% end %>

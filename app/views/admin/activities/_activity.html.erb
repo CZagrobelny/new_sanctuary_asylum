@@ -6,6 +6,12 @@
   <% if activity.friend.phone.present? %>
     <strong>Friend Phone Number:  </strong><%= activity.friend.phone %><br>
   <% end %>
+  <% if activity.friend.languages.present? %>
+    <strong>Friend Languages:  </strong><%= activity.friend.languages.map(&:name).to_sentence %><br>
+  <% end %>
+  <% if activity.friend.a_number.present? %>
+      <strong>A Number:  </strong><%= activity.friend.a_number %><br>
+    <% end %>
   <% if activity.location.present? %>
     <strong>Location:  </strong><%= activity.location.name %><br>
   <% end %>
