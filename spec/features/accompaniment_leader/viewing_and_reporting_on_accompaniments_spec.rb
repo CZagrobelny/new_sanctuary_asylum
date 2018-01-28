@@ -71,7 +71,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
         fill_in 'Notes', with: 'Edited test notes'
         click_button 'Save'
         within '.alert' do
-          expect(page).to have_content 'Your accompaniment report was saved.'
+          expect(page).to have_content 'Your accompaniment leader notes were added.'
         end
       end
     end
@@ -81,7 +81,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
         fill_in 'Notes', with: ''
         click_button 'Save'
         within '.alert' do
-          expect(page).to have_content 'There was an error saving your accompaniment report.'
+          expect(page).to have_content 'There was an error saving your accompaniment leader notes.'
         end
       end
     end

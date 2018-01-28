@@ -17,8 +17,7 @@ class User < ActiveRecord::Base
   has_many :sijs_application_drafts, through: :user_sijs_application_draft_associations
   has_many :accompaniments, dependent: :destroy
   has_many :user_event_attendances, dependent: :destroy
-  has_many :accompaniment_report_authorships, dependent: :destroy
-  has_many :accompaniment_reports, through: :accompaniment_report_authorships
+  has_many :accompaniment_reports, dependent: :destroy
 
   def volunteer?
   	self.role == 'volunteer'

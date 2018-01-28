@@ -1,6 +1,5 @@
 class AccompanimentReport < ActiveRecord::Base
   belongs_to :activity
-  has_many :accompaniment_report_authorships, dependent: :destroy
-  has_many :users, through: :accompaniment_report_authorships
+  belongs_to :user
   validates :notes, :activity_id, presence: true
 end

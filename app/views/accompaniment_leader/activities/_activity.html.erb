@@ -27,14 +27,20 @@
       <%= render partial: 'accompaniment_leader/activities/full_volunteer_details', locals: {activity: activity} %>
     <% end %>
 
-    <% if current_user.attending?(activity) %>
-      <% if current_user.accompaniment_report_for(activity).present? %>
-        <%= link_to 'Edit Report', edit_accompaniment_leader_activity_accompaniment_report_path(activity, current_user.accompaniment_report_for(activity)) %>
-      <% else %>
-        <%= link_to 'Create Report', new_accompaniment_leader_activity_accompaniment_report_path(activity) %>
-      <% end %>
+    <% if activity.accompaniment_reports.present? %>
+      <strong>Accompaniment Leader Notes:</strong>
+      <ol>
+        <% activity.accompaniment_reports.each do |report| %>
+          <li><strong>Notes by <%= report.user.name %>:  </strong><%= report.notes %></li>
+        <% end %>
+      </ol>
     <% end %>
 
+    <% if current_user.accompaniment_report_for(activity).present? %>
+      <%= link_to 'Edit My Accompaniment Leader Notes', edit_accompaniment_leader_activity_accompaniment_report_path(activity, current_user.accompaniment_report_for(activity)) %>
+    <% else %>
+      <%= link_to 'Add Accompaniment Leader Notes', new_accompaniment_leader_activity_accompaniment_report_path(activity) %>
+    <% end %>
   </div>
 
   <div class='col-md-2 col-sm-4 col-xs-4'>
