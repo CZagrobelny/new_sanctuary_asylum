@@ -31,7 +31,7 @@
       <strong>Accompaniment Leader Notes:</strong>
       <ol>
         <% activity.accompaniment_reports.each do |report| %>
-          <li><strong>Notes by <%= report.user.name %>:  </strong><%= report.notes %></li>
+          <li><strong>Notes by <%= report.user.name if report.user.present? %>:  </strong><%= report.notes %></li>
         <% end %>
       </ol>
     <% end %>

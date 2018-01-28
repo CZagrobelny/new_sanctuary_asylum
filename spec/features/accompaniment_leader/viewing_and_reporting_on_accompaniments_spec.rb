@@ -39,11 +39,11 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
     end
 
     describe 'with valid info' do
-      it 'displays a flash message that my RSVP was successful' do
+      it 'displays a flash message that my accompaniment leader notes were addded' do
         fill_in 'Notes', with: 'Test notes'
         click_button 'Save'
         within '.alert' do
-          expect(page).to have_content 'Your accompaniment report was created.'
+          expect(page).to have_content 'Your accompaniment leader notes were added.'
         end
       end  
     end
@@ -52,7 +52,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
       it 'displays a flash message that my accompaniment report was NOT created' do
         click_button 'Save'
         within '.alert' do
-          expect(page).to have_content 'There was an error creating your accompaniment report.'
+          expect(page).to have_content 'There was an error saving your accompaniment leader notes.'
         end
       end 
     end
@@ -71,7 +71,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
         fill_in 'Notes', with: 'Edited test notes'
         click_button 'Save'
         within '.alert' do
-          expect(page).to have_content 'Your accompaniment leader notes were added.'
+          expect(page).to have_content 'Your accompaniment leader notes were saved.'
         end
       end
     end
