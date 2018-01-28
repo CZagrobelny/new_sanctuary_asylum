@@ -19,8 +19,9 @@
   <% end %>
   <% if activity.accompaniment_reports.present? %>
     <% activity.accompaniment_reports.each do |report| %>
-      <strong>Report <%= "by #{report.user.name}" if report.user.present? %>:</strong>
+      <strong>Accompaniment Leader Notes <%= "by #{report.user.name}" if report.user.present? %>:</strong>
       <%= report.notes %>
+      <br>
     <% end %>
   <% end %>
 </div>
