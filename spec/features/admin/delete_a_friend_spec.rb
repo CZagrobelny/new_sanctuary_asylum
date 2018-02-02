@@ -25,6 +25,7 @@ RSpec.describe 'Admin deletes a friend record', type: :feature, js: :true do
         click_link 'Delete'
       end
 
+      expect(page).to have_content('Friend record destroyed')
       expect(page).to_not have_content('Deleteable')
       expect(page).to have_content('Persistent')
     end
@@ -42,6 +43,7 @@ RSpec.describe 'Admin deletes a friend record', type: :feature, js: :true do
         click_link 'Delete'
       end
 
+      expect(page).to have_content('Friend record destroyed')
       expect(page).to_not have_content('Deleteable')
       expect(page).to_not have_content('Persistent')
     end
