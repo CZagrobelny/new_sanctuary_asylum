@@ -11,7 +11,7 @@ class Admin::UsersController < AdminController
     @user = User.find(params[:id])
     if @user.destroy
       flash[:success] = 'User record deleted.'
-      redirect_to admin_users_path
+      redirect_to admin_users_path(query: params[:query])
     end
   end
 
