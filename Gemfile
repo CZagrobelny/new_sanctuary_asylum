@@ -17,6 +17,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise',           '~> 4.2'
 gem 'devise_invitable', '~> 1.7.0'
+gem 'devise_security_extension'
 gem 'chosen-rails'
 gem 'phantomjs'
 gem 'textacular', '~> 5.0'
