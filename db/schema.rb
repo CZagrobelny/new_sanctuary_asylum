@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180203163012) do
+ActiveRecord::Schema.define(version: 20180203174518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,6 +166,15 @@ ActiveRecord::Schema.define(version: 20180203163012) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "old_passwords", force: :cascade do |t|
+    t.string   "encrypted_password",       null: false
+    t.string   "password_archivable_type", null: false
+    t.string   "password_salt"
+    t.integer  "password_archivable_id",   null: false
+    t.datetime "created_at"
+    t.index ["password_archivable_type", "password_archivable_id"], name: "index_password_archivable", using: :btree
+  end
+
   create_table "parent_child_relationships", force: :cascade do |t|
     t.integer  "parent_id",  null: false
     t.integer  "child_id",   null: false
@@ -250,11 +259,13 @@ ActiveRecord::Schema.define(version: 20180203163012) do
     t.integer  "volunteer_type"
     t.boolean  "pledge_signed",                     default: false
     t.string   "unique_session_id",      limit: 20
+    t.datetime "password_changed_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
+    t.index ["password_changed_at"], name: "index_users_on_password_changed_at", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 

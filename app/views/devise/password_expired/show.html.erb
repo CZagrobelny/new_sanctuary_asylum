@@ -1,0 +1,34 @@
+<div class='col-md-offset-2'>
+  <h2>Renew your password</h2>
+
+  <%= form_for(resource, :as => resource_name, :url => [resource_name, :password_expired], :html => { :method => :put }) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class='form-inputs'>
+      <div class='row form-group'>
+        <%= f.label :current_password, 'Current password', class: 'col-md-4 control-label required' %>
+        <div class='col-md-6'>
+          <%= f.password_field :current_password, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class='row form-group'>
+        <%= f.label :password, 'New password', class: 'col-md-4 control-label required' %>
+        <div class='col-md-6'>
+          <%= f.password_field :password, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class='row form-group'>
+        <%= f.label :password_confirmation, 'Confirm new password', class: 'col-md-4 control-label required' %>
+        <div class='col-md-6'>
+          <%= f.password_field :password_confirmation, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+
+    <div class='actions'>
+      <%= f.submit 'Change my password', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
