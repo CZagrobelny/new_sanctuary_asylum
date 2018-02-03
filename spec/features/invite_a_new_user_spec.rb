@@ -41,8 +41,8 @@ RSpec.describe 'Admin invites a new user', type: :feature do
         fill_in 'Last Name', with: FFaker::Name.last_name
         fill_in 'Phone', with: '876 765 4455'
         select 'English Speaking', :from => 'Type'
-        fill_in 'Password', with: 'password'
-        fill_in 'Password Confirmation', with: 'password'
+        fill_in 'Password', with: 'Password1234'
+        fill_in 'Password Confirmation', with: 'Password1234'
         check 'user_pledge_signed'
         click_button 'Save'
 

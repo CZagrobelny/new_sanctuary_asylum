@@ -5,7 +5,7 @@ FactoryGirl.define do
     email { FFaker::Internet.safe_email }
     phone { FFaker::PhoneNumber.short_phone_number }
     volunteer_type { 1 }
-    password { FFaker::Internet.password }
+    password { (FFaker::Food.fruit + FFaker::PhoneNumber.area_code.to_s + FFaker::Food.herb_or_spice).delete(' ') }
     password_confirmation { password }
     invitation_accepted_at { Time.now }
     pledge_signed true
@@ -35,5 +35,5 @@ FactoryGirl.define do
     invitation_token '1gFcPwUnKCzzuntMepu1'
     invitation_created_at Time.now
     invitation_sent_at Time.now
-  end 
+  end
 end
