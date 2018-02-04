@@ -13,12 +13,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
       visit accompaniment_leader_activities_path
     end
 
-    it 'displays full details of accompaniments in the current week' do
-      expect(page).to have_content(activity.friend.first_name)
-      expect(page).to have_content(activity.friend.phone)
-    end
-
-    it 'displays full details of accompaniments in the upcoming week' do
+    it 'displays full details of upcoming accompaniments' do
       expect(page).to have_content(activity.friend.first_name)
       expect(page).to have_content(activity.friend.phone)
     end

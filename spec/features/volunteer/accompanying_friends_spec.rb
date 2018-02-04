@@ -10,8 +10,9 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: tr
       visit activities_path
     end
 
-    it 'displays accompaniments in the upcoming week' do
+    it 'displays full details of upcoming accompaniments' do
       expect(page).to have_content(activity.friend.first_name)
+      expect(page).to have_content(activity.friend.phone)
     end
   end
 
