@@ -75,7 +75,7 @@ rails server
 
 Login as an Admin with:
 * username: admin@example.com
-* password: password
+* password: Password1234
 
 #### Volunteer Role (has limited access)
 - Can receive an invitation (emailed) and follow the link to create a volunteer account
@@ -87,7 +87,7 @@ Login as an Admin with:
 
 Login as an Volunteeer with:
 * username: volunteer@example.com
-* password: password
+* password: Password1234
 
 #### Accompaniment Leader Role
 - Can do everything a volunteer can do
@@ -96,7 +96,7 @@ Login as an Volunteeer with:
 
 Login as an Volunteeer with:
 * username: accompaniment_leader@example.com
-* password: password
+* password: Password1234
 
 ## How are we building it?
 
