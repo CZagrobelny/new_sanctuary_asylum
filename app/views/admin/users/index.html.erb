@@ -46,7 +46,7 @@
                 <span class='caret'></span>
               </button>
               <ul class='dropdown-menu'>
-                <li><%= link_to 'Delete', admin_user_path(user), method: :delete, confirm: true %></li>
+                <li><%= link_to 'Delete', admin_user_path(user, query: params[:query]), method: :delete, confirm: true %></li>
               </ul>
             </div>
           </td>

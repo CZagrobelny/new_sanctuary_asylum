@@ -64,11 +64,10 @@ class Admin::FriendsController < AdminController
   def destroy
     if friend.destroy
       flash[:success] = 'Friend record destroyed.'
-      redirect_to admin_friends_path
     else
       flash[:error] = 'Friend record has a Draft and/or Activities. It cannot be deleted until these are removed.'
-      redirect_to admin_friends_path
     end
+    redirect_to admin_friends_path(query: params[:query])
   end
 
   def friend
