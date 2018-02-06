@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  devise :invitable, :database_authenticatable, :recoverable, :rememberable, :trackable, :secure_validatable, :session_limitable, :password_archivable, :invite_for => 1.week
+  devise :invitable, :database_authenticatable, :recoverable, :rememberable, :trackable, :secure_validatable, :password_archivable, :invite_for => 1.week
   attr_reader :raw_invitation_token
   
   enum role: [:volunteer, :accompaniment_leader, :admin]
