@@ -121,7 +121,6 @@ ActiveRecord::Schema.define(version: 20180203174518) do
     t.integer  "lawyer_referred_to"
     t.integer  "lawyer_represented_by"
     t.integer  "sijs_lawyer"
-    t.integer  "neighborhood_id"
     t.string   "zip_code"
     t.boolean  "visited_the_clinic"
     t.boolean  "criminal_conviction"
@@ -155,12 +154,6 @@ ActiveRecord::Schema.define(version: 20180203174518) do
   end
 
   create_table "locations", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "neighborhoods", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
