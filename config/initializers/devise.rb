@@ -323,7 +323,7 @@ Devise.setup do |config|
   end
 
   Warden::Manager.before_logout do |user,auth,opts|
-    Rails.logger.info "Forensics Logout: user=#{user.email}"
+    Rails.logger.info "Forensics Logout: user=#{user.email}" if user.present?
   end
 
   # ==> Mountable engine configurations
