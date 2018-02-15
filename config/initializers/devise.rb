@@ -315,8 +315,11 @@ Devise.setup do |config|
 
   Warden::Manager.before_failure do |env, opts|
     request = ActionDispatch::Request.new(env)
-    email = request.params[opts[:scope]]["email"] # opts[:scope] is expected to be :user
-    Rails.logger.warn "Forensics Login Failure: email=#{email}, ip=#{request.remote_ip}"
+    user = request.params[opts[:scope]] # opts[:scope] is expected to be :user
+    if user.present?
+      email = user["email"] 
+      Rails.logger.info "Forensics Login Failure: email=#{email}, ip=#{request.remote_ip}"
+    end
   end
 
   Warden::Manager.before_logout do |user,auth,opts|
