@@ -163,12 +163,6 @@ ActiveRecord::Schema.define(version: 20180217181338) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "neighborhoods", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "old_passwords", force: :cascade do |t|
     t.string   "encrypted_password",       null: false
     t.string   "password_archivable_type", null: false
