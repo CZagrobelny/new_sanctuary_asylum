@@ -15,6 +15,23 @@
   <% end %>
 <% end %>
 
+<% if friend.partners.present? || friend.inverse_partners.present? %>
+  <h4>Partner</h4>
+  <% friend.partner_relationships.each do |partner_relationship| %>
+    <p>
+      <%= link_to partner_relationship.partner.name, edit_admin_friend_path(partner_relationship.partner), target: '_blank' %>
+      <%= link_to 'Remove', admin_friend_family_member_path(friend, partner_relationship, type: 'partner'), method: :delete, :remote => true, class: 'delete' %>
+    </p>
+  <% end %>
+
+  <% friend.inverse_partner_relationships.each do |inverse_partner_relationship| %>
+    <p>
+      <%= link_to inverse_partner_relationship.friend.name, edit_admin_friend_path(inverse_partner_relationship.friend), target: '_blank' %>
+      <%= link_to 'Remove', admin_friend_family_member_path(friend, inverse_partner_relationship, type: 'partner'), method: :delete, :remote => true, class: 'delete' %>
+    </p>
+  <% end %>
+<% end %>
+
 <% if friend.parents.present? %>
   </br>
   <h4>Parents</h4>
