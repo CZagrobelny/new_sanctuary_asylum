@@ -32,6 +32,10 @@
   <p><strong>Children:  </strong><%= friend.children.map(&:name).to_sentence %></p>
 <% end %>
 
+<% if friend.partners.present? %>
+  <p><strong>Partner: </strong><%= (friend.partners.map(&:name) + friend.inverse_partners.map(&:name)).to_sentence %></p>
+<% end %>
+
 <% if friend.activities.present? %>
   <h3>Activities</h3>
   <% friend.activities.order('occur_at desc').each do |activity| %>
