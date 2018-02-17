@@ -35,7 +35,7 @@ class Admin::FamilyMembersController < AdminController
       SpousalRelationship.find(params[:id])
     when 'parent_child'
       ParentChildRelationship.find(params[:id])
-    when
+    when 'partner'
       PartnerRelationship.find(params[:id])
     end
   end
