@@ -32,7 +32,7 @@
   <p><strong>Children:  </strong><%= friend.children.map(&:name).to_sentence %></p>
 <% end %>
 
-<% if friend.partners.present? %>
+<% if friend.partners.present? || friend.inverse_partners.present? %>
   <p><strong>Partner: </strong><%= (friend.partners.map(&:name) + friend.inverse_partners.map(&:name)).to_sentence %></p>
 <% end %>
 
