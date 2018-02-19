@@ -32,6 +32,23 @@
   <% end %>
 <% end %>
 
+<% if friend.siblings.present? || friend.inverse_siblings.present? %>
+  <h4>Siblings</h4>
+  <% friend.sibling_relationships.each do |sibling_relationship| %>
+    <p>
+      <%= link_to sibling_relationship.sibling.name, edit_admin_friend_path(sibling_relationship.sibling), target: '_blank' %>
+      <%= link_to 'Remove', admin_friend_family_member_path(friend, sibling_relationship, type: 'sibling'), method: :delete, :remote => true, class: 'delete' %>
+    </p>
+  <% end %>
+
+  <% friend.inverse_sibling_relationships.each do |inverse_sibling_relationship| %>
+    <p>
+      <%= link_to inverse_sibling_relationship.friend.name, edit_admin_friend_path(inverse_sibling_relationship.friend), target: '_blank' %>
+      <%= link_to 'Remove', admin_friend_family_member_path(friend, inverse_sibling_relationship, type: 'sibling'), method: :delete, :remote => true, class: 'delete' %>
+    </p>
+  <% end %>
+<% end %>
+
 <% if friend.parents.present? %>
   </br>
   <h4>Parents</h4>

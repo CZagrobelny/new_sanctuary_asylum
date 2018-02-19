@@ -13,6 +13,10 @@ class Friend < ActiveRecord::Base
   has_many :child_relationships, class_name: 'ParentChildRelationship', foreign_key: 'parent_id', dependent: :destroy
   has_many :parents, through: :parent_relationships
   has_many :children, through: :child_relationships
+  has_many :sibling_relationships, dependent: :destroy
+  has_many :siblings, through: :sibling_relationships
+  has_many :inverse_sibling_relationships, class_name: 'SiblingRelationship', foreign_key: 'sibling_id', dependent: :destroy
+  has_many :inverse_siblings, through: :inverse_sibling_relationships, source: :friend
   has_many :spousal_relationships, dependent: :destroy
   has_many :spouses, through: :spousal_relationships
   has_many :inverse_spousal_relationships, class_name: 'SpousalRelationship', foreign_key: 'spouse_id', dependent: :destroy
