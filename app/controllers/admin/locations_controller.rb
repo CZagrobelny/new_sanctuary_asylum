@@ -18,7 +18,7 @@ class Admin::LocationsController < AdminController
     if @location.save
       redirect_to admin_locations_path
     else
-      flash[:error] = "Something went wrong :("
+      flash.now[:error] = "Something went wrong :("
       render 'new'
     end
   end
