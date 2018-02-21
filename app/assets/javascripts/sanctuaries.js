@@ -11,10 +11,5 @@ function activateSanctuariesChosen() {
       no_results_text: 'No results matched',
       width: '100%'
     });
-
-    // remove duplicated chosen-containers
-    if ($(chosen_select).next().next().hasClass('chosen-container')) {
-      $(chosen_select).next().next().remove();
-    }
   }
 }
