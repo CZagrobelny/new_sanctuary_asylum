@@ -23,6 +23,7 @@ class Admin::LocationsController < AdminController
     end
   end
 
+  # FIXME: This should probably have error handling like create
   def update
     @location.update(location_params)
     redirect_to admin_locations_path
