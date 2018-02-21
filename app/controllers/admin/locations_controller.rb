@@ -1,5 +1,5 @@
 class Admin::LocationsController < AdminController
-  before_action :set_location, only: [:edit, :destroy, :update]
+  before_action :set_location, only: [:edit, :update]
 
   def index
     @locations = Location.order('created_at desc').paginate(:page => params[:page])
