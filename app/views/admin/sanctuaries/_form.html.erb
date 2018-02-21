@@ -1,0 +1,68 @@
+<%= form_for [:admin, @sanctuary] do |f| %>
+
+  <%= display_validation_errors(@sanctuary) %>
+
+  <div class='form-inputs'>
+    <div class='row form-group'>
+      <%= f.label :name, 'Name', class: 'col-md-2 control-label required' %>
+      <div class='col-md-6'>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :address, 'Address', class: 'col-md-2 control-label' %>
+      <div class='col-md-6'>
+        <%= f.text_field :address, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :city, 'City', class: 'col-md-2 control-label' %>
+      <div class='col-md-6'>
+        <%= f.text_field :city, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :state, 'State', class: 'col-md-2 control-label' %>
+      <div class='col-md-6'>
+        <%= f.select :state, options_for_select(us_states_options), {}, class: 'form-control chosen-select' %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :zip_code, 'Zip Code', class: 'col-md-2 control-label' %>
+      <div class='col-md-6'>
+        <%= f.text_field :zip_code, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :leader_name, 'Leader Name', class: 'col-md-2 control-label required' %>
+      <div class='col-md-6'>
+        <%= f.text_field :leader_name, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :leader_phone_number, 'Leader Phone Number', class: 'col-md-2 control-label' %>
+      <div class='col-md-6'>
+        <%= f.text_field :leader_phone_number, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :leader_email, 'Leader Email', class: 'col-md-2 control-label' %>
+      <div class='col-md-6'>
+        <%= f.text_field :leader_email, class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-md-1 col-md-offset-7'>
+      <%= f.submit 'Save', class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>
