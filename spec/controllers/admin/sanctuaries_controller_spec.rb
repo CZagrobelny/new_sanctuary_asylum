@@ -31,29 +31,6 @@ RSpec.describe Admin::SanctuariesController, type: :controller do
       it { should respond_with(:success) }
     end
 
-    describe 'GET /admin/sanctuaries/:id/edit' do
-      before do
-        @sanctuary = create(:sanctuary)
-        get :edit, params: { id: @sanctuary.id }
-      end
-
-      it { should respond_with(:success) }
-      it { should render_template(:edit) }
-    end
-
-    describe 'POST /admin/sanctuaries/1' do
-      before do
-        @sanctuary = create(:sanctuary)
-        post :update, params: { id: @sanctuary.id, sanctuary: { name: 'new name' } }
-      end
-
-      it 'can change the name' do
-        expect(Sanctuary.find(@sanctuary.id).name).not_to eq @sanctuary.name
-      end
-
-      it { should redirect_to(admin_sanctuaries_path) }
-    end
-
     describe 'POST /admin/sanctuaries' do
       context 'valid params' do
         let(:params) { { sanctuary: {name: 'name', leader_name: 'leader_name'} } }
@@ -87,6 +64,56 @@ RSpec.describe Admin::SanctuariesController, type: :controller do
 
         it 'sets flash' do
           post :create, params: params
+          expect(flash.now[:error]).to eq "Something went wrong :("
+        end
+      end
+    end
+
+    describe 'GET /admin/sanctuaries/:id/edit' do
+      before do
+        @sanctuary = create(:sanctuary)
+        get :edit, params: { id: @sanctuary.id }
+      end
+
+      it { should respond_with(:success) }
+      it { should render_template(:edit) }
+    end
+
+    describe 'PATCH /admin/sanctuaries/1' do
+      context 'valid params' do
+        before do
+          @sanctuary = create(:sanctuary)
+          patch :update, params: { id: @sanctuary.id, sanctuary: { name: 'new name' } }
+        end
+
+        it 'can change the name' do
+          expect(Sanctuary.find(@sanctuary.id).name).not_to eq @sanctuary.name
+        end
+
+        it { should redirect_to(admin_sanctuaries_path) }
+      end
+
+      context 'invalid params' do
+        let(:sanctuary) { create(:sanctuary) }
+        let(:params) { { id: sanctuary.id, sanctuary: {name: '', leader_name: ''} } }
+
+        before do
+          @sanctuary = sanctuary
+        end
+
+        it 'does not create a new location' do
+          expect {
+            patch :update, id: @sanctuary.id, params: params
+          }.not_to change { Sanctuary.count }
+        end
+
+        it 'renders "edit" ' do
+          patch :update, id: @sanctuary.id, params: params
+          expect(response).to render_template(:edit)
+        end
+
+        it 'sets flash' do
+          patch :update, id: @sanctuary.id, params: params
           expect(flash.now[:error]).to eq "Something went wrong :("
         end
       end

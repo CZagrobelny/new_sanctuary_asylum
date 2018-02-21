@@ -29,7 +29,7 @@ class Admin::SanctuariesController < ApplicationController
       redirect_to admin_sanctuaries_path
     else
       flash[:error] = "Something went wrong :("
-      render 'new'
+      render 'edit'
     end
   end
 
