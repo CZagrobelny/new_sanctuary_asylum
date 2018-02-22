@@ -1,4 +1,4 @@
-class PartnerRelationship < ActiveRecord::Base
+class PartnerRelationship < ApplicationRecord
   belongs_to :friend
   belongs_to :partner, class_name: 'Friend'
 

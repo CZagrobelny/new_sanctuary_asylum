@@ -1,4 +1,4 @@
-class SiblingRelationship < ActiveRecord::Base
+class SiblingRelationship < ApplicationRecord
   belongs_to :friend
   belongs_to :sibling, class_name: 'Friend'
 

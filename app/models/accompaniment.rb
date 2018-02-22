@@ -1,4 +1,4 @@
-class Accompaniment < ActiveRecord::Base
+class Accompaniment < ApplicationRecord
   belongs_to :user
   belongs_to :activity
 

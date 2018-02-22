@@ -1,4 +1,4 @@
-class Friend < ActiveRecord::Base
+class Friend < ApplicationRecord
   enum ethnicity: [:white, :black, :hispanic, :asian, :south_asian, :caribbean, :indigenous, :other]
   enum gender: [:male, :female, :awesome]
 

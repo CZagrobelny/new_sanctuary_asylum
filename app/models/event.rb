@@ -1,4 +1,4 @@
-class Event < ActiveRecord::Base
+class Event < ApplicationRecord
   belongs_to :location
   has_many :friend_event_attendances, dependent: :destroy
   has_many :user_event_attendances, dependent: :destroy

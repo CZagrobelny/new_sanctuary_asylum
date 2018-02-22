@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :recoverable, :rememberable, :trackable, :secure_validatable, :password_expirable, :password_archivable, :invite_for => 1.week
   attr_reader :raw_invitation_token
   
