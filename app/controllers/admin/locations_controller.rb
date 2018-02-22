@@ -1,5 +1,5 @@
 class Admin::LocationsController < AdminController
-  before_action :set_location, only: [:edit, :destroy, :update]
+  before_action :set_location, only: [:edit, :update]
 
   def index
     @locations = Location.order('created_at desc').paginate(:page => params[:page])
@@ -18,11 +18,12 @@ class Admin::LocationsController < AdminController
     if @location.save
       redirect_to admin_locations_path
     else
-      flash[:error] = "Something went wrong :("
+      flash.now[:error] = "Something went wrong :("
       render 'new'
     end
   end
 
+  # FIXME: This should probably have error handling like create
   def update
     @location.update(location_params)
     redirect_to admin_locations_path
