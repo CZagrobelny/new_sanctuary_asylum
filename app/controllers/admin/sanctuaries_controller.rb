@@ -40,6 +40,6 @@ private
   end
 
   def sanctuary_params
-    params.require(:sanctuary).permit(:name, :leader_name)
+    params.require(:sanctuary).permit(:name, :address, :city, :state, :zip_code, :leader_name, :leader_phone_number, :leader_email)
   end
 end
