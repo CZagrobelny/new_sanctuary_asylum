@@ -4,21 +4,22 @@ RSpec.describe 'User account is locked', type: :feature do
 
   let(:user) { create(:user) }
 
-  scenario 'Lockable account after 10 failed attempts' do
+  scenario 'User attempts to log in after 10 failed attempts' do
     visit new_user_session_path
 
-    20.times do
+    10.times do
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: 'password'
       click_on 'Log in'
       user.reload
-      puts user.failed_attempts
     end
 
-    assert_equal 10, user.failed_attempts
+    expect(user.failed_attempts).to eq 10
+
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: 'password'
     click_on 'Log in'
+    expect(current_path).to eq new_user_unlock_path
     expect(page).to have_content 'Your account is locked.'
   end
 end
