@@ -128,9 +128,12 @@ class Admin::FriendsController < AdminController
       :detention_advocate_contact_name,
       :detention_advocate_contact_phone,
       :detention_advocate_contact_notes,
+      :bonded_out_by_nsc,
+      :bond_amount,
+      :date_bonded_out,
+      :bonded_out_by,
       :language_ids => [],
       :user_ids => []
-     
     )
   end
 end
