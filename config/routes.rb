@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { invitations: "invitations", sessions: "sessions" }
+  devise_for :users, controllers: { invitations: "invitations" }
 
   devise_scope :user do
     authenticated do
