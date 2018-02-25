@@ -19,8 +19,8 @@ RSpec.describe 'User account gets locked', type: :feature do
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: 'password'
     click_on 'Log in'
-    expect(current_path).to eq root_path
-    expect(page).to have_content 'You have 1 more attempt before your account is locked.'
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content 'You have one more attempt before your account is locked.'
   end
 
   scenario 'logging in with invalid credentials after nine attempts' do
@@ -38,7 +38,7 @@ RSpec.describe 'User account gets locked', type: :feature do
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: 'password'
     click_on 'Log in'
-    expect(current_path).to eq new_user_unlock_path
-    expect(page).to have_content 'Your account is locked.'
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content 'Your account is locked. You will receive an email with instructions for how to unlock your account in a few minutes.'
   end
 end
