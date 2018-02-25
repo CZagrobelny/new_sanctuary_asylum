@@ -7,6 +7,10 @@ RSpec.describe FamilyMemberConstructor, type: :model do
       as_stubbed_const(:transfer_nested_constants => true) }
   let(:parent_child_relationship) { class_double('ParentChildRelationship').
       as_stubbed_const(:transfer_nested_constants => true) }
+  let(:sibling_relationship) { class_double('SiblingRelationship').
+      as_stubbed_const(:transfer_nested_constants => true) }
+  let(:partner_relationship) { class_double('PartnerRelationship').
+      as_stubbed_const(:transfer_nested_constants => true) }
 
   it { should validate_presence_of(:friend_id) }
   it { should validate_presence_of(:relation_id) }
@@ -32,6 +36,23 @@ RSpec.describe FamilyMemberConstructor, type: :model do
       let(:relationship) { 'child' }
       it 'creates a new child relationship' do
         expect(parent_child_relationship).to receive(:create).with(parent_id: family_member_constructor.friend_id, child_id: family_member_constructor.relation_id)
+        family_member_constructor.run
+      end
+    end
+
+    context 'when the family member is a sibling' do
+      let(:relationship) { 'sibling' }
+      it 'creates a new sibling relationship' do
+        expect(sibling_relationship).to receive(:create).with(friend_id: family_member_constructor.friend_id, sibling_id: family_member_constructor.relation_id)
+        family_member_constructor.run
+      end
+    end
+
+    context 'when the family member is a partner' do
+      let(:relationship) { 'partner' }
+      it 'creates a new partner relationship' do
+        expect(partner_relationship).to receive(:create).with(friend_id: family_member_constructor.friend_id, partner_id:
+        family_member_constructor.relation_id)
         family_member_constructor.run
       end
     end

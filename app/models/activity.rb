@@ -1,6 +1,6 @@
-class Activity < ActiveRecord::Base
+class Activity < ApplicationRecord
   ACCOMPANIMENT_ELIGIBLE_EVENTS = ['master_calendar_hearing', 'individual_hearing', 'special_accompaniment', 'check_in', 'family_court']
-  NON_ACCOMPANIMENT_ELIGIBLE_EVENTS = ['filing_asylum_application', 'filing_work_permit', 'detained', 'guardianship_requested', 'sijs_special_findings_form_finished', 'sijs_application_submitted', 'sijs_granted', 'sijs_denied']
+  NON_ACCOMPANIMENT_ELIGIBLE_EVENTS = ['filing_asylum_application', 'filing_work_permit', 'detained', 'guardianship_requested', 'sijs_special_findings_form_finished', 'sijs_application_submitted', 'sijs_granted', 'sijs_denied', 'change_of_venue_submitted']
   EVENT_KEYS = ACCOMPANIMENT_ELIGIBLE_EVENTS + NON_ACCOMPANIMENT_ELIGIBLE_EVENTS
   EVENTS = EVENT_KEYS.map{|event| [event.titlecase, event]}
   

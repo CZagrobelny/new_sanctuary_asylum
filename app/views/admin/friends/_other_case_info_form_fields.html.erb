@@ -44,7 +44,7 @@
 <div class='row form-group'>
   <%= f.label :date_work_authorization_submitted, 'Date Submitted', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= f.date_select :date_work_authorization_submitted, { start_year: 2017, end_year: 5.years.ago.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+    <%= f.date_select :date_work_authorization_submitted, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
   </div>
 </div>
 
@@ -52,5 +52,36 @@
   <%= f.label :work_authorization_notes, 'Notes', class: 'col-md-2 control-label' %>
   <div class='col-md-10'>
     <%= f.text_area :work_authorization_notes, class: 'form-control', style: 'height: 200px;' %>
+  </div>
+</div>
+
+<br>
+<h4>Bond</h4>
+
+<div class='row form-group'>
+  <div class='col-md-12'>
+    <%= f.check_box :bonded_out_by_nsc %>
+    <%= f.label :bonded_out_by_nsc, 'Bonded Out by NSC' %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :bond_amount, 'Bond Amount', class: 'col-md-2 control-label' %>
+  <div class='col-md-2'>
+    <%= f.number_field :bond_amount, class: 'form-control' %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :date_bonded_out, 'Bonded Out', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.date_select :date_bonded_out, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :bonded_out_by, 'Bonded Out By', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= collection_select(:friend, :bonded_out_by, Sanctuary.all, :id, :name, {prompt: true}, {class: 'chzn-select form-control'}) %>
   </div>
 </div>

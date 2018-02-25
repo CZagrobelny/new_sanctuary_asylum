@@ -1,4 +1,4 @@
-class Detention < ActiveRecord::Base
+class Detention < ApplicationRecord
   belongs_to :friend
   belongs_to :location
   CASE_STATUSES = ['immigration_court', 'bia', 'circuit_court', 'other'].map{|status| [status.titlecase, status]}

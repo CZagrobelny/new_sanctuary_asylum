@@ -1,4 +1,4 @@
-class SpousalRelationship < ActiveRecord::Base
+class SpousalRelationship < ApplicationRecord
   belongs_to :friend
   belongs_to :spouse, class_name: 'Friend'
 

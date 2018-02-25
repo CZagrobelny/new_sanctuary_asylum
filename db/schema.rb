@@ -130,6 +130,10 @@ ActiveRecord::Schema.define(version: 20180222204140) do
     t.string   "detention_advocate_contact_name"
     t.string   "detention_advocate_contact_phone"
     t.text     "detention_advocate_contact_notes"
+    t.boolean  "bonded_out_by_nsc"
+    t.integer  "bond_amount"
+    t.datetime "date_bonded_out"
+    t.integer  "bonded_out_by"
   end
 
   create_table "judges", force: :cascade do |t|
@@ -171,6 +175,31 @@ ActiveRecord::Schema.define(version: 20180222204140) do
   create_table "parent_child_relationships", force: :cascade do |t|
     t.integer  "parent_id",  null: false
     t.integer  "child_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "partner_relationships", force: :cascade do |t|
+    t.integer  "friend_id",  null: false
+    t.integer  "partner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sanctuaries", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "city"
+    t.string "state",               limit: 2
+    t.string "zip_code"
+    t.string "leader_name"
+    t.string "leader_phone_number"
+    t.string "leader_email"
+  end
+
+  create_table "sibling_relationships", force: :cascade do |t|
+    t.integer  "friend_id",  null: false
+    t.integer  "sibling_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

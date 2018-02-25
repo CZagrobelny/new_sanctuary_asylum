@@ -114,6 +114,10 @@ Aiming to cover the functionality we build with:
 - model tests
 - feature tests to cover the main pathways through the app
 
+### Staging App
+We have a staging app here with seed data:  https://frozen-sea-20640.herokuapp.com
+The data is refeshed occassionally, but activities/accompaniments are likely to be out of date. 
+
 ## Contributing
 1. Contact Christine at newsanctuary.tech@gmail.com to request access to the Trello board (backlog) and github repo.
 2. Select a story from the Trello board: https://trello.com/b/nSt2qssz/new-sanctuary

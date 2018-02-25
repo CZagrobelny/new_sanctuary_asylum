@@ -1,4 +1,4 @@
-class ParentChildRelationship < ActiveRecord::Base
+class ParentChildRelationship < ApplicationRecord
   belongs_to :parent, class_name: 'Friend', foreign_key: 'parent_id'
   belongs_to :child, class_name: 'Friend', foreign_key: 'child_id'
   

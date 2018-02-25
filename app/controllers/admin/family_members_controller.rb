@@ -16,7 +16,7 @@ class Admin::FamilyMembersController < AdminController
   def destroy
     if family_member.destroy
       render_success
-    end 
+    end
   end
 
   private
@@ -35,6 +35,10 @@ class Admin::FamilyMembersController < AdminController
       SpousalRelationship.find(params[:id])
     when 'parent_child'
       ParentChildRelationship.find(params[:id])
+    when 'sibling'
+      SiblingRelationship.find(params[:id])
+    when 'partner'
+      PartnerRelationship.find(params[:id])
     end
   end
 

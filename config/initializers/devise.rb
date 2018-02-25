@@ -309,6 +309,23 @@ Devise.setup do |config|
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
 
+  Warden::Manager.after_authentication do |user,auth,opts|
+    Rails.logger.info "Forensics Login Successful: user=#{user.email}"
+  end
+
+  Warden::Manager.before_failure do |env, opts|
+    request = ActionDispatch::Request.new(env)
+    user = request.params[opts[:scope]] # opts[:scope] is expected to be :user
+    if user.present?
+      email = user["email"] 
+      Rails.logger.info "Forensics Login Failure: email=#{email}, ip=#{request.remote_ip}"
+    end
+  end
+
+  Warden::Manager.before_logout do |user,auth,opts|
+    Rails.logger.info "Forensics Logout: user=#{user.email}" if user.present?
+  end
+
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
   # is mountable, there are some extra configurations to be taken into account.

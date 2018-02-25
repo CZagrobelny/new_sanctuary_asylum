@@ -1,4 +1,4 @@
-class AsylumApplicationDraft < ActiveRecord::Base
+class AsylumApplicationDraft < ApplicationRecord
   belongs_to :friend
   has_many :user_asylum_application_draft_associations, dependent: :destroy
   has_many :users, through: :user_asylum_application_draft_associations

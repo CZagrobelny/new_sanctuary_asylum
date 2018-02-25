@@ -2,7 +2,7 @@ class FamilyMemberConstructor
   include ActiveModel::Model
 
   attr_accessor :friend_id, :relation_id, :relationship
-  RELATIONSHIPS = [['Spouse', :spouse], ['Parent', :parent], ['Child', :child]]
+  RELATIONSHIPS = [['Spouse', :spouse], ['Parent', :parent], ['Child', :child], ['Sibling', :sibling], ['Partner', :partner]]
 
   validates :friend_id, :relation_id, :relationship, presence: true
 
@@ -21,6 +21,10 @@ class FamilyMemberConstructor
       ParentChildRelationship.create(parent_id: relation_id, child_id: friend_id)
     when 'child'
       ParentChildRelationship.create(parent_id: friend_id, child_id: relation_id)
-    end 
+    when 'sibling'
+      SiblingRelationship.create(friend_id: friend_id, sibling_id: relation_id)
+    when 'partner'
+      PartnerRelationship.create(friend_id: friend_id, partner_id: relation_id)
+    end
   end
 end

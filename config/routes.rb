@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
+  
   devise_for :users, controllers: { invitations: "invitations" }
-
   devise_scope :user do
     authenticated do
       root :to => 'dashboard#index', as: :root
@@ -40,6 +40,7 @@ Rails.application.routes.draw do
 
     resources :judges, except: [:show, :destroy]
     resources :locations, except: [:show, :destroy]
+    resources :sanctuaries, except: [:show, :destroy]
     resources :lawyers, except: [:show, :destroy]
 
     resources :events do
