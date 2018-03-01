@@ -25,7 +25,7 @@ module ApplicationHelper
     flash.each do |msg_type, message|
       concat(content_tag(:div, message, class: "alert #{bootstrap_class_for(msg_type)}", role: "alert") do
         concat content_tag(:button, 'x', class: "close", data: { dismiss: 'alert' })
-        concat message 
+        concat message
       end)
     end
     nil
@@ -88,4 +88,11 @@ module ApplicationHelper
     ]
   end
 
+  def accompaniment_user_details(accompaniment)
+    user = accompaniment.user
+    [user.phone, user.email].tap do |details|
+      details << user.volunteer_type.humanize.titleize if user.volunteer?
+      details << accompaniment.availability_notes if accompaniment.availability_notes.present?
+    end
+  end
 end

@@ -1,0 +1,11 @@
+<ol>
+  <% activity.accompaniments.each do |accompaniment| %>
+    <% next unless accompaniment.user.send("#{scope}?") %>
+    <li>
+      <%= current_user.volunteer? ? accompaniment.user.first_name : accompaniment.user.name %>,
+      <i>
+        <%= accompaniment_user_details(accompaniment).join(', ') %>
+      </i>
+    </li>
+  <% end %>
+</ol>
