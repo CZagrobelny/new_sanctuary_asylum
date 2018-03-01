@@ -97,4 +97,3 @@ Friend.all[0..25].each do |friend|
     location_id: Location.last.id,
     notes: FFaker::Lorem.paragraph)
 end
-

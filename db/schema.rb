@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180218002335) do
+ActiveRecord::Schema.define(version: 20180226213127) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,9 +24,11 @@ ActiveRecord::Schema.define(version: 20180218002335) do
   end
 
   create_table "accompaniments", force: :cascade do |t|
-    t.integer "activity_id"
-    t.integer "user_id"
-    t.text    "availability_notes"
+    t.integer  "activity_id"
+    t.integer  "user_id"
+    t.text     "availability_notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "activities", force: :cascade do |t|
@@ -288,6 +290,9 @@ ActiveRecord::Schema.define(version: 20180218002335) do
     t.boolean  "pledge_signed",                     default: false
     t.string   "unique_session_id",      limit: 20
     t.datetime "password_changed_at"
+    t.integer  "failed_attempts",                   default: 0,     null: false
+    t.string   "unlock_token"
+    t.datetime "locked_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
@@ -295,6 +300,7 @@ ActiveRecord::Schema.define(version: 20180218002335) do
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
     t.index ["password_changed_at"], name: "index_users_on_password_changed_at", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   end
 
 end
