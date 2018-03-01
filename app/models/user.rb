@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :recoverable, :rememberable, :trackable, :secure_validatable, :password_expirable, :password_archivable, :invite_for => 1.week
   attr_reader :raw_invitation_token
-  
+
   enum role: [:volunteer, :accompaniment_leader, :admin]
   enum volunteer_type: [:english_speaking, :spanish_interpreter, :lawyer]
 
@@ -18,14 +18,6 @@ class User < ApplicationRecord
   has_many :accompaniments, dependent: :destroy
   has_many :user_event_attendances, dependent: :destroy
   has_many :accompaniment_reports, dependent: :destroy
-
-  def volunteer?
-  	self.role == 'volunteer'
-  end
-
-  def admin?
-  	self.role == 'admin'
-  end
 
   def confirmed?
     self.invitation_accepted_at.present?
