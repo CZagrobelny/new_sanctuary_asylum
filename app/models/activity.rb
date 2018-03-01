@@ -3,18 +3,18 @@ class Activity < ApplicationRecord
   NON_ACCOMPANIMENT_ELIGIBLE_EVENTS = ['filing_asylum_application', 'filing_work_permit', 'detained', 'guardianship_requested', 'sijs_special_findings_form_finished', 'sijs_application_submitted', 'sijs_granted', 'sijs_denied']
   EVENT_KEYS = ACCOMPANIMENT_ELIGIBLE_EVENTS + NON_ACCOMPANIMENT_ELIGIBLE_EVENTS
   EVENTS = EVENT_KEYS.map{|event| [event.titlecase, event]}
-  
+
   belongs_to :friend
   belongs_to :judge
   belongs_to :location
   has_many :accompaniments, dependent: :destroy
-  has_many :volunteers, through: :accompaniments, source: :user
+  has_many :users, through: :accompaniments
   has_many :accompaniment_reports, dependent: :destroy
 
   validates :event, :occur_at, :friend_id, presence: true
 
   def self.for_week(beginning_of_week:, end_of_week:, order:, events:)
-    { dates: "#{beginning_of_week.strftime('%B %-d')} - #{(end_of_week - 2.days).strftime('%B %-d')}", 
+    { dates: "#{beginning_of_week.strftime('%B %-d')} - #{(end_of_week - 2.days).strftime('%B %-d')}",
 
       activities: Activity.where(event: events)
                           .where('occur_at >= ? AND occur_at <= ? ', beginning_of_week, end_of_week)
@@ -35,14 +35,14 @@ class Activity < ApplicationRecord
       week_2_end = 1.weeks.from_now.end_of_week.end_of_day
     end
 
-    activities = [ Activity.for_week(beginning_of_week: week_1_beg, 
-                                     end_of_week: week_1_end, 
-                                     order: 'asc', 
+    activities = [ Activity.for_week(beginning_of_week: week_1_beg,
+                                     end_of_week: week_1_end,
+                                     order: 'asc',
                                      events: ACCOMPANIMENT_ELIGIBLE_EVENTS) ]
 
-    activities << Activity.for_week(beginning_of_week: week_2_beg, 
-                                    end_of_week: week_2_end, 
-                                    order: 'asc',  
+    activities << Activity.for_week(beginning_of_week: week_2_beg,
+                                    end_of_week: week_2_end,
+                                    order: 'asc',
                                     events: ACCOMPANIMENT_ELIGIBLE_EVENTS)
     activities
   end

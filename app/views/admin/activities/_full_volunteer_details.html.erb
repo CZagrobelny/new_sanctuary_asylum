@@ -2,9 +2,6 @@
   <% for accompaniment in activity.accompaniments %>
     <li>
       <div>
-        <% if accompaniment.user.accompaniment_leader? %>
-          <strong>Team Leader: </strong>
-        <% end %>
         <%= accompaniment.user.name %>,
         <i><%= accompaniment.user.phone %>, <%= accompaniment.user.email %>, <%= accompaniment.user.volunteer_type.humanize.titlecase %></i>
         <% if accompaniment.availability_notes.present? %>

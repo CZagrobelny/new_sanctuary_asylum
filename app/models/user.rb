@@ -28,7 +28,7 @@ class User < ApplicationRecord
   end
 
   def attending?(activity)
-    activity.volunteers.include?(self)
+    activity.users.include?(self)
   end
 
   def accompaniment_report_for(activity)

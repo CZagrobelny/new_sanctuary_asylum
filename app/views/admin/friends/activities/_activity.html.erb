@@ -12,10 +12,10 @@
   <% end %>
   <% if activity.notes.present? %>
     <strong>Notes:  </strong><%= activity.notes %><br>
-  <% end %> 
-  <% if activity.volunteers.present? %>
-  <strong>Volunteers:  </strong><br>
-  <%= render partial: 'admin/activities/full_volunteer_details', locals: {activity: activity} %>
+  <% end %>
+  <% if activity.users.volunteer.present? %>
+    <strong>Volunteers:  </strong><br>
+    <%= render partial: 'admin/activities/full_volunteer_details', locals: {activity: activity} %>
   <% end %>
   <% if activity.accompaniment_reports.present? %>
     <% activity.accompaniment_reports.each do |report| %>
