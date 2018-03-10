@@ -19,14 +19,6 @@ class User < ApplicationRecord
   has_many :user_event_attendances, dependent: :destroy
   has_many :accompaniment_reports, dependent: :destroy
 
-  def volunteer?
-  	self.role == 'volunteer'
-  end
-
-  def admin?
-  	self.role == 'admin'
-  end
-
   def confirmed?
     self.invitation_accepted_at.present?
   end
@@ -36,7 +28,7 @@ class User < ApplicationRecord
   end
 
   def attending?(activity)
-    activity.volunteers.include?(self)
+    activity.users.include?(self)
   end
 
   def accompaniment_report_for(activity)

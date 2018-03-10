@@ -21,7 +21,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
     describe 'when the team leader is attending an activity' do
       it 'lists me as "Team Leader" for the activity' do
         within "#activity_#{activity.id}" do
-          expect(page).to have_content("Team Leader: #{team_leader.name}")
+          expect(page).to have_content("Accompaniment Leaders: #{team_leader.name}")
         end
       end
     end

@@ -4,7 +4,11 @@
     <strong>What:  </strong><%= activity.event.humanize %><br>
     <strong>When:  </strong><%= activity.occur_at.strftime("%I:%M %p") %><br>
     <strong>Where:  </strong><%= activity.location.name if activity.location.present? %><br>
-    <strong>Volunteers:  </strong><%= activity.volunteers.map(&:first_name).to_sentence %>
+    <% if activity.accompaniment_leader_accompaniments.present? %>
+      <strong>Accompaniment Leaders:  </strong>
+      <%= render 'shared/scoped_activity_users_details', activity: activity, scope: 'accompaniment_leader' %>
+    <% end %>
+    <strong>Volunteers:  </strong><%= activity.users.volunteer.map(&:first_name).to_sentence %>
   </div>
   <div class='col-md-2 col-sm-4 col-xs-4'>
     <% if current_user.attending?(activity) %>

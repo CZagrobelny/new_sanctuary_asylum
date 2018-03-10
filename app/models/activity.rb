@@ -8,10 +8,18 @@ class Activity < ApplicationRecord
   belongs_to :judge
   belongs_to :location
   has_many :accompaniments, -> { order(created_at: :asc) }, dependent: :destroy
-  has_many :volunteers, through: :accompaniments, source: :user
+  has_many :users, through: :accompaniments
   has_many :accompaniment_reports, dependent: :destroy
 
   validates :event, :occur_at, :friend_id, presence: true
+
+  User.roles.each do |role, index|
+    define_method "#{role}_accompaniments" do
+      accompaniments.select do |accompaniment|
+        accompaniment.user.role == role
+      end
+    end
+  end
 
   def self.for_week(beginning_of_week:, end_of_week:, order:, events:)
     { dates: "#{beginning_of_week.strftime('%B %-d')} - #{(end_of_week - 2.days).strftime('%B %-d')}",
