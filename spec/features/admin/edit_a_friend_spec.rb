@@ -26,13 +26,16 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
     describe 'adding a new family relationship' do
       before do
         click_link 'Family'
-        click_link 'Add Family Member'
       end
 
       describe 'with valid information' do
         it 'displays the new family member' do
+          expect(page).to have_link 'Add Family Member'
+          click_link 'Add Family Member'
+          sleep 1
           family_member = Friend.last
           select 'Spouse', from: 'Relationship'
+          expect(page).to have_select('Relationship', selected: 'Spouse')
           select_from_chosen(family_member.name, from: {id: 'family_member_constructor_relation_id'})
           click_button 'Add'
           wait_for_ajax
@@ -45,6 +48,9 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
 
       describe 'with incomplete information' do
         it 'displays validation errors' do
+          expect(page).to have_link 'Add Family Member'
+          click_link 'Add Family Member'
+          sleep 1
           click_button 'Add'
           wait_for_ajax
           expect(page).to have_content("Relationship can't be blank")
@@ -60,19 +66,21 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
         within '.nav-tabs' do
           click_link 'Activities'
         end
-        click_link 'Add Activity'
       end
 
       describe 'with valid information' do
-        it 'displays the new family member' do
+        it 'displays the new activity' do
+          expect(page).to have_link 'Add Activity'
+          click_link 'Add Activity'
+          sleep 1
           select 'Individual Hearing', from: 'Type'
+          expect(page).to have_select('Type', selected: 'Individual Hearing')
           select location.name, from: 'Location'
           select_date_and_time(Time.now.beginning_of_hour, from: 'activity_occur_at')
           within '#new_activity' do
             click_button 'Save'
           end
           wait_for_ajax
-
           within '#activity-list' do
             expect(page).to have_content('Individual hearing')
             expect(page).to have_content(location.name)
@@ -82,6 +90,9 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
 
       describe 'with incomplete information' do
         it 'displays validation errors' do
+          expect(page).to have_link 'Add Activity'
+          click_link 'Add Activity'
+          sleep 1
           within '#new_activity' do
             click_button 'Save'
           end
