@@ -1,5 +1,3 @@
-<h2>Access</h2>
-
 <div class='row form-group'>
   <%= form_for friend, remote: true do |f| %>
     <%= fields_for(@friend.user_friend_associations.build) do |fl| %>
