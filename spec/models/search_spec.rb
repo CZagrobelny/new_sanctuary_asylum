@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Search, type: :model do
   describe '#sanitize_query' do
-    let(:search) { Search.new("friend", query, 1) }
+    let(:search) { Search.new(Friend, query, 1) }
     context 'when the query contains multiple blank spaces' do
       let(:query) {'  too   many  spaces  '}
       it 'returns a string without extraneous blank spaces' do
@@ -33,12 +33,12 @@ RSpec.describe Search, type: :model do
   end
 
   context "Searching for users" do
-    let!(:user1) { create :user }  
+    let!(:user1) { create :user }
     let!(:user2) { create :user }
 
     it "returns the expected users" do
       expect(
-        Search.new("user", user1.first_name).perform
+        Search.new(User, user1.first_name).perform
       ).to eq [user1]
     end
   end
@@ -49,13 +49,13 @@ RSpec.describe Search, type: :model do
 
     it "returns the expected friends if one word is passed" do
       expect(
-        Search.new("friend", friend1.last_name).perform
+        Search.new(Friend, friend1.last_name).perform
       ).to eq [friend1]
     end
 
     it "returns the expected friends if two words are passed" do
       expect(
-        Search.new("friend", friend1.name).perform
+        Search.new(Friend, friend1.name).perform
       ).to eq [friend1]
     end
 

@@ -84,8 +84,8 @@ class Admin::FriendsController < AdminController
 
   private
 
-  def search 
-    Search.new("friend", params[:query], params[:page])
+  def search
+    Search.new(Friend, params[:query], params[:page])
   end
 
   def friend_params
