@@ -50,8 +50,8 @@ RSpec.describe Friend, type: :model do
       end
     end
    
-    context 'has an associated Asylum Application Draft' do
-      before { create :asylum_application_draft, friend: friend }
+    context 'has an associated Application Draft' do
+      before { create :application_draft, friend: friend }
       it 'is not deleted' do
         expect{ friend.destroy }.not_to change{ Friend.count }
       end
