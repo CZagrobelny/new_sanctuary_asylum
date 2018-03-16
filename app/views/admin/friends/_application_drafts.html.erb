@@ -1,6 +1,6 @@
 <% @friend.grouped_application_drafts.each do |group| %>
-  <h3><%= group[0].titlecase %></h3>
-  <% group[1].each do |application_draft| %>
+  <h3><%= group[:name].titlecase %></h3>
+  <% group[:drafts].each do |application_draft| %>
     <div>
       <p>
         <%= link_to application_draft.pdf_draft.file.filename, application_draft.pdf_draft_url, target: '_blank' %>

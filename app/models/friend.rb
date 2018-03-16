@@ -55,7 +55,7 @@ class Friend < ApplicationRecord
     grouped_drafts = []
     ApplicationDraft::CATEGORIES.each do |category|
       drafts_for_category = self.application_drafts.where(category: category).order('created_at desc')
-      grouped_drafts << [category, drafts_for_category] if drafts_for_category.present?
+      grouped_drafts << {name: category, drafts: drafts_for_category} if drafts_for_category.present?
     end
     grouped_drafts
   end
