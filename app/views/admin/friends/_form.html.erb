@@ -17,7 +17,7 @@
           <a class="nav-link" data-toggle="tab" href="#activities" role="tab">Activities</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#asylum" role="tab">Asylum</a>
+          <a class="nav-link" data-toggle="tab" href="#clinic" role="tab">Clinic</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#sijs" role="tab">SIJS</a>
@@ -27,6 +27,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#other_case_info" role="tab">Other Case Info</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#documents" role="tab">Documents</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#access" role="tab">Access</a>
@@ -47,8 +50,8 @@
         <div class="tab-pane" id="activities" role="tabpanel">
           <%= render 'activities_form_fields', f: f, friend: @friend %>
         </div>
-        <div class="tab-pane" id="asylum" role="tabpanel">
-          <%= render 'asylum_form_fields', f: f, friend: @friend %>
+        <div class="tab-pane" id="clinic" role="tabpanel">
+          <%= render 'clinic_form_fields', f: f, friend: @friend %>
         </div>
         <div class="tab-pane" id="sijs" role="tabpanel">
           <%= render 'sijs_form_fields', f: f, friend: @friend %>
@@ -58,6 +61,9 @@
         </div>
         <div class="tab-pane" id="other_case_info" role="tabpanel">
           <%= render 'other_case_info_form_fields', f: f, friend: @friend %>
+        </div>
+        <div class="tab-pane" id="documents" role="tabpanel">
+          <%= render 'application_drafts', f: f, friend: @friend %>
         </div>
         <div class="tab-pane" id="access" role="tabpanel">
           <%= render 'access_form_fields', f: f, friend: @friend %>

@@ -9,6 +9,17 @@ class Friend < ApplicationRecord
 
   has_many :friend_languages, dependent: :destroy
   has_many :languages, through: :friend_languages
+  has_many :activities, dependent: :restrict_with_error
+  has_many :detentions, dependent: :destroy
+  has_many :user_friend_associations, dependent: :destroy
+  has_many :users, through: :user_friend_associations
+  has_many :application_drafts, dependent: :restrict_with_error
+  has_many :friend_event_attendances, dependent: :destroy
+  has_many :events, through: :friend_event_attendances
+  has_many :sijs_application_drafts, dependent: :restrict_with_error
+
+  ## All of the below associations are for 'Family' relationships
+  ## TO DO:  look at refactoring this, it's gotten a bit out of control.
   has_many :parent_relationships, class_name: 'ParentChildRelationship', foreign_key: 'child_id', dependent: :destroy
   has_many :child_relationships, class_name: 'ParentChildRelationship', foreign_key: 'parent_id', dependent: :destroy
   has_many :parents, through: :parent_relationships
@@ -25,14 +36,6 @@ class Friend < ApplicationRecord
   has_many :partners, through: :partner_relationships
   has_many :inverse_partner_relationships, class_name: 'PartnerRelationship', foreign_key: 'partner_id', dependent: :destroy
   has_many :inverse_partners, through: :inverse_partner_relationships, source: :friend
-  has_many :activities, dependent: :restrict_with_error
-  has_many :detentions, dependent: :destroy
-  has_many :user_friend_associations, dependent: :destroy
-  has_many :users, through: :user_friend_associations
-  has_many :application_drafts, dependent: :restrict_with_error
-  has_many :friend_event_attendances, dependent: :destroy
-  has_many :events, through: :friend_event_attendances
-  has_many :sijs_application_drafts, dependent: :restrict_with_error
 
   validates :first_name, :last_name, presence: true
   validates :zip_code, length: { is: 5 }, allow_blank: true, numericality: true
@@ -46,6 +49,15 @@ class Friend < ApplicationRecord
 
   def ethnicity
     self.other? ? self[:other_ethnicity] : self[:ethnicity]
+  end
+
+  def grouped_application_drafts
+    grouped_drafts = []
+    ApplicationDraft::CATEGORIES.each do |category|
+      drafts_for_category = self.application_drafts.where(category: category).order('created_at desc')
+      grouped_drafts << [category, drafts_for_category] if drafts_for_category.present?
+    end
+    grouped_drafts
   end
 
   private

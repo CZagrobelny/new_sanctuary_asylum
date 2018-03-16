@@ -1,6 +1,4 @@
-<%= link_to 'Create Document', new_friend_application_draft_path(friend), class: 'pull-right btn btn-primary' %>
-<br>
-<% friend.grouped_application_drafts.each do |group| %>
+<% @friend.grouped_application_drafts.each do |group| %>
   <h3><%= group[0].titlecase %></h3>
   <% group[1].each do |application_draft| %>
     <div>
@@ -15,12 +13,12 @@
         <% if application_draft.notes.present? %>
           <strong>Notes:  </strong><%= application_draft.notes %><br>
         <% end %>
-
-        <%= link_to 'Edit', edit_friend_application_draft_path(friend, application_draft) %>
-        <% if current_user.admin? %>
-          <%= link_to 'Delete', friend_application_draft_path(friend, application_draft), method: :delete, confirm: true, class: 'delete' %><br>
-        <% end %>
       </p> 
     </div>
   <% end %>
 <% end %>
+
+<br>
+<div class='col-md-2 col-md-offset-10'>
+  <%= f.submit 'Manage Documents', name: 'manage_application_drafts', :class => 'btn btn-primary' %>
+</div>

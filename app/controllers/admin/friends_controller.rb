@@ -28,8 +28,8 @@ class Admin::FriendsController < AdminController
   end
 
   def update
-    if params['manage_asylum_drafts'].present?
-      update_and_render_asylum_drafts
+    if params['manage_application_drafts'].present?
+      update_and_render_application_drafts
     elsif params['manage_sijs_drafts'].present?
       update_and_render_sijs_drafts
     else
@@ -43,11 +43,11 @@ class Admin::FriendsController < AdminController
     end
   end
 
-  def update_and_render_asylum_drafts
+  def update_and_render_application_drafts
     if friend.update(friend_params)
-      redirect_to friend_asylum_application_drafts_path(friend)
+      redirect_to friend_application_drafts_path(friend)
     else
-      flash[:error] = 'Please fill in all required friend fields before managing asylum application drafts.'
+      flash[:error] = 'Please fill in all required friend fields before managing documents.'
       render :edit
     end
   end
@@ -56,7 +56,7 @@ class Admin::FriendsController < AdminController
     if friend.update(friend_params)
       redirect_to friend_sijs_application_drafts_path(friend)
     else
-      flash[:error] = 'Please fill in all required friend fields before managing asylum application drafts.'
+      flash[:error] = 'Please fill in all required friend fields before managing sijs application drafts.'
       render :edit
     end
   end

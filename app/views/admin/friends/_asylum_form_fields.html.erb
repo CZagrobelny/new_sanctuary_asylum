@@ -22,14 +22,14 @@
 </div>
 
 <div class='col-md-2 col-md-offset-10'>
-  <%= f.submit 'Manage Asylum Application Drafts', name: 'manage_asylum_drafts', :class => 'btn btn-primary' %>
+  <%= f.submit 'Manage Documents', name: 'manage_application_drafts', :class => 'btn btn-primary' %>
 </div>
 
-<% if @friend.asylum_application_drafts.present? %>
+<% if @friend.application_drafts.present? %>
   <h4>Asylum Application Drafts</h4>
 <% end %>
 
-<% @friend.asylum_application_drafts.order('created_at desc').each do |draft| %>
+<% @friend.application_drafts.order('created_at desc').each do |draft| %>
   <div>
     <p>
       <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
