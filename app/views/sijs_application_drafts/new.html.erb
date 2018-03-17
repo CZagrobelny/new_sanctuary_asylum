@@ -1,5 +1,0 @@
-<% unless current_user.admin? %>
-  <div class='row'><%= link_to 'Back to Friend Record', friend_path(@friend, tab: '#sijs') %></div>
-<% end %>
-<h2>New SIJS Application Draft</h2>
-<%= render 'form' %>

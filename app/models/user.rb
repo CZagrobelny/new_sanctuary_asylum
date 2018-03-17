@@ -13,8 +13,6 @@ class User < ApplicationRecord
   has_many :friends, through: :user_friend_associations
   has_many :user_application_draft_associations, dependent: :destroy
   has_many :application_drafts, through: :user_application_draft_associations
-  has_many :user_sijs_application_draft_associations, dependent: :destroy
-  has_many :sijs_application_drafts, through: :user_sijs_application_draft_associations
   has_many :accompaniments, dependent: :destroy
   has_many :user_event_attendances, dependent: :destroy
   has_many :accompaniment_reports, dependent: :destroy

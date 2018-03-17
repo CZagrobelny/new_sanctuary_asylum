@@ -15,7 +15,7 @@ class FriendsController < ApplicationController
     @friend = Friend.find(params[:id])
     @friend.update(friend_params)
     respond_to do |format|
-      format.js { render :file => 'friends/asylum', locals: {friend: @friend} }
+      format.js { render :file => 'friends/access', locals: {friend: @friend} }
     end
   end
 

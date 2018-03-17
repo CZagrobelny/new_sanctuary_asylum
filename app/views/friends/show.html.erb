@@ -12,9 +12,6 @@
         <a class="nav-link active" data-toggle="tab" href="#documents" role="tab">Documents</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#sijs" role="tab">SIJS</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#access" role="tab">Access</a>
       </li>
     </ul>
@@ -26,9 +23,6 @@
       </div>
       <div class="tab-pane" id="documents" role="tabpanel">
         <%= render 'application_drafts', friend: @friend %>
-      </div>
-      <div class="tab-pane" id="sijs" role="tabpanel">
-        <%= render 'sijs', friend: @friend %>
       </div>
       <div class="tab-pane" id="access" role="tabpanel">
         <%= render 'access', friend: @friend %>

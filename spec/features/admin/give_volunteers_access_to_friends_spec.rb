@@ -20,7 +20,6 @@ RSpec.describe 'Give volunteers access to friends', type: :feature, js: true do
 
       expect(page).to have_content 'Basic'
       expect(page).to have_content 'Documents'
-      expect(page).to have_content 'SIJS'
       expect(page).to have_content 'Access'
     end
   end

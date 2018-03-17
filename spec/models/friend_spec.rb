@@ -56,12 +56,5 @@ RSpec.describe Friend, type: :model do
         expect{ friend.destroy }.not_to change{ Friend.count }
       end
     end
-
-    context 'has an associated SIJS Application Draft' do
-      before { create :sijs_application_draft, friend: friend }
-      it 'is not deleted' do
-        expect{ friend.destroy }.not_to change{ Friend.count }
-      end
-    end
   end
 end

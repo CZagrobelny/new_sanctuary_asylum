@@ -16,7 +16,6 @@ class Friend < ApplicationRecord
   has_many :application_drafts, dependent: :restrict_with_error
   has_many :friend_event_attendances, dependent: :destroy
   has_many :events, through: :friend_event_attendances
-  has_many :sijs_application_drafts, dependent: :restrict_with_error
 
   ## All of the below associations are for 'Family' relationships
   ## TO DO:  look at refactoring this, it's gotten a bit out of control.

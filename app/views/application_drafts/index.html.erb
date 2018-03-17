@@ -1,4 +1,4 @@
-<div class='row'><%= link_to 'Back to Friend Form', friend_path(@friend, tab: '#documents') %></div> 
+<div class='row'><%= link_to 'Back to Friend Form', edit_admin_friend_path(@friend, tab: '#documents') %></div> 
 <div class='col-md-12'>
   <div id='application-draft-list' >
     <%= render partial: 'application_drafts/list', locals: { friend: @friend} %>
