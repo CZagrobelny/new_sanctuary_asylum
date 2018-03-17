@@ -121,6 +121,8 @@ class Admin::FriendsController < AdminController
       :bond_amount,
       :date_bonded_out,
       :bonded_out_by,
+      :date_foia_request_submitted,
+      :foia_request_notes,
       :language_ids => [],
       :user_ids => []
     )

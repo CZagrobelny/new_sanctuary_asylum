@@ -78,5 +78,20 @@
     <%= f.text_area :work_authorization_notes, class: 'form-control', style: 'height: 200px;' %>
   </div>
 </div>
+
+<h3>FOIA Request</h3>
+<div class='row form-group'>
+  <%= f.label :date_foia_request_submitted, 'Date Submitted', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.date_select :date_foia_request_submitted, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :foia_request_notes, 'Notes', class: 'col-md-2 control-label' %>
+  <div class='col-md-10'>
+    <%= f.text_area :foia_request_notes, class: 'form-control', style: 'height: 200px;' %>
+  </div>
+</div>
 <br>
 
