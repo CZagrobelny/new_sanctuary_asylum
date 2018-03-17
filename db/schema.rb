@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180316020110) do
+ActiveRecord::Schema.define(version: 20180317005925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,6 +137,8 @@ ActiveRecord::Schema.define(version: 20180316020110) do
     t.integer  "bond_amount"
     t.datetime "date_bonded_out"
     t.integer  "bonded_out_by"
+    t.datetime "date_foia_request_submitted"
+    t.text     "foia_request_notes"
   end
 
   create_table "judges", force: :cascade do |t|

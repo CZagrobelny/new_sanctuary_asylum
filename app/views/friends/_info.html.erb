@@ -50,15 +50,36 @@
   <% end %>
 <% end %>
 
+<h3>Asylum</h3>
+<p><strong>Status:  </strong><%= friend.asylum_status.try(:humanize) %></p>
+<p><strong>Date Submitted:  </strong><%= friend.date_asylum_application_submitted.strftime('%m/%d/%y') if friend.date_asylum_application_submitted.present? %></p>
+<p><strong>Notes:  </strong><%= friend.asylum_notes %></p>
+
+<h3>SIJS</h3>
+<p><strong>Status:  </strong><%= friend.sijs_status.try(:humanize) %></p>
+<p><strong>SIJS Lawyer:  </strong><%= Lawyer.find(friend.sijs_lawyer).name if friend.sijs_lawyer.present? %></p>
+<p><strong>Date Submitted:  </strong><%= friend.date_sijs_submitted.strftime('%m/%d/%y') if friend.date_sijs_submitted.present? %></p>
+<p><strong>Notes:  </strong><%= friend.sijs_notes %></p>
+
+<h3>Work Authorization</h3>
+<p><strong>Status:  </strong><%= friend.work_authorization_status.try(:humanize) %></p>
+<p><strong>Date Eligible to Apply:  </strong><%= friend.date_eligible_to_apply_for_work_authorization.strftime('%m/%d/%y') if friend.date_eligible_to_apply_for_work_authorization.present? %></p>
+<p><strong>Date Submitted:  </strong><%= friend.date_work_authorization_submitted.strftime('%m/%d/%y') if friend.date_work_authorization_submitted.present? %></p>
+<p><strong>Notes:  </strong><%= friend.work_authorization_notes %></p>
+
+<h3>FOIA Request</h3>
+<p><strong>Date Submitted:  </strong><%= friend.date_foia_request_submitted.strftime('%m/%d/%y') if friend.date_foia_request_submitted.present? %></p>
+<p><strong>Notes:  </strong><%= friend.foia_request_notes %></p>
+
 <h3>Detention</h3>
 <p><strong>Visited the Clinic?  </strong><%= 'Yes' if friend.visited_the_clinic %></p>
 <p><strong>Has a Lawyer for Detention?  </strong><%= 'Yes' if friend.has_a_lawyer_for_detention %></p>
 <p><strong>Final Order of Removal?  </strong><%= 'Yes' if friend.final_order_of_removal %></p>
 <p><strong>Criminal Conviction?  </strong><%= 'Yes' if friend.criminal_conviction %></p>
-<p><strong>Criminal Conviction Notes  </strong><%= friend.criminal_conviction_notes %></p>
-<p><strong>Detention Advocate Contact Name  </strong><%= friend.detention_advocate_contact_name %></p>
-<p><strong>Detention Advocate Contact Phone  </strong><%= friend.detention_advocate_contact_phone %></p>
-<p><strong>Detention Advocate Contact Notes  </strong><%= friend.detention_advocate_contact_notes %></p>
+<p><strong>Criminal Conviction Notes:  </strong><%= friend.criminal_conviction_notes %></p>
+<p><strong>Detention Advocate Contact Name:  </strong><%= friend.detention_advocate_contact_name %></p>
+<p><strong>Detention Advocate Contact Phone:  </strong><%= friend.detention_advocate_contact_phone %></p>
+<p><strong>Detention Advocate Contact Notes:  </strong><%= friend.detention_advocate_contact_notes %></p>
 
 <% if friend.detentions.present? %>
   <h3>Detention History</h3>
@@ -77,12 +98,6 @@
 <p><strong>Lawyer Referred to:  </strong><%= Lawyer.find(friend.lawyer_referred_to).name if friend.lawyer_referred_to.present? %></p>
 <p><strong>Lawyer Represented by:  </strong><%= Lawyer.find(friend.lawyer_represented_by).name if friend.lawyer_represented_by.present? %></p>
 <p><strong>Notes:  </strong><%= friend.lawyer_notes %></p>
-
-<h3>Work Authorization</h3>
-<p><strong>Status:  </strong><%= friend.work_authorization_status.try(:humanize) %></p>
-<p><strong>Date Eligible to Apply:  </strong><%= friend.date_eligible_to_apply_for_work_authorization.strftime('%m/%d/%y') if friend.date_eligible_to_apply_for_work_authorization.present? %></p>
-<p><strong>Date Submitted:  </strong><%= friend.date_work_authorization_submitted.strftime('%m/%d/%y') if friend.date_work_authorization_submitted.present? %></p>
-<p><strong>Notes:  </strong><%= friend.work_authorization_notes %></p>
 
 <h3>Bond</h3>
 <p><strong>Bonded Out by NSC:  </strong><%= friend.bonded_out_by_nsc ? 'Yes' : 'No' %></p>
