@@ -21,12 +21,15 @@
     <% end %>
     <% if activity.notes.present? %>
       <strong>Notes:  </strong><%= activity.notes %><br>
-    <% end %> 
-    <% if activity.volunteers.present? %>
-      <strong>Volunteers:  </strong><br>
-      <%= render partial: 'accompaniment_leader/activities/full_volunteer_details', locals: {activity: activity} %>
     <% end %>
-
+    <% if activity.accompaniment_leader_accompaniments.present? %>
+      <strong>Accompaniment Leaders:  </strong>
+      <%= render 'shared/scoped_activity_users_details', activity: activity, scope: 'accompaniment_leader' %>
+    <% end %>
+    <% if activity.volunteer_accompaniments.present? %>
+      <strong>Volunteers:  </strong>
+      <%= render 'shared/scoped_activity_users_details', activity: activity, scope: 'volunteer' %>
+    <% end %>
     <% if activity.accompaniment_reports.present? %>
       <strong>Accompaniment Leader Notes:</strong>
       <ol>

@@ -1,5 +1,5 @@
 class Activity < ApplicationRecord
-  ACCOMPANIMENT_ELIGIBLE_EVENTS = ['master_calendar_hearing', 'individual_hearing', 'special_accompaniment', 'check_in', 'family_court']
+  ACCOMPANIMENT_ELIGIBLE_EVENTS = ['master_calendar_hearing', 'individual_hearing', 'special_accompaniment', 'check_in', 'family_court', 'bond_hearing', 'fingerprinting']
   NON_ACCOMPANIMENT_ELIGIBLE_EVENTS = ['filing_asylum_application', 'filing_work_permit', 'detained', 'guardianship_requested', 'sijs_special_findings_form_finished', 'sijs_application_submitted', 'sijs_granted', 'sijs_denied', 'change_of_venue_submitted']
   EVENT_KEYS = ACCOMPANIMENT_ELIGIBLE_EVENTS + NON_ACCOMPANIMENT_ELIGIBLE_EVENTS
   EVENTS = EVENT_KEYS.map{|event| [event.titlecase, event]}
@@ -8,10 +8,18 @@ class Activity < ApplicationRecord
   belongs_to :judge
   belongs_to :location
   has_many :accompaniments, -> { order(created_at: :asc) }, dependent: :destroy
-  has_many :volunteers, through: :accompaniments, source: :user
+  has_many :users, through: :accompaniments
   has_many :accompaniment_reports, dependent: :destroy
 
   validates :event, :occur_at, :friend_id, presence: true
+
+  User.roles.each do |role, index|
+    define_method "#{role}_accompaniments" do
+      accompaniments.select do |accompaniment|
+        accompaniment.user.role == role
+      end
+    end
+  end
 
   def self.for_week(beginning_of_week:, end_of_week:, order:, events:)
     { dates: "#{beginning_of_week.strftime('%B %-d')} - #{(end_of_week - 2.days).strftime('%B %-d')}",

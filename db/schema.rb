@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180226213127) do
+ActiveRecord::Schema.define(version: 20180317005925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,12 +42,13 @@ ActiveRecord::Schema.define(version: 20180226213127) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "asylum_application_drafts", force: :cascade do |t|
+  create_table "application_drafts", force: :cascade do |t|
     t.text     "notes"
     t.integer  "friend_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "pdf_draft"
+    t.string   "category"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -136,6 +137,8 @@ ActiveRecord::Schema.define(version: 20180226213127) do
     t.integer  "bond_amount"
     t.datetime "date_bonded_out"
     t.integer  "bonded_out_by"
+    t.datetime "date_foia_request_submitted"
+    t.text     "foia_request_notes"
   end
 
   create_table "judges", force: :cascade do |t|
@@ -221,11 +224,11 @@ ActiveRecord::Schema.define(version: 20180226213127) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_asylum_application_draft_associations", force: :cascade do |t|
-    t.integer  "user_id",                     null: false
-    t.integer  "asylum_application_draft_id", null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+  create_table "user_application_draft_associations", force: :cascade do |t|
+    t.integer  "user_id",              null: false
+    t.integer  "application_draft_id", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "user_event_attendances", force: :cascade do |t|

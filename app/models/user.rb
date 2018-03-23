@@ -11,21 +11,11 @@ class User < ApplicationRecord
 
   has_many :user_friend_associations, dependent: :destroy
   has_many :friends, through: :user_friend_associations
-  has_many :user_asylum_application_draft_associations, dependent: :destroy
-  has_many :asylum_application_drafts, through: :user_asylum_application_draft_associations
-  has_many :user_sijs_application_draft_associations, dependent: :destroy
-  has_many :sijs_application_drafts, through: :user_sijs_application_draft_associations
+  has_many :user_application_draft_associations, dependent: :destroy
+  has_many :application_drafts, through: :user_application_draft_associations
   has_many :accompaniments, dependent: :destroy
   has_many :user_event_attendances, dependent: :destroy
   has_many :accompaniment_reports, dependent: :destroy
-
-  def volunteer?
-  	self.role == 'volunteer'
-  end
-
-  def admin?
-  	self.role == 'admin'
-  end
 
   def confirmed?
     self.invitation_accepted_at.present?
@@ -36,7 +26,7 @@ class User < ApplicationRecord
   end
 
   def attending?(activity)
-    activity.volunteers.include?(self)
+    activity.users.include?(self)
   end
 
   def accompaniment_report_for(activity)
