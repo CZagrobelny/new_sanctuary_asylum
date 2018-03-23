@@ -41,7 +41,8 @@ class Admin::UsersController < AdminController
       :email, 
       :phone, 
       :volunteer_type,
-      :role
+      :role,
+      :signed_guidelines
     )
   end
 end
