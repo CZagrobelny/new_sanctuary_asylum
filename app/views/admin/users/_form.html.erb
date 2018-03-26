@@ -1,47 +1,56 @@
-<%= form_for([:admin, @user]) do |f| %>
+<%= form_for([:admin, @user], :html => { :class => 'form-horizontal' }) do |f| %>
   
   <%= display_validation_errors(@user) %>
 
-  <div class='form-inputs'>
-    <div class='row form-group'>
-      <%= f.label :first_name, 'First Name', class: 'col-md-2 control-label required' %>
-      <div class='col-md-6'>
-        <%= f.text_field :first_name, class: 'form-control' %>
-      </div>
+  <div class='form-group'>
+    <%= f.label :first_name, 'First Name', class: 'col-md-2 control-label required' %>
+    <div class='col-md-6'>
+      <%= f.text_field :first_name, class: 'form-control' %>
     </div>
+  </div>
 
-    <div class='row form-group'>
-      <%= f.label :last_name, 'Last Name', class: 'col-md-2 control-label required' %>
-      <div class='col-md-6'>
-        <%= f.text_field :last_name, class: 'form-control' %>
-      </div>
+  <div class='form-group'>
+    <%= f.label :last_name, 'Last Name', class: 'col-md-2 control-label required' %>
+    <div class='col-md-6'>
+      <%= f.text_field :last_name, class: 'form-control' %>
     </div>
+  </div>
 
-    <div class='row form-group'>
-      <%= f.label :email, class: 'col-md-2 control-label required' %>
-      <div class='col-md-6'>
-        <%= f.text_field :email, class: 'form-control' %>
-      </div>
+  <div class='form-group'>
+    <%= f.label :email, class: 'col-md-2 control-label required' %>
+    <div class='col-md-6'>
+      <%= f.text_field :email, class: 'form-control' %>
     </div>
+  </div>
 
-    <div class='row form-group'>
-      <%= f.label :phone, class: 'col-md-2 control-label required' %>
-      <div class='col-md-6'>
-        <%= f.text_field :phone, class: 'form-control' %>
-      </div>
+  <div class='form-group'>
+    <%= f.label :phone, class: 'col-md-2 control-label required' %>
+    <div class='col-md-6'>
+      <%= f.text_field :phone, class: 'form-control' %>
     </div>
+  </div>
 
-    <div class='row form-group'>
-      <%= f.label :volunteer_type, 'Type', class: 'col-md-2 control-label required' %>
-      <div class='col-md-6'>
-        <%= f.select :volunteer_type, User.volunteer_types.map {|k, v| [k.humanize.titleize, k]}, {:prompt => "Select"}, { :class => 'form-control input-md'} %>
-      </div>
+  <div class='form-group'>
+    <%= f.label :volunteer_type, 'Type', class: 'col-md-2 control-label required' %>
+    <div class='col-md-6'>
+      <%= f.select :volunteer_type, User.volunteer_types.map {|k, v| [k.humanize.titleize, k]}, {:prompt => "Select"}, { :class => 'form-control input-md'} %>
     </div>
+  </div>
 
-    <div class='row form-group'>
-      <%= f.label :role, class: 'col-md-2 control-label required' %>
-      <div class='col-md-6'>
-        <%= f.select :role, User.roles.map {|k, v| [k.humanize.titleize, k]}, {}, {class: 'form-control input-md'} %>
+  <div class='form-group'>
+    <%= f.label :role, class: 'col-md-2 control-label required' %>
+    <div class='col-md-6'>
+      <%= f.select :role, User.roles.map {|k, v| [k.humanize.titleize, k]}, {}, {class: 'form-control input-md'} %>
+    </div>
+  </div>
+ 
+  <div class='form-group'>
+    <div class='col-md-6 col-md-offset-2'>
+      <div class='checkbox' />
+        <label>
+          <%= f.check_box :signed_guidelines, id: 'signed-check' %>
+          Signed Guidelines
+        </label>
       </div>
     </div>
   </div>
