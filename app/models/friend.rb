@@ -42,6 +42,14 @@ class Friend < ApplicationRecord
   validates :a_number, length: { minimum: 8, maximum: 9 }, if: :a_number_available?
   validates_uniqueness_of :a_number, if: :a_number_available?
 
+  # TODO: spec these scopes to ensure they're 100
+  scope :detained, -> {
+    joins(:detentions)
+      .distinct
+      .where('detentions.date_detained < ?', Time.now)
+      .where('detentions.date_released IS NULL OR detentions.date_released > ?', Time.now)
+  }
+
   def name
     "#{first_name} #{last_name}"
   end

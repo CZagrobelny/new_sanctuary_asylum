@@ -5,7 +5,7 @@ RSpec.describe Friend, type: :model do
 
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
-  
+
   describe 'validations' do
 
   	context 'no_a_number is true' do
@@ -26,7 +26,7 @@ RSpec.describe Friend, type: :model do
 
   		end
     end
-    
+
     context 'zip_code is invalid if not 5 characters' do
      it {should validate_length_of(:zip_code).is_equal_to(5)}
     end
@@ -49,11 +49,41 @@ RSpec.describe Friend, type: :model do
         expect{ friend.destroy }.not_to change{ Friend.count }
       end
     end
-   
+
     context 'has an associated Application Draft' do
       before { create :application_draft, friend: friend }
       it 'is not deleted' do
         expect{ friend.destroy }.not_to change{ Friend.count }
+      end
+    end
+  end
+
+  describe 'detained friends' do
+    let!(:currently_detained_friend) { create :detained_friend }
+    let!(:never_detained_friend) { create :friend }
+    let!(:previously_detained_friend) do
+      create(:detained_friend).tap do |friend|
+        friend.detentions.first.update(date_released: 1.week.ago)
+      end
+    end
+
+    context 'default scope' do
+      it 'should include all friends' do
+        friends = Friend.all
+        expect(friends.size).to eq(3)
+        expect(friends.include?(currently_detained_friend)).to eq(true)
+        expect(friends.include?(never_detained_friend)).to eq(true)
+        expect(friends.include?(previously_detained_friend)).to eq(true)
+      end
+    end
+
+    context '.detained scope' do
+      it 'should include only currently detained friends' do
+        friends = Friend.detained.all
+        expect(friends.size).to eq(1)
+        expect(friends.include?(currently_detained_friend)).to eq(true)
+        expect(friends.include?(never_detained_friend)).to eq(false)
+        expect(friends.include?(previously_detained_friend)).to eq(false)
       end
     end
   end
