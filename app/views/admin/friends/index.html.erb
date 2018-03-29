@@ -1,16 +1,31 @@
 <div class='row'>
   <%= link_to 'New Friend', new_admin_friend_path, class: 'btn btn-primary pull-right'%>
 </div>
-<div class='row'>
-  <div class='col-md-3'>
-    <h1><%= link_to "Friends", admin_friends_path %></h1>
+<%= form_tag admin_friends_path, method: :get do %>
+  <div class='row'>
+    <div class='col-md-3'>
+      <h1><%= link_to "Friends", admin_friends_path %></h1>
+    </div>
+    <div class='col-md-4 col-md-offset-5'>
+      <%= text_field_tag :query, params[:query], placeholder: 'Search by first name, last name, or A#',
+        class: 'form-control input-md', style: 'margin-top: 20px; margin-bottom: 10px;' %>
+    </div>
   </div>
-  <div class='col-md-4 col-md-offset-5'>
-    <%= form_tag admin_friends_path, :method => :get do %>
-      <%= text_field_tag :query, params[:query], placeholder: 'Search by first name, last name, or A#', class: 'form-control input-md', style: 'margin-top: 1.6em;' %>
-    <% end %>
-  </div>
-</div>
+  <%= content_tag :div, class: 'row', data: {show_filters: params[:commit].present?} do %>
+    <div class='col-md-12 friend-search-filters'>
+      <h4>Filters</h4>
+      <dl>
+        <dt>Detention Status</dt>
+        <dd>
+          <label>
+            Detained <%= check_box_tag :detained, 'yes', params[:detained] == 'yes' %>
+          </label>
+        </dd>
+      </dl>
+      <%= submit_tag 'Update', class: 'btn btn-primary btn-sm', name: nil %>
+    </div>
+  <% end %>
+<% end %>
 <% if @friends.present? %>
   <table class='table table-bordered'>
     <thead>
