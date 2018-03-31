@@ -31,7 +31,7 @@ class Activity < ApplicationRecord
 
   def self.upcoming_two_weeks
 
-    if Date.today.cwday == 5 && !Activity.remaining_this_week?
+    if Date.today.cwday >= 5 && !Activity.remaining_this_week?
       week_1_beg = 1.weeks.from_now.beginning_of_week.beginning_of_day
       week_1_end = 1.weeks.from_now.end_of_week.end_of_day
       week_2_beg = 2.weeks.from_now.beginning_of_week.beginning_of_day
