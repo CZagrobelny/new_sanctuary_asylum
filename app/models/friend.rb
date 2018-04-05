@@ -42,7 +42,6 @@ class Friend < ApplicationRecord
   validates :a_number, length: { minimum: 8, maximum: 9 }, if: :a_number_available?
   validates_uniqueness_of :a_number, if: :a_number_available?
 
-  # TODO: spec these scopes to ensure they're 100
   scope :detained, -> {
     joins(:detentions)
       .distinct
@@ -65,6 +64,10 @@ class Friend < ApplicationRecord
       grouped_drafts << {name: category, drafts: drafts_for_category} if drafts_for_category.present?
     end
     grouped_drafts
+  end
+
+  def detained?
+    self.detentions.where('date_detained < ?', Time.now).where('date_released IS NULL OR date_released > ?', Time.now).present?
   end
 
   private
