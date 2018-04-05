@@ -1,0 +1,26 @@
+[data-toggle-search-filters=true] {
+  display: inline-block;
+  margin-bottom: 0.6em;
+}
+
+.friend-search-filters {
+  display: none;
+
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+
+  dl {
+    margin-bottom: 0;
+  }
+
+  label {
+    font-weight: normal;
+    margin-right: 0.6em;
+  }
+
+  &[data-show-search-filters=true] {
+    display: block;
+  }
+}

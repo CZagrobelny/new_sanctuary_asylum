@@ -1,6 +1,6 @@
 class Admin::UsersController < AdminController
   def index
-    @users = if params[:query].present? 
+    @users = if params[:query].present?
                search.perform
              else
                User.all.order('created_at desc').paginate(:page => params[:page])
@@ -31,15 +31,15 @@ class Admin::UsersController < AdminController
   private
 
   def search
-    Search.new("user", params[:query], params[:page])
+    Search.new(User, params[:query], params[:page])
   end
-  
+
   def user_params
     params.require(:user).permit(
-      :first_name, 
-      :last_name, 
-      :email, 
-      :phone, 
+      :first_name,
+      :last_name,
+      :email,
+      :phone,
       :volunteer_type,
       :role,
       :signed_guidelines

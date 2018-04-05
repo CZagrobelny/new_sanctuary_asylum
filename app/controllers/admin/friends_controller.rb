@@ -3,8 +3,19 @@ class Admin::FriendsController < AdminController
     @friends = if params[:query].present?
                  search.perform
                else
-                 Friend.all.order('first_name asc').paginate(:page => params[:page])
+                 friend_index_scope.all.order('first_name asc').paginate(:page => params[:page])
                end
+  end
+
+  def friend_index_scope
+    scope = Friend
+    case params[:detained]
+    when 'yes'
+      scope = scope.detained
+    when 'no'
+      scope = scope.not_detained
+    end
+    scope
   end
 
   def new
@@ -64,17 +75,14 @@ class Admin::FriendsController < AdminController
   end
 
   def current_tab
-    if params[:tab].present?
-      params[:tab]
-    else
-      '#basic'
-    end
+    # TODO: See if params[:tab] is ever an empty string, otherwise can remove the presence
+    params[:tab].presence || '#basic'
   end
 
   private
 
-  def search 
-    Search.new("friend", params[:query], params[:page])
+  def search
+    Search.new(friend_index_scope, params[:query], params[:page])
   end
 
   def friend_params

@@ -2,11 +2,11 @@
 #for more information https://github.com/textacular/textacular
 class Search
 
-  attr_reader :model, :query, :page
+  attr_reader :scope, :query, :page
 
-  def initialize(model, query, page=nil)
+  def initialize(scope, query, page=nil)
     @query = query
-    @model = model.classify.constantize
+    @scope = scope
     @page = page
   end
 
@@ -17,23 +17,23 @@ class Search
   private
 
   def search
-    if query_string_length > 1 
+    if query_string_length > 1
       search_attributes
     else
       search
     end
   end
 
-  def search_attributes 
-    #You should be able to add other attributes to this 
-    #search. Attributes not on the model will be ignored.
-    model.advanced_search(first_name: sanitize_query, 
+  def search_attributes
+    #You should be able to add other attributes to this
+    #search. Attributes not on the scope will be ignored.
+    scope.advanced_search(first_name: sanitize_query,
                           last_name: sanitize_query)
 
   end
 
   def search
-    model.advanced_search(sanitize_query)
+    scope.advanced_search(sanitize_query)
   end
 
   def sanitize_query
