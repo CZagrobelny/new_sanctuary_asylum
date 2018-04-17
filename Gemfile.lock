@@ -79,11 +79,12 @@ GEM
     carrierwave-aws (1.2.0)
       aws-sdk (~> 2.1)
       carrierwave (>= 0.7, < 2.0)
+    childprocess (0.5.9)
+      ffi (~> 1.0, >= 1.0.11)
     chosen-rails (1.5.2)
       coffee-rails (>= 3.2)
       railties (>= 3.0)
       sass-rails (>= 3.2)
-    cliver (0.3.2)
     coderay (1.1.1)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -162,16 +163,12 @@ GEM
       sprockets (>= 2.0)
     orm_adapter (0.5.0)
     pg (0.18.4)
-    phantomjs (2.1.1.0)
-    poltergeist (1.11.0)
-      capybara (~> 2.1)
-      cliver (~> 0.3.1)
-      websocket-driver (>= 0.2.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
     public_suffix (2.0.5)
+    puma (3.9.1)
     rack (2.0.3)
     rack-attack (5.0.1)
       rack
@@ -240,6 +237,7 @@ GEM
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
     ruby_http_client (3.1.0)
+    rubyzip (1.2.1)
     safe_yaml (1.0.4)
     sass (3.5.1)
       sass-listen (~> 4.0.0)
@@ -255,6 +253,9 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    selenium-webdriver (3.4.3)
+      childprocess (~> 0.5)
+      rubyzip (~> 1.0)
     sendgrid-ruby (5.0.0)
       ruby_http_client (~> 3.0)
       sinatra (>= 1.4.7, < 3)
@@ -341,9 +342,8 @@ DEPENDENCIES
   nokogiri (~> 1.8.1)
   non-stupid-digest-assets
   pg (~> 0.18.4)
-  phantomjs
-  poltergeist (~> 1.11.0)
   pry
+  puma (~> 3.9.0)
   rack-attack
   rails (~> 5.0.0)
   rails-controller-testing
@@ -352,6 +352,7 @@ DEPENDENCIES
   rspec-rails (~> 3.5.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  selenium-webdriver
   sendgrid-ruby
   shoulda-matchers (~> 3.1.1)
   spring

@@ -20,7 +20,7 @@ gem 'devise',           '~> 4.2'
 gem 'devise_invitable', '~> 1.7.0'
 gem 'devise_security_extension', git: 'https://github.com/phatworx/devise_security_extension.git'
 gem 'chosen-rails'
-gem 'phantomjs'
+gem 'puma', '~> 3.9.0'
 gem 'textacular', '~> 5.0'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-aws'
@@ -43,7 +43,7 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 3.1.1', require: false
   gem 'webmock', '~> 2.1.0', require: false
   gem 'capybara', '~> 2.10.1', require: false
-  gem 'poltergeist', '~> 1.11.0', require: false
+  gem 'selenium-webdriver'
   gem 'database_cleaner', '~> 1.5.3', require: false
   gem 'rails-controller-testing'
   gem 'launchy', require: false
