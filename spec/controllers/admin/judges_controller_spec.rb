@@ -9,6 +9,7 @@ RSpec.describe Admin::JudgesController, type: :controller do
     before do
       allow(controller).to receive(:authenticate_user!).and_return(true)
       allow(controller).to receive(:require_admin).and_return(true)
+      allow(controller).to receive(:log_action).and_return(true)
     end
 
     describe 'GET /admin/judges' do
@@ -18,16 +19,16 @@ RSpec.describe Admin::JudgesController, type: :controller do
                            .and_return(double(:paginate => [build(:judge), build(:judge)]))
         get :index
       end
-    
+
       it { should respond_with(:success) }
-      
+
       it 'assigns @judges' do
         expect(controller.instance_variable_get('@judges').length).to eq 2
       end
     end
 
     describe 'GET /admin/judges/new' do
-      before { get :new } 
+      before { get :new }
       it { should respond_with(:success) }
     end
 
@@ -44,7 +45,7 @@ RSpec.describe Admin::JudgesController, type: :controller do
     describe 'POST /admin/judges/1' do
       before do
         @judge = create(:judge)
-        post :update, params: { id: @judge.id, judge: { first_name: @judge.first_name, last_name: FFaker::Name.last_name } } 
+        post :update, params: { id: @judge.id, judge: { first_name: @judge.first_name, last_name: FFaker::Name.last_name } }
       end
 
       it 'can change the last name' do
@@ -64,17 +65,17 @@ RSpec.describe Admin::JudgesController, type: :controller do
             post :create, params: params
           }.to change { Judge.count }.by(1)
         end
-        
+
         it 'redirects to admin_judges_path' do
           post :create, params: params
           expect(response).to have_http_status 302
-          expect(response.location).to include '/admin/judges'  
+          expect(response.location).to include '/admin/judges'
         end
       end
 
       context 'missing first name' do
         let(:params) { { judge: {last_name: 'last' } } }
-        
+
         it 'does not create a new judge' do
           expect {
             post :create, params: params

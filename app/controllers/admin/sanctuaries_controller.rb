@@ -1,4 +1,4 @@
-class Admin::SanctuariesController < ApplicationController
+class Admin::SanctuariesController < AdminController
   before_action :set_sanctuary, only: [:edit, :update]
 
   def index

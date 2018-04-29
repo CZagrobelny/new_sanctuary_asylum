@@ -9,6 +9,7 @@ RSpec.describe Admin::LawyersController, type: :controller do
     before do
       allow(controller).to receive(:authenticate_user!).and_return(true)
       allow(controller).to receive(:require_admin).and_return(true)
+      allow(controller).to receive(:log_action).and_return(true)
     end
 
     describe 'GET /admin/lawyers' do
@@ -18,16 +19,16 @@ RSpec.describe Admin::LawyersController, type: :controller do
                            .and_return(double(:paginate => [build(:lawyer), build(:lawyer)]))
         get :index
       end
-    
+
       it { should respond_with(:success) }
-      
+
       it 'assigns @lawyers' do
         expect(controller.instance_variable_get('@lawyers').length).to eq 2
       end
     end
 
     describe 'GET /admin/lawyers/new' do
-      before { get :new } 
+      before { get :new }
       it { should respond_with(:success) }
     end
 
@@ -44,7 +45,7 @@ RSpec.describe Admin::LawyersController, type: :controller do
     describe 'POST /admin/lawyers/1' do
       before do
         @lawyer = create(:lawyer)
-        post :update, params: { id: @lawyer.id, lawyer: { first_name: @lawyer.first_name, last_name: FFaker::Name.last_name } } 
+        post :update, params: { id: @lawyer.id, lawyer: { first_name: @lawyer.first_name, last_name: FFaker::Name.last_name } }
       end
 
       it 'can change the last name' do
@@ -64,17 +65,17 @@ RSpec.describe Admin::LawyersController, type: :controller do
             post :create, params: params
           }.to change { Lawyer.count }.by(1)
         end
-        
+
         it 'redirects to admin_lawyers_path' do
           post :create, params: params
           expect(response).to have_http_status 302
-          expect(response.location).to include '/admin/lawyers'  
+          expect(response.location).to include '/admin/lawyers'
         end
       end
 
       context 'missing first name' do
         let(:params) { { lawyer: {last_name: 'last' } } }
-        
+
         it 'does not create a new lawyer' do
           expect {
             post :create, params: params

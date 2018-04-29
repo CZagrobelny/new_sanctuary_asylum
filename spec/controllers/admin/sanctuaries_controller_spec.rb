@@ -9,6 +9,7 @@ RSpec.describe Admin::SanctuariesController, type: :controller do
     before do
       allow(controller).to receive(:authenticate_user!).and_return(true)
       allow(controller).to receive(:require_admin).and_return(true)
+      allow(controller).to receive(:log_action).and_return(true)
     end
 
     describe 'GET /admin/sanctuaries' do

@@ -33,13 +33,6 @@ class User < ApplicationRecord
     self.accompaniment_reports.where(activity_id: activity.id).first
   end
 
-  def generate_new_invitation
-    User.invite!(email: self.email, skip_invitation: true)
-    token = self.raw_invitation_token
-    domain = ENV['MAILER_DOMAIN']
-    "http://#{domain}/users/invitation/accept?invitation_token=#{token}"
-  end
-
   ## This is used by devise timeoutable to dynamically set session time out when the user is inactive
   def timeout_in
     if admin?
