@@ -9,6 +9,7 @@ RSpec.describe Admin::LocationsController, type: :controller do
     before do
       allow(controller).to receive(:authenticate_user!).and_return(true)
       allow(controller).to receive(:require_admin).and_return(true)
+      allow(controller).to receive(:log_action).and_return(true)
     end
 
     describe 'GET /admin/locations' do
@@ -18,16 +19,16 @@ RSpec.describe Admin::LocationsController, type: :controller do
                            .and_return(double(:paginate => [build(:location), build(:location)]))
         get :index
       end
-    
+
       it { should respond_with(:success) }
-      
+
       it 'assigns @locations' do
         expect(controller.instance_variable_get('@locations').length).to eq 2
       end
     end
 
     describe 'GET /admin/locations/new' do
-      before { get :new } 
+      before { get :new }
       it { should respond_with(:success) }
     end
 
@@ -44,7 +45,7 @@ RSpec.describe Admin::LocationsController, type: :controller do
     describe 'POST /admin/locations/1' do
       before do
         @location = create(:location)
-        post :update, params: { id: @location.id, location: { name: 'new name' } } 
+        post :update, params: { id: @location.id, location: { name: 'new name' } }
       end
 
       it 'can change the name' do
@@ -64,17 +65,17 @@ RSpec.describe Admin::LocationsController, type: :controller do
             post :create, params: params
           }.to change { Location.count }.by(1)
         end
-        
+
         it 'redirects to admin_locations_path' do
           post :create, params: params
           expect(response).to have_http_status 302
-          expect(response.location).to include '/admin/locations'  
+          expect(response.location).to include '/admin/locations'
         end
       end
 
       context 'missing name' do
         let(:params) { { location: {name: ''} } }
-        
+
         it 'does not create a new location' do
           expect {
             post :create, params: params
