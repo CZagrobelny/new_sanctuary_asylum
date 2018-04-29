@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  devise :invitable, :database_authenticatable, :lockable, :recoverable, :rememberable, :trackable, :secure_validatable, :password_expirable, :password_archivable, :invite_for => 1.week
+  devise :invitable, :database_authenticatable, :lockable, :recoverable, :rememberable, :trackable, :secure_validatable, :password_expirable, :password_archivable, :timeoutable, :invite_for => 1.week
   attr_reader :raw_invitation_token
 
   enum role: [:volunteer, :accompaniment_leader, :admin]
@@ -38,5 +38,14 @@ class User < ApplicationRecord
     token = self.raw_invitation_token
     domain = ENV['MAILER_DOMAIN']
     "http://#{domain}/users/invitation/accept?invitation_token=#{token}"
+  end
+
+  ## This is used by devise timeoutable to dynamically set session time out when the user is inactive
+  def timeout_in
+    if admin?
+      30.minutes
+    else
+      3.days
+    end
   end
 end
