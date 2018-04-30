@@ -14,11 +14,11 @@ class Admin::LawyersController < AdminController
 
   def create
     @lawyer = Lawyer.new(lawyer_params)
-    
+
     if @lawyer.save
       redirect_to admin_lawyers_path
     else
-      flash[:error] = "Something went wrong :("
+      flash.now[:error] = "Something went wrong :("
       render 'new'
     end
   end
@@ -37,5 +37,5 @@ class Admin::LawyersController < AdminController
   def lawyer_params
     params.require(:lawyer).permit(:first_name, :last_name, :email, :phone_number, :organization)
   end
-  
+
 end

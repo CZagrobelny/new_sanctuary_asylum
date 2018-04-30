@@ -15,7 +15,7 @@ class AccompanimentLeader::AccompanimentReportsController < AccompanimentLeaderC
       flash[:success] = 'Your accompaniment leader notes were added.'
       redirect_to accompaniment_leader_activities_path
     else
-      flash[:error] = 'There was an error saving your accompaniment leader notes.'
+      flash.now[:error] = 'There was an error saving your accompaniment leader notes.'
       render :edit
     end
   end
@@ -26,7 +26,7 @@ class AccompanimentLeader::AccompanimentReportsController < AccompanimentLeaderC
       redirect_to accompaniment_leader_activities_path
     else
       @activity = activity
-      flash[:error] = 'There was an error saving your accompaniment leader notes.'
+      flash.now[:error] = 'There was an error saving your accompaniment leader notes.'
       render :edit
     end
   end
@@ -41,7 +41,7 @@ class AccompanimentLeader::AccompanimentReportsController < AccompanimentLeaderC
 
   private
   def accompaniment_report_params
-    params.require(:accompaniment_report).permit( 
+    params.require(:accompaniment_report).permit(
       :notes
     ).merge(user_id: current_user.id)
   end

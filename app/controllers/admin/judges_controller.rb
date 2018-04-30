@@ -18,7 +18,7 @@ class Admin::JudgesController < AdminController
     if @judge.save
       redirect_to admin_judges_path
     else
-      flash[:error] = "Something went wrong :("
+      flash.now[:error] = "Something went wrong :("
       render 'new'
     end
   end

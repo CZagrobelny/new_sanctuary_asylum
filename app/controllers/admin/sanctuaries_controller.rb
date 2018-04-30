@@ -28,7 +28,7 @@ class Admin::SanctuariesController < AdminController
     if @sanctuary.update(sanctuary_params)
       redirect_to admin_sanctuaries_path
     else
-      flash[:error] = "Something went wrong :("
+      flash.now[:error] = "Something went wrong :("
       render 'edit'
     end
   end

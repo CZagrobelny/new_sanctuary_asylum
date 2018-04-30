@@ -89,7 +89,7 @@ RSpec.describe Admin::JudgesController, type: :controller do
 
         it 'sets flash' do
           post :create, params: params
-          expect(flash[:error]).to eq "Something went wrong :("
+          expect(flash.now[:error]).to eq "Something went wrong :("
         end
 
       end
