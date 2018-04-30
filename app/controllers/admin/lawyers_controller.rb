@@ -24,8 +24,12 @@ class Admin::LawyersController < AdminController
   end
 
   def update
-    @lawyer.update(lawyer_params)
-    redirect_to admin_lawyers_path
+    if @lawyer.update(lawyer_params)
+      redirect_to admin_lawyers_path
+    else
+      flash.now[:error] = "Something went wrong :("
+      render 'edit'
+    end
   end
 
   private

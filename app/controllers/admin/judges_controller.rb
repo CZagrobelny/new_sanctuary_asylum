@@ -14,7 +14,7 @@ class Admin::JudgesController < AdminController
 
   def create
     @judge = Judge.new(judge_params)
-    
+
     if @judge.save
       redirect_to admin_judges_path
     else
@@ -24,8 +24,12 @@ class Admin::JudgesController < AdminController
   end
 
   def update
-    @judge.update(judge_params)
-    redirect_to admin_judges_path
+    if @judge.update(judge_params)
+      redirect_to admin_judges_path
+    else
+      flash.now[:error] = "Something went wrong :("
+      render 'edit'
+    end
   end
 
   private
@@ -37,5 +41,5 @@ class Admin::JudgesController < AdminController
   def judge_params
     params.require(:judge).permit(:first_name, :last_name)
   end
-  
+
 end

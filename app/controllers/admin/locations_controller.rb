@@ -14,7 +14,7 @@ class Admin::LocationsController < AdminController
 
   def create
     @location = Location.new(location_params)
-    
+
     if @location.save
       redirect_to admin_locations_path
     else
@@ -23,10 +23,13 @@ class Admin::LocationsController < AdminController
     end
   end
 
-  # FIXME: This should probably have error handling like create
   def update
-    @location.update(location_params)
-    redirect_to admin_locations_path
+    if @location.update(location_params)
+      redirect_to admin_locations_path
+    else
+      flash.now[:error] = "Something went wrong :("
+      render 'edit'
+    end
   end
 
   private
@@ -38,5 +41,5 @@ class Admin::LocationsController < AdminController
   def location_params
     params.require(:location).permit(:name)
   end
-  
+
 end

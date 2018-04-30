@@ -45,15 +45,37 @@ RSpec.describe Admin::LocationsController, type: :controller do
     describe 'POST /admin/locations/1' do
       before do
         @location = create(:location)
-        post :update, params: { id: @location.id, location: { name: 'new name' } }
       end
 
-      it 'can change the name' do
-        expect(Location.find(@location.id).name).not_to eq @location.name
+      context 'valid params' do
+        before do
+          post :update, params: { id: @location.id, location: { name: 'new name' } }
+        end
+
+        it 'can change the name' do
+          expect(Location.find(@location.id).name).not_to eq @location.name
+        end
+
+        it { should redirect_to(admin_locations_path) }
       end
 
-      it { should redirect_to(admin_locations_path) }
+      context 'invalid params' do
+        before do
+          post :update, params: { id: @location.id, location: { name: '' } }
+        end
 
+        it 'does not change the name' do
+          expect(Location.find(@location.id).name).to eq @location.name
+        end
+
+        it 'renders "edit"' do
+          expect(response).to render_template(:edit)
+        end
+
+        it 'sets flash' do
+          expect(flash.now[:error]).to eq "Something went wrong :("
+        end
+      end
     end
 
     describe 'POST /admin/locations' do
@@ -82,7 +104,7 @@ RSpec.describe Admin::LocationsController, type: :controller do
           }.not_to change { Location.count }
         end
 
-        it 'renders "new" ' do
+        it 'renders "new"' do
           post :create, params: params
           expect(response).to render_template(:new)
         end
@@ -91,9 +113,7 @@ RSpec.describe Admin::LocationsController, type: :controller do
           post :create, params: params
           expect(flash.now[:error]).to eq "Something went wrong :("
         end
-
       end
-
     end
   end
 end

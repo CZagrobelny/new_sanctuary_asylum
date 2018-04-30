@@ -45,15 +45,37 @@ RSpec.describe Admin::LawyersController, type: :controller do
     describe 'POST /admin/lawyers/1' do
       before do
         @lawyer = create(:lawyer)
-        post :update, params: { id: @lawyer.id, lawyer: { first_name: @lawyer.first_name, last_name: FFaker::Name.last_name } }
       end
 
-      it 'can change the last name' do
-        expect(Lawyer.find(@lawyer.id).last_name).not_to eq @lawyer.last_name
+      context 'valid params' do
+        before do
+          post :update, params: { id: @lawyer.id, lawyer: { last_name: 'Changed' } }
+        end
+
+        it 'can change the last name' do
+          expect(Lawyer.find(@lawyer.id).last_name).to eq 'Changed'
+        end
+
+        it { should redirect_to(admin_lawyers_path) }
       end
 
-      it { should redirect_to(admin_lawyers_path) }
+      context 'invalid params' do
+        before do
+          post :update, params: { id: @lawyer.id, lawyer: { first_name: '' } }
+        end
 
+        it 'should not change the first name' do
+          expect(Lawyer.find(@lawyer.id).first_name).to eq @lawyer.first_name
+        end
+
+        it 'renders "edit"' do
+          expect(response).to render_template(:edit)
+        end
+
+        it 'sets flash' do
+          expect(flash.now[:error]).to eq "Something went wrong :("
+        end
+      end
     end
 
     describe 'POST /admin/lawyers' do
@@ -82,7 +104,7 @@ RSpec.describe Admin::LawyersController, type: :controller do
           }.not_to change { Lawyer.count }
         end
 
-        it 'renders "new" ' do
+        it 'renders "new"' do
           post :create, params: params
           expect(response).to render_template(:new)
         end
@@ -91,7 +113,6 @@ RSpec.describe Admin::LawyersController, type: :controller do
           post :create, params: params
           expect(flash.now[:error]).to eq "Something went wrong :("
         end
-
       end
     end
   end
