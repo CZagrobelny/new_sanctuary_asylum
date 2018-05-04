@@ -33,7 +33,7 @@ class Admin::FriendsController < AdminController
       flash[:success] = 'Friend record saved.'
       redirect_to edit_admin_friend_path(@friend)
     else
-      flash[:error] = 'Friend record not saved.'
+      flash.now[:error] = 'Friend record not saved.'
       render :new
     end
   end
@@ -46,7 +46,7 @@ class Admin::FriendsController < AdminController
         flash[:success] = 'Friend record saved.'
         redirect_to edit_admin_friend_path(@friend, tab: current_tab)
       else
-        flash[:error] = 'Friend record not saved.'
+        flash.now[:error] = 'Friend record not saved.'
         render :edit
       end
     end
@@ -56,7 +56,7 @@ class Admin::FriendsController < AdminController
     if friend.update(friend_params)
       redirect_to friend_application_drafts_path(friend)
     else
-      flash[:error] = 'Please fill in all required friend fields before managing documents.'
+      flash.now[:error] = 'Please fill in all required friend fields before managing documents.'
       render :edit
     end
   end

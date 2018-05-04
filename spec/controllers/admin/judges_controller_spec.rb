@@ -45,15 +45,38 @@ RSpec.describe Admin::JudgesController, type: :controller do
     describe 'POST /admin/judges/1' do
       before do
         @judge = create(:judge)
-        post :update, params: { id: @judge.id, judge: { first_name: @judge.first_name, last_name: FFaker::Name.last_name } }
       end
 
-      it 'can change the last name' do
-        expect(Judge.find(@judge.id).last_name).not_to eq @judge.last_name
+      context 'valid params' do
+        before do
+          post :update, params: { id: @judge.id, judge: { last_name: 'Changed' } }
+        end
+
+        it 'can change the last name' do
+          expect(Judge.find(@judge.id).last_name).to eq 'Changed'
+        end
+
+        it { should redirect_to(admin_judges_path) }
       end
 
-      it { should redirect_to(admin_judges_path) }
 
+      context 'invalid params' do
+        before do
+          post :update, params: { id: @judge.id, judge: { last_name: '' } }
+        end
+
+        it 'does not change the last name' do
+          expect(Judge.find(@judge.id).last_name).to eq @judge.last_name
+        end
+
+        it 'renders "edit"' do
+          expect(response).to render_template(:edit)
+        end
+
+        it 'sets flash' do
+          expect(flash.now[:error]).to eq "Something went wrong :("
+        end
+      end
     end
 
     describe 'POST /admin/judges' do
@@ -82,16 +105,15 @@ RSpec.describe Admin::JudgesController, type: :controller do
           }.not_to change { Judge.count }
         end
 
-        it 'renders "new" ' do
+        it 'renders "new"' do
           post :create, params: params
           expect(response).to render_template(:new)
         end
 
         it 'sets flash' do
           post :create, params: params
-          expect(flash[:error]).to eq "Something went wrong :("
+          expect(flash.now[:error]).to eq "Something went wrong :("
         end
-
       end
     end
   end
