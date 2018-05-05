@@ -18,6 +18,9 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require 'webmock/rspec'
+require 'simplecov'
+
+SimpleCov.start 'rails'
 
 # Start disabled. Add :webmock_enabled metadata on describe/context blocks where you want WebMock enabled.
 WebMock.disable!
