@@ -50,6 +50,7 @@ group :development, :test do
   gem 'launchy', require: false
   gem 'pry'
   gem 'dotenv-rails'
+  gem 'simplecov'
 end
 
 group :production do

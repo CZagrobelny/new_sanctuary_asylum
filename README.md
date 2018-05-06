@@ -32,6 +32,17 @@ docker pull postgres:9.6
 docker run --name new_sanctuary -p "127.0.0.1:5432:5432" -e POSTGRES_PASSWORD=password -d postgres:9.6
 ```
 
+NOTE: If you are using `psql` instead of Postgres.app, create your user this way:
+
+```
+$ createuser postgres --createdb
+$ psql
+psql (10.2)
+Type "help" for help.
+
+yourname=# ALTER USER postgres WITH PASSWORD 'password';
+```
+
 To run initial migrations and seed the DB:
 
 ```
@@ -41,7 +52,9 @@ rake db:setup
 
 ### Environment Variables
 
+```
 FROM_ADDRESS='test@example.com'
+```
 
 For local development, create a '.env' file in the root directory of the application and put the environment variable in there.
 
