@@ -36,7 +36,7 @@ class User < ApplicationRecord
   ## This is used by devise timeoutable to dynamically set session time out when the user is inactive
   def timeout_in
     if admin?
-      30.minutes
+      1.hour
     else
       3.days
     end
