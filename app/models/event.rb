@@ -9,11 +9,11 @@ class Event < ApplicationRecord
   CATEGORIES = ['asylum_workshop', 'asylum_training', 'accompaniment_training', 'social'].map{|category| [category.titlecase, category]}
 
   def user_attendances
-    self.user_event_attendances.includes(:user).order('users.first_name asc')
+    self.user_event_attendances.includes(:user).order('created_at desc')
   end
-  
+
   def friend_attendances
-    self.friend_event_attendances.includes(:friend).order('friends.first_name asc')
+    self.friend_event_attendances.includes(:friend).order('created_at desc')
   end
 
   def self.between_dates(start_date, end_date)
