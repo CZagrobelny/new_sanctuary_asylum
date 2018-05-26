@@ -5,6 +5,7 @@ class Activity < ApplicationRecord
   EVENTS = EVENT_KEYS.map{|event| [event.titlecase, event]}
 
   belongs_to :friend
+  belongs_to :region
   belongs_to :judge
   belongs_to :location
   has_many :accompaniments, -> { order(created_at: :asc) }, dependent: :destroy
