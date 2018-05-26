@@ -7,6 +7,7 @@ class Friend < ApplicationRecord
   WORK_AUTHORIZATION_STATUSES = ['not_eligible', 'eligible', 'application_started', 'application_completed', 'application_submitted', 'granted', 'denied'].map{|status| [status.titlecase, status]}
   SIJS_STATUSES = ['qualifies', 'in_progress', 'submitted', 'approved', 'denied'].map{|status| [status.titlecase, status]}
 
+  belongs_to :community
   has_many :friend_languages, dependent: :destroy
   has_many :languages, through: :friend_languages
   has_many :activities, dependent: :restrict_with_error
