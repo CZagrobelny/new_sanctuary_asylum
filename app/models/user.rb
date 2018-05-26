@@ -9,6 +9,9 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   validates_inclusion_of :pledge_signed, :in => [true]
 
+  belongs_to :community
+  has_many :user_regions
+  has_many :regions, through: :user_regions
   has_many :user_friend_associations, dependent: :destroy
   has_many :friends, through: :user_friend_associations
   has_many :user_application_draft_associations, dependent: :destroy
