@@ -1,7 +1,7 @@
 <% if @accompaniment_report.errors.present? %>
   <%= display_validation_errors(@accompaniment_report) %>
 <% end %>
-<%= form_for([:accompaniment_leader, @activity, @accompaniment_report]) do |f| %>
+<%= form_for([current_community, :accompaniment_leader, @activity, @accompaniment_report]) do |f| %>
   <div class='form-inputs'>
     <div class='row form-group'>
       <%= f.label :notes, class: 'col-md-12 control-label' %>
