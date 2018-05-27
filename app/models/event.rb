@@ -5,7 +5,7 @@ class Event < ApplicationRecord
   has_many :user_event_attendances, dependent: :destroy
   has_many :users, through: :user_event_attendances
   has_many :friends, through: :friend_event_attendances
-  validates :date, :location_id, :title, :category, presence: true
+  validates :date, :location_id, :title, :category, :community_id, presence: true
 
   CATEGORIES = ['asylum_workshop', 'asylum_training', 'accompaniment_training', 'social'].map{|category| [category.titlecase, category]}
 

@@ -12,7 +12,7 @@ class Activity < ApplicationRecord
   has_many :users, through: :accompaniments
   has_many :accompaniment_reports, dependent: :destroy
 
-  validates :event, :occur_at, :friend_id, presence: true
+  validates :event, :occur_at, :friend_id, :region_id, presence: true
 
   User.roles.each do |role, index|
     define_method "#{role}_accompaniments" do

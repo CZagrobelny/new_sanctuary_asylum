@@ -4,4 +4,6 @@ class Community < ApplicationRecord
   has_many :friends
   has_many :events
   has_many :sanctuaries
+
+  validates :region_id, presence: true
 end
