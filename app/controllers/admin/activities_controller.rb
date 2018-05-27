@@ -45,13 +45,23 @@ class Admin::ActivitiesController < AdminController
     end
   end
 
+  def confirm
+    if activity.update(confirmed: true)
+      flash[:success] = 'Accompaniment confirmed.'
+      redirect_to accompaniments_admin_activities_path
+    else
+      flash.now[:error] = 'There was an issue confirming this accompaniment.'
+      redirect_to accompaniments_admin_activities_path
+    end
+  end
+
   def activity
-    @activity ||= Activity.find(params[:id]) 
+    @activity ||= Activity.find(params[:id])
   end
 
   private
   def activity_params
-    params.require(:activity).permit( 
+    params.require(:activity).permit(
       :event,
       :location_id,
       :friend_id,

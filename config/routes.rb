@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   devise_for :users, controllers: { invitations: "invitations" }
   devise_scope :user do
     authenticated do
@@ -30,9 +30,16 @@ Rails.application.routes.draw do
         get :accompaniments
         get :last_month_accompaniments
       end
+      member do
+        post :confirm
+      end
     end
     resources :friends do
-      resources :activities, controller: 'friends/activities'
+      resources :activities, controller: 'friends/activities' do
+        member do
+          post :confirm
+        end
+      end
       resources :detentions, controller: 'friends/detentions'
       resources :family_members
     end
