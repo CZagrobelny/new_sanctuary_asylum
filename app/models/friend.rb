@@ -37,7 +37,7 @@ class Friend < ApplicationRecord
   has_many :inverse_partner_relationships, class_name: 'PartnerRelationship', foreign_key: 'partner_id', dependent: :destroy
   has_many :inverse_partners, through: :inverse_partner_relationships, source: :friend
 
-  validates :first_name, :last_name, presence: true
+  validates :first_name, :last_name, :community_id, presence: true
   validates :zip_code, length: { is: 5 }, allow_blank: true, numericality: true
   validates :a_number, presence: { if: :a_number_available? }, numericality: { if: :a_number_available? }
   validates :a_number, length: { minimum: 8, maximum: 9 }, if: :a_number_available?

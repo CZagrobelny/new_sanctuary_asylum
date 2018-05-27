@@ -9,9 +9,10 @@ FactoryGirl.define do
     password_confirmation { password }
     invitation_accepted_at { Time.now }
     pledge_signed true
+    association :community
   end
 
-  trait :admin do
+  trait :community_admin do
     role :admin
   end
 

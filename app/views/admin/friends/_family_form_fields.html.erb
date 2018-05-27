@@ -5,4 +5,4 @@
 </div>
 
 </br>
-<%= link_to 'Add Family Member', new_admin_friend_family_member_path(@friend), remote: true, class: 'btn btn-primary', data: {toggle: 'modal', target: '#add_family_member_modal'} %>
+<%= link_to 'Add Family Member', new_community_admin_friend_family_member_path(current_community, @friend), remote: true, class: 'btn btn-primary', data: {toggle: 'modal', target: '#add_family_member_modal'} %>

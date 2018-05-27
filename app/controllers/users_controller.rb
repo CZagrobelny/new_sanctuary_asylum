@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to dashboard_path
+      redirect_to community_dashboard_path(current_community)
     else
       render 'edit'
     end
@@ -19,10 +19,10 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :first_name, 
-      :last_name, 
-      :email, 
-      :phone, 
+      :first_name,
+      :last_name,
+      :email,
+      :phone,
       :volunteer_type,
       :pledge_signed
     )

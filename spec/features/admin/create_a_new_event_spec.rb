@@ -2,12 +2,13 @@ require 'rails_helper'
 
 RSpec.describe 'Admin creates a new event', type: :feature do
 
-  let(:admin) { create(:user, :admin) }
+  let(:community_admin) { create(:user, :community_admin) }
+  let(:community) { community_admin.community }
   let!(:location) { create(:location) }
 
-  before do 
-    login_as(admin)
-    visit new_admin_event_path
+  before do
+    login_as(community_admin)
+    visit new_community_admin_event_path(community)
   end
 
   describe 'creating an event' do
@@ -17,12 +18,12 @@ RSpec.describe 'Admin creates a new event', type: :feature do
       select_date_and_time(Time.now.beginning_of_hour, from: 'event_date')
       select location.name, from: 'Location'
       click_button 'Save'
-      
+
       within '.alert' do
         expect(page).to have_content 'Event saved.'
       end
 
-      expect(current_path).to eq admin_events_path
+      expect(current_path).to eq community_admin_events_path(community)
     end
 
     scenario 'with invalid inputs' do
@@ -33,5 +34,5 @@ RSpec.describe 'Admin creates a new event', type: :feature do
 
       expect(page).to have_content "Category can't be blank"
     end
-  end   
+  end
 end

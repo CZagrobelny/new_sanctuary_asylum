@@ -1,6 +1,6 @@
 <div id="activity_<%=activity.id%>" class='row' style='margin-left:5px;'>
   <strong>
-    <%= link_to "#{activity.event.humanize} for #{friend.name}", edit_admin_activity_path(activity) %>
+    <%= link_to "#{activity.event.humanize} for #{friend.name}", edit_community_admin_activity_path(current_community, activity) %>
     <%= activity.occur_at.strftime("-- %I:%M %p") %>
   </strong><br>
   <% if activity.friend.phone.present? %>

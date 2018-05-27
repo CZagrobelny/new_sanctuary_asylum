@@ -30,7 +30,7 @@ class AccompanimentsController < ApplicationController
   end
 
   def accompaniment_params
-    params.require(:accompaniment).permit( 
+    params.require(:accompaniment).permit(
       :availability_notes,
       :user_id,
       :activity_id
@@ -39,9 +39,9 @@ class AccompanimentsController < ApplicationController
 
   def render_activities
     if current_user.accompaniment_leader?
-      redirect_to accompaniment_leader_activities_path
+      redirect_to community_accompaniment_leader_activities_path(current_community)
     else
-      redirect_to activities_path
+      redirect_to community_activities_path(current_community)
     end
   end
 
