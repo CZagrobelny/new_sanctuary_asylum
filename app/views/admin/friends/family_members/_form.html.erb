@@ -1,7 +1,7 @@
 <% if family_member_constructor.errors.present? %>
   <%= display_validation_errors(family_member_constructor) %>
 <% end %>
-<%= form_for([:admin, friend, family_member_constructor], url: admin_friend_family_members_path(friend), action: :post, remote: true) do |f| %>
+<%= form_for([current_community, :admin, friend, family_member_constructor], url: community_admin_friend_family_members_path(current_community, friend), action: :post, remote: true) do |f| %>
   <div class='form-inputs'>
     <div class='row form-group'>
       <%= f.label :relationship, class: 'col-md-12 control-label' %>

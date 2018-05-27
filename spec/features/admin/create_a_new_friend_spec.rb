@@ -2,11 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'Admin creates a new friend record', type: :feature do
 
-  let(:admin) { create(:user, :admin) }
+  let(:community_admin) { create(:user, :community_admin) }
+  let(:community) { community_admin.community }
 
-  before do 
-    login_as(admin)
-    visit new_admin_friend_path
+  before do
+    login_as(community_admin)
+    visit new_community_admin_friend_path(community)
   end
 
   describe 'when I visit /admin/friends/new' do
@@ -27,12 +28,12 @@ RSpec.describe 'Admin creates a new friend record', type: :feature do
       fill_in 'Last Name', with: FFaker::Name.last_name
       fill_in 'A Number', with: '123456789'
       click_button 'Save'
-      
+
       within '.alert' do
         expect(page).to have_content 'Friend record saved.'
       end
 
-      expect(current_path).to eq edit_admin_friend_path(Friend.first)
+      expect(current_path).to eq edit_community_admin_friend_path(community, Friend.first)
     end
 
     scenario 'with invalid inputs' do
@@ -40,12 +41,12 @@ RSpec.describe 'Admin creates a new friend record', type: :feature do
       fill_in 'Last Name', with: FFaker::Name.last_name
       fill_in 'A Number', with: '123456789'
       click_button 'Save'
-      
+
       within '.alert' do
         expect(page).to have_content 'Friend record not saved.'
       end
 
       expect(page).to have_content "First name can't be blank"
     end
-  end   
+  end
 end

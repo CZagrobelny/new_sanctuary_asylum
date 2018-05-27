@@ -1,10 +1,10 @@
 <div class="row">
-  <%= link_to "Add a new location", new_admin_location_path, class: 'btn btn-primary pull-right' %>
+  <%= link_to "Add a new location", new_community_admin_location_path(current_community), class: 'btn btn-primary pull-right' %>
   </div>
-<div class="row">  
+<div class="row">
   <h1>Locations</h1>
 </div>
-  
+
 <div class="row">
   <div class="col-sm-12 col-md-10">
     <% if @locations.present? %>
@@ -17,12 +17,12 @@
         <tbody>
           <% @locations.each do |location| %>
             <tr>
-              <td><%= link_to location.name, edit_admin_location_path(location) %></td>
+              <td><%= link_to location.name, edit_community_admin_location_path(current_community, location) %></td>
             </tr>
           <% end %>
         </tbody>
       </table>
-      
+
       <div class='pull-right'>
         <%= will_paginate @locations %>
       </div>

@@ -1,22 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin creates a new judge', type: :feature do
-  let(:admin) { create(:user, :admin) }
+  let(:community_admin) { create(:user, :community_admin) }
+  let(:community) { community_admin.community }
+  let(:region) { community.region }
 
   before do
-    login_as(admin)
+    login_as(community_admin)
   end
 
   scenario 'creating a new judge' do
-    judge_count = Judge.count
-    visit new_admin_judge_path
+    judge_count = region.judges.count
+    visit new_community_admin_judge_path(community)
 
     fill_in 'First Name', with: FFaker::Name.first_name
     fill_in 'Last Name', with: FFaker::Name.last_name
     click_button 'Save'
 
-    expect(Judge.count).to eq (judge_count + 1)
-    expect(current_path).to eq admin_judges_path
+    expect(region.judges.count).to eq (judge_count + 1)
+    expect(current_path).to eq community_admin_judges_path(community)
   end
-  
+
 end

@@ -3,26 +3,26 @@ class Admin::UsersController < AdminController
     @users = if params[:query].present?
                search.perform
              else
-               User.all.order('created_at desc').paginate(:page => params[:page])
+               current_community.users.all.order('created_at desc').paginate(:page => params[:page])
              end
   end
 
   def destroy
-    @user = User.find(params[:id])
+    @user = current_community.users.find(params[:id])
     if @user.destroy
       flash[:success] = 'User record deleted.'
-      redirect_to admin_users_path(query: params[:query])
+      redirect_to community_admin_users_path(current_community, query: params[:query])
     end
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = current_community.users.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = current_community.users.find(params[:id])
     if @user.update(user_params)
-      redirect_to admin_users_path
+      redirect_to community_admin_users_path(current_community)
     else
       render 'edit'
     end

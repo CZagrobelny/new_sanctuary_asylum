@@ -1,5 +1,5 @@
-<%= form_for([:admin, @user], :html => { :class => 'form-horizontal' }) do |f| %>
-  
+<%= form_for([current_community, :admin, @user], :html => { :class => 'form-horizontal' }) do |f| %>
+
   <%= display_validation_errors(@user) %>
 
   <div class='form-inputs'>
@@ -44,7 +44,7 @@
         <%= f.select :role, User.roles.map {|k, v| [k.humanize.titleize, k]}, {}, {class: 'form-control input-md'} %>
       </div>
     </div>
-   
+
     <div class='form-group'>
       <div class='col-md-6 col-md-offset-2'>
         <div class='checkbox' />

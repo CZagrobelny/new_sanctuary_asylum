@@ -3,14 +3,15 @@ require 'carrierwave/test/matchers'
 
 RSpec.describe 'Friend edit', type: :feature, js: true do
 
-  let!(:admin) { create(:user, :admin) }
-  let!(:friend) { create(:friend) }
+  let(:community_admin) { create(:user, :community_admin, community: community) }
+  let(:community) { create :community }
+  let!(:friend) { create(:friend, community: community) }
   let!(:location) { create(:location) }
 
   before do
-    3.times { create(:friend) }
-    login_as(admin)
-    visit edit_admin_friend_path(friend)
+    3.times { create(:friend, community: community) }
+    login_as(community_admin)
+    visit edit_community_admin_friend_path(community, friend)
   end
 
   describe 'editing "Basic" information' do

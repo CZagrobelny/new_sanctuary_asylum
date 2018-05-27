@@ -1,6 +1,6 @@
 class Admin::Friends::ActivitiesController < AdminController
   def new
-    @activity = friend.activities.new
+    @activity = friend.activities.new(region_id: current_region.id)
     render_modal
   end
 
@@ -42,11 +42,11 @@ class Admin::Friends::ActivitiesController < AdminController
   end
 
   def activity
-    @activity ||= Activity.find(params[:id])
+    @activity ||= friend.activities.find(params[:id])
   end
 
   def friend
-    @friend ||= Friend.find(params[:friend_id])
+    @friend ||= current_community.friends.find(params[:friend_id])
   end
 
   private
@@ -59,7 +59,7 @@ class Admin::Friends::ActivitiesController < AdminController
       :judge_id,
       :occur_at,
       :notes
-    )
+    ).merge({ region_id: current_region.id })
   end
 
   def render_modal

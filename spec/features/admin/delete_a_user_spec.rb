@@ -2,16 +2,17 @@ require 'rails_helper'
 
 RSpec.describe 'Admin deletes a user record', type: :feature, js: :true do
 
-  let!(:admin) { create(:user, :admin) }
-  let!(:keeper) { create(:user, :volunteer, first_name: 'Persistent', last_name: 'Record') }
-  let(:deleteable) { create(:user, :volunteer, first_name: 'Deleteable', last_name: 'Record') }
+  let(:community_admin) { create(:user, :community_admin, community: community) }
+  let(:community) { create :community }
+  let!(:keeper) { create(:user, :volunteer, first_name: 'Persistent', last_name: 'Record', community: community) }
+  let(:deleteable) { create(:user, :volunteer, first_name: 'Deleteable', last_name: 'Record', community: community) }
 
   before do
     # (Re)create deleteable record since scenario deleted it
     deleteable
 
-    login_as(admin)
-    visit admin_users_path
+    login_as(community_admin)
+    visit community_admin_users_path(community)
   end
 
   describe 'when I delete a User record' do

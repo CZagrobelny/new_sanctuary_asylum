@@ -11,60 +11,61 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'admin', to: 'admin/activities#index'
-  get 'dashboard', to: 'dashboard#index'
-  get 'pledge', to: 'home#pledge'
+  resources :communities, only: [] do
+    get 'admin', to: 'admin/activities#index'
+    get 'dashboard', to: 'dashboard#index'
+    get 'pledge', to: 'home#pledge'
 
-  resources :users, only: [:edit, :update]
-  resources :friends, only: [:index, :show, :update] do
-    resources :application_drafts
-  end
-  resources :accompaniments
-  resources :activities, only: [:index]
-
-  namespace :admin do
-  	resources :users
-    resources :activities, except: [:destroy] do
-      collection do
-        get :last_month
-        get :accompaniments
-        get :last_month_accompaniments
-      end
-      member do
-        post :confirm
-      end
+    resources :users, only: [:edit, :update]
+    resources :friends, only: [:index, :show, :update] do
+      resources :application_drafts
     end
-    resources :friends do
-      resources :activities, controller: 'friends/activities' do
+    resources :accompaniments
+    resources :activities, only: [:index]
+
+    namespace :admin do
+    	resources :users
+      resources :activities, except: [:destroy] do
+        collection do
+          get :last_month
+          get :accompaniments
+          get :last_month_accompaniments
+        end
         member do
           post :confirm
         end
       end
-      resources :detentions, controller: 'friends/detentions'
-      resources :family_members
-    end
-
-    resources :judges, except: [:show, :destroy]
-    resources :locations, except: [:show, :destroy]
-    resources :sanctuaries, except: [:show, :destroy]
-    resources :lawyers, except: [:show, :destroy]
-
-    resources :events do
-      member do
-        get :attendance
+      resources :friends do
+        resources :activities, controller: 'friends/activities' do
+          member do
+            post :confirm
+          end
+        resources :detentions, controller: 'friends/detentions'
+        resources :family_members
       end
-      resources :friend_event_attendances, only: [:create, :destroy]
-      resources :user_event_attendances, only: [:create, :destroy]
-      resources :friend_event_attendances, only: [:create, :destroy]
+
+      resources :judges, except: [:show, :destroy]
+      resources :locations, except: [:show, :destroy]
+      resources :sanctuaries, except: [:show, :destroy]
+      resources :lawyers, except: [:show, :destroy]
+
+      resources :events do
+        member do
+          get :attendance
+        end
+        resources :friend_event_attendances, only: [:create, :destroy]
+        resources :user_event_attendances, only: [:create, :destroy]
+        resources :friend_event_attendances, only: [:create, :destroy]
+      end
+
+      get 'reports/new', to: 'reports#new'
+      post 'reports/create', to: 'reports#create'
     end
 
-    get 'reports/new', to: 'reports#new'
-    post 'reports/create', to: 'reports#create'
-  end
-
-  namespace :accompaniment_leader do
-    resources :activities, only: [:index] do
-      resources :accompaniment_reports, only: [:edit, :new, :create, :update]
+    namespace :accompaniment_leader do
+      resources :activities, only: [:index] do
+        resources :accompaniment_reports, only: [:edit, :new, :create, :update]
+      end
     end
   end
 

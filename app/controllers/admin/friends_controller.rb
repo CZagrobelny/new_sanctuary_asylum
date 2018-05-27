@@ -19,7 +19,7 @@ class Admin::FriendsController < AdminController
   end
 
   def new
-    @friend = Friend.new
+    @friend = current_community.friends.new
   end
 
   def edit
@@ -28,10 +28,10 @@ class Admin::FriendsController < AdminController
   end
 
   def create
-    @friend = Friend.new(friend_params)
+    @friend = current_community.friends.new(friend_params)
     if friend.save
       flash[:success] = 'Friend record saved.'
-      redirect_to edit_admin_friend_path(@friend)
+      redirect_to edit_community_admin_friend_path(current_community, @friend)
     else
       flash.now[:error] = 'Friend record not saved.'
       render :new
@@ -44,7 +44,7 @@ class Admin::FriendsController < AdminController
     else
       if friend.update(friend_params)
         flash[:success] = 'Friend record saved.'
-        redirect_to edit_admin_friend_path(@friend, tab: current_tab)
+        redirect_to edit_community_admin_friend_path(current_community, @friend, tab: current_tab)
       else
         flash.now[:error] = 'Friend record not saved.'
         render :edit
@@ -54,7 +54,7 @@ class Admin::FriendsController < AdminController
 
   def update_and_render_application_drafts
     if friend.update(friend_params)
-      redirect_to friend_application_drafts_path(friend)
+      redirect_to community_friend_application_drafts_path(current_community, friend)
     else
       flash.now[:error] = 'Please fill in all required friend fields before managing documents.'
       render :edit
@@ -67,11 +67,11 @@ class Admin::FriendsController < AdminController
     else
       flash[:error] = 'Friend record has a Draft and/or Activities. It cannot be deleted until these are removed.'
     end
-    redirect_to admin_friends_path(query: params[:query])
+    redirect_to community_admin_friends_path(current_community, query: params[:query])
   end
 
   def friend
-    @friend ||= Friend.find(params[:id])
+    @friend ||= current_community.friends.find(params[:id])
   end
 
   def current_tab
@@ -133,6 +133,6 @@ class Admin::FriendsController < AdminController
       :foia_request_notes,
       :language_ids => [],
       :user_ids => []
-    )
+    ).merge({ community_id: current_community.id })
   end
 end
