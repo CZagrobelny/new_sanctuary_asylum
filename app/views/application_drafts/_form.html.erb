@@ -1,7 +1,7 @@
 <% if @application_draft.errors.present? %>
   <%= display_validation_errors(@application_draft) %>
 <% end %>
-<%= form_for([@friend, @application_draft]) do |f| %>
+<%= form_for([current_community, @friend, @application_draft]) do |f| %>
 
   <div class='form-inputs'>
 

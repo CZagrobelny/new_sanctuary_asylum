@@ -4,8 +4,7 @@ class ApplicationDraftsController < ApplicationController
   before_action :require_admin, only: [:destroy]
 
   def new
-    @application_draft = ApplicationDraft.new
-    @friend = friend
+    @application_draft = friend.application_drafts.new
   end
 
   def create
@@ -20,8 +19,8 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def edit
-    @application_draft = application_draft
-    @friend = friend
+    application_draft
+    friend
   end
 
   def update
@@ -29,14 +28,14 @@ class ApplicationDraftsController < ApplicationController
       flash[:success] = 'Application draft saved.'
       render_success
     else
-      @friend = friend
+      friend
       flash.now[:error] = 'Friend record not saved.'
       render :edit
     end
   end
 
   def index
-    @friend = friend
+    friend
   end
 
   def destroy
