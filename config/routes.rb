@@ -40,6 +40,7 @@ Rails.application.routes.draw do
           member do
             post :confirm
           end
+        end
         resources :detentions, controller: 'friends/detentions'
         resources :family_members
       end
