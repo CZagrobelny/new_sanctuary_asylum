@@ -201,8 +201,6 @@ ActiveRecord::Schema.define(version: 20180527194840) do
     t.string  "leader_name"
     t.string  "leader_phone_number"
     t.string  "leader_email"
-    t.integer "community_id"
-    t.index ["community_id"], name: "index_sanctuaries_on_community_id", using: :btree
   end
 
   create_table "sibling_relationships", force: :cascade do |t|
