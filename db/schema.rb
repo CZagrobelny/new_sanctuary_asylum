@@ -40,9 +40,7 @@ ActiveRecord::Schema.define(version: 20180527194840) do
     t.text     "notes"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "region_id"
     t.boolean  "confirmed"
-    t.index ["region_id"], name: "index_activities_on_region_id", using: :btree
   end
 
   create_table "application_drafts", force: :cascade do |t|
@@ -52,20 +50,6 @@ ActiveRecord::Schema.define(version: 20180527194840) do
     t.datetime "updated_at", null: false
     t.string   "pdf_draft"
     t.string   "category"
-  end
-
-  create_table "communities", force: :cascade do |t|
-    t.integer "region_id"
-    t.string  "name"
-    t.string  "slug"
-    t.boolean "primary"
-    t.boolean "accompaniment_program_active"
-    t.boolean "locations_editable"
-    t.boolean "reports_active"
-    t.boolean "sanctuaries_active"
-    t.boolean "events_active"
-    t.boolean "judges_editable"
-    t.index ["region_id"], name: "index_communities_on_region_id", using: :btree
   end
 
   create_table "countries", force: :cascade do |t|
@@ -91,8 +75,6 @@ ActiveRecord::Schema.define(version: 20180527194840) do
     t.string   "category"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
-    t.integer  "community_id"
-    t.index ["community_id"], name: "index_events_on_community_id", using: :btree
   end
 
   create_table "friend_event_attendances", force: :cascade do |t|
@@ -158,8 +140,6 @@ ActiveRecord::Schema.define(version: 20180527194840) do
     t.integer  "bonded_out_by"
     t.datetime "date_foia_request_submitted"
     t.text     "foia_request_notes"
-    t.integer  "community_id"
-    t.index ["community_id"], name: "index_friends_on_community_id", using: :btree
   end
 
   create_table "judges", force: :cascade do |t|
@@ -167,8 +147,6 @@ ActiveRecord::Schema.define(version: 20180527194840) do
     t.text     "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "region_id"
-    t.index ["region_id"], name: "index_judges_on_region_id", using: :btree
   end
 
   create_table "languages", force: :cascade do |t|
@@ -183,16 +161,12 @@ ActiveRecord::Schema.define(version: 20180527194840) do
     t.string   "email"
     t.string   "organization"
     t.string   "phone_number"
-    t.integer  "region_id"
-    t.index ["region_id"], name: "index_lawyers_on_region_id", using: :btree
   end
 
   create_table "locations", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "region_id"
-    t.index ["region_id"], name: "index_locations_on_region_id", using: :btree
   end
 
   create_table "old_passwords", force: :cascade do |t|
@@ -216,10 +190,6 @@ ActiveRecord::Schema.define(version: 20180527194840) do
     t.integer  "partner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "regions", force: :cascade do |t|
-    t.string "name"
   end
 
   create_table "sanctuaries", force: :cascade do |t|
@@ -280,13 +250,6 @@ ActiveRecord::Schema.define(version: 20180527194840) do
     t.index ["user_id"], name: "index_user_friend_associations_on_user_id", using: :btree
   end
 
-  create_table "user_regions", force: :cascade do |t|
-    t.integer "region_id"
-    t.integer "user_id"
-    t.index ["region_id"], name: "index_user_regions_on_region_id", using: :btree
-    t.index ["user_id"], name: "index_user_regions_on_user_id", using: :btree
-  end
-
   create_table "user_sijs_application_draft_associations", force: :cascade do |t|
     t.integer  "user_id",                   null: false
     t.integer  "sijs_application_draft_id", null: false
@@ -331,8 +294,6 @@ ActiveRecord::Schema.define(version: 20180527194840) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.boolean  "signed_guidelines"
-    t.integer  "community_id"
-    t.index ["community_id"], name: "index_users_on_community_id", using: :btree
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
@@ -342,16 +303,4 @@ ActiveRecord::Schema.define(version: 20180527194840) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   end
-
-  add_foreign_key "activities", "regions"
-  add_foreign_key "communities", "regions"
-  add_foreign_key "events", "communities"
-  add_foreign_key "friends", "communities"
-  add_foreign_key "judges", "regions"
-  add_foreign_key "lawyers", "regions"
-  add_foreign_key "locations", "regions"
-  add_foreign_key "sanctuaries", "communities"
-  add_foreign_key "user_regions", "regions"
-  add_foreign_key "user_regions", "users"
-  add_foreign_key "users", "communities"
 end
