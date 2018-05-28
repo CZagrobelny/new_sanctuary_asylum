@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', type: :feature do
   let!(:team_leader) { create(:user, :accompaniment_leader) }
-  let!(:activity) { create(:activity, occur_at: 1.week.from_now ) }
+  let!(:activity) { create(:activity, occur_at: 1.week.from_now, confirmed: true ) }
   let!(:accompaniment) { create(:accompaniment, user: team_leader, activity: activity) }
   before do
     login_as(team_leader)
