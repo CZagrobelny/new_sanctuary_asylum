@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: true do
   let!(:volunteer) { create(:user, :volunteer) }
-  let!(:activity) { create(:activity, occur_at: 1.week.from_now ) }
+  let!(:activity) { create(:activity, occur_at: 1.week.from_now, confirmed: true ) }
   before { login_as(volunteer) }
 
   describe 'viewing upcoming accompaniments' do

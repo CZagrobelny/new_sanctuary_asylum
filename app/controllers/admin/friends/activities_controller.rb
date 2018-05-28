@@ -31,8 +31,18 @@ class Admin::Friends::ActivitiesController < AdminController
     end
   end
 
+  def confirm
+    if activity.update(confirmed: true)
+      flash[:success] = 'Accompaniment confirmed.'
+      redirect_to edit_admin_friend_path(friend, tab: '#activities')
+    else
+      flash.now[:error] = 'There was an issue confirming this accompaniment.'
+      redirect_to edit_admin_friend_path(friend, tab: '#activities')
+    end
+  end
+
   def activity
-    @activity ||= Activity.find(params[:id]) 
+    @activity ||= Activity.find(params[:id])
   end
 
   def friend
@@ -42,7 +52,7 @@ class Admin::Friends::ActivitiesController < AdminController
   private
 
   def activity_params
-    params.require(:activity).permit( 
+    params.require(:activity).permit(
       :event,
       :location_id,
       :friend_id,

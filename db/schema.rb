@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180323103113) do
+ActiveRecord::Schema.define(version: 20180527194840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20180323103113) do
     t.text     "notes"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.boolean  "confirmed"
   end
 
   create_table "application_drafts", force: :cascade do |t|
@@ -70,10 +71,10 @@ ActiveRecord::Schema.define(version: 20180323103113) do
   create_table "events", force: :cascade do |t|
     t.datetime "date"
     t.integer  "location_id"
-    t.string   "title",       default: ""
+    t.string   "title",        default: ""
     t.string   "category"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "friend_event_attendances", force: :cascade do |t|
@@ -192,14 +193,14 @@ ActiveRecord::Schema.define(version: 20180323103113) do
   end
 
   create_table "sanctuaries", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-    t.string "city"
-    t.string "state",               limit: 2
-    t.string "zip_code"
-    t.string "leader_name"
-    t.string "leader_phone_number"
-    t.string "leader_email"
+    t.string  "name"
+    t.string  "address"
+    t.string  "city"
+    t.string  "state",               limit: 2
+    t.string  "zip_code"
+    t.string  "leader_name"
+    t.string  "leader_phone_number"
+    t.string  "leader_email"
   end
 
   create_table "sibling_relationships", force: :cascade do |t|
@@ -300,5 +301,4 @@ ActiveRecord::Schema.define(version: 20180323103113) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   end
-
 end

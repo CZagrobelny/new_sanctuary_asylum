@@ -1,33 +1,50 @@
 <div class='row' style='margin-left:5px;'>
-  <strong>
-    <%= link_to "#{activity.event.humanize}", edit_admin_friend_activity_path(friend, activity), remote: true, class: 'open_activity_modal' %>
-    <%= activity.occur_at.strftime("-- %I:%M %p, %A, %B %-d, %Y") %>
-    <%= link_to 'Remove', admin_friend_activity_path(friend, activity), method: :delete, :remote => true, class: 'delete' %>
-  </strong><br>
-  <% if activity.location.present? %>
-    <strong>Location:  </strong><%= activity.location.name %><br>
-  <% end %>
-  <% if activity.judge.present? %>
-    <strong>Judge:  </strong><%= activity.judge.name %><br>
-  <% end %>
-  <% if activity.notes.present? %>
-    <strong>Notes:  </strong><%= activity.notes %><br>
-  <% end %>
-  <% if activity.accompaniment_leader_accompaniments.present? %>
-    <strong>Accompaniment Leaders:  </strong>
-    <%= render 'shared/scoped_activity_users_details', activity: activity, scope: 'accompaniment_leader' %>
-  <% end %>
-  <% if activity.volunteer_accompaniments.present? %>
-    <strong>Volunteers:  </strong>
-    <%= render 'shared/scoped_activity_users_details', activity: activity, scope: 'volunteer' %>
-  <% end %>
-  <% if activity.accompaniment_reports.present? %>
-    <% activity.accompaniment_reports.each do |report| %>
-      <strong>Accompaniment Leader Notes <%= "by #{report.user.name}" if report.user.present? %>:</strong>
-      <%= report.notes %>
-      <br>
+  <div class='col-md-9'>
+    <strong>
+      <%= link_to "#{activity.event.humanize}", edit_admin_friend_activity_path(friend, activity), remote: true, class: 'open_activity_modal' %>
+      <%= activity.occur_at.strftime("-- %I:%M %p, %A, %B %-d, %Y") %>
+    </strong><br>
+    <% if activity.location.present? %>
+      <strong>Location:  </strong><%= activity.location.name %><br>
     <% end %>
-  <% end %>
+    <% if activity.judge.present? %>
+      <strong>Judge:  </strong><%= activity.judge.name %><br>
+    <% end %>
+    <% if activity.notes.present? %>
+      <strong>Notes:  </strong><%= activity.notes %><br>
+    <% end %>
+    <% if activity.accompaniment_leader_accompaniments.present? %>
+      <strong>Accompaniment Leaders:  </strong>
+      <%= render 'shared/scoped_activity_users_details', activity: activity, scope: 'accompaniment_leader' %>
+    <% end %>
+    <% if activity.volunteer_accompaniments.present? %>
+      <strong>Volunteers:  </strong>
+      <%= render 'shared/scoped_activity_users_details', activity: activity, scope: 'volunteer' %>
+    <% end %>
+    <% if activity.accompaniment_reports.present? %>
+      <% activity.accompaniment_reports.each do |report| %>
+        <strong>Accompaniment Leader Notes <%= "by #{report.user.name}" if report.user.present? %>:</strong>
+        <%= report.notes %>
+        <br>
+      <% end %>
+    <% end %>
+    <strong>
+      <%= link_to 'Remove', admin_friend_activity_path(friend, activity), method: :delete, :remote => true, style: 'color: #b30000 !important; font-style: italic;' %>
+    </strong>
+  </div>
+  <div class='col-md-3'>
+    <strong>
+      <% if activity.accompaniment_eligible? %>
+        <div style='float: right;'>
+          <% if activity.confirmed? %>
+            <strong>Confirmed by Admin</strong>
+          <% else %>
+            <%= button_to 'Confirm', confirm_admin_friend_activity_path(friend, activity), class: 'btn btn-primary' %>
+          <% end %>
+        </div>
+      <% end %>
+    </strong>
+  </div>
 </div>
 <br>
 <br>

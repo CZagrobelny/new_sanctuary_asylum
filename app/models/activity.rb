@@ -21,12 +21,19 @@ class Activity < ApplicationRecord
     end
   end
 
-  def self.for_week(beginning_of_week:, end_of_week:, order:, events:)
-    { dates: "#{beginning_of_week.strftime('%B %-d')} - #{(end_of_week - 2.days).strftime('%B %-d')}",
-
-      activities: Activity.where(event: events)
-                          .where('occur_at >= ? AND occur_at <= ? ', beginning_of_week, end_of_week)
-                          .order("occur_at #{order}").group_by {|activity| activity.occur_at.to_date } }
+  def self.for_week(beginning_of_week:, end_of_week:, order:, events:, confirmed: false)
+    week = { dates: "#{beginning_of_week.strftime('%B %-d')} - #{(end_of_week - 2.days).strftime('%B %-d')}" }
+    if confirmed == true
+      week[:activities] = Activity.where(event: events)
+                                  .where(confirmed: true)
+                                  .where('occur_at >= ? AND occur_at <= ? ', beginning_of_week, end_of_week)
+                                  .order("occur_at #{order}").group_by {|activity| activity.occur_at.to_date }
+    else
+      week[:activities] = Activity.where(event: events)
+                                  .where('occur_at >= ? AND occur_at <= ? ', beginning_of_week, end_of_week)
+                                  .order("occur_at #{order}").group_by {|activity| activity.occur_at.to_date }
+    end
+    week
   end
 
   def self.upcoming_two_weeks
@@ -46,12 +53,14 @@ class Activity < ApplicationRecord
     activities = [ Activity.for_week(beginning_of_week: week_1_beg,
                                      end_of_week: week_1_end,
                                      order: 'asc',
-                                     events: ACCOMPANIMENT_ELIGIBLE_EVENTS) ]
+                                     events: ACCOMPANIMENT_ELIGIBLE_EVENTS,
+                                     confirmed: true) ]
 
     activities << Activity.for_week(beginning_of_week: week_2_beg,
                                     end_of_week: week_2_end,
                                     order: 'asc',
-                                    events: ACCOMPANIMENT_ELIGIBLE_EVENTS)
+                                    events: ACCOMPANIMENT_ELIGIBLE_EVENTS,
+                                    confirmed: true)
     activities
   end
 
@@ -81,5 +90,9 @@ class Activity < ApplicationRecord
 
   def self.between_dates(start_date, end_date)
     where('occur_at > ? AND occur_at < ?', start_date, end_date)
+  end
+
+  def accompaniment_eligible?
+    ACCOMPANIMENT_ELIGIBLE_EVENTS.include?(self.event)
   end
 end
