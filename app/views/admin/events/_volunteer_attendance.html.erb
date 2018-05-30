@@ -15,7 +15,7 @@
       <tr>
         <td><%= attendance.user.name %></td>
         <td>
-          <%= link_to community_admin_event_user_event_attendance_path(current_community, event, attendance), method: :delete, remote: true do %>
+          <%= link_to community_admin_event_user_event_attendance_path(current_community.slug, event, attendance), method: :delete, remote: true do %>
             <%= fa_icon 'times' %>
           <% end %>
         </td>

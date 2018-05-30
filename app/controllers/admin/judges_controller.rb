@@ -16,7 +16,7 @@ class Admin::JudgesController < AdminController
     @judge = current_region.judges.new(judge_params)
 
     if @judge.save
-      redirect_to community_admin_judges_path(current_community)
+      redirect_to community_admin_judges_path(current_community.slug)
     else
       flash.now[:error] = "Something went wrong :("
       render 'new'
@@ -25,7 +25,7 @@ class Admin::JudgesController < AdminController
 
   def update
     if @judge.update(judge_params)
-      redirect_to community_admin_judges_path(current_community)
+      redirect_to community_admin_judges_path(current_community.slug)
     else
       flash.now[:error] = "Something went wrong :("
       render 'edit'

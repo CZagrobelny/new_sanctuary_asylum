@@ -12,7 +12,7 @@ class AccompanimentLeader::AccompanimentReportsController < AccompanimentLeaderC
     @accompaniment_report = activity.accompaniment_reports.new(accompaniment_report_params)
     if accompaniment_report.save
       flash[:success] = 'Your accompaniment leader notes were added.'
-      redirect_to community_accompaniment_leader_activities_path(current_community)
+      redirect_to community_accompaniment_leader_activities_path(current_community.slug)
     else
       flash.now[:error] = 'There was an error saving your accompaniment leader notes.'
       render :edit
@@ -22,7 +22,7 @@ class AccompanimentLeader::AccompanimentReportsController < AccompanimentLeaderC
   def update
     if accompaniment_report.update(accompaniment_report_params)
       flash[:success] = 'Your accompaniment leader notes were saved.'
-      redirect_to community_accompaniment_leader_activities_path(current_community)
+      redirect_to community_accompaniment_leader_activities_path(current_community.slug)
     else
       activity
       flash.now[:error] = 'There was an error saving your accompaniment leader notes.'

@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   def update
     if user.update(user_params)
-      redirect_to community_dashboard_path(current_community)
+      redirect_to community_dashboard_path(current_community.slug)
     else
       render 'edit'
     end

@@ -1,5 +1,5 @@
 <div class="row">
-  <%= link_to 'Add a new sanctuary', new_community_admin_sanctuary_path(current_community), class: 'btn btn-primary pull-right' %>
+  <%= link_to 'Add a new sanctuary', new_community_admin_sanctuary_path(current_community.slug), class: 'btn btn-primary pull-right' %>
 </div>
 <div class="row">
   <h1>Sanctuaries</h1>
@@ -18,7 +18,7 @@
         <tbody>
           <% @sanctuaries.each do |sanctuary| %>
             <tr>
-              <td><%= link_to sanctuary.name, edit_community_admin_sanctuary_path(current_community, sanctuary) %></td>
+              <td><%= link_to sanctuary.name, edit_community_admin_sanctuary_path(current_community.slug, sanctuary) %></td>
               <td><%= sanctuary.leader_name %></td>
             </tr>
           <% end %>

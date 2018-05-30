@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :communities, only: [] do
+  resources :communities, param: :slug, only: [] do
     get 'admin', to: 'admin/activities#index'
     get 'dashboard', to: 'dashboard#index'
     get 'pledge', to: 'home#pledge'

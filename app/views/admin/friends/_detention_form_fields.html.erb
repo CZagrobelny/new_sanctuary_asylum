@@ -64,7 +64,7 @@
 
 <br>
 <div class='pull-right'>
-  <%= link_to 'Add Detention', new_community_admin_friend_detention_path(current_community, @friend), remote: true, class: 'btn btn-primary', data: {toggle: 'modal', target: '#detention_modal'} %>
+  <%= link_to 'Add Detention', new_community_admin_friend_detention_path(current_community.slug, @friend), remote: true, class: 'btn btn-primary', data: {toggle: 'modal', target: '#detention_modal'} %>
 </div>
 
 <h4>Detentions</h4>

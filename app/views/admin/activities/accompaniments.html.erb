@@ -1,7 +1,7 @@
-<p><%= link_to 'Add Activity', new_community_admin_activity_path(current_community), class: 'btn btn-primary pull-right' %></p>
+<p><%= link_to 'Add Activity', new_community_admin_activity_path(current_community.slug), class: 'btn btn-primary pull-right' %></p>
 <h1>Accompaniments</h1>
 
-<p><%= link_to 'View Last Month Accompaniments', last_month_community_accompaniments_admin_activities_path(current_community) %></p>
+<p><%= link_to 'View Last Month Accompaniments', last_month_accompaniments_community_admin_activities_path(current_community.slug) %></p>
 
 <% @activities.each do |week| %>
   <h2><%= week[:dates] %></h2>

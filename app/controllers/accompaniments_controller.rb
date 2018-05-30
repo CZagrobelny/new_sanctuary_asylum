@@ -39,9 +39,9 @@ class AccompanimentsController < ApplicationController
 
   def render_activities
     if current_user.accompaniment_leader?
-      redirect_to community_accompaniment_leader_activities_path(current_community)
+      redirect_to community_accompaniment_leader_activities_path(current_community.slug)
     else
-      redirect_to community_activities_path(current_community)
+      redirect_to community_activities_path(current_community.slug)
     end
   end
 

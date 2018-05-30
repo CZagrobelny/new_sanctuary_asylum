@@ -1,5 +1,5 @@
 <div class="row">
-  <%= link_to "Add a new location", new_community_admin_location_path(current_community), class: 'btn btn-primary pull-right' %>
+  <%= link_to "Add a new location", new_community_admin_location_path(current_community.slug), class: 'btn btn-primary pull-right' %>
   </div>
 <div class="row">
   <h1>Locations</h1>
@@ -17,7 +17,7 @@
         <tbody>
           <% @locations.each do |location| %>
             <tr>
-              <td><%= link_to location.name, edit_community_admin_location_path(current_community, location) %></td>
+              <td><%= link_to location.name, edit_community_admin_location_path(current_community.slug, location) %></td>
             </tr>
           <% end %>
         </tbody>

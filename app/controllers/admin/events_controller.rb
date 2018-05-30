@@ -15,7 +15,7 @@ class Admin::EventsController < AdminController
     @event = current_community.events.new(event_params)
     if @event.save
       flash[:success] = 'Event saved.'
-      redirect_to community_admin_events_path(current_community)
+      redirect_to community_admin_events_path(current_community.slug)
     else
       render 'edit'
     end
@@ -25,7 +25,7 @@ class Admin::EventsController < AdminController
     @event = current_community.events.find(params[:id])
     if @event.update(event_params)
        flash[:success] = 'Event saved.'
-      redirect_to community_admin_events_path(current_community)
+      redirect_to community_admin_events_path(current_community.slug)
     else
       render 'edit'
     end
@@ -35,7 +35,7 @@ class Admin::EventsController < AdminController
     @event = current_community.events.find(params[:id])
     if @event.destroy
       flash[:success] = 'Event deleted.'
-      redirect_to community_admin_events_path(current_community)
+      redirect_to community_admin_events_path(current_community.slug)
     end
   end
 

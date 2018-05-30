@@ -6,4 +6,8 @@ class Community < ApplicationRecord
   has_many :sanctuaries
 
   validates :region_id, presence: true
+
+  def to_param
+    slug
+  end
 end

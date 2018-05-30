@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_community, :current_region
 
   def current_community
-    @current_community ||= params[:community_id] ? Community.find(params[:community_id]) : Community.find(current_user.community_id)
+    @current_community ||= params[:community_slug] ? Community.find_by_slug(params[:community_slug]) : Community.find(current_user.community_id)
   end
 
   def current_region

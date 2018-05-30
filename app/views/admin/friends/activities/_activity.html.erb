@@ -1,7 +1,7 @@
 <div class='row' style='margin-left:5px;'>
   <div class='col-md-9'>
     <strong>
-      <%= link_to "#{activity.event.humanize}", edit_community_admin_friend_activity_path(current_community, friend, activity), remote: true, class: 'open_activity_modal' %>
+      <%= link_to "#{activity.event.humanize}", edit_community_admin_friend_activity_path(current_community.slug, friend, activity), remote: true, class: 'open_activity_modal' %>
       <%= activity.occur_at.strftime("-- %I:%M %p, %A, %B %-d, %Y") %>
     </strong><br>
     <% if activity.location.present? %>
@@ -29,7 +29,7 @@
       <% end %>
     <% end %>
     <strong>
-      <%= link_to 'Remove', community_admin_friend_activity_path(current_community, friend, activity), method: :delete, :remote => true, style: 'color: #b30000 !important; font-style: italic;' %>
+      <%= link_to 'Remove', community_admin_friend_activity_path(current_community.slug, friend, activity), method: :delete, :remote => true, style: 'color: #b30000 !important; font-style: italic;' %>
     </strong>
   </div>
   <div class='col-md-3'>
@@ -39,7 +39,7 @@
           <% if activity.confirmed? %>
             <strong>Confirmed by Admin</strong>
           <% else %>
-            <%= button_to 'Confirm', confirm_community_admin_friend_activity_path(current_community, friend, activity), class: 'btn btn-primary' %>
+            <%= button_to 'Confirm', confirm_community_admin_friend_activity_path(current_community.slug, friend, activity), class: 'btn btn-primary' %>
           <% end %>
         </div>
       <% end %>

@@ -28,7 +28,7 @@ class Admin::ActivitiesController < AdminController
     @activity = current_region.activities.new(activity_params)
     if activity.save
       flash[:success] = 'Activity saved.'
-      redirect_to community_admin_activities_path(current_community)
+      redirect_to community_admin_activities_path(current_community.slug)
     else
       flash.now[:error] = 'Activity not saved.'
       render :new
@@ -38,7 +38,7 @@ class Admin::ActivitiesController < AdminController
   def update
     if activity.update(activity_params)
       flash[:success] = 'Activity saved.'
-      redirect_to community_admin_activities_path(current_community)
+      redirect_to community_admin_activities_path(current_community.slug)
     else
       flash.now[:error] = 'Activity not saved.'
       render :edit

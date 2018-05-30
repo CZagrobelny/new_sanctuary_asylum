@@ -16,7 +16,7 @@ class Admin::LocationsController < AdminController
     @location = current_region.locations.new(location_params)
 
     if @location.save
-      redirect_to community_admin_locations_path(current_community)
+      redirect_to community_admin_locations_path(current_community.slug)
     else
       flash.now[:error] = "Something went wrong :("
       render 'new'
@@ -25,7 +25,7 @@ class Admin::LocationsController < AdminController
 
   def update
     if @location.update(location_params)
-      redirect_to community_admin_locations_path(current_community)
+      redirect_to community_admin_locations_path(current_community.slug)
     else
       flash.now[:error] = "Something went wrong :("
       render 'edit'

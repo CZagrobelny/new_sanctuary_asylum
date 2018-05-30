@@ -5,5 +5,5 @@
 
 <h2>Your Friends</h2>
 <% @friends.each do |friend| %>
-  <p><%= link_to friend.name, community_friend_path(current_community, friend) %></p>
+  <p><%= link_to friend.name, community_friend_path(current_community.slug, friend) %></p>
 <% end %>

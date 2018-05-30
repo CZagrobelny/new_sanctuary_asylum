@@ -13,7 +13,7 @@ class Admin::SanctuariesController < AdminController
     @sanctuary = current_community.sanctuaries.new(sanctuary_params)
 
     if @sanctuary.save
-      redirect_to community_admin_sanctuaries_path(current_community)
+      redirect_to community_admin_sanctuaries_path(current_community.slug)
     else
       flash.now[:error] = "Something went wrong :("
       render 'new'
@@ -26,7 +26,7 @@ class Admin::SanctuariesController < AdminController
 
   def update
     if @sanctuary.update(sanctuary_params)
-      redirect_to community_admin_sanctuaries_path(current_community)
+      redirect_to community_admin_sanctuaries_path(current_community.slug)
     else
       flash.now[:error] = "Something went wrong :("
       render 'edit'

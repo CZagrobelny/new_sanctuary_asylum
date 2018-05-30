@@ -16,7 +16,7 @@ class Admin::LawyersController < AdminController
     @lawyer = current_region.lawyers.new(lawyer_params)
 
     if @lawyer.save
-      redirect_to community_admin_lawyers_path(current_community)
+      redirect_to community_admin_lawyers_path(current_community.slug)
     else
       flash.now[:error] = "Something went wrong :("
       render 'new'
@@ -25,7 +25,7 @@ class Admin::LawyersController < AdminController
 
   def update
     if @lawyer.update(lawyer_params)
-      redirect_to community_admin_lawyers_path(current_community)
+      redirect_to community_admin_lawyers_path(current_community.slug)
     else
       flash.now[:error] = "Something went wrong :("
       render 'edit'

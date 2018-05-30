@@ -1,15 +1,15 @@
 <h2>Welcome, NSC Volunteer</h2>
 
-<h4 class='text-muted'>Please take a moment to make sure your <%= link_to 'contact info', edit_community_user_path(current_community, current_user) %> is up to date.</h4>
+<h4 class='text-muted'>Please take a moment to make sure your <%= link_to 'contact info', edit_community_user_path(current_community.slug, current_user) %> is up to date.</h4>
 <br>
 
 <h2>Your Programs</h2>
-<h3><%= link_to 'Clinic', community_friends_path(current_community) %></h3>
+<h3><%= link_to 'Clinic', community_friends_path(current_community.slug) %></h3>
 
 <% if current_user.accompaniment_leader? %>
-  <h3><%= link_to 'Accompaniment Program', accompaniment_leader_community_activities_path(current_community) %></h3><br>
+  <h3><%= link_to 'Accompaniment Program', accompaniment_leader_community_activities_path(current_community.slug) %></h3><br>
 <% else %>
-  <h3><%= link_to 'Accompaniment Program', community_activities_path(current_community) %></h3><br>
+  <h3><%= link_to 'Accompaniment Program', community_activities_path(current_community.slug) %></h3><br>
 <% end %>
 
 <h2>Thank you for all your hard work!</h2>

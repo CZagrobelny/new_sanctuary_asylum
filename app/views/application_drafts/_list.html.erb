@@ -1,4 +1,4 @@
-<%= link_to 'Create Document', new_community_friend_application_draft_path(current_community, friend), class: 'pull-right btn btn-primary' %>
+<%= link_to 'Create Document', new_community_friend_application_draft_path(current_community.slug, friend), class: 'pull-right btn btn-primary' %>
 <br>
 <% friend.grouped_application_drafts.each do |group| %>
   <h3><%= group[:name].titlecase %></h3>
@@ -16,9 +16,9 @@
           <strong>Notes:  </strong><%= application_draft.notes %><br>
         <% end %>
 
-        <%= link_to 'Edit', edit_community_friend_application_draft_path(current_community, friend, application_draft) %>
+        <%= link_to 'Edit', edit_community_friend_application_draft_path(current_community.slug, friend, application_draft) %>
         <% if current_user.admin? %>
-          <%= link_to 'Delete', community_friend_application_draft_path(current_community, friend, application_draft), method: :delete, confirm: true, class: 'delete' %><br>
+          <%= link_to 'Delete', community_friend_application_draft_path(current_community.slug, friend, application_draft), method: :delete, confirm: true, class: 'delete' %><br>
         <% end %>
       </p>
     </div>

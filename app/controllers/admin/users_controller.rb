@@ -11,7 +11,7 @@ class Admin::UsersController < AdminController
     @user = current_community.users.find(params[:id])
     if @user.destroy
       flash[:success] = 'User record deleted.'
-      redirect_to community_admin_users_path(current_community, query: params[:query])
+      redirect_to community_admin_users_path(current_community.slug, query: params[:query])
     end
   end
 
@@ -22,7 +22,7 @@ class Admin::UsersController < AdminController
   def update
     @user = current_community.users.find(params[:id])
     if @user.update(user_params)
-      redirect_to community_admin_users_path(current_community)
+      redirect_to community_admin_users_path(current_community.slug)
     else
       render 'edit'
     end

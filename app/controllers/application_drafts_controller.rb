@@ -41,18 +41,18 @@ class ApplicationDraftsController < ApplicationController
   def destroy
     if application_draft.destroy
       flash[:success] = 'Application draft destroyed.'
-      redirect_to edit_community_admin_friend_path(current_community, friend, tab: '#documents')
+      redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#documents')
     else
       flash[:error] = 'Error destroying application draft.'
-      redirect_to community_friend_application_drafts_path(current_community, friend)
+      redirect_to community_friend_application_drafts_path(current_community.slug, friend)
     end
   end
 
   def render_success
     if current_user.admin?
-      redirect_to edit_community_admin_friend_path(current_community, friend, tab: '#documents')
+      redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#documents')
     else
-      redirect_to community_friend_path(current_community, friend, tab: '#documents')
+      redirect_to community_friend_path(current_community.slug, friend, tab: '#documents')
     end
   end
 

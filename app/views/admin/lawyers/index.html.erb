@@ -1,5 +1,5 @@
 <div class="row">
-  <%= link_to "Add a new lawyer", new_community_admin_lawyer_path(current_community), class: 'btn btn-primary pull-right' %>
+  <%= link_to "Add a new lawyer", new_community_admin_lawyer_path(current_community.slug), class: 'btn btn-primary pull-right' %>
   </div>
 <div class="row">
   <h1>Lawyers</h1>
@@ -20,7 +20,7 @@
         <tbody>
           <% @lawyers.each do |lawyer| %>
             <tr>
-              <td><%= link_to lawyer.name, edit_community_admin_lawyer_path(current_community, lawyer) %></td>
+              <td><%= link_to lawyer.name, edit_community_admin_lawyer_path(current_community.slug, lawyer) %></td>
               <td><%= lawyer.organization %></td>
               <td><%= lawyer.phone_number %></td>
               <td><%= lawyer.email %></td>
