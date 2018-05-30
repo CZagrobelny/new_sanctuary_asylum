@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError.new('Not Found')
   end
 
+  def require_access_to_community
+    not_found unless current_user.can_access?(current_community)
+  end
+
   def require_admin_or_access_to_friend
     unless current_user.admin? || UserFriendAssociation.where(friend_id: params[:friend_id], user_id: current_user.id).present?
       not_found

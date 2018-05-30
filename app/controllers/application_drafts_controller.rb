@@ -1,5 +1,6 @@
 class ApplicationDraftsController < ApplicationController
   before_action :authenticate_user!
+  before_action :require_access_to_community
   before_action :require_admin_or_access_to_friend
   before_action :require_admin, only: [:destroy]
 

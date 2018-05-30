@@ -1,5 +1,6 @@
 class FriendsController < ApplicationController
   before_action :authenticate_user!
+  before_action :require_access_to_community
   before_action :require_access_to_friend, only: [:update, :show]
 
   def index
