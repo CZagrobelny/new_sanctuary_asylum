@@ -36,6 +36,18 @@ class User < ApplicationRecord
     self.accompaniment_reports.where(activity_id: activity.id).first
   end
 
+  def can_access?(community)
+    if regional_admin?
+      self.regions.include?(community.region)
+    else
+      self.community == community
+    end
+  end
+
+  def regional_admin?
+    self.admin? && self.user_regions.present?
+  end
+
   ## This is used by devise timeoutable to dynamically set session time out when the user is inactive
   def timeout_in
     if admin?

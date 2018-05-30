@@ -33,6 +33,18 @@ long_island_community = Community.create(name: 'Long Island',
                                         events_active: false,
                                         judges_editable: false)
 
+# Primary community (Tampa)
+tampa_community = Community.create(name: 'Tampa',
+                                slug: 'tampa',
+                                region_id: fl_region.id,
+                                primary: true,
+                                accompaniment_program_active: true,
+                                locations_editable: true,
+                                reports_active: true,
+                                sanctuaries_active: true,
+                                events_active: true,
+                                judges_editable: true)
+
 # NY Regional admin
 ny_regional_admin = User.create(first_name: 'NY Regional', last_name: 'Admin', email: 'ny_regional_admin@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 2, pledge_signed: true)
 ny_regional_admin.user_regions.create(region_id: ny_region.id)

@@ -1,11 +1,16 @@
 class AdminController < ApplicationController
   before_action :authenticate_user!
   before_action :require_admin
+  before_action :require_access_to_community
   after_action :log_action
 
   private
   def require_admin
     not_found unless current_user.admin?
+  end
+
+  def require_access_to_community
+    not_found unless current_user.can_access?(current_community)
   end
 
   def log_action
