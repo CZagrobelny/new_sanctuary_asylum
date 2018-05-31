@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  devise_for :users, controllers: { invitations: "invitations" }
+  devise_for :users, skip: :invitations
   devise_scope :user do
     authenticated do
       root :to => 'dashboard#index', as: :root
@@ -11,10 +11,12 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'pledge', to: 'home#pledge'
+
   resources :communities, param: :slug, only: [] do
+    devise_for :users, only: [:invitations], controllers: { invitations: "invitations" }
     get 'admin', to: 'admin/activities#index'
     get 'dashboard', to: 'dashboard#index'
-    get 'pledge', to: 'home#pledge'
 
     resources :users, only: [:edit, :update]
     resources :friends, only: [:index, :show, :update] do
