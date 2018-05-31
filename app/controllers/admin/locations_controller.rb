@@ -1,4 +1,5 @@
 class Admin::LocationsController < AdminController
+  before_action :require_primary_community
   before_action :set_location, only: [:edit, :update]
 
   def index

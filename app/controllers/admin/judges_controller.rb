@@ -1,4 +1,5 @@
 class Admin::JudgesController < AdminController
+  before_action :require_primary_community
   before_action :set_judge, only: [:edit, :update]
 
   def index

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   resources :communities, param: :slug, only: [] do
     devise_for :users, only: [:invitations], controllers: { invitations: "invitations" }
-    get 'admin', to: 'admin/activities#index'
+    get 'admin', to: 'admin/friends#index'
     get 'dashboard', to: 'dashboard#index'
 
     resources :users, only: [:edit, :update]

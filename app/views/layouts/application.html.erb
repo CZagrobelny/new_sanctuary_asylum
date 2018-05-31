@@ -8,8 +8,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  
-  <%= render 'shared/header' %>
+
+  <% if current_user %>
+    <% if current_user.admin? %>
+      <% if current_community.primary? %>
+        <%= render 'shared/primary_community_admin_header' %>
+      <% else %>
+        <%= render 'shared/non_primary_community_admin_header' %>
+      <% end %>
+    <% else %>
+      <%= render 'shared/header' %>
+    <% end %>
+  <% else %>
+    <%= render 'shared/header' %>
+  <% end %>
+
   <div class="container-fluid">
     <%= flash_messages %>
     <%= yield %>

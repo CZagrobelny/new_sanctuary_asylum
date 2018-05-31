@@ -1,5 +1,7 @@
 require 'csv'
 class Admin::ReportsController < AdminController
+  before_action :require_primary_community
+
   def new
     @report = Report.new
   end

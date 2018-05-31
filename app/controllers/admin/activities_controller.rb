@@ -1,4 +1,5 @@
 class Admin::ActivitiesController < AdminController
+  before_action :require_primary_community
 
   def index
     @activities = current_region.activities.current_month(events: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS)

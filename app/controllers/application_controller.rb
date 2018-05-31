@@ -28,4 +28,8 @@ class ApplicationController < ActionController::Base
       not_found
     end
   end
+
+  def require_primary_community
+    not_found unless current_community.primary?
+  end
 end

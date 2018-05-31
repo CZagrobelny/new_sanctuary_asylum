@@ -1,4 +1,6 @@
 class Admin::EventsController < AdminController
+  before_action :require_primary_community
+
   def index
     @events = current_community.events.order('date desc').paginate(:page => params[:page])
   end

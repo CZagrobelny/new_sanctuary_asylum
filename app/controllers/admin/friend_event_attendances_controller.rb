@@ -1,4 +1,6 @@
 class Admin::FriendEventAttendancesController < AdminController
+  before_action :require_primary_community
+
   def create
     friend_id_array = friend_event_attendance_params[:friend_id].reject { |f| f.empty? }
     if friend_id_array.present?
