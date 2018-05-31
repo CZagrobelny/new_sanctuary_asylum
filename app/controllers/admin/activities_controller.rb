@@ -49,10 +49,10 @@ class Admin::ActivitiesController < AdminController
   def confirm
     if activity.update(confirmed: true)
       flash[:success] = 'Accompaniment confirmed.'
-      redirect_to accompaniments_admin_activities_path
+      redirect_to accompaniments_community_admin_activities_path
     else
       flash.now[:error] = 'There was an issue confirming this accompaniment.'
-      redirect_to accompaniments_admin_activities_path
+      redirect_to accompaniments_community_admin_activities_path
     end
   end
 

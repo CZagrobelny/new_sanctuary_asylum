@@ -6,10 +6,12 @@
 <h2>Your Programs</h2>
 <h3><%= link_to 'Clinic', community_friends_path(current_community.slug) %></h3>
 
-<% if current_user.accompaniment_leader? %>
-  <h3><%= link_to 'Accompaniment Program', accompaniment_leader_community_activities_path(current_community.slug) %></h3><br>
-<% else %>
-  <h3><%= link_to 'Accompaniment Program', community_activities_path(current_community.slug) %></h3><br>
+<% if current_community.primary? %>
+  <% if current_user.accompaniment_leader? %>
+    <h3><%= link_to 'Accompaniment Program', accompaniment_leader_community_activities_path(current_community.slug) %></h3><br>
+  <% else %>
+    <h3><%= link_to 'Accompaniment Program', community_activities_path(current_community.slug) %></h3><br>
+  <% end %>
 <% end %>
 
 <h2>Thank you for all your hard work!</h2>

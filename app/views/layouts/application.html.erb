@@ -9,19 +9,7 @@
 </head>
 <body>
 
-  <% if current_user %>
-    <% if current_user.admin? %>
-      <% if current_community.primary? %>
-        <%= render 'shared/primary_community_admin_header' %>
-      <% else %>
-        <%= render 'shared/non_primary_community_admin_header' %>
-      <% end %>
-    <% else %>
-      <%= render 'shared/header' %>
-    <% end %>
-  <% else %>
-    <%= render 'shared/header' %>
-  <% end %>
+  <%= render 'shared/header' %>
 
   <div class="container-fluid">
     <%= flash_messages %>

@@ -1,4 +1,5 @@
 class AccompanimentLeader::AccompanimentReportsController < AccompanimentLeaderController
+
   def new
     @accompaniment_report = activity.accompaniment_reports.new
   end
