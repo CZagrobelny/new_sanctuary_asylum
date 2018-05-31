@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180527194840) do
+ActiveRecord::Schema.define(version: 20180531230341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,12 +59,6 @@ ActiveRecord::Schema.define(version: 20180527194840) do
     t.string  "name"
     t.string  "slug"
     t.boolean "primary"
-    t.boolean "accompaniment_program_active"
-    t.boolean "locations_editable"
-    t.boolean "reports_active"
-    t.boolean "sanctuaries_active"
-    t.boolean "events_active"
-    t.boolean "judges_editable"
     t.index ["region_id"], name: "index_communities_on_region_id", using: :btree
   end
 
