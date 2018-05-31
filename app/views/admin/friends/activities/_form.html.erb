@@ -14,14 +14,14 @@
     <div class='row form-group'>
       <%= f.label :location_id, 'Location', class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
-        <%= collection_select(:activity, :location_id, Location.all, :id, :name, {prompt: true}, {class: 'form-control'}) %>
+        <%= collection_select(:activity, :location_id, current_region.locations, :id, :name, {prompt: true}, {class: 'form-control'}) %>
       </div>
     </div>
 
     <div class='row form-group'>
       <%= f.label :judge_id, 'Judge', class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
-        <%= collection_select(:activity, :judge_id, Judge.all, :id, :name, {prompt: true}, {class: 'form-control'}) %>
+        <%= collection_select(:activity, :judge_id, current_region.judges, :id, :name, {prompt: true}, {class: 'form-control'}) %>
       </div>
     </div>
 

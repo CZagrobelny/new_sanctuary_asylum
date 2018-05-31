@@ -2,19 +2,19 @@ class Admin::ActivitiesController < AdminController
   before_action :require_primary_community
 
   def index
-    @activities = current_region.activities.current_month(events: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS)
+    @activities = current_region.activities.current_month(events: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS, region: current_region)
   end
 
   def last_month
-    @activities = current_region.activities.last_month(events: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS)
+    @activities = current_region.activities.last_month(events: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS, region: current_region)
   end
 
   def accompaniments
-    @activities = current_region.activities.current_month(events: Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS)
+    @activities = current_region.activities.current_month(events: Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS, region: current_region)
   end
 
   def last_month_accompaniments
-    @activities = current_region.activities.last_month(events: Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS)
+    @activities = current_region.activities.last_month(events: Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS, region: current_region)
   end
 
   def new

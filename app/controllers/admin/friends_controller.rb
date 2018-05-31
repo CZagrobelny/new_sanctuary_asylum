@@ -8,7 +8,7 @@ class Admin::FriendsController < AdminController
   end
 
   def friend_index_scope
-    scope = Friend
+    scope = current_community.friends
     case params[:detained]
     when 'yes'
       scope = scope.detained

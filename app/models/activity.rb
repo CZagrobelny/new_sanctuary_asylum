@@ -22,22 +22,24 @@ class Activity < ApplicationRecord
     end
   end
 
-  def self.for_week(beginning_of_week:, end_of_week:, order:, events:, confirmed: false)
+  def self.for_week(region:, beginning_of_week:, end_of_week:, order:, events:, confirmed: false)
     week = { dates: "#{beginning_of_week.strftime('%B %-d')} - #{(end_of_week - 2.days).strftime('%B %-d')}" }
     if confirmed == true
       week[:activities] = Activity.where(event: events)
                                   .where(confirmed: true)
+                                  .where(region_id: region.id)
                                   .where('occur_at >= ? AND occur_at <= ? ', beginning_of_week, end_of_week)
                                   .order("occur_at #{order}").group_by {|activity| activity.occur_at.to_date }
     else
       week[:activities] = Activity.where(event: events)
+                                  .where(region_id: region.id)
                                   .where('occur_at >= ? AND occur_at <= ? ', beginning_of_week, end_of_week)
                                   .order("occur_at #{order}").group_by {|activity| activity.occur_at.to_date }
     end
     week
   end
 
-  def self.upcoming_two_weeks
+  def self.upcoming_two_weeks(region:)
 
     if Date.today.cwday >= 5 && !Activity.remaining_this_week?
       week_1_beg = 1.weeks.from_now.beginning_of_week.beginning_of_day
@@ -55,32 +57,34 @@ class Activity < ApplicationRecord
                                      end_of_week: week_1_end,
                                      order: 'asc',
                                      events: ACCOMPANIMENT_ELIGIBLE_EVENTS,
-                                     confirmed: true) ]
+                                     confirmed: true,
+                                     region: region) ]
 
     activities << Activity.for_week(beginning_of_week: week_2_beg,
                                     end_of_week: week_2_end,
                                     order: 'asc',
                                     events: ACCOMPANIMENT_ELIGIBLE_EVENTS,
-                                    confirmed: true)
+                                    confirmed: true,
+                                    region: region)
     activities
   end
 
-  def self.current_month(events:)
-    activities = [ Activity.for_week(beginning_of_week: Date.today.beginning_of_week, end_of_week: Date.today.end_of_week, order: 'asc', events: events) ]
+  def self.current_month(events:, region:)
+    activities = [ Activity.for_week(beginning_of_week: Date.today.beginning_of_week, end_of_week: Date.today.end_of_week, order: 'asc', events: events, region: region) ]
     (1..4).each do |i|
       beginning_of_week = i.weeks.from_now.beginning_of_week
       end_of_week = i.weeks.from_now.end_of_week
-      activities << Activity.for_week(beginning_of_week: beginning_of_week, end_of_week: end_of_week, order: 'asc', events: events)
+      activities << Activity.for_week(beginning_of_week: beginning_of_week, end_of_week: end_of_week, order: 'asc', events: events, region: region)
     end
     activities
   end
 
-  def self.last_month(events:)
+  def self.last_month(events:, region:)
     activities = []
     (1..5).each do |i|
       beginning_of_week = i.weeks.ago.beginning_of_week
       end_of_week = i.weeks.ago.end_of_week
-      activities << Activity.for_week(beginning_of_week: beginning_of_week, end_of_week: end_of_week, order: 'desc', events: events)
+      activities << Activity.for_week(beginning_of_week: beginning_of_week, end_of_week: end_of_week, order: 'desc', events: events, region: region)
     end
     activities
   end

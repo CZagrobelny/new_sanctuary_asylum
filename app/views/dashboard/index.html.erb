@@ -8,7 +8,7 @@
 
 <% if current_community.primary? %>
   <% if current_user.accompaniment_leader? %>
-    <h3><%= link_to 'Accompaniment Program', accompaniment_leader_community_activities_path(current_community.slug) %></h3><br>
+    <h3><%= link_to 'Accompaniment Program', community_accompaniment_leader_activities_path(current_community.slug) %></h3><br>
   <% else %>
     <h3><%= link_to 'Accompaniment Program', community_activities_path(current_community.slug) %></h3><br>
   <% end %>

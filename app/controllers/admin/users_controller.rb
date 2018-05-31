@@ -31,7 +31,7 @@ class Admin::UsersController < AdminController
   private
 
   def search
-    Search.new(User, params[:query], params[:page])
+    Search.new(current_community.users, params[:query], params[:page])
   end
 
   def user_params
