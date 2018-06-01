@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_region
-    @current_region ||= current_community.region
+    @current_region ||= params[:region_id] ? Region.find(params[:region_id]) : current_community.region
   end
 
   def require_admin
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_access_to_community
-    not_found unless current_user.can_access?(current_community)
+    not_found unless current_user.can_access_community?(current_community)
   end
 
   def require_admin_or_access_to_friend

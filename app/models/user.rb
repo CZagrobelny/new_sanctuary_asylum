@@ -39,12 +39,16 @@ class User < ApplicationRecord
     self.accompaniment_reports.where(activity_id: activity.id).first
   end
 
-  def can_access?(community)
+  def can_access_community?(community)
     if regional_admin?
       self.regions.include?(community.region)
     else
       self.community == community
     end
+  end
+
+  def can_access_region?(region)
+    self.regions.include?(region)
   end
 
   def regional_admin?

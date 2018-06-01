@@ -72,6 +72,12 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :regional_admin do
+    resources :regions, only: [:index] do
+      resources :communities, only: [:index, :new, :create, :edit, :update]
+    end
+  end
+
 	match "/404", :to => "errors#not_found", :via => :all
 	match "/500", :to => "errors#internal_server_error", :via => :all
 end
