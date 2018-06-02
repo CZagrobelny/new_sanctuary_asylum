@@ -5,9 +5,18 @@ class Community < ApplicationRecord
   has_many :events
   has_many :sanctuaries
 
-  validates :region_id, presence: true
+  validates :region_id, :name, :slug, presence: true
+  validates_uniqueness_of :slug
+  validate :slug_format
 
   def to_param
     slug
+  end
+
+  private
+  def slug_format
+    unless slug.match(/^[a-z-]+$/)
+      errors.add(:slug, 'must be all lowercase letters with no spaces. Dashes may be used to separate words, like "a-slug-with-dashes"')
+    end
   end
 end

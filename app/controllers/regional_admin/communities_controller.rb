@@ -16,7 +16,7 @@ class RegionalAdmin::CommunitiesController < RegionalAdminController
     @community = current_region.communities.new(community_params)
 
     if @community.save
-      redirect_to regional_admin_region_communities_path(current_region, @community)
+      redirect_to regional_admin_region_communities_path(current_region)
     else
       flash.now[:error] = "Something went wrong :("
       render 'new'
@@ -26,7 +26,7 @@ class RegionalAdmin::CommunitiesController < RegionalAdminController
   def update
     @community = current_region.communities.where(slug: params[:id]).first
     if @community.update(community_params)
-      redirect_to regional_admin_region_communities_path(current_region, @community)
+      redirect_to regional_admin_region_communities_path(current_region)
     else
       flash.now[:error] = "Something went wrong :("
       render 'edit'
