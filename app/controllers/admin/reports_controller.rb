@@ -23,15 +23,19 @@ class Admin::ReportsController < AdminController
   def report
     @report ||= case report_params['type']
                 when 'activity'
-                  ActivityReport.new(report_params)
+                  ActivityReport.new(report_params.merge(community_and_region_params))
                 when 'event'
-                  EventReport.new(report_params)
+                  EventReport.new(report_params.merge(community_and_region_params))
                 else
-                  Report.new(report_params)
+                  Report.new(report_params.merge(community_and_region_params))
                 end
   end
 
   private
+
+  def community_and_region_params
+    { community_id: current_community.id, region_id: current_region.id }
+  end
 
   def report_params
     params.require(:report).permit(
