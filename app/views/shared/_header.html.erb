@@ -14,11 +14,11 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class='nav navbar-nav navbar-right' style='margin-right:10px;'>
       <% if current_user %>
-        <% if current_user.admin? %>
-          <% if current_user.regional_admin? %>
-            <li><%= link_to 'Manage Regions', regional_admin_regions_path %></li>
-          <% end %>
-          <% if current_community.primary? %>
+        <% if current_user.regional_admin? %>
+          <li><%= link_to 'Manage Regions', regional_admin_regions_path %></li>
+        <% end %>
+        <% if current_user.admin? && (controller.controller_name != 'communities' && controller.controller_name != 'regions') %>
+          <% if current_community.primary?  %>
             <%= render 'shared/primary_community_admin_navigation' %>
           <% else %>
             <%= render 'shared/non_primary_community_admin_navigation' %>

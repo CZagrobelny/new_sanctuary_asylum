@@ -13,13 +13,15 @@
           <tr>
             <th>Name</th>
             <th>Slug</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <% @communities.each do |community| %>
             <tr>
-              <td><%= link_to community.name, edit_regional_admin_region_community_path(current_region.id, community.id) %></td>
+              <td><%= link_to community.name, community_admin_friends_path(community.slug) %></td>
               <td><%= community.slug %></td>
+              <td><%= link_to 'Edit', edit_regional_admin_region_community_path(current_region.id, community.id) %></td>
             </tr>
           <% end %>
         </tbody>
