@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :community do
-    name 'NYC'
-    slug 'nyc'
+    name { FFaker::Address.city }
+    slug { name.downcase.gsub(' ', '-') }
     association :region
   end
 end
