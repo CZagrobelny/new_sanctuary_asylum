@@ -15,8 +15,8 @@ class InvitationsController < Devise::InvitationsController
     yield resource if block_given?
 
     if resource_invited
-      if is_flashing_format? && self.resource.invitation_sent_at
-        set_flash_message :notice, :send_instructions, :email => self.resource.email
+      if self.resource.invitation_sent_at
+        flash[:notice] = "An invitation email has been sent to #{self.resource.email}."
       end
       redirect_to new_user_community_invitation_path(resource.community.slug)
     else

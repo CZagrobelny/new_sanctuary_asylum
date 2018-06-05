@@ -6,7 +6,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
   let(:community_admin) { create(:user, :community_admin, community: community) }
   let(:community) { create :community }
   let!(:friend) { create(:friend, community: community) }
-  let!(:location) { create(:location) }
+  let!(:location) { create(:location, region: community.region) }
 
   before do
     3.times { create(:friend, community: community) }

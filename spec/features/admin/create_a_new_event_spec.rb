@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Admin creates a new event', type: :feature do
 
-  let(:community_admin) { create(:user, :community_admin) }
-  let(:community) { community_admin.community }
-  let!(:location) { create(:location) }
+  let(:community_admin) { create(:user, :community_admin, community: community) }
+  let(:community) { create :community, :primary }
+  let!(:location) { create(:location, region: community.region) }
 
   before do
     login_as(community_admin)

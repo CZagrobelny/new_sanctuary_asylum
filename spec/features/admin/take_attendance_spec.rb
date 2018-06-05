@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Take attendance', type: :feature, js: true do
   let(:community_admin) { create(:user, :community_admin, community: community) }
-  let(:community) { create :community }
+  let(:community) { create :community, :primary }
   let!(:event) { create(:event, community: community) }
   let!(:attending_volunteer) { create(:user, :volunteer, community: community) }
   let!(:not_attending_volunteer) { create(:user, :volunteer, community: community) }

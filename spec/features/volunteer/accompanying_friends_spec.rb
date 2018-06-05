@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: true do
-  let(:community) { create :community }
+  let(:community) { create :community, :primary }
   let(:region) { community.region }
   let(:volunteer) { create(:user, :volunteer, community: community) }
   let!(:activity) { create(:activity, occur_at: 1.week.from_now, region: region, confirmed: true ) }

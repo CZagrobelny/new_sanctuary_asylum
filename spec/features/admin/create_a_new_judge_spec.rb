@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin creates a new judge', type: :feature do
-  let(:community_admin) { create(:user, :community_admin) }
-  let(:community) { community_admin.community }
+  let(:community_admin) { create(:user, :community_admin, community: community) }
+  let(:community) { create :community, :primary }
   let(:region) { community.region }
 
   before do
