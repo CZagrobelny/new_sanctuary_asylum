@@ -62,7 +62,7 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def friend
-    @friend ||= Friend.find(params[:friend_id])
+    @friend ||= current_community.friends.find(params[:friend_id])
   end
 
   private

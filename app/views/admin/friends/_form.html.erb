@@ -74,11 +74,11 @@
   <%= hidden_field_tag :tab, @current_tab %>
 <% end %>
 
-<%= render partial: 'admin/friends/activities/modal', locals: { activity: Activity.new(friend_id: @friend.id) } %>
+<%= render partial: 'admin/friends/activities/modal', locals: { activity: @friend.activities.new } %>
 
 <%= render partial: 'admin/friends/family_members/modal', locals: { family_member_constructor: FamilyMemberConstructor.new, friend: @friend } %>
 
-<%= render partial: 'admin/friends/detentions/modal', locals: { detention: Detention.new(friend_id: @friend.id) } %>
+<%= render partial: 'admin/friends/detentions/modal', locals: { detention: @friend.detentions.new } %>
 
 <script>
   $(document).ready(function () {

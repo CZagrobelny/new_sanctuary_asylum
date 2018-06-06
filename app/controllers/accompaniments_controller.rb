@@ -2,7 +2,7 @@ class AccompanimentsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_access_to_community
   before_action :require_primary_community
-  before_action :require_accompaniment_owner
+  before_action :require_accompaniment_owner, only: [:update]
 
   def create
     if params[:attending] == 'true'
