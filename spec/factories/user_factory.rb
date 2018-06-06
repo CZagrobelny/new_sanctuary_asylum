@@ -24,6 +24,13 @@ FactoryGirl.define do
     role :accompaniment_leader
   end
 
+  trait :regional_admin do
+    role :admin
+    after(:create) do |regional_admin|
+      create(:user_region, user: regional_admin, region: regional_admin.community.region)
+    end
+  end
+
   trait :unconfirmed do
     first_name nil
     last_name nil
