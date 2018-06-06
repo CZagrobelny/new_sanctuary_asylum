@@ -9,89 +9,44 @@ RSpec.describe Admin::LawyersController, type: :controller do
   end
 
   describe "managing lawyers in the user's community"  do
-    let!(:community) { create :community, :primary }
-    context 'when the community is primary' do
-      describe 'GET #index' do
-        it 'allows access' do
-          get :index, params: { community_slug: community.slug }
-          expect(response.success?).to eq true
-        end
-      end
-
-      describe 'GET #new' do
-        it 'allows access' do
-          get :new, params: { community_slug: community.slug }
-          expect(response.success?).to eq true
-        end
-      end
-
-      describe 'POST #create' do
-        let(:lawyer) { build :lawyer, region: community.region }
-        it 'allows access' do
-          lawyer_count = Lawyer.count
-          post :create, params: { community_slug: community.slug, lawyer: lawyer.attributes }
-          expect(Lawyer.count).to eq lawyer_count + 1
-        end
-      end
-
-      describe 'GET #edit' do
-        let(:lawyer) { create :lawyer, region: community.region }
-        it 'allows access' do
-          get :edit, params: { community_slug: community.slug, id: lawyer.id }
-          expect(response.success?).to eq true
-        end
-      end
-
-      describe 'PUT #update' do
-        let!(:lawyer) { create :lawyer, region: community.region }
-        it 'allows access' do
-          lawyer.first_name = 'new name'
-          put :update, params: { community_slug: community.slug, id: lawyer.id, lawyer: lawyer.attributes }
-          expect(lawyer.first_name).to eq 'new name'
-        end
+    let!(:community) { create :community }
+    describe 'GET #index' do
+      it 'allows access' do
+        get :index, params: { community_slug: community.slug }
+        expect(response.success?).to eq true
       end
     end
 
-    context 'when the community is NOT primary' do
-      let!(:community) { create :community }
-      describe 'GET #index' do
-        it 'allows access' do
-          get :index, params: { community_slug: community.slug }
-          expect(response.success?).to eq true
-        end
+    describe 'GET #new' do
+      it 'allows access' do
+        get :new, params: { community_slug: community.slug }
+        expect(response.success?).to eq true
       end
+    end
 
-      describe 'GET #new' do
-        it 'allows access' do
-          get :new, params: { community_slug: community.slug }
-          expect(response.success?).to eq true
-        end
+    describe 'POST #create' do
+      let(:lawyer) { build :lawyer, region: community.region }
+      it 'allows access' do
+        lawyer_count = Lawyer.count
+        post :create, params: { community_slug: community.slug, lawyer: lawyer.attributes }
+        expect(Lawyer.count).to eq lawyer_count + 1
       end
+    end
 
-      describe 'POST #create' do
-        let(:lawyer) { build :lawyer, region: community.region }
-        it 'allows access' do
-          lawyer_count = Lawyer.count
-          post :create, params: { community_slug: community.slug, lawyer: lawyer.attributes }
-          expect(Lawyer.count).to eq lawyer_count + 1
-        end
+    describe 'GET #edit' do
+      let(:lawyer) { create :lawyer, region: community.region }
+      it 'allows access' do
+        get :edit, params: { community_slug: community.slug, id: lawyer.id }
+        expect(response.success?).to eq true
       end
+    end
 
-      describe 'GET #edit' do
-        let(:lawyer) { create :lawyer, region: community.region }
-        it 'allows access' do
-          get :edit, params: { community_slug: community.slug, id: lawyer.id }
-          expect(response.success?).to eq true
-        end
-      end
-
-      describe 'PUT #update' do
-        let!(:lawyer) { create :lawyer, region: community.region }
-        it 'allows access' do
-          lawyer.first_name = 'new name'
-          put :update, params: { community_slug: community.slug, id: lawyer.id, lawyer: lawyer.attributes }
-          expect(lawyer.first_name).to eq 'new name'
-        end
+    describe 'PUT #update' do
+      let!(:lawyer) { create :lawyer, region: community.region }
+      it 'allows access' do
+        lawyer.first_name = 'new name'
+        put :update, params: { community_slug: community.slug, id: lawyer.id, lawyer: lawyer.attributes }
+        expect(lawyer.first_name).to eq 'new name'
       end
     end
   end

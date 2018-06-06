@@ -34,10 +34,10 @@ class Admin::Friends::ActivitiesController < AdminController
   def confirm
     if activity.update(confirmed: true)
       flash[:success] = 'Accompaniment confirmed.'
-      redirect_to edit_admin_friend_path(friend, tab: '#activities')
+      redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#activities')
     else
       flash.now[:error] = 'There was an issue confirming this accompaniment.'
-      redirect_to edit_admin_friend_path(friend, tab: '#activities')
+      redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#activities')
     end
   end
 
