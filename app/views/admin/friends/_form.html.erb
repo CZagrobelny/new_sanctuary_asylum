@@ -1,7 +1,10 @@
 <%= form_for([current_community, :admin, @friend]) do |f| %>
   <div class='row'>
-    <div class='col-md-1 col-md-offset-10'><%= f.submit 'Save', :class => 'btn btn-primary' %></div>
-  </div>
+    <div class='col-md-1 col-md-offset-10'>
+      <div class='row' id='submission_wrapper'>
+        <%= f.submit 'Save', :class => 'btn btn-primary' %></div>
+      </div>
+    </div>
   <div class= 'row'>
     <div class='col-md-10 col-md-offset-1'>
 
@@ -69,11 +72,6 @@
   </br>
 
   <%= hidden_field_tag :tab, @current_tab %>
-  <div class='row' id='submission_wrapper'>
-    <div class='col-md-1 col-md-offset-10'>
-      <%= f.submit 'Save', :class => 'btn btn-primary' %>
-    </div>
-  </div>
 <% end %>
 
 <%= render partial: 'admin/friends/activities/modal', locals: { activity: Activity.new(friend_id: @friend.id) } %>
