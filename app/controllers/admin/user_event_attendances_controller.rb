@@ -2,11 +2,11 @@ class Admin::UserEventAttendancesController < AdminController
   before_action :require_primary_community
   def create
     user_id_array = user_event_attendance_params[:user_id].reject(&:empty?)
-    if user_id_array.present?
-      user_id = user_id_array[0].to_i
-      @user_event_attendance = UserEventAttendance.new(event_id: event.id, user_id: user_id)
-      render_success if @user_event_attendance.save
-    end
+    return unless user_id_array.present?
+    user_id = user_id_array[0].to_i
+    @user_event_attendance = UserEventAttendance.new(event_id: event.id,
+                                                     user_id: user_id)
+    render_success if @user_event_attendance.save
   end
 
   def destroy
@@ -20,7 +20,12 @@ class Admin::UserEventAttendancesController < AdminController
 
   def render_success
     respond_to do |format|
-      format.js { render file: 'admin/events/volunteer_attendance', locals: { event: event, volunteer_attendance: event.user_attendances, attending_volunteers: event.users } }
+      format.js do
+        render file: 'admin/events/volunteer_attendance',
+               locals: { event: event,
+                         volunteer_attendance: event.user_attendances,
+                         attending_volunteers: event.users }
+      end
     end
   end
 

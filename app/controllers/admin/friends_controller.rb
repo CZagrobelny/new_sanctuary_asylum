@@ -41,14 +41,12 @@ class Admin::FriendsController < AdminController
   def update
     if params['manage_application_drafts'].present?
       update_and_render_application_drafts
+    elsif friend.update(friend_params)
+      flash[:success] = 'Friend record saved.'
+      redirect_to edit_community_admin_friend_path(current_community, @friend, tab: current_tab)
     else
-      if friend.update(friend_params)
-        flash[:success] = 'Friend record saved.'
-        redirect_to edit_community_admin_friend_path(current_community, @friend, tab: current_tab)
-      else
-        flash.now[:error] = 'Friend record not saved.'
-        render :edit
-      end
+      flash.now[:error] = 'Friend record not saved.'
+      render :edit
     end
   end
 

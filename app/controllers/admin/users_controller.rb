@@ -9,10 +9,9 @@ class Admin::UsersController < AdminController
 
   def destroy
     @user = current_community.users.find(params[:id])
-    if @user.destroy
-      flash[:success] = 'User record deleted.'
-      redirect_to community_admin_users_path(current_community.slug, query: params[:query])
-    end
+    return unless @user.destroy
+    flash[:success] = 'User record deleted.'
+    redirect_to community_admin_users_path(current_community.slug, query: params[:query])
   end
 
   def edit

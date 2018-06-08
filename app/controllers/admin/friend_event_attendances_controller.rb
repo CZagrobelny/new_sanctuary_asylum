@@ -3,11 +3,11 @@ class Admin::FriendEventAttendancesController < AdminController
 
   def create
     friend_id_array = friend_event_attendance_params[:friend_id].reject(&:empty?)
-    if friend_id_array.present?
-      friend_id = friend_id_array[0].to_i
-      @friend_event_attendance = FriendEventAttendance.new(event_id: event.id, friend_id: friend_id)
-      render_success if @friend_event_attendance.save
-    end
+    return unless friend_id_array.present?
+    friend_id = friend_id_array[0].to_i
+    @friend_event_attendance = FriendEventAttendance.new(event_id: event.id,
+                                                         friend_id: friend_id)
+    render_success if @friend_event_attendance.save
   end
 
   def destroy
@@ -21,7 +21,12 @@ class Admin::FriendEventAttendancesController < AdminController
 
   def render_success
     respond_to do |format|
-      format.js { render file: 'admin/events/friend_attendance', locals: { event: event, friend_attendance: event.friend_attendances, attending_friends: event.friends } }
+      format.js do
+        render file: 'admin/events/friend_attendance',
+               locals: { event: event,
+                         friend_attendance: event.friend_attendances,
+                         attending_friends: event.friends }
+      end
     end
   end
 

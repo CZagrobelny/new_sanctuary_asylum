@@ -4,11 +4,15 @@ class ApplicationController < ActionController::Base
   helper_method :current_community, :current_region
 
   def current_community
-    @current_community ||= params[:community_slug] ? Community.find_by_slug(params[:community_slug]) : Community.find(current_user.community_id)
+    return @current_community if @current_community
+    return Community.find_by_slug(params[:community_slug]) if params[:community_slug]
+    Community.find(current_user.community_id)
   end
 
   def current_region
-    @current_region ||= params[:region_id] ? Region.find(params[:region_id]) : current_community.region
+    return @current_region if @current_region
+    return Region.find(params[:region_id]) if params[:region_id]
+    current_community.region
   end
 
   def require_admin
@@ -24,9 +28,8 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin_or_access_to_friend
-    unless current_user.admin? || UserFriendAssociation.where(friend_id: params[:friend_id], user_id: current_user.id).present?
-      not_found
-    end
+    return if current_user.admin_or_existing_relationship?(params[:friend_id])
+    not_found
   end
 
   def require_primary_community

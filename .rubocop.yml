@@ -33,6 +33,9 @@ Style/ClassAndModuleChildren:
 Metrics/BlockLength:
   Enabled: false
 
+Metrics/ClassLength:
+  Enabled: false
+
 Metrics/LineLength:
   Max: 130
   Exclude:

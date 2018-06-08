@@ -3,9 +3,9 @@ class User < ApplicationRecord
   NON_PRIMARY_ROLES = %w[volunteer admin].map { |k, _v| [k.humanize.titleize, k] }
 
   devise :invitable, :database_authenticatable, :lockable,
-  :recoverable, :rememberable, :trackable, :secure_validatable,
-  :password_expirable, :password_archivable, :timeoutable,
-  invite_for: 1.week
+         :recoverable, :rememberable, :trackable, :secure_validatable,
+         :password_expirable, :password_archivable, :timeoutable,
+         invite_for: 1.week
   attr_reader :raw_invitation_token
 
   enum role: %i[volunteer accompaniment_leader admin]
@@ -67,7 +67,11 @@ class User < ApplicationRecord
     end
   end
 
-    def existing_relationship?(friend_id)
-      UserFriendAssociation.where(friend_id: friend_id, user_id: id).present?
-    end
+  def existing_relationship?(friend_id)
+    UserFriendAssociation.where(friend_id: friend_id, user_id: id).present?
+  end
+
+  def admin_or_existing_relationship?(friend_id)
+    admin? || existing_relationship?(friend_id)
+  end
 end

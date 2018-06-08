@@ -40,6 +40,13 @@ class Admin::SanctuariesController < AdminController
   end
 
   def sanctuary_params
-    params.require(:sanctuary).permit(:name, :address, :city, :state, :zip_code, :leader_name, :leader_phone_number, :leader_email)
+    params.require(:sanctuary).permit(:name,
+                                      :address,
+                                      :city,
+                                      :state,
+                                      :zip_code,
+                                      :leader_name,
+                                      :leader_phone_number,
+                                      :leader_email)
   end
 end

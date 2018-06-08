@@ -23,11 +23,9 @@ class AccompanimentsController < ApplicationController
         flash[:success] = 'RSVP updated successfully.'
         render_activities
       end
-    else
-      if accompaniment.destroy
-        flash[:success] = 'Your RSVP was deleted.'
-        render_activities
-      end
+    elsif accompaniment.destroy
+      flash[:success] = 'Your RSVP was deleted.'
+      render_activities
     end
   end
 
