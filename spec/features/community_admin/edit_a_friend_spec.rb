@@ -105,6 +105,51 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
   end
 
   describe 'editing "Clinic" information' do
+    it 'displays the "Clinic tab"' do
+      within '.tab-content' do
+        expec(page).to have_content 'Asylum'
+      end
+    end
+  end
 
+  describe 'editing "Detention" information' do
+    describe 'adding a new Detention' do
+      before do
+        within '.nav-tabs' do
+          click_link 'Detention'
+        end
+      end
+
+      describe 'with valid information' do
+
+      end
+
+      describe 'with incomplete information' do
+
+      end
+    end
+  end
+
+  describe 'editing "Other Case Info"' do
+    it 'displays the "Other Case Info" tab' do
+      within '.tab-content' do
+        expect(page).to have_content 'Lawyer'
+      end
+    end
+  end
+
+  describe 'editing "Documents"' do
+    before {click_link 'Documents'}
+    # add the scenario wherein there is at least one file
+    it 'displays the "Documents" tab' do
+      within '.tab-content' do
+        expect(page).to have_content 'There are no files associated with this user.'
+      end
+    end
+
+    it 'redirects to application drafts page' do
+      click_button 'Manage Documents'
+      expect(current_path).to eq community_friend_application_drafts_path(community_slug: community.slug, friend_id: @friend.id)
+    end
   end
 end
