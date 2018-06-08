@@ -60,6 +60,7 @@ group :production do
 end
 
 group :development do
+  gem 'bundler-audit'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-commands-rspec'
