@@ -103,4 +103,8 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
       end
     end
   end
+
+  describe 'editing "Clinic" information' do
+
+  end
 end
