@@ -3,4 +3,3 @@ class AddRemoteClinicLawyerToUsers < ActiveRecord::Migration[5.0]
     add_column :users, :remote_clinic_lawyer, :boolean
   end
 end
-
