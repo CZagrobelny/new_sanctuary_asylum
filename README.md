@@ -81,7 +81,7 @@ rails server
 - Can view, create, edit communities in their regions
 
 Login as a Regional Admin with:
-* username: ny_admin@example.com
+* username: ny_regional_admin@example.com
 * password: Password1234
 
 
