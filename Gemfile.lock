@@ -243,6 +243,7 @@ GEM
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
+    ruby-filemagic (0.7.2)
     ruby_http_client (3.1.0)
     safe_yaml (1.0.4)
     sass (3.5.1)
@@ -360,6 +361,7 @@ DEPENDENCIES
   redis (~> 3.3.1)
   rspec-given (~> 3.8.0)
   rspec-rails (~> 3.5.0)
+  ruby-filemagic
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   sendgrid-ruby
@@ -380,4 +382,4 @@ RUBY VERSION
    ruby 2.3.5p376
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
