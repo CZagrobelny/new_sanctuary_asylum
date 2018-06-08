@@ -9,8 +9,9 @@ class DraftsController < ApplicationController
   end
 
   def create
-    @draft = friend.drafts.new(draft_params)
-    if @draft.save
+    application = friend.applications.find_or_initialize_by(category: draft_params[:category])
+    draft = application.drafts.new(draft_params.merge(friend: friend))
+    if draft.save
       flash[:success] = 'Application draft saved.'
       render_success
     else
