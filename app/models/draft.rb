@@ -6,5 +6,4 @@ class Draft < ApplicationRecord
   mount_uploader :pdf_draft, PdfDraftUploader
   validates :pdf_draft, presence: true
   validates :category, presence: true
-  CATEGORIES = %w[asylum sijs work_authorization detention foia change_of_venue other].freeze
 end

@@ -37,6 +37,7 @@ class Friend < ApplicationRecord
   has_many :user_friend_associations, dependent: :destroy
   has_many :users, through: :user_friend_associations
   has_many :application_drafts, dependent: :restrict_with_error
+  has_many :applications, dependent: :restrict_with_error
   has_many :friend_event_attendances, dependent: :destroy
   has_many :events, through: :friend_event_attendances
 
