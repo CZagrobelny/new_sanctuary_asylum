@@ -24,6 +24,7 @@ Rails.application.routes.draw do
         member do
           get :submit_for_review
         end
+        resources :reviews, only: [:new, :show, :create]
       end
     end
     resources :accompaniments

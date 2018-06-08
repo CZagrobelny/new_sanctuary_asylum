@@ -1,6 +1,6 @@
 <% if @friend.grouped_drafts.empty? %>
   <h3> There are no files associated with this user.</h3>
-<% else %>
+<%else%>
   <% @friend.grouped_drafts.each do |group| %>
     <h3><%= group[:name].titlecase %></h3>
     <% group[:drafts].each do |draft| %>
@@ -18,9 +18,27 @@
           <% end %>
         </div>
         <%= render partial: 'drafts/draft_status', locals: { current_community: current_community, friend: friend, draft: draft } %>
+        <% draft.reviews.each do |review| %>
+          <%= link_to "Review by #{review.user.name} (#{review.user.role.tr('_', ' ').titlecase})", community_friend_draft_review_path(
+            current_community.slug,
+              @friend,
+              draft,
+              review
+          ) %><%= review.created_at.strftime(" -- %A, %B %-d, %Y") %>
+        <br>
+      <% end %>
+      <% if draft.reviews.none? { |review| review.user == current_user } %>
+        <%= link_to 'Add Review', new_community_friend_draft_review_path(
+          current_community.slug,
+          @friend,
+          draft
+        ) %>
+    <% end %>
+
+    </p> 
       </div>
-    <br>
-    <br>
+      <br>
+      <br>
     <% end %>
   <% end %>
 <% end %>

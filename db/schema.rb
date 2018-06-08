@@ -232,6 +232,16 @@ ActiveRecord::Schema.define(version: 20180610160526) do
     t.string "name"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.text     "notes"
+    t.integer  "draft_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["draft_id"], name: "index_reviews_on_draft_id", using: :btree
+    t.index ["user_id"], name: "index_reviews_on_user_id", using: :btree
+  end
+
   create_table "sanctuaries", force: :cascade do |t|
     t.string  "name"
     t.string  "address"
