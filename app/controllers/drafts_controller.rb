@@ -1,16 +1,16 @@
-class ApplicationDraftsController < ApplicationController
+class DraftsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_access_to_community
   before_action :require_admin_or_access_to_friend
   before_action :require_admin, only: [:destroy]
 
   def new
-    @application_draft = friend.application_drafts.new
+    @draft = friend.drafts.new
   end
 
   def create
-    @application_draft = friend.application_drafts.new(application_draft_params)
-    if @application_draft.save
+    @draft = friend.drafts.new(draft_params)
+    if @draft.save
       flash[:success] = 'Application draft saved.'
       render_success
     else
@@ -20,12 +20,12 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def edit
-    application_draft
+    draft
     friend
   end
 
   def update
-    if application_draft.update(application_draft_params)
+    if draft.update(draft_params)
       flash[:success] = 'Application draft saved.'
       render_success
     else
@@ -40,12 +40,12 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def destroy
-    if application_draft.destroy
+    if draft.destroy
       flash[:success] = 'Application draft destroyed.'
       redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#documents')
     else
       flash[:error] = 'Error destroying application draft.'
-      redirect_to community_friend_application_drafts_path(current_community.slug, friend)
+      redirect_to community_friend_drafts_path(current_community.slug, friend)
     end
   end
 
@@ -57,8 +57,8 @@ class ApplicationDraftsController < ApplicationController
     end
   end
 
-  def application_draft
-    @application_draft ||= ApplicationDraft.find(params[:id])
+  def draft
+    @draft ||= ApplicationDraft.find(params[:id])
   end
 
   def friend
@@ -67,8 +67,8 @@ class ApplicationDraftsController < ApplicationController
 
   private
 
-  def application_draft_params
-    params.require(:application_draft).permit(
+  def draft_params
+    params.require(:draft).permit(
       :notes,
       :pdf_draft,
       :category,

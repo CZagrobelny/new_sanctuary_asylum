@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180608135213) do
+ActiveRecord::Schema.define(version: 20180608201237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,15 @@ ActiveRecord::Schema.define(version: 20180608135213) do
     t.boolean  "confirmed"
     t.integer  "region_id"
     t.index ["region_id"], name: "index_activities_on_region_id", using: :btree
+  end
+
+  create_table "application_drafts", force: :cascade do |t|
+    t.text     "notes"
+    t.integer  "friend_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "pdf_draft"
+    t.string   "category"
   end
 
   create_table "applications", force: :cascade do |t|
@@ -265,11 +274,11 @@ ActiveRecord::Schema.define(version: 20180608135213) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_application_draft_associations", force: :cascade do |t|
-    t.integer  "user_id",              null: false
-    t.integer  "application_draft_id", null: false
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+  create_table "user_draft_associations", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "draft_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_event_attendances", force: :cascade do |t|
