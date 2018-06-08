@@ -6,4 +6,10 @@ class Draft < ApplicationRecord
   mount_uploader :pdf_draft, PdfDraftUploader
   validates :pdf_draft, presence: true
   validates :category, presence: true
+
+  enum status: [ :in_progress, 
+                 :in_review,
+                 :changes_requested,
+                 :approved,
+                 :closed ]
 end
