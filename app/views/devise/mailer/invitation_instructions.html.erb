@@ -1,6 +1,6 @@
 <p>Welcome New Sanctuary Coalition Volunteer!</p>
 
-<p>Please follow this link to accept your invitation to the New Sanctuary Coalition software: <%= link_to accept_invitation_url(@resource, :invitation_token => @token), accept_invitation_url(@resource, :invitation_token => @token) %></p>
+<p>Please follow this link to accept your invitation to the New Sanctuary Coalition software: <%= link_to accept_user_community_invitation_url(@resource.community.slug, :invitation_token => @token), accept_user_community_invitation_url(@resource.community.slug, :invitation_token => @token) %></p>
 
 <% if @resource.invitation_due_at %>
   <p>This invitation will expire <%= @resource.invitation_due_at.strftime("%B %d, %Y %I:%M %p") %>.</p>

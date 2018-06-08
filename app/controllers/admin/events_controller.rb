@@ -1,46 +1,48 @@
 class Admin::EventsController < AdminController
+  before_action :require_primary_community
+
   def index
-    @events = Event.order('date desc').paginate(:page => params[:page])
+    @events = current_community.events.order('date desc').paginate(:page => params[:page])
   end
 
   def new
-    @event = Event.new
+    @event = current_community.events.new
   end
 
   def edit
-    @event = Event.find(params[:id])
+    @event = current_community.events.find(params[:id])
   end
 
   def create
-    @event = Event.new(event_params)
+    @event = current_community.events.new(event_params)
     if @event.save
       flash[:success] = 'Event saved.'
-      redirect_to admin_events_path
+      redirect_to community_admin_events_path(current_community.slug)
     else
       render 'edit'
     end
   end
 
   def update
-    @event = Event.find(params[:id])
+    @event = current_community.events.find(params[:id])
     if @event.update(event_params)
        flash[:success] = 'Event saved.'
-      redirect_to admin_events_path
+      redirect_to community_admin_events_path(current_community.slug)
     else
       render 'edit'
     end
   end
 
   def destroy
-    @event = Event.find(params[:id])
+    @event = current_community.events.find(params[:id])
     if @event.destroy
       flash[:success] = 'Event deleted.'
-      redirect_to admin_events_path
+      redirect_to community_admin_events_path(current_community.slug)
     end
   end
 
   def attendance
-    @event = Event.find(params[:id])
+    @event = current_community.events.find(params[:id])
     @volunteer_attendance = @event.user_attendances
     @attending_volunteers = @event.users
     @friend_attendance = @event.friend_attendances
@@ -50,9 +52,9 @@ class Admin::EventsController < AdminController
   private
   def event_params
     params.require(:event).permit(
-      :date, 
-      :location_id, 
-      :title, 
+      :date,
+      :location_id,
+      :title,
       :category
     )
   end

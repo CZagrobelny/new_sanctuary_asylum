@@ -2,13 +2,14 @@ require 'rails_helper'
 
 RSpec.describe 'Admin invites a new user', type: :feature do
 
-  let(:admin) { create(:user, :admin) }
+  let(:admin) { create(:user, :community_admin, community: community) }
+  let(:community) { create(:community) }
   let(:email) { FFaker::Internet.email }
 
   describe 'admin inviting a new user' do
-    before do 
+    before do
       login_as(admin)
-      visit new_user_invitation_path
+      visit new_user_community_invitation_path(community)
       fill_in 'Email', with: email
     end
 
@@ -25,9 +26,9 @@ RSpec.describe 'Admin invites a new user', type: :feature do
   end
 
   describe 'user accepting an invitation' do
-    before do 
+    before do
       login_as(admin)
-      visit new_user_invitation_path
+      visit new_user_community_invitation_path(community)
       fill_in 'Email', with: email
       click_button 'Send an invitation'
       confirmation_link = URI.extract(ActionMailer::Base.deliveries.last.text_part.body.to_s)[1]
@@ -47,7 +48,7 @@ RSpec.describe 'Admin invites a new user', type: :feature do
         click_button 'Save'
 
         expect(page).to have_content('Your password was set successfully. You are now signed in.')
-        expect(current_path).to eq(dashboard_path) 
+        expect(current_path).to eq(community_dashboard_path(community))
       end
     end
 
@@ -62,5 +63,5 @@ RSpec.describe 'Admin invites a new user', type: :feature do
         expect(page).not_to have_content('Your password was set successfully. You are now signed in.')
       end
     end
-  end  
+  end
 end

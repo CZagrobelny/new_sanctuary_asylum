@@ -54,7 +54,7 @@ group :development, :test do
 end
 
 group :production do
-  gem 'sendgrid-ruby'
+  gem 'sendgrid-ruby', '~> 5.2.0'
   gem 'rack-attack'
 end
 

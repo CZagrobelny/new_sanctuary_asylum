@@ -1,7 +1,7 @@
 <div class='col-md-offset-3 col-md-6'>
   <h2>Send Invitation</h2>
 
-  <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
+  <%= form_for resource, :as => resource_name, :url => user_community_invitation_path(current_community, resource_name), :html => {:method => :post} do |f| %>
     <%= devise_error_messages! %>
   <div class='form-inputs'>
     <% resource.class.invite_key_fields.each do |field| -%>
@@ -10,7 +10,7 @@
         <%= f.text_field field, class: 'form-control' %>
       </div>
     <% end -%>
-
+    <%= f.hidden_field :community_id, value: current_community.id %>
     <p><%= f.submit t('devise.invitations.new.submit_button'), class: 'btn btn-primary' %></p>
   <% end %>
 </div>

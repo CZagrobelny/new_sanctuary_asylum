@@ -1,0 +1,5 @@
+<h1>Regions</h1>
+
+<% @regions.each do |region| %>
+  <h2><%= link_to region.name.upcase, regional_admin_region_communities_path(region) %></h2>
+<% end %>

@@ -2,7 +2,7 @@
   <div class='col-md-10'>
     <div id="activity_<%=activity.id%>" style='margin-left:5px;'>
       <strong>
-        <%= link_to "#{activity.event.humanize} for #{friend.name}", edit_admin_activity_path(activity) %>
+        <%= link_to "#{activity.event.humanize} for #{friend.name}", edit_community_admin_activity_path(current_community.slug, activity) %>
         <%= activity.occur_at.strftime("-- %I:%M %p") %>
       </strong><br>
       <% if activity.friend.phone.present? %>
@@ -45,9 +45,10 @@
       <% if activity.confirmed? %>
         <strong>Confirmed by Admin</strong>
       <% else %>
-        <%= button_to 'Confirm', confirm_admin_activity_path(activity), class: 'btn btn-primary' %>
+        <%= button_to 'Confirm', confirm_community_admin_activity_path(current_community.slug, activity), class: 'btn btn-primary' %>
       <% end %>
     <% end %>
   </div>
 </div>
 <br>
+

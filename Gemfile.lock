@@ -164,8 +164,8 @@ GEM
     minitest (5.11.3)
     multi_json (1.11.3)
     mustermann (1.0.2)
-    newrelic_rpm (5.1.0.344)
-    nio4r (2.3.1)
+    newrelic_rpm (3.17.1.326)
+    nio4r (2.1.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     non-stupid-digest-assets (1.0.9)
@@ -366,7 +366,7 @@ DEPENDENCIES
   rspec-rails (~> 3.5.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
-  sendgrid-ruby
+  sendgrid-ruby (~> 5.2.0)
   shoulda-matchers (~> 3.1.1)
   simplecov
   spring

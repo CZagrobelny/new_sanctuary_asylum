@@ -18,13 +18,14 @@ class EventReport < Report
       end
     end
   end
- 
+
 
   private
 
   def data
     Event.includes(:location)
-                      .between_dates(start_date, end_date)
-                      .order(:date)
+          .where(community_id: community_id)
+          .between_dates(start_date, end_date)
+          .order(:date)
   end
 end
