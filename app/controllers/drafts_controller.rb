@@ -59,7 +59,11 @@ class DraftsController < ApplicationController
   end
 
   def draft
+<<<<<<< HEAD:app/controllers/drafts_controller.rb
     @draft ||= Draft.find(params[:id])
+=======
+    @draft ||= ApplicationDraft.find(params[:id])
+>>>>>>> update user_application_draft_association table:app/controllers/drafts_controller.rb
   end
 
   def friend
