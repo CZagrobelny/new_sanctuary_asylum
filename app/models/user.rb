@@ -66,4 +66,8 @@ class User < ApplicationRecord
       3.days
     end
   end
+
+    def existing_relationship?(friend_id)
+      UserFriendAssociation.where(friend_id: friend_id, user_id: id).present?
+    end
 end

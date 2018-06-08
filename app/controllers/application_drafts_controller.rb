@@ -77,8 +77,11 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def require_admin_or_access_to_friend
-    unless current_user.admin? || UserFriendAssociation.where(friend_id: params[:friend_id], user_id: current_user.id).present?
-      not_found
-    end
+    return if admin_or_existing_relationship
+    not_found
+  end
+
+  def admin_or_existing_relationship?
+    current_user.admin? || current_user.existing_relationship?(params[:friend_id])
   end
 end
