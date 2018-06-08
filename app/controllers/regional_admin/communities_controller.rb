@@ -1,7 +1,6 @@
 class RegionalAdmin::CommunitiesController < RegionalAdminController
-
   def index
-    @communities = current_region.communities.order('name asc').paginate(:page => params[:page])
+    @communities = current_region.communities.order('name asc').paginate(page: params[:page])
   end
 
   def new
@@ -18,7 +17,7 @@ class RegionalAdmin::CommunitiesController < RegionalAdminController
     if @community.save
       redirect_to regional_admin_region_communities_path(current_region)
     else
-      flash.now[:error] = "Something went wrong :("
+      flash.now[:error] = 'Something went wrong :('
       render 'new'
     end
   end
@@ -28,14 +27,14 @@ class RegionalAdmin::CommunitiesController < RegionalAdminController
     if @community.update(community_params)
       redirect_to regional_admin_region_communities_path(current_region)
     else
-      flash.now[:error] = "Something went wrong :("
+      flash.now[:error] = 'Something went wrong :('
       render 'edit'
     end
   end
 
   private
+
   def community_params
     params.require(:community).permit(:name, :slug)
   end
-
 end

@@ -5,6 +5,7 @@ class AccompanimentLeaderController < ApplicationController
   before_action :require_primary_community
 
   private
+
   def require_accompaniment_leader
     not_found unless current_user.accompaniment_leader?
   end

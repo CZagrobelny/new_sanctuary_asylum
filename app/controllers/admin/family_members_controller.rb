@@ -1,5 +1,4 @@
 class Admin::FamilyMembersController < AdminController
-
   def new
     @family_member_constructor = FamilyMemberConstructor.new
     render_modal
@@ -14,9 +13,7 @@ class Admin::FamilyMembersController < AdminController
   end
 
   def destroy
-    if family_member.destroy
-      render_success
-    end
+    render_success if family_member.destroy
   end
 
   private
@@ -26,7 +23,7 @@ class Admin::FamilyMembersController < AdminController
   end
 
   def family_member_constructor
-    @family_member_constructor ||= FamilyMemberConstructor.new(family_member_constructor_params.merge({friend_id: friend.id}))
+    @family_member_constructor ||= FamilyMemberConstructor.new(family_member_constructor_params.merge(friend_id: friend.id))
   end
 
   def family_member
@@ -51,13 +48,20 @@ class Admin::FamilyMembersController < AdminController
 
   def render_success
     respond_to do |format|
-      format.js { render :file => 'admin/friends/family_members/list', locals: {friend: friend}}
+      format.js do
+        render file: 'admin/friends/family_members/list',
+               locals: { friend: friend }
+      end
     end
   end
 
   def render_modal
     respond_to do |format|
-      format.js { render :file => 'admin/friends/family_members/modal', locals: {friend: friend, family_member_constructor: family_member_constructor}}
+      format.js do
+        render file: 'admin/friends/family_members/modal',
+               locals: { friend: friend,
+                         family_member_constructor: family_member_constructor }
+      end
     end
   end
 end

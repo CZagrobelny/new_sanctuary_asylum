@@ -1,5 +1,4 @@
 class AccompanimentLeader::AccompanimentReportsController < AccompanimentLeaderController
-
   def new
     @accompaniment_report = activity.accompaniment_reports.new
   end
@@ -40,6 +39,7 @@ class AccompanimentLeader::AccompanimentReportsController < AccompanimentLeaderC
   end
 
   private
+
   def accompaniment_report_params
     params.require(:accompaniment_report).permit(
       :notes

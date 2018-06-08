@@ -23,11 +23,9 @@ class AccompanimentsController < ApplicationController
         flash[:success] = 'RSVP updated successfully.'
         render_activities
       end
-    else
-      if accompaniment.destroy
-        flash[:success] = 'Your RSVP was deleted.'
-        render_activities
-      end
+    elsif accompaniment.destroy
+      flash[:success] = 'Your RSVP was deleted.'
+      render_activities
     end
   end
 
@@ -48,9 +46,8 @@ class AccompanimentsController < ApplicationController
   end
 
   private
+
   def require_accompaniment_owner
-    unless current_user.id.to_s == accompaniment_params[:user_id]
-      not_found
-    end
+    not_found unless current_user.id.to_s == accompaniment_params[:user_id]
   end
 end

@@ -1,11 +1,33 @@
 class Friend < ApplicationRecord
-  enum ethnicity: [:white, :black, :hispanic, :asian, :south_asian, :caribbean, :indigenous, :other]
-  enum gender: [:male, :female, :awesome]
+  enum ethnicity: %i[white black hispanic asian south_asian caribbean indigenous other]
+  enum gender: %i[male female awesome]
 
-  STATUSES = ['in_deportation_proceedings', 'not_in_deportation_proceedings', 'asylum_reciepient', 'asylum_application_denied', 'legal_permanent_resident', 'in_detention', 'green_card_holder'].map{|status| [status.titlecase, status]}
-  ASYLUM_STATUSES = ['not_eligible', 'eligible', 'application_started', 'application_completed', 'application_submitted', 'granted', 'denied'].map{|status| [status.titlecase, status]}
-  WORK_AUTHORIZATION_STATUSES = ['not_eligible', 'eligible', 'application_started', 'application_completed', 'application_submitted', 'granted', 'denied'].map{|status| [status.titlecase, status]}
-  SIJS_STATUSES = ['qualifies', 'in_progress', 'submitted', 'approved', 'denied'].map{|status| [status.titlecase, status]}
+  STATUSES = %w[in_deportation_proceedings
+                not_in_deportation_proceedings
+                asylum_reciepient
+                asylum_application_denied
+                legal_permanent_resident
+                in_detention green_card_holder].map do |status|
+    [status.titlecase,
+     status]
+  end
+  ASYLUM_STATUSES = %w[not_eligible
+                       eligible
+                       application_started
+                       application_completed
+                       application_submitted
+                       granted denied].map { |status| [status.titlecase, status] }
+  WORK_AUTHORIZATION_STATUSES = %w[not_eligible
+                                   eligible
+                                   application_started
+                                   application_completed
+                                   application_submitted
+                                   granted denied].map { |status| [status.titlecase, status] }
+  SIJS_STATUSES = %w[qualifies
+                     in_progress
+                     submitted
+                     approved
+                     denied].map { |status| [status.titlecase, status] }
 
   belongs_to :community
   has_many :friend_languages, dependent: :destroy
@@ -55,25 +77,25 @@ class Friend < ApplicationRecord
   end
 
   def ethnicity
-    self.other? ? self[:other_ethnicity] : self[:ethnicity]
+    other? ? self[:other_ethnicity] : self[:ethnicity]
   end
 
   def grouped_application_drafts
     grouped_drafts = []
     ApplicationDraft::CATEGORIES.each do |category|
-      drafts_for_category = self.application_drafts.where(category: category).order('created_at desc')
-      grouped_drafts << {name: category, drafts: drafts_for_category} if drafts_for_category.present?
+      drafts_for_category = application_drafts.where(category: category).order('created_at desc')
+      grouped_drafts << { name: category, drafts: drafts_for_category } if drafts_for_category.present?
     end
     grouped_drafts
   end
 
   def detained?
-    self.detentions.where('date_detained < ?', Time.now).where('date_released IS NULL OR date_released > ?', Time.now).present?
+    detentions.where('date_detained < ?', Time.now).where('date_released IS NULL OR date_released > ?', Time.now).present?
   end
 
   private
 
   def a_number_available?
-    self.no_a_number == false
+    no_a_number == false
   end
 end

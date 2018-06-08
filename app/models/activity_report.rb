@@ -1,5 +1,4 @@
 class ActivityReport < Report
-
   def csv_string
     column_headers = ['Event', 'Date', 'Location Name', 'Judge', 'No. of Accompaniments']
 
@@ -18,13 +17,12 @@ class ActivityReport < Report
     end
   end
 
-
   private
 
   def data
     Activity.includes(:location, :judge)
             .where(region_id: region_id)
-            .between_dates(start_date, end_date)
+            .between_dates(start_datetime, end_datetime)
             .order(:occur_at)
   end
 end

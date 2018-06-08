@@ -2,19 +2,27 @@ class Admin::ActivitiesController < AdminController
   before_action :require_primary_community
 
   def index
-    @activities = current_region.activities.current_month(events: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS, region: current_region)
+    @activities = current_region.activities
+                                .current_month(events: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS,
+                                               region: current_region)
   end
 
   def last_month
-    @activities = current_region.activities.last_month(events: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS, region: current_region)
+    @activities = current_region.activities
+                                .last_month(events: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS,
+                                            region: current_region)
   end
 
   def accompaniments
-    @activities = current_region.activities.current_month(events: Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS, region: current_region)
+    @activities = current_region.activities
+                                .current_month(events: Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS,
+                                               region: current_region)
   end
 
   def last_month_accompaniments
-    @activities = current_region.activities.last_month(events: Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS, region: current_region)
+    @activities = current_region.activities
+                                .last_month(events: Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS,
+                                            region: current_region)
   end
 
   def new
@@ -49,11 +57,10 @@ class Admin::ActivitiesController < AdminController
   def confirm
     if activity.update(confirmed: true)
       flash[:success] = 'Accompaniment confirmed.'
-      redirect_to accompaniments_community_admin_activities_path
     else
       flash.now[:error] = 'There was an issue confirming this accompaniment.'
-      redirect_to accompaniments_community_admin_activities_path
     end
+    redirect_to accompaniments_community_admin_activities_path
   end
 
   def activity
@@ -61,6 +68,7 @@ class Admin::ActivitiesController < AdminController
   end
 
   private
+
   def activity_params
     params.require(:activity).permit(
       :event,

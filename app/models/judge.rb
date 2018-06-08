@@ -4,7 +4,6 @@ class Judge < ApplicationRecord
   has_many :activities
 
   def name
-  	"#{first_name} #{last_name}"
+    "#{first_name} #{last_name}"
   end
-
 end

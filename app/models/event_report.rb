@@ -1,5 +1,4 @@
 class EventReport < Report
-
   def csv_string
     column_headers = ['Category', 'Title', 'Date', 'Location Name', 'No. of Friends Attending', 'No. of Volunteers Attending']
 
@@ -19,13 +18,12 @@ class EventReport < Report
     end
   end
 
-
   private
 
   def data
     Event.includes(:location)
-          .where(community_id: community_id)
-          .between_dates(start_date, end_date)
-          .order(:date)
+         .where(community_id: community_id)
+         .between_dates(start_datetime, end_datetime)
+         .order(:date)
   end
 end

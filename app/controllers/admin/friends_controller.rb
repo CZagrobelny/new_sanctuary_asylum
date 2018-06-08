@@ -3,7 +3,7 @@ class Admin::FriendsController < AdminController
     @friends = if params[:query].present?
                  search.perform
                else
-                 friend_index_scope.all.order('first_name asc').paginate(:page => params[:page])
+                 friend_index_scope.all.order('first_name asc').paginate(page: params[:page])
                end
   end
 
@@ -41,14 +41,12 @@ class Admin::FriendsController < AdminController
   def update
     if params['manage_application_drafts'].present?
       update_and_render_application_drafts
+    elsif friend.update(friend_params)
+      flash[:success] = 'Friend record saved.'
+      redirect_to edit_community_admin_friend_path(current_community, @friend, tab: current_tab)
     else
-      if friend.update(friend_params)
-        flash[:success] = 'Friend record saved.'
-        redirect_to edit_community_admin_friend_path(current_community, @friend, tab: current_tab)
-      else
-        flash.now[:error] = 'Friend record not saved.'
-        render :edit
-      end
+      flash.now[:error] = 'Friend record not saved.'
+      render :edit
     end
   end
 
@@ -131,8 +129,8 @@ class Admin::FriendsController < AdminController
       :bonded_out_by,
       :date_foia_request_submitted,
       :foia_request_notes,
-      :language_ids => [],
-      :user_ids => []
-    ).merge({ community_id: current_community.id })
+      language_ids: [],
+      user_ids: []
+    ).merge(community_id: current_community.id)
   end
 end

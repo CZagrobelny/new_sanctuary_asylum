@@ -66,18 +66,18 @@ class ApplicationDraftsController < ApplicationController
   end
 
   private
+
   def application_draft_params
     params.require(:application_draft).permit(
       :notes,
       :pdf_draft,
       :category,
-      :user_ids => []
+      user_ids: []
     )
   end
 
   def require_admin_or_access_to_friend
-    unless current_user.admin? || UserFriendAssociation.where(friend_id: params[:friend_id], user_id: current_user.id).present?
-      not_found
-    end
+    return if current_user.admin_or_existing_relationship?(params[:friend_id])
+    not_found
   end
 end

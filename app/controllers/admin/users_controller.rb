@@ -3,16 +3,15 @@ class Admin::UsersController < AdminController
     @users = if params[:query].present?
                search.perform
              else
-               current_community.users.all.order('created_at desc').paginate(:page => params[:page])
+               current_community.users.all.order('created_at desc').paginate(page: params[:page])
              end
   end
 
   def destroy
     @user = current_community.users.find(params[:id])
-    if @user.destroy
-      flash[:success] = 'User record deleted.'
-      redirect_to community_admin_users_path(current_community.slug, query: params[:query])
-    end
+    return unless @user.destroy
+    flash[:success] = 'User record deleted.'
+    redirect_to community_admin_users_path(current_community.slug, query: params[:query])
   end
 
   def edit
