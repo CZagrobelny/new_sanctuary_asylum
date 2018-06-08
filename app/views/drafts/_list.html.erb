@@ -16,7 +16,7 @@
           <strong>Notes:  </strong><%= application_draft.notes %><br>
         <% end %>
 
-        <%= link_to 'Edit', edit_community_friend_application_draft_path(current_community.slug, friend, application_draft) %>
+        <%= link_to 'Edit', edit_community_friend_draft_path(current_community.slug, friend, application_draft) %>
         <% if current_user.admin? %>
           <%= link_to 'Delete', community_friend_application_draft_path(current_community.slug, friend, application_draft), method: :delete, confirm: true, class: 'delete' %><br>
         <% end %>
