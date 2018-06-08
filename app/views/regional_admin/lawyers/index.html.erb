@@ -1,0 +1,40 @@
+<div class='row'>
+  <%= link_to 'Invite a user', regional_admin_lawyers_path, class: 'btn btn-primary pull-right'%>
+</div>
+
+<% if @lawyers.present? %>
+  <h3>Lawyers</h3>
+  <table class='table table-bordered'>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Type</th>
+        <th>Admin?</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @lawyers.each do |lawyer| %>
+        <tr id="lawyer-<%=lawyer.id%>" style="<%= 'color: #b3b3b3;' unless lawyer.confirmed? %>">
+          <td><%= lawyer.id %></td>
+          <td><%= lawyer.first_name %></td>
+          <td><%= lawyer.last_name %></td>
+          <td><%= lawyer.email %></td>
+          <td><%= lawyer.phone %></td>
+          <td><%= lawyer.volunteer_type.try(:titleize) %></td>
+          <td><%= lawyer.admin? ? 'YES' : 'NO' %></td>
+          <td><%= lawyer.created_at.strftime('%m/%d/%y') %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class='pull-right'>
+    <%= will_paginate @lawyers %>
+  </div>
+<% else %>
+  <h3>No lawyers</h3>
+<% end %>
