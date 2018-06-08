@@ -45,13 +45,15 @@ ActiveRecord::Schema.define(version: 20180608135213) do
     t.index ["region_id"], name: "index_activities_on_region_id", using: :btree
   end
 
-  create_table "application_drafts", force: :cascade do |t|
-    t.text     "notes"
-    t.integer  "friend_id",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "pdf_draft"
+  create_table "applications", force: :cascade do |t|
+    t.integer  "status"
+    t.datetime "first_submitted_on"
+    t.datetime "approved_on"
+    t.integer  "friend_id"
     t.string   "category"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["friend_id"], name: "index_applications_on_friend_id", using: :btree
   end
 
   create_table "communities", force: :cascade do |t|
@@ -76,6 +78,15 @@ ActiveRecord::Schema.define(version: 20180608135213) do
     t.string   "other_case_status"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+  end
+
+  create_table "drafts", force: :cascade do |t|
+    t.text     "notes"
+    t.integer  "friend_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "pdf_draft"
+    t.string   "category"
   end
 
   create_table "events", force: :cascade do |t|
