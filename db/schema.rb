@@ -82,11 +82,14 @@ ActiveRecord::Schema.define(version: 20180608135213) do
 
   create_table "drafts", force: :cascade do |t|
     t.text     "notes"
-    t.integer  "friend_id",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "friend_id",      null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "pdf_draft"
     t.string   "category"
+    t.integer  "application_id"
+    t.integer  "status"
+    t.index ["application_id"], name: "index_drafts_on_application_id", using: :btree
   end
 
   create_table "events", force: :cascade do |t|
