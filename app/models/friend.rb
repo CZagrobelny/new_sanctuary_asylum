@@ -81,11 +81,10 @@ class Friend < ApplicationRecord
     other? ? self[:other_ethnicity] : self[:ethnicity]
   end
 
-  def grouped_application_drafts
+  def grouped_drafts
     grouped_drafts = []
-    ApplicationDraft::CATEGORIES.each do |category|
-      drafts_for_category = application_drafts.where(category: category).order('created_at desc')
-      grouped_drafts << { name: category, drafts: drafts_for_category } if drafts_for_category.present?
+    applications.each do |application|
+      grouped_drafts << { name: application.category, drafts: application.drafts.order('created_at desc') }
     end
     grouped_drafts
   end

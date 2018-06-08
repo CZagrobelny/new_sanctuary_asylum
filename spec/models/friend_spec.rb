@@ -59,6 +59,12 @@ RSpec.describe Friend, type: :model do
     end
   end
 
+  describe "#grouped_drafts" do
+    it "returns an array of grouped drafts" do
+      expect(friend.grouped_drafts).to eq ""
+    end
+  end
+
   describe 'detained friends' do
     let!(:currently_detained_friend) { create :detained_friend }
     let!(:never_detained_friend) { create :friend }

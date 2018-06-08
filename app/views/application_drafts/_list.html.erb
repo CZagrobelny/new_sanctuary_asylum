@@ -1,25 +1,24 @@
-<%= link_to 'Create Document', new_community_friend_application_draft_path(current_community.slug, friend), class: 'pull-right btn btn-primary' %>
+<%= link_to 'Create Document', new_community_friend_draft_path(current_community.slug, friend), class: 'pull-right btn btn-primary' %>
 <br>
-<%if friend.application_drafts.any? %>
-  <% friend.grouped_application_drafts.each do |group| %>
+<%if friend.drafts.any? %>
+  <% friend.grouped_drafts.each do |group| %>
     <h3><%= group[:name].titlecase %></h3>
-    <% group[:drafts].each do |application_draft| %>
+    <% group[:drafts].each do |draft| %>
       <div>
         <p>
-          <%= link_to application_draft.pdf_draft.file.filename, application_draft.pdf_draft_url, target: '_blank' %>
-          <%= application_draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
-
-          <% if application_draft.users.present? %>
-            <strong>Team:  </strong><%= application_draft.users.map(&:name).to_sentence %><br>
+          <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
+          <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
+          <% if draft.users.present? %>
+            <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
           <% end %>
 
-          <% if application_draft.notes.present? %>
-            <strong>Notes:  </strong><%= application_draft.notes %><br>
+          <% if draft.notes.present? %>
+            <strong>Notes:  </strong><%= draft.notes %><br>
           <% end %>
 
-          <%= link_to 'Edit', edit_community_friend_application_draft_path(current_community.slug, friend, application_draft) %>
+          <%= link_to 'Edit', edit_community_friend_draft_path(current_community.slug, friend, draft) %>
           <% if current_user.admin? %>
-            <%= link_to 'Delete', community_friend_application_draft_path(current_community.slug, friend, application_draft), method: :delete, confirm: true, class: 'delete' %><br>
+            <%= link_to 'Delete', community_friend_draft_path(current_community.slug, friend, draft), method: :delete, confirm: true, class: 'delete' %><br>
           <% end %>
         </p>
       </div>
