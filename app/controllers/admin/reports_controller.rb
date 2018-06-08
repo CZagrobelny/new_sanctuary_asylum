@@ -9,7 +9,7 @@ class Admin::ReportsController < AdminController
   def create
     if report.valid?
       if report.has_data?
-         send_data report.csv_string, type: 'text/csv; charset=iso-8859-1; header=present', disposition: "attachment; filename=#{report.csv_filename}", type: :csv
+        send_data report.csv_string, type: 'text/csv; charset=iso-8859-1; header=present', disposition: "attachment; filename=#{report.csv_filename}", type: :csv
       else
         flash.now[:notice] = 'No records found for that date range.'
         render :new

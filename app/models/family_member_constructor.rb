@@ -2,7 +2,7 @@ class FamilyMemberConstructor
   include ActiveModel::Model
 
   attr_accessor :friend_id, :relation_id, :relationship
-  RELATIONSHIPS = [['Spouse', :spouse], ['Parent', :parent], ['Child', :child], ['Sibling', :sibling], ['Partner', :partner]]
+  RELATIONSHIPS = [['Spouse', :spouse], ['Parent', :parent], ['Child', :child], ['Sibling', :sibling], ['Partner', :partner]].freeze
 
   validates :friend_id, :relation_id, :relationship, presence: true
 
@@ -12,8 +12,9 @@ class FamilyMemberConstructor
     @relationship = params[:relationship] || nil
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def run
-    return false unless self.valid?
+    return false unless valid?
     case relationship
     when 'spouse'
       SpousalRelationship.create(friend_id: friend_id, spouse_id: relation_id)
@@ -27,4 +28,5 @@ class FamilyMemberConstructor
       PartnerRelationship.create(friend_id: friend_id, partner_id: relation_id)
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

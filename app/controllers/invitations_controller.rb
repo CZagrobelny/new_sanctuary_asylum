@@ -1,7 +1,7 @@
 class InvitationsController < Devise::InvitationsController
   before_action :authenticate_user!
-  before_action :require_admin, only: [:new, :create]
-  before_action :require_access_to_community, only: [:new, :create]
+  before_action :require_admin, only: %i[new create]
+  before_action :require_access_to_community, only: %i[new create]
   before_action :update_sanitized_params, only: :update
   before_action :allow_community_id, only: :create
 
@@ -15,9 +15,7 @@ class InvitationsController < Devise::InvitationsController
     yield resource if block_given?
 
     if resource_invited
-      if self.resource.invitation_sent_at
-        flash[:notice] = "An invitation email has been sent to #{self.resource.email}."
-      end
+      flash[:notice] = "An invitation email has been sent to #{resource.email}." if resource.invitation_sent_at
       redirect_to new_user_community_invitation_path(resource.community.slug)
     else
       respond_with_navigational(resource) { render :new }
@@ -26,12 +24,12 @@ class InvitationsController < Devise::InvitationsController
 
   protected
 
-  def after_accept_path_for(current_user)
-  	community_dashboard_path(current_community)
+  def after_accept_path_for(_current_user)
+    community_dashboard_path(current_community)
   end
 
   def update_sanitized_params
-    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:first_name, :last_name, :phone, :password, :password_confirmation, :invitation_token, :volunteer_type, :pledge_signed])
+    devise_parameter_sanitizer.permit(:accept_invitation, keys: %i[first_name last_name phone password password_confirmation invitation_token volunteer_type pledge_signed])
   end
 
   def allow_community_id

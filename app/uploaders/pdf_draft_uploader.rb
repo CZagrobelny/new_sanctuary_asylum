@@ -1,5 +1,4 @@
 class PdfDraftUploader < CarrierWave::Uploader::Base
-
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
@@ -40,7 +39,7 @@ class PdfDraftUploader < CarrierWave::Uploader::Base
 
   # Whitelist for permitted extensions (both text and images)
   def extension_whitelist
-    %w(jpg jpeg gif png doc docx pdf txt pages)
+    %w[jpg jpeg gif png doc docx pdf txt pages]
   end
 
   # Override the filename of the uploaded files:
@@ -48,5 +47,4 @@ class PdfDraftUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-
 end

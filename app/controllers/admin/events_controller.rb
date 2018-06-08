@@ -2,7 +2,7 @@ class Admin::EventsController < AdminController
   before_action :require_primary_community
 
   def index
-    @events = current_community.events.order('date desc').paginate(:page => params[:page])
+    @events = current_community.events.order('date desc').paginate(page: params[:page])
   end
 
   def new
@@ -26,7 +26,7 @@ class Admin::EventsController < AdminController
   def update
     @event = current_community.events.find(params[:id])
     if @event.update(event_params)
-       flash[:success] = 'Event saved.'
+      flash[:success] = 'Event saved.'
       redirect_to community_admin_events_path(current_community.slug)
     else
       render 'edit'
@@ -50,6 +50,7 @@ class Admin::EventsController < AdminController
   end
 
   private
+
   def event_params
     params.require(:event).permit(
       :date,

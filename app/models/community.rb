@@ -14,9 +14,12 @@ class Community < ApplicationRecord
   end
 
   private
+
   def slug_format
-    unless slug.match(/^[a-z-]+$/)
-      errors.add(:slug, 'must be all lowercase letters with no spaces. Dashes may be used to separate words, like "a-slug-with-dashes"')
-    end
+    return if /^[a-z-]+$/.match?(slug)
+    errors.add(:slug,
+               'must be all lowercase letters with no spaces. ' \
+               'Dashes may be used to separate words, like "a-' \
+               'slug-with-dashes"')
   end
 end

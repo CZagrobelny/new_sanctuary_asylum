@@ -48,9 +48,8 @@ class AccompanimentsController < ApplicationController
   end
 
   private
+
   def require_accompaniment_owner
-    unless current_user.id.to_s == accompaniment_params[:user_id]
-      not_found
-    end
+    not_found unless current_user.id.to_s == accompaniment_params[:user_id]
   end
 end

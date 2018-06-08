@@ -1,16 +1,16 @@
 class User < ApplicationRecord
-  PRIMARY_ROLES = ['volunteer', 'accompaniment_leader', 'admin'].map {|k, v| [k.humanize.titleize, k]}
-  NON_PRIMARY_ROLES = ['volunteer', 'admin'].map {|k, v| [k.humanize.titleize, k]}
+  PRIMARY_ROLES = %w[volunteer accompaniment_leader admin].map { |k, _v| [k.humanize.titleize, k] }
+  NON_PRIMARY_ROLES = %w[volunteer admin].map { |k, _v| [k.humanize.titleize, k] }
 
-  devise :invitable, :database_authenticatable, :lockable, :recoverable, :rememberable, :trackable, :secure_validatable, :password_expirable, :password_archivable, :timeoutable, :invite_for => 1.week
+  devise :invitable, :database_authenticatable, :lockable, :recoverable, :rememberable, :trackable, :secure_validatable, :password_expirable, :password_archivable, :timeoutable, invite_for: 1.week
   attr_reader :raw_invitation_token
 
-  enum role: [:volunteer, :accompaniment_leader, :admin]
-  enum volunteer_type: [:english_speaking, :spanish_interpreter, :lawyer]
+  enum role: %i[volunteer accompaniment_leader admin]
+  enum volunteer_type: %i[english_speaking spanish_interpreter lawyer]
 
-  validates :first_name, :last_name, :email, :phone, :volunteer_type, :community_id, :presence => true
+  validates :first_name, :last_name, :email, :phone, :volunteer_type, :community_id, presence: true
   validates :email, uniqueness: true
-  validates_inclusion_of :pledge_signed, :in => [true]
+  validates_inclusion_of :pledge_signed, in: [true]
 
   belongs_to :community
   has_many :user_regions
@@ -24,7 +24,7 @@ class User < ApplicationRecord
   has_many :accompaniment_reports, dependent: :destroy
 
   def confirmed?
-    self.invitation_accepted_at.present?
+    invitation_accepted_at.present?
   end
 
   def name
@@ -36,23 +36,23 @@ class User < ApplicationRecord
   end
 
   def accompaniment_report_for(activity)
-    self.accompaniment_reports.where(activity_id: activity.id).first
+    accompaniment_reports.where(activity_id: activity.id).first
   end
 
   def can_access_community?(community)
     if regional_admin?
-      self.regions.include?(community.region)
+      regions.include?(community.region)
     else
       self.community == community
     end
   end
 
   def can_access_region?(region)
-    self.regions.include?(region)
+    regions.include?(region)
   end
 
   def regional_admin?
-    self.admin? && self.user_regions.present?
+    admin? && user_regions.present?
   end
 
   ## This is used by devise timeoutable to dynamically set session time out when the user is inactive

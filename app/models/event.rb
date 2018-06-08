@@ -7,14 +7,14 @@ class Event < ApplicationRecord
   has_many :friends, through: :friend_event_attendances
   validates :date, :location_id, :title, :category, :community_id, presence: true
 
-  CATEGORIES = ['asylum_workshop', 'asylum_training', 'accompaniment_training', 'social'].map{|category| [category.titlecase, category]}
+  CATEGORIES = %w[asylum_workshop asylum_training accompaniment_training social].map { |category| [category.titlecase, category] }
 
   def user_attendances
-    self.user_event_attendances.includes(:user).order('created_at desc')
+    user_event_attendances.includes(:user).order('created_at desc')
   end
 
   def friend_attendances
-    self.friend_event_attendances.includes(:friend).order('created_at desc')
+    friend_event_attendances.includes(:friend).order('created_at desc')
   end
 
   def self.between_dates(start_date, end_date)

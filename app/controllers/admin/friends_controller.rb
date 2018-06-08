@@ -3,7 +3,7 @@ class Admin::FriendsController < AdminController
     @friends = if params[:query].present?
                  search.perform
                else
-                 friend_index_scope.all.order('first_name asc').paginate(:page => params[:page])
+                 friend_index_scope.all.order('first_name asc').paginate(page: params[:page])
                end
   end
 
@@ -131,8 +131,8 @@ class Admin::FriendsController < AdminController
       :bonded_out_by,
       :date_foia_request_submitted,
       :foia_request_notes,
-      :language_ids => [],
-      :user_ids => []
-    ).merge({ community_id: current_community.id })
+      language_ids: [],
+      user_ids: []
+    ).merge(community_id: current_community.id)
   end
 end

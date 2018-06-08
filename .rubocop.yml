@@ -1,0 +1,72 @@
+AllCops:
+  Exclude:
+    - bin/**/*
+    - db/schema.rb
+    - etc/**/*
+    - vendor/cache/**/*
+    - vendor/bundle/**/*
+    - script/rails
+    - tmp/**/*
+    - '**/*.css'
+    - '**/*.scss'
+    - '**/*.js'
+    - '**/*.html.erb'
+    - '**/*.js.erb'
+    - '**/*.text.erb'
+    - 'app/assets/**/*'
+  Include:
+    - '**/*.rake'
+    - Gemfile
+    - Guardfile
+    - Rakefile
+    - config.ru
+    - app/**/*
+  TargetRailsVersion: 5.1.5
+  TargetRubyVersion: 2.3.5
+
+Documentation:
+  Enabled: false
+
+# Lint/Syntax:
+#   Exclude:
+#     - '**/*.html.erb'
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 130
+  Exclude:
+    - '**/*.jbuilder'
+    - '**/*.html.erb'
+    - 'db/*'
+    - 'db/migrate/*'
+    - 'config/**/*'
+    - 'lib/tasks/*'
+
+Metrics/MethodLength:
+  Enabled: false
+
+Naming/PredicateName:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Style/DoubleNegation:
+  Exclude:
+    - 'spec/**/*'
+
+Naming/FileName:
+  Exclude:
+    - Brewfile
+
+Style/Lambda:
+  EnforcedStyle: literal
+
+# Disable because it conflicts with the copyright headers
+Style/FrozenStringLiteralComment:
+  Enabled: false

@@ -61,6 +61,7 @@ class Admin::ActivitiesController < AdminController
   end
 
   private
+
   def activity_params
     params.require(:activity).permit(
       :event,

@@ -1,5 +1,5 @@
 class Admin::SanctuariesController < AdminController
-  before_action :set_sanctuary, only: [:edit, :update]
+  before_action :set_sanctuary, only: %i[edit update]
 
   def index
     @sanctuaries = current_community.sanctuaries.order('name ASC').paginate(page: params[:page])
@@ -15,7 +15,7 @@ class Admin::SanctuariesController < AdminController
     if @sanctuary.save
       redirect_to community_admin_sanctuaries_path(current_community.slug)
     else
-      flash.now[:error] = "Something went wrong :("
+      flash.now[:error] = 'Something went wrong :('
       render 'new'
     end
   end
@@ -28,12 +28,12 @@ class Admin::SanctuariesController < AdminController
     if @sanctuary.update(sanctuary_params)
       redirect_to community_admin_sanctuaries_path(current_community.slug)
     else
-      flash.now[:error] = "Something went wrong :("
+      flash.now[:error] = 'Something went wrong :('
       render 'edit'
     end
   end
 
-private
+  private
 
   def set_sanctuary
     @sanctuary = current_community.sanctuaries.find(params[:id])

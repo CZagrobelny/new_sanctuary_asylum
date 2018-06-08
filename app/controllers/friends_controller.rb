@@ -1,7 +1,7 @@
 class FriendsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_access_to_community
-  before_action :require_access_to_friend, only: [:update, :show]
+  before_action :require_access_to_friend, only: %i[update show]
 
   def index
     @friends = current_user.friends.order('first_name asc')
@@ -15,15 +15,14 @@ class FriendsController < ApplicationController
   def update
     friend.update(friend_params)
     respond_to do |format|
-      format.js { render :file => 'friends/access', locals: {friend: friend} }
+      format.js { render file: 'friends/access', locals: { friend: friend } }
     end
   end
 
   private
+
   def require_access_to_friend
-    unless UserFriendAssociation.where(friend_id: params[:id], user_id: current_user.id).present?
-      not_found
-    end
+    not_found unless UserFriendAssociation.where(friend_id: params[:id], user_id: current_user.id).present?
   end
 
   def friend
@@ -32,7 +31,7 @@ class FriendsController < ApplicationController
 
   def friend_params
     params.require(:friend).permit(
-      :user_ids => []
+      user_ids: []
     )
   end
 

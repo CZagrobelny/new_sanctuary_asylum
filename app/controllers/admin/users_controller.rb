@@ -3,7 +3,7 @@ class Admin::UsersController < AdminController
     @users = if params[:query].present?
                search.perform
              else
-               current_community.users.all.order('created_at desc').paginate(:page => params[:page])
+               current_community.users.all.order('created_at desc').paginate(page: params[:page])
              end
   end
 

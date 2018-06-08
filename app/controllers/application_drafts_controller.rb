@@ -66,12 +66,13 @@ class ApplicationDraftsController < ApplicationController
   end
 
   private
+
   def application_draft_params
     params.require(:application_draft).permit(
       :notes,
       :pdf_draft,
       :category,
-      :user_ids => []
+      user_ids: []
     )
   end
 

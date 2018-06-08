@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :require_access_to_community
-  before_action :require_account_owner, only: [:edit, :update]
+  before_action :require_account_owner, only: %i[edit update]
 
   def edit
     user
@@ -33,8 +33,6 @@ class UsersController < ApplicationController
   end
 
   def require_account_owner
-    unless current_user.id.to_s == params[:id]
-      not_found
-    end
+    not_found unless current_user.id.to_s == params[:id]
   end
 end
