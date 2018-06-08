@@ -18,6 +18,17 @@
           <% if draft.notes.present? %>
             <strong>Notes:  </strong><%= draft.notes %><br>
           <% end %>
+          <% if draft.reviews.present? %>
+            <% draft.reviews.each do |review| %>
+              <%= link_to "Review by #{review.user.name} (#{review.user.role.tr('_', ' ').titlecase})", community_friend_draft_review_path(
+                current_community.slug,
+                friend,
+                draft,
+                review
+              ) %><%= review.created_at.strftime(" -- %A, %B %-d, %Y") %>
+            <br>
+            <% end %>
+          <% end %>
 
           <%= link_to 'Edit', edit_community_friend_draft_path(current_community.slug, friend, draft) %>
         </div>

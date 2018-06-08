@@ -1,0 +1,25 @@
+<h3>Review For: <%= @draft.friend.name %></h3>
+<div class='review-metadata'>
+  <strong>Application: </strong><%= @draft.application.category.titleize %>
+  <br>
+  <strong>Draft: </strong><%= link_to @draft.pdf_draft.file.filename, @draft.pdf_draft_url, target: '_blank' %>
+</div>
+<br>
+<%= form_for([current_community, @friend, @draft, @review]) do |f| %>
+  <div class='form-inputs'>
+
+    <div class='row form-group'>
+      <%= f.label :notes, class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.text_area :notes, {class: 'form-control', style: 'height: 200px;'} %>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-md-1 col-md-offset-10'>
+        <%= f.submit 'Save', :class => 'btn btn-primary' %>
+      </div>
+    </div>
+
+  </div>
+<% end %>

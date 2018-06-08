@@ -25,6 +25,7 @@ class User < ApplicationRecord
   has_many :accompaniments, dependent: :destroy
   has_many :user_event_attendances, dependent: :destroy
   has_many :accompaniment_reports, dependent: :destroy
+  has_many :reviews
 
   scope :remote_lawyers, -> { where(remote_clinic_lawyer: true) }
 

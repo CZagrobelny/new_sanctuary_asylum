@@ -1,0 +1,19 @@
+<div class= 'row'>
+  <div class='col-md-10 col-md-offset-1'>
+    <h3>Review For: <%= @review.draft.friend.name %></h3>
+    <div class='review-metadata'>
+      <strong>Application: </strong><%= @review.draft.application.category.titleize %>
+      <br>
+      <strong>Draft: </strong><%= link_to @review.draft.pdf_draft.file.filename, @review.draft.pdf_draft_url, target: '_blank' %>
+      <br>
+      <strong>Review By: </strong><%= @review.user.name %>
+      <br>
+      <strong>Reviewed On: </strong><%= @review.created_at.strftime("%A, %B %-d, %Y") %>
+    </div>
+    <br>
+    <div class='review'>
+      <%= @review.notes %>
+    </div>
+    <br>
+  </div>
+</div>
