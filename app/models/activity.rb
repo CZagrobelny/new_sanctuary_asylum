@@ -29,12 +29,12 @@ class Activity < ApplicationRecord
                                   .where(confirmed: true)
                                   .where(region_id: region.id)
                                   .where('occur_at >= ? AND occur_at <= ? ', beginning_of_week, end_of_week)
-                                  .order("occur_at #{order}").group_by {|activity| activity.occur_at.to_date }
+                                  .order(occur_at: order).group_by {|activity| activity.occur_at.to_date }
     else
       week[:activities] = Activity.where(event: events)
                                   .where(region_id: region.id)
                                   .where('occur_at >= ? AND occur_at <= ? ', beginning_of_week, end_of_week)
-                                  .order("occur_at #{order}").group_by {|activity| activity.occur_at.to_date }
+                                  .order(occur_at: order).group_by {|activity| activity.occur_at.to_date }
     end
     week
   end
