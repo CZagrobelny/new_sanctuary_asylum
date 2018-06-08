@@ -7,7 +7,9 @@ class AdminController < ApplicationController
   private
 
   def log_action
-    Rails.logger.info "ADMIN [#{current_user.email}, ip: #{request.remote_ip}]:  #{request_path_parameters} #{request_query_parameters}"
+    Rails.logger.info "ADMIN [#{current_user.email}, "\
+    "ip: #{request.remote_ip}]:  #{request_path_parameters} "\
+    "#{request_query_parameters}"
   end
 
   def request_path_parameters

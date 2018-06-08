@@ -2,7 +2,11 @@ class FamilyMemberConstructor
   include ActiveModel::Model
 
   attr_accessor :friend_id, :relation_id, :relationship
-  RELATIONSHIPS = [['Spouse', :spouse], ['Parent', :parent], ['Child', :child], ['Sibling', :sibling], ['Partner', :partner]].freeze
+  RELATIONSHIPS = [['Spouse', :spouse],
+                   ['Parent', :parent],
+                   ['Child', :child],
+                   ['Sibling', :sibling],
+                   ['Partner', :partner]].freeze
 
   validates :friend_id, :relation_id, :relationship, presence: true
 

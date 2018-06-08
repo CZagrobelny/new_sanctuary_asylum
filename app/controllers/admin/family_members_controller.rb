@@ -48,13 +48,20 @@ class Admin::FamilyMembersController < AdminController
 
   def render_success
     respond_to do |format|
-      format.js { render file: 'admin/friends/family_members/list', locals: { friend: friend } }
+      format.js do
+        render file: 'admin/friends/family_members/list',
+               locals: { friend: friend }
+      end
     end
   end
 
   def render_modal
     respond_to do |format|
-      format.js { render file: 'admin/friends/family_members/modal', locals: { friend: friend, family_member_constructor: family_member_constructor } }
+      format.js do
+        render file: 'admin/friends/family_members/modal',
+               locals: { friend: friend,
+                         family_member_constructor: family_member_constructor }
+      end
     end
   end
 end

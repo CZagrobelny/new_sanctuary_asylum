@@ -27,9 +27,8 @@ AllCops:
 Documentation:
   Enabled: false
 
-# Lint/Syntax:
-#   Exclude:
-#     - '**/*.html.erb'
+Style/ClassAndModuleChildren:
+  Enabled: false
 
 Metrics/BlockLength:
   Enabled: false

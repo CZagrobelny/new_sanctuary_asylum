@@ -2,7 +2,10 @@ class User < ApplicationRecord
   PRIMARY_ROLES = %w[volunteer accompaniment_leader admin].map { |k, _v| [k.humanize.titleize, k] }
   NON_PRIMARY_ROLES = %w[volunteer admin].map { |k, _v| [k.humanize.titleize, k] }
 
-  devise :invitable, :database_authenticatable, :lockable, :recoverable, :rememberable, :trackable, :secure_validatable, :password_expirable, :password_archivable, :timeoutable, invite_for: 1.week
+  devise :invitable, :database_authenticatable, :lockable,
+  :recoverable, :rememberable, :trackable, :secure_validatable,
+  :password_expirable, :password_archivable, :timeoutable,
+  invite_for: 1.week
   attr_reader :raw_invitation_token
 
   enum role: %i[volunteer accompaniment_leader admin]

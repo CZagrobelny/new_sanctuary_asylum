@@ -42,6 +42,6 @@ class Search
   end
 
   def query_string_length
-    sanitize_query.schan(/\|/).count
+    sanitize_query.scan(/\|/).count
   end
 end
