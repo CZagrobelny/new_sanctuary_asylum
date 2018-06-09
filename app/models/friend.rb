@@ -84,7 +84,8 @@ class Friend < ApplicationRecord
   def grouped_drafts
     grouped_drafts = []
     applications.each do |application|
-      grouped_drafts << { name: application.category, drafts: application.drafts.order('created_at desc') }
+      grouped_drafts << { name: application.category,
+                          drafts: application.drafts.order('created_at desc') }
     end
     grouped_drafts
   end
