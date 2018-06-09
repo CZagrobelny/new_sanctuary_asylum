@@ -6,6 +6,8 @@ RSpec.describe 'Regional Admin manages lawyers', type: :feature do
   let(:community) { create :community }
   let(:region) { community.region }
   let(:other_region) { create :region }
+  let(:keeper) { create(:user, first_name: 'Persistent', last_name: 'Record', remote_clinic_lawyer: true) }
+  let(:deleteable) { create(:user, first_name: 'Deleteable', remote_clinic_lawyer: true) }
 
   before do
     login_as(regional_admin)
@@ -17,9 +19,9 @@ RSpec.describe 'Regional Admin manages lawyers', type: :feature do
       expect(page).to have_link('Invite a user')
     end
 
-    describe 'no lawyers' do
+    describe 'no remote lawyers' do
       before do
-        @lawyers = nil
+        @remote_lawyers = nil
       end
 
       it 'renders no lawyers text' do
@@ -39,6 +41,25 @@ RSpec.describe 'Regional Admin manages lawyers', type: :feature do
         visit regional_admin_remote_lawyers_path
         expect(page).to have_content('Asha')
         expect(page).to have_content('Robbie')
+      end
+    end
+  end
+
+  describe 'destroy' do
+    before do
+      deleteable
+      keeper
+    end
+
+    it 'deletes when button is clicked' do
+      visit regional_admin_remote_lawyers_path
+      expect(page).to have_content('Deleteable')
+      expect(page).to have_content('Persistent')
+
+      within("tr#lawyer-#{deleteable.id}") do
+        # Delete is in Bootstrap dropdown so open that first
+        find('button').click
+        click_link 'Delete'
       end
     end
   end

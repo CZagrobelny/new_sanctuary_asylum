@@ -20,4 +20,15 @@ RSpec.describe RegionalAdmin::RemoteLawyersController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    let!(:user) { create :user }
+    let!(:community) { create :community }
+
+    it 'deletes user' do
+      user_count = User.count
+      delete :destroy, params: { id: user.id }
+      expect(User.count).to eq user_count - 1
+    end
+  end
 end
