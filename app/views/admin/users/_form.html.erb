@@ -1,4 +1,4 @@
-<%= form_for([current_community, :admin, @user], :html => { :class => 'form-horizontal' }) do |f| %>
+<%= form_for([current_community, :admin, @user], html: { class: 'form-horizontal' }) do |f| %>
 
   <%= display_validation_errors(@user) %>
 
@@ -34,7 +34,7 @@
     <div class='form-group'>
       <%= f.label :volunteer_type, 'Type', class: 'col-md-2 control-label required' %>
       <div class='col-md-6'>
-        <%= f.select :volunteer_type, User.volunteer_types.map {|k, v| [k.humanize.titleize, k]}, {:prompt => "Select"}, { :class => 'form-control input-md'} %>
+        <%= f.select :volunteer_type, User.volunteer_types.map {|k, v| [k.humanize.titleize, k]}, {prompt: "Select"}, { class: 'form-control input-md'} %>
       </div>
     </div>
 
@@ -58,7 +58,7 @@
 
     <div class='row'>
       <div class='col-md-1 col-md-offset-7'>
-        <%= f.submit 'Save', :class => 'btn btn-primary' %>
+        <%= f.submit 'Save', class: 'btn btn-primary' %>
       </div>
     </div>
   </div>

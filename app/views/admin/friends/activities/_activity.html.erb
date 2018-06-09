@@ -29,7 +29,7 @@
       <% end %>
     <% end %>
     <strong>
-      <%= link_to 'Remove', community_admin_friend_activity_path(current_community.slug, friend, activity), method: :delete, :remote => true, style: 'color: #b30000 !important; font-style: italic;' %>
+      <%= link_to 'Remove', community_admin_friend_activity_path(current_community.slug, friend, activity), method: :delete, remote: true, style: 'color: #b30000 !important; font-style: italic;' %>
     </strong>
   </div>
   <div class='col-md-3'>
