@@ -8,9 +8,9 @@ module AccompanimentHelper
   end
 
   def print_week_start_end_dates(week)
-    Date.commercial(Date.today.year, week, 1).strftime('%B %-d') +
+    Date.commercial(Date.today.year, week.to_i, 1).strftime('%B %-d') +
       ' - ' +
-      Date.commercial(Date.today.year, week, 7).strftime('%B %-d')
+      Date.commercial(Date.today.year, week.to_i, 7).strftime('%B %-d')
   end
 
   def group_activities_by_week(activities)

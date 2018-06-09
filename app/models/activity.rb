@@ -67,11 +67,11 @@ class Activity < ApplicationRecord
                                         .by_order(result_order)
                                     }
 
-  scope :for_week_confirmed, ->(events, beginning_of_week, end_of_week, result_order) {
+  scope :for_week_confirmed, ->(events, beginning_of_week, end_of_week) {
                                by_event(events)
                                  .confirmed.by_dates(beginning_of_week,
                                                      end_of_week)
-                                 .by_order(result_order)
+                                 .order(occur_at: 'asc')
                              }
 
   scope :for_week_unconfirmed_region, ->(events, region, beginning_of_week, end_of_week, result_order) {
@@ -109,43 +109,6 @@ class Activity < ApplicationRecord
                         end
     week
   end
-
-  # def self.upcoming_two_weeks(region:)
-  #   if Date.today.cwday >= 5 && !Activity.remaining_this_week?
-  #     week1 = (1.weeks.from_now.beginning_of_week.to_date..1.weeks.from_now.end_of_week.to_date)
-  #     week2 = (2.weeks.from_now.beginning_of_week.to_date..2.weeks.from_now.end_of_week.to_date)
-  #     # week_1_beg = 1.weeks.from_now.beginning_of_week.beginning_of_day
-  #     # week_1_end = 1.weeks.from_now.end_of_week.end_of_day
-  #     # week_2_beg = 2.weeks.from_now.beginning_of_week.beginning_of_day
-  #     # week_2_end = 2.weeks.from_now.end_of_week.end_of_day
-  #   else
-  #     r
-  #     week2 = (1.weeks.from_now.beginning_of_week.to_date..1.weeks.from_now.end_of_week.to_date)
-  #     # week_1_beg = Date.today.beginning_of_week.beginning_of_day
-  #     # week_1_end = Date.today.end_of_week.end_of_day
-  #     # week_2_beg = 1.weeks.from_now.beginning_of_week.beginning_of_day
-  #     # week_2_end = 1.weeks.from_now.end_of_week.end_of_day
-  #   end
-  #   Activity.for_week_confirmed_region(Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS,
-  #                                      region,
-  #                                      week1.begin,
-  #                                      week2.end,
-  #                                      'asc')
-  #   activities = [Activity.for_week(beginning_of_week: week_1_beg,
-  #                                   end_of_week: week_1_end,
-  #                                   order: 'asc',
-  #                                   events: ACCOMPANIMENT_ELIGIBLE_EVENTS,
-  #                                   confirmed: true,
-  #                                   region: region)]
-
-  #   activities << Activity.for_week(beginning_of_week: week_2_beg,
-  #                                   end_of_week: week_2_end,
-  #                                   order: 'asc',
-  #                                   events: ACCOMPANIMENT_ELIGIBLE_EVENTS,
-  #                                   confirmed: true,
-  #                                   region: region)
-  #   activities
-  # end
 
   def self.current_month(events:, region:)
     activities = [Activity.for_week(beginning_of_week: Date.today.beginning_of_week,
