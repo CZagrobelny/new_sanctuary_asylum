@@ -3,11 +3,11 @@ Rails.application.routes.draw do
   devise_for :users, skip: :invitations
   devise_scope :user do
     authenticated do
-      root :to => 'dashboard#index', as: :root
+      root to: 'dashboard#index', as: :root
     end
 
     unauthenticated do
-      root :to => 'devise/sessions#new', as: :unauthenticated_root
+      root to: 'devise/sessions#new', as: :unauthenticated_root
     end
   end
 
@@ -80,6 +80,6 @@ Rails.application.routes.draw do
     resources :remote_lawyers, only: [:index]
   end
 
-	match "/404", :to => "errors#not_found", :via => :all
-	match "/500", :to => "errors#internal_server_error", :via => :all
+	match "/404", to: "errors#not_found", :via => :all
+	match "/500", to: "errors#internal_server_error", :via => :all
 end
