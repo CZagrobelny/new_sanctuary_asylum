@@ -79,6 +79,10 @@
   margin-bottom: 25px;
 }
 
+#add_activity {
+  margin-top: 20px;
+}
+
 .simple-calendar {
   margin-bottom: 60px;
 
@@ -112,7 +116,6 @@
 
       &:hover {
         background: #ddd;
-        
       }
     }
   }
@@ -185,6 +188,37 @@
       dd {
         margin-bottom: 10px;
         color: #757575;
+
+        .modal-title {
+          display: inline;
+          color: black;
+          font-size: 1.25em;
+          font-weight: normal;
+
+          span {
+            margin-right: 10px;
+            font-weight: 500;
+          }
+        }
+
+        .close {
+          float: none;
+          position: absolute;
+          top: 8px;
+          right: 10px;
+        }
+
+        .modal-body {
+          padding: 0;
+          margin: 20px 10px 10px;
+          font-size: 1.1em;
+          color: black;
+
+          .btn {
+            margin-left: 5px;
+            margin-bottom: 10px;
+          }
+        }
       }
     }
   }
