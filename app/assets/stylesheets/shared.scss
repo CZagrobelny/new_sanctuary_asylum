@@ -51,6 +51,10 @@
       margin-left: 15px;
       padding-top: 10px;
 
+      .pull-right {
+        float: none !important;
+      }
+
       strong {
         background: #E0F0D8;
         padding: 2px 8px;
