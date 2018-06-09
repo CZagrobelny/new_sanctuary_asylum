@@ -73,6 +73,9 @@ class Activity < ApplicationRecord
                                           .confirmed.by_dates(beginning_of_week, end_of_week)
                                           .by_order(result_order)
                                       }
+  def start_time
+    occur_at
+  end
 
   User.roles.each do |role, _index|
     define_method "#{role}_accompaniments" do

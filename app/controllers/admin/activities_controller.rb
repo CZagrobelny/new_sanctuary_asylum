@@ -2,6 +2,7 @@ class Admin::ActivitiesController < AdminController
   before_action :require_primary_community
 
   def index
+    @all = current_region.activities.where(event: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS)
     @activities = current_region.activities
                                 .current_month(events: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS,
                                                region: current_region)
@@ -14,6 +15,7 @@ class Admin::ActivitiesController < AdminController
   end
 
   def accompaniments
+    @all = current_region.activities.where(event: Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS)
     @activities = current_region.activities
                                 .current_month(events: Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS,
                                                region: current_region)
