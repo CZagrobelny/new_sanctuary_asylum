@@ -45,29 +45,6 @@
         font-size: 1.1em;
       }
     }
-
-    .confirm {
-      clear: left;
-      margin-left: 15px;
-      padding-top: 10px;
-
-      .pull-right {
-        float: none !important;
-      }
-
-      strong {
-        background: #E0F0D8;
-        padding: 2px 8px;
-        display: inline-block;
-        border-radius: 4px;
-        color: rgba(0,0,0,0.7);
-      }
-    }
-
-    .button_to {
-      margin-top: -10px;
-      margin-left: 5px;
-    }
   }
 
   .past-date {
@@ -79,10 +56,28 @@
   margin-bottom: 25px;
 }
 
-#add_activity {
-  margin-top: 20px;
+.confirm {
+  clear: left;
+  margin-left: 15px;
+  padding-top: 10px;
+
+  .pull-right {
+    float: none !important;
+  }
+
+  strong {
+    background: #E0F0D8;
+    padding: 2px 8px;
+    display: inline-block;
+    border-radius: 4px;
+    color: rgba(0,0,0,0.7);
+  }
 }
 
+.button_to {
+  margin-top: -10px;
+  margin-left: 5px;
+}
 
 .simple-calendar {
   margin-bottom: 60px;
@@ -185,6 +180,15 @@
         margin-right: 6px;
         color: #333;
         font-weight: 500;
+
+        .confirmed {
+          color: #229608;
+          margin-right: 4px;
+          display: inline-block;
+          overflow: visible;
+          font-size: 16px;
+          line-height: 10px;
+        }
       }
       dd {
         margin-bottom: 10px;
