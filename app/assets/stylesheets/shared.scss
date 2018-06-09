@@ -242,12 +242,16 @@
   .start-date {}
 
   .prev-month {
-    opacity: 0.5;
-    background: #ddd;
+    background: #eee;
+    dt, dd > a {
+      opacity: 0.5;
+    }
   }
   .next-month {
-    opacity: 0.5;
-    background: #ddd;
+    background: #eee;
+    dt, dd > a {
+      opacity: 0.5;
+    }
   }
   .current-month {}
 
