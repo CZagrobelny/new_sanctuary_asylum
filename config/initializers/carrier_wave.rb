@@ -5,7 +5,7 @@ CarrierWave.configure do |config|
     config.aws_acl    = 'private'
 
     # The maximum period for authenticated_urls is only 7 days.
-    config.aws_authenticated_url_expiration = 10.minutes
+    config.aws_authenticated_url_expiration = 10.minutes.to_i
 
     # Set custom options such as cache control to leverage browser caching
     config.aws_attributes = {

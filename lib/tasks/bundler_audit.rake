@@ -1,2 +1,2 @@
-require 'bundler/audit/task'
-Bundler::Audit::Task.new
+# require 'bundler/audit/task'
+# Bundler::Audit::Task.new
