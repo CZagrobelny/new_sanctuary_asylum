@@ -149,7 +149,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
 
     it 'redirects to application drafts page' do
       click_button 'Manage Documents'
-      expect(current_path).to eq community_friend_application_drafts_path(community_slug: community.slug, friend_id: @friend.id)
+      expect(current_path).to eq community_friend_application_drafts_path(community_slug: community.slug, friend_id: friend.id)
     end
   end
 end
