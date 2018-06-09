@@ -1,5 +1,5 @@
-<%= form_for [:admin, @lawyer] do |f| %>
-  
+<%= form_for [current_community, :admin, @lawyer] do |f| %>
+
   <%= display_validation_errors(@lawyer) %>
 
   <div class='form-inputs'>
@@ -41,7 +41,7 @@
 
   <div class='row'>
     <div class='col-md-1 col-md-offset-7'>
-      <%= f.submit 'Save', :class => 'btn btn-primary' %>
+      <%= f.submit 'Save', class: 'btn btn-primary' %>
     </div>
   </div>
 <% end %>

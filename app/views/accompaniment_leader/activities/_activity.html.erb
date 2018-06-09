@@ -40,9 +40,9 @@
     <% end %>
 
     <% if current_user.accompaniment_report_for(activity).present? %>
-      <%= link_to 'Edit My Accompaniment Leader Notes', edit_accompaniment_leader_activity_accompaniment_report_path(activity, current_user.accompaniment_report_for(activity)) %>
+      <%= link_to 'Edit My Accompaniment Leader Notes', edit_community_accompaniment_leader_activity_accompaniment_report_path(current_community.slug, activity, current_user.accompaniment_report_for(activity)) %>
     <% else %>
-      <%= link_to 'Add Accompaniment Leader Notes', new_accompaniment_leader_activity_accompaniment_report_path(activity) %>
+      <%= link_to 'Add Accompaniment Leader Notes', new_community_accompaniment_leader_activity_accompaniment_report_path(current_community.slug, activity) %>
     <% end %>
   </div>
 

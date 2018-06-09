@@ -1,6 +1,6 @@
 <h3>Volunteers Attending</h3>
-<%= form_for [:admin, event, UserEventAttendance.new], remote: true do |f| %>
-  <%= f.select(:user_id, options_from_collection_for_select(User.all, 'id', 'name', disabled: attending_volunteers.map(&:id)), {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+<%= form_for [current_community, :admin, event, UserEventAttendance.new], remote: true do |f| %>
+  <%= f.select(:user_id, options_from_collection_for_select(current_community.users, 'id', 'name', disabled: attending_volunteers.map(&:id)), {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
 <% end %>
 <br>
 <table class='table table-bordered'>
@@ -15,7 +15,7 @@
       <tr>
         <td><%= attendance.user.name %></td>
         <td>
-          <%= link_to admin_event_user_event_attendance_path(event, attendance), method: :delete, remote: true do %>
+          <%= link_to community_admin_event_user_event_attendance_path(current_community.slug, event, attendance), method: :delete, remote: true do %>
             <%= fa_icon 'times' %>
           <% end %>
         </td>

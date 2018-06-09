@@ -1,15 +1,15 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_account_owner, only: [:edit, :update]
+  before_action :require_access_to_community
+  before_action :require_account_owner, only: %i[edit update]
 
   def edit
-    @user = User.find(params[:id])
+    user
   end
 
   def update
-    @user = User.find(params[:id])
-    if @user.update(user_params)
-      redirect_to dashboard_path
+    if user.update(user_params)
+      redirect_to community_dashboard_path(current_community.slug)
     else
       render 'edit'
     end
@@ -17,20 +17,22 @@ class UsersController < ApplicationController
 
   private
 
+  def user
+    @user ||= current_community.users.find(params[:id])
+  end
+
   def user_params
     params.require(:user).permit(
-      :first_name, 
-      :last_name, 
-      :email, 
-      :phone, 
+      :first_name,
+      :last_name,
+      :email,
+      :phone,
       :volunteer_type,
       :pledge_signed
     )
   end
 
   def require_account_owner
-    unless current_user.id.to_s == params[:id]
-      not_found
-    end
+    not_found unless current_user.id.to_s == params[:id]
   end
 end

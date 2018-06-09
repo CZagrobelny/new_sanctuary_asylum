@@ -1,9 +1,9 @@
 <% if activity.errors.present? %>
   <%= display_validation_errors(activity) %>
 <% end %>
-<%= form_for([:admin, friend, activity], controller: 'friends/activities', remote: true) do |f| %>
+<%= form_for([current_community, :admin, friend, activity], controller: 'friends/activities', remote: true) do |f| %>
   <div class='form-inputs'>
-    
+
     <div class='row form-group'>
       <%= f.label :event, 'Type', class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
@@ -14,14 +14,14 @@
     <div class='row form-group'>
       <%= f.label :location_id, 'Location', class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
-        <%= collection_select(:activity, :location_id, Location.all, :id, :name, {prompt: true}, {class: 'form-control'}) %>
+        <%= collection_select(:activity, :location_id, current_region.locations, :id, :name, {prompt: true}, {class: 'form-control'}) %>
       </div>
     </div>
 
     <div class='row form-group'>
       <%= f.label :judge_id, 'Judge', class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
-        <%= collection_select(:activity, :judge_id, Judge.all, :id, :name, {prompt: true}, {class: 'form-control'}) %>
+        <%= collection_select(:activity, :judge_id, current_region.judges, :id, :name, {prompt: true}, {class: 'form-control'}) %>
       </div>
     </div>
 
@@ -43,7 +43,7 @@
 
     <div class='row'>
       <div class='col-md-1 col-md-offset-10'>
-        <%= f.submit 'Save', :class => 'btn btn-primary' %>
+        <%= f.submit 'Save', class: 'btn btn-primary' %>
       </div>
     </div>
   </div>

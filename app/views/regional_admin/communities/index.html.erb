@@ -1,0 +1,35 @@
+<div class="row">
+  <%= link_to "Add a new community", new_regional_admin_region_community_path(current_region), class: 'btn btn-primary pull-right' %>
+  </div>
+<div class="row">
+  <h1><%= current_region.name.upcase %> Communities</h1>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-md-10">
+    <% if @communities.present? %>
+      <table class='table table-bordered'>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Slug</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @communities.each do |community| %>
+            <tr>
+              <td><%= link_to community.name, community_admin_friends_path(community.slug) %></td>
+              <td><%= community.slug %></td>
+              <td><%= link_to 'Edit', edit_regional_admin_region_community_path(current_region.id, community.id) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <div class='pull-right'>
+        <%= will_paginate @communities %>
+      </div>
+    <% end %>
+  </div>
+</div>

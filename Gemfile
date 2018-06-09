@@ -4,64 +4,66 @@ ruby '2.3.5'
 
 gem 'rails', '~> 5.0.0'
 
-gem 'pg', '~> 0.18.4'
-gem 'nokogiri', '~> 1.8.1'
-gem 'redis', '~> 3.3.1'
-gem 'sass-rails', '~> 5.0'
-gem 'turbolinks', '~> 5.x'
-gem 'multi_json', '~> 1.11.2'
-gem 'font-awesome-rails', '~> 4.6.3.1'
-gem 'will_paginate', '~> 3.1.0'
+gem 'airbrake', '~> 6.2'
 gem 'american_date'
-gem 'jquery-rails'
-gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'devise',           '~> 4.2'
-gem 'devise_invitable', '~> 1.7.0'
-gem 'devise_security_extension', git: 'https://github.com/phatworx/devise_security_extension.git'
-gem 'chosen-rails'
-gem 'phantomjs'
-gem 'textacular', '~> 5.0'
+gem 'brakeman'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-aws'
+gem 'chosen-rails'
+gem 'devise', '~> 4.2'
+gem 'devise_invitable', '~> 1.7.0'
+gem 'devise_security_extension', git: 'https://github.com/phatworx/devise_security_extension.git'
 gem 'ffaker', require: false
-gem 'non-stupid-digest-assets'
-gem 'airbrake', '~> 6.2'
+gem 'font-awesome-rails', '~> 4.6.3.1'
+gem 'jbuilder', '~> 2.0'
+gem 'jquery-rails'
+gem 'multi_json', '~> 1.11.2'
 gem 'newrelic_rpm'
-gem 'brakeman'
+gem 'nokogiri', '~> 1.8.1'
+gem 'non-stupid-digest-assets'
+gem 'pg', '~> 0.18.4'
+gem 'phantomjs'
+gem 'redis', '~> 3.3.1'
+gem 'sass-rails', '~> 5.0'
+gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'textacular', '~> 5.0'
+gem 'turbolinks', '~> 5.x'
+gem 'will_paginate', '~> 3.1.0'
 
 group :assets do
+  gem 'coffee-rails', '~> 4.1.0'
   gem 'sprockets', '~> 3.5.0'
   gem 'uglifier', '~> 2.7.2'
-  gem 'coffee-rails', '~> 4.1.0'
 end
 
 group :development, :test do
   gem 'byebug'
-  gem 'rspec-rails', '~> 3.5.0', require: false
-  gem 'rspec-given', '~> 3.8.0', require: false
-  gem 'factory_girl_rails', '~> 4.6.0', require: false
-  gem 'shoulda-matchers', '~> 3.1.1', require: false
-  gem 'webmock', '~> 2.1.0', require: false
   gem 'capybara', '~> 2.10.1', require: false
-  gem 'poltergeist', '~> 1.11.0', require: false
   gem 'database_cleaner', '~> 1.5.3', require: false
-  gem 'rails-controller-testing'
-  gem 'launchy', require: false
-  gem 'pry'
   gem 'dotenv-rails'
+  gem 'factory_girl_rails', '~> 4.6.0', require: false
+  gem 'launchy', require: false
+  gem 'poltergeist', '~> 1.11.0', require: false
+  gem 'pry'
+  gem 'rails-controller-testing'
+  gem 'rspec-given', '~> 3.8.0', require: false
+  gem 'rspec-rails', '~> 3.5.0', require: false
+  gem 'rubocop'
+  gem 'shoulda-matchers', '~> 3.1.1', require: false
   gem 'simplecov'
+  gem 'webmock', '~> 2.1.0', require: false
 end
 
 group :production do
-  gem 'sendgrid-ruby'
   gem 'rack-attack'
+  gem 'sendgrid-ruby', '~> 5.2.0'
 end
 
 group :development do
-  gem 'web-console', '~> 3.0'
+  gem 'bundler-audit'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring-commands-rspec'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'web-console', '~> 3.0'
 end

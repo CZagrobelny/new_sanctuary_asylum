@@ -1,33 +1,32 @@
 class Admin::LawyersController < AdminController
-  before_action :set_lawyer, only: [:edit, :destroy, :update]
+  before_action :set_lawyer, only: %i[edit update]
 
   def index
-    @lawyers = Lawyer.order('organization asc').paginate(:page => params[:page])
+    @lawyers = current_region.lawyers.order('organization asc').paginate(page: params[:page])
   end
 
   def new
-    @lawyer = Lawyer.new
+    @lawyer = current_region.lawyers.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
-    @lawyer = Lawyer.new(lawyer_params)
+    @lawyer = current_region.lawyers.new(lawyer_params)
 
     if @lawyer.save
-      redirect_to admin_lawyers_path
+      redirect_to community_admin_lawyers_path(current_community.slug)
     else
-      flash.now[:error] = "Something went wrong :("
+      flash.now[:error] = 'Something went wrong :('
       render 'new'
     end
   end
 
   def update
     if @lawyer.update(lawyer_params)
-      redirect_to admin_lawyers_path
+      redirect_to community_admin_lawyers_path(current_community.slug)
     else
-      flash.now[:error] = "Something went wrong :("
+      flash.now[:error] = 'Something went wrong :('
       render 'edit'
     end
   end
@@ -35,11 +34,10 @@ class Admin::LawyersController < AdminController
   private
 
   def set_lawyer
-    @lawyer = Lawyer.find(params[:id])
+    @lawyer = current_region.lawyers.find(params[:id])
   end
 
   def lawyer_params
     params.require(:lawyer).permit(:first_name, :last_name, :email, :phone_number, :organization)
   end
-
 end

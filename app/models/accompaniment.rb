@@ -5,6 +5,10 @@ class Accompaniment < ApplicationRecord
   validates :activity_id, :user_id, presence: true
 
   def self.find_or_build(activity, user)
-    user.attending?(activity) ? Accompaniment.where(user_id: user.id, activity_id: activity.id).first : user.accompaniments.new(activity_id: activity.id)
+    if user.attending?(activity)
+      Accompaniment.where(user_id: user.id, activity_id: activity.id).first
+    else
+      user.accompaniments.new(activity_id: activity.id)
+    end
   end
 end

@@ -32,7 +32,7 @@
 <div class='row form-group'>
   <%= f.label :sijs_lawyer, 'SIJS Lawyer', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= collection_select(:friend, :sijs_lawyer, Lawyer.all.order('organization asc'), :id, :name_and_organization, {include_blank: true}, {class: 'form-control chzn-select'}) %>
+    <%= collection_select(:friend, :sijs_lawyer, current_region.lawyers.order('organization asc'), :id, :name_and_organization, {include_blank: true}, {class: 'form-control chzn-select'}) %>
   </div>
 </div>
 

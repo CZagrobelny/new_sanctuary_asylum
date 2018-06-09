@@ -1,3 +1,4 @@
 class Sanctuary < ApplicationRecord
-  validates :name, :leader_name, presence: true
+  belongs_to :community
+  validates :name, :leader_name, :community_id, presence: true
 end

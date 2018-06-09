@@ -1,10 +1,13 @@
-<%= form_for([:admin, @friend]) do |f| %>
+<%= form_for([current_community, :admin, @friend]) do |f| %>
   <div class='row'>
-    <div class='col-md-1 col-md-offset-10'><%= f.submit 'Save', :class => 'btn btn-primary' %></div>
-  </div>
+    <div class='col-md-1 col-md-offset-10'>
+      <div class='row' id='submission_wrapper'>
+        <%= f.submit 'Save', class: 'btn btn-primary' %></div>
+      </div>
+    </div>
   <div class= 'row'>
     <div class='col-md-10 col-md-offset-1'>
-      
+
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item active">
@@ -35,7 +38,7 @@
 
       <!-- Validation errors -->
       <%= display_validation_errors(@friend) %>
-      
+
       <!-- Tab panes -->
       <div class="tab-content form-inputs">
         <div class="tab-pane active" id="basic" role="tabpanel">
@@ -69,18 +72,13 @@
   </br>
 
   <%= hidden_field_tag :tab, @current_tab %>
-  <div class='row' id='submission_wrapper'>
-    <div class='col-md-1 col-md-offset-10'>
-      <%= f.submit 'Save', :class => 'btn btn-primary' %>
-    </div>
-  </div>
 <% end %>
 
-<%= render partial: 'admin/friends/activities/modal', locals: { activity: Activity.new(friend_id: @friend.id) } %>
+<%= render partial: 'admin/friends/activities/modal', locals: { activity: @friend.activities.new } %>
 
 <%= render partial: 'admin/friends/family_members/modal', locals: { family_member_constructor: FamilyMemberConstructor.new, friend: @friend } %>
 
-<%= render partial: 'admin/friends/detentions/modal', locals: { detention: Detention.new(friend_id: @friend.id) } %>
+<%= render partial: 'admin/friends/detentions/modal', locals: { detention: @friend.detentions.new } %>
 
 <script>
   $(document).ready(function () {

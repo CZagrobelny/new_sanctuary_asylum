@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', type: :feature do
-  let!(:team_leader) { create(:user, :accompaniment_leader) }
-  let!(:activity) { create(:activity, occur_at: 1.week.from_now, confirmed: true ) }
+  let(:community) { create :community, :primary }
+  let(:region) { community.region }
+  let(:team_leader) { create(:user, :accompaniment_leader, community: community) }
+  let!(:activity) { create(:activity, occur_at: 1.week.from_now, region: region, confirmed: true) }
   let!(:accompaniment) { create(:accompaniment, user: team_leader, activity: activity) }
   before do
     login_as(team_leader)
@@ -10,7 +12,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
 
   describe 'viewing upcoming accompaniments' do
     before do
-      visit accompaniment_leader_activities_path
+      visit community_accompaniment_leader_activities_path(community)
     end
 
     it 'displays full details of upcoming accompaniments' do
@@ -29,7 +31,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
 
   describe 'creating an accompaniment report' do
     before do
-      visit new_accompaniment_leader_activity_accompaniment_report_path(activity)
+      visit new_community_accompaniment_leader_activity_accompaniment_report_path(community, activity)
     end
 
     describe 'with valid info' do
@@ -57,7 +59,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
 
     before do
       report = team_leader.accompaniment_report_for(activity)
-      visit edit_accompaniment_leader_activity_accompaniment_report_path(activity, report)
+      visit edit_community_accompaniment_leader_activity_accompaniment_report_path(community, activity, report)
     end
 
     describe 'with valid info' do

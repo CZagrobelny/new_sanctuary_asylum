@@ -8,7 +8,8 @@ RSpec.describe ActivityReport do
     let!(:accompaniment) { FactoryGirl.create(:accompaniment, activity: activity) }
     let(:start_date) { 1.month.ago }
     let(:end_date) { 1.month.from_now }
-    let(:report_params) { {"type"=>"activity", "start_date(2i)"=>start_date.strftime('%m'), "start_date(3i)"=>start_date.strftime('%d'), "start_date(1i)"=>start_date.strftime('%Y'), "end_date(2i)"=>end_date.strftime('%m'), "end_date(3i)"=>end_date.strftime('%d'), "end_date(1i)"=>end_date.strftime('%Y')} }
+    let(:region) { activity.region }
+    let(:report_params) { {"type"=>"activity", "start_date(2i)"=>start_date.strftime('%m'), "start_date(3i)"=>start_date.strftime('%d'), "start_date(1i)"=>start_date.strftime('%Y'), "end_date(2i)"=>end_date.strftime('%m'), "end_date(3i)"=>end_date.strftime('%d'), "end_date(1i)"=>end_date.strftime('%Y'), "region_id"=>region.id} }
     let(:activity_report) { ActivityReport.new(report_params) }
 
     subject { activity_report.csv_string }
