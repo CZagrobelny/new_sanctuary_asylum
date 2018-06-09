@@ -83,6 +83,7 @@
   margin-top: 20px;
 }
 
+
 .simple-calendar {
   margin-bottom: 60px;
 
@@ -241,10 +242,12 @@
   .start-date {}
 
   .prev-month {
-    background: #DDD;
+    opacity: 0.5;
+    background: #ddd;
   }
   .next-month {
-    background: #DDD;
+    opacity: 0.5;
+    background: #ddd;
   }
   .current-month {}
 
