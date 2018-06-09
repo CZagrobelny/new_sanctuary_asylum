@@ -32,7 +32,8 @@
 <% end %>
 
 <script type="text/javascript">
-  $(".modal-body .btn").click(function(){
-    $(".in").modal("hide");
+  $(document).ready(function(){
+    $("body").removeClass("modal-open");
+    $(".in").hide();
   });
 </script>
