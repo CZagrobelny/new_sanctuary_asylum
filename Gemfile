@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.5'
 
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.2.0'
 
 gem 'pg', '~> 0.18.4'
 gem 'nokogiri', '~> 1.8.1'
@@ -10,7 +10,7 @@ gem 'redis', '~> 3.3.1'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5.x'
 gem 'multi_json', '~> 1.11.2'
-gem 'font-awesome-rails', '~> 4.6.3.1'
+gem 'font-awesome-rails', '~> 4.6'
 gem 'will_paginate', '~> 3.1.0'
 gem 'american_date'
 gem 'jquery-rails'
@@ -33,7 +33,6 @@ gem 'brakeman'
 group :assets do
   gem 'sprockets', '~> 3.5.0'
   gem 'uglifier', '~> 2.7.2'
-  gem 'coffee-rails', '~> 4.1.0'
 end
 
 group :development, :test do
@@ -45,7 +44,7 @@ group :development, :test do
   gem 'webmock', '~> 2.1.0', require: false
   gem 'capybara', '~> 2.10.1', require: false
   gem 'poltergeist', '~> 1.11.0', require: false
-  gem 'database_cleaner', '~> 1.5.3', require: false
+  gem 'database_cleaner', '~> 1.5', require: false
   gem 'rails-controller-testing'
   gem 'launchy', require: false
   gem 'pry'
