@@ -64,14 +64,14 @@ class Activity < ApplicationRecord
                                         .by_region(region)
                                         .confirmed.by_dates(beginning_of_week,
                                                             end_of_week)
-                                        .order(result_order)
+                                        .by_order(result_order)
                                     }
 
   scope :for_week_unconfirmed_region, ->(events, region, beginning_of_week, end_of_week, result_order) {
                                         by_event(events)
                                           .by_region(region)
                                           .confirmed.by_dates(beginning_of_week, end_of_week)
-                                          .order(result_order)
+                                          .by_order(result_order)
                                       }
 
   User.roles.each do |role, _index|
