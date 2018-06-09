@@ -39,8 +39,8 @@ class Admin::FriendsController < AdminController
   end
 
   def update
-    if params['manage_application_drafts'].present?
-      update_and_render_application_drafts
+    if params['manage_drafts'].present?
+      update_and_render_drafts
     elsif friend.update(friend_params)
       flash[:success] = 'Friend record saved.'
       redirect_to edit_community_admin_friend_path(current_community, @friend, tab: current_tab)
@@ -50,9 +50,9 @@ class Admin::FriendsController < AdminController
     end
   end
 
-  def update_and_render_application_drafts
+  def update_and_render_drafts
     if friend.update(friend_params)
-      redirect_to community_friend_application_drafts_path(current_community, friend)
+      redirect_to community_friend_drafts_path(current_community, friend)
     else
       flash.now[:error] = 'Please fill in all required friend fields before managing documents.'
       render :edit
