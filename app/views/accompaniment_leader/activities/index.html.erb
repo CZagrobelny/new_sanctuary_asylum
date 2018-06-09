@@ -1,4 +1,15 @@
 <h1>Accompaniments</h1>
+<!-- @dates = [[week day 1, week day 2, week day 3, etc][week2 day 1, etc]]
+@dates.each do |week|
+  print week 1 day to week 2 day
+  week.each do |day|
+    @activities.where(occur_at: day).each do |activity|
+      render partial
+    end
+  end
+end
+
+[date: [activity, activity, ]] -->
 
 <div class="calendar-list">
   <% @upcoming_activities.each do |week| %>
