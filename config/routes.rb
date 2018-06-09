@@ -73,9 +73,11 @@ Rails.application.routes.draw do
   end
 
   namespace :regional_admin do
+    devise_for :users, only: [:invitations], controllers: { invitations: "invitations" }
     resources :regions, only: [:index] do
       resources :communities, only: [:index, :new, :create, :edit, :update]
     end
+    resources :remote_lawyers, only: [:index]
   end
 
 	match "/404", :to => "errors#not_found", :via => :all
