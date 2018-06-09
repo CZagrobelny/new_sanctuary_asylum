@@ -6,7 +6,7 @@
     <h1><%= link_to "Users", community_admin_users_path(current_community.slug) %></h1>
   </div>
   <div class='col-md-4 col-md-offset-5'>
-    <%= form_tag community_admin_users_path(current_community.slug), :method => :get do %>
+    <%= form_tag community_admin_users_path(current_community.slug), method: :get do %>
       <%= text_field_tag :query, params[:query], placeholder: 'Search by first name, last name, or email', class: 'form-control input-md', style: 'margin-top: 1.6em;' %>
     <% end %>
   </div>

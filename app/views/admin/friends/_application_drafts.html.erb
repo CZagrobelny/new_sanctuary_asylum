@@ -5,7 +5,7 @@
       <p>
         <%= link_to application_draft.pdf_draft.file.filename, application_draft.pdf_draft_url, target: '_blank' %>
         <%= application_draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
-      
+
         <% if application_draft.users.present? %>
           <strong>Team:  </strong><%= application_draft.users.map(&:name).to_sentence %><br>
         <% end %>
@@ -13,12 +13,12 @@
         <% if application_draft.notes.present? %>
           <strong>Notes:  </strong><%= application_draft.notes %><br>
         <% end %>
-      </p> 
+      </p>
     </div>
   <% end %>
 <% end %>
 
 <br>
 <div class='col-md-2 col-md-offset-10'>
-  <%= f.submit 'Manage Documents', name: 'manage_application_drafts', :class => 'btn btn-primary' %>
+  <%= f.submit 'Manage Documents', name: 'manage_application_drafts', class: 'btn btn-primary' %>
 </div>
