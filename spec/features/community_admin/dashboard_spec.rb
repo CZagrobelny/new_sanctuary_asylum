@@ -13,9 +13,11 @@ RSpec.describe 'Admin creates a new event', type: :feature do
 
   scenario 'correct landing page' do
     visit '/'
-    expect(current_path).to eq community_admin_friends_path(community)
-    expect(page).to have_content(friend.first_name)
-    expect(page).to have_content(friend.last_name)
-    expect(page).to have_content(friend.a_number)
+    aggregate_failures do
+      expect(current_path).to eq community_admin_path(community)
+      expect(page).to have_content(friend.first_name)
+      expect(page).to have_content(friend.last_name)
+      expect(page).to have_content(friend.a_number)
+    end
   end
 end

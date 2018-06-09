@@ -23,7 +23,6 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
   end
 
   describe 'editing "Family" information' do
-
     describe 'adding a new family relationship' do
       before do
         click_link 'Family'
@@ -106,8 +105,11 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
 
   describe 'editing "Clinic" information' do
     it 'displays the "Clinic tab"' do
+      within '.nav-tabs' do
+        click_link 'Clinic'
+      end
       within '.tab-content' do
-        expec(page).to have_content 'Asylum'
+        expect(page).to have_content 'Asylum'
       end
     end
   end
@@ -132,6 +134,9 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
 
   describe 'editing "Other Case Info"' do
     it 'displays the "Other Case Info" tab' do
+      within '.nav-tabs' do
+        click_link 'Other Case Info'
+      end
       within '.tab-content' do
         expect(page).to have_content 'Lawyer'
       end
