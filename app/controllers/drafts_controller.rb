@@ -10,8 +10,8 @@ class DraftsController < ApplicationController
 
   def create
     application = friend.applications.find_or_initialize_by(category: draft_params[:category])
-    draft = application.drafts.new(draft_params.merge(friend: friend))
-    if draft.save
+    @draft = application.drafts.new(draft_params.merge(friend: friend))
+    if @draft.save
       flash[:success] = 'Application draft saved.'
       render_success
     else
@@ -59,7 +59,7 @@ class DraftsController < ApplicationController
   end
 
   def draft
-    @draft ||= ApplicationDraft.find(params[:id])
+    @draft ||= Draft.find(params[:id])
   end
 
   def friend
