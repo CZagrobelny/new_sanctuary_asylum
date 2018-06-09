@@ -1,4 +1,4 @@
-<div class='row' id="activity_<%= activity.id %>">
+<div class='row activity-detail' id="activity_<%= activity.id %>">
   <div class='col-md-10 col-sm-8 col-xs-8'>
     <strong>
       <%= "#{activity.event.humanize} for #{activity.friend.name}" %>
@@ -46,7 +46,7 @@
     <% end %>
   </div>
 
-  <div class='col-md-2 col-sm-4 col-xs-4'>
+  <div class='confirm'>
     <% if current_user.attending?(activity) %>
       <button type='button' class='btn btn-success pull-right' data-toggle='modal' data-target="#activity_<%= activity.id %>_accompaniment_modal">Edit RSVP</button>
     <% else %>

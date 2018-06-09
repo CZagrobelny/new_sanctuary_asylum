@@ -1,12 +1,14 @@
 <h1>Accompaniments</h1>
-<% @upcoming_activities.each do |week| %>
-  <h2><%= week[:dates] %></h2>
-  <% week[:activities].each do |day| %>
-    <h4><%= day[0].strftime('%A, %B %-d') %></h4>
-    <% day[1].each do |activity| %>
-      <%= render partial: 'activity', locals: {activity: activity} %>
-      <%= render partial: 'accompaniment_modal', locals: {activity: activity, accompaniment: Accompaniment.find_or_build(activity, current_user) } %>
+
+  <div class="calendar-list">
+  <% @upcoming_activities.each do |week| %>
+    <h2><%= week[:dates] %></h2>
+    <% week[:activities].each do |day| %>
+      <h4><%= day[0].strftime('%A, %B %-d') %></h4>
+      <% day[1].each do |activity| %>
+        <%= render partial: 'activity', locals: {activity: activity} %>
+        <%= render partial: 'accompaniment_modal', locals: {activity: activity, accompaniment: Accompaniment.find_or_build(activity, current_user) } %>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
-<br>
+</div>

@@ -2,16 +2,36 @@
 <h1>Accompaniments</h1>
 
 <p><%= link_to 'View Last Month Accompaniments', last_month_accompaniments_community_admin_activities_path(current_community.slug) %></p>
+<p><label id="show-past-date-toggle"><input type="checkbox" id="show-past-date">Show past events this month</label></p>
 
-<% @activities.each do |week| %>
-  <h2><%= week[:dates] %></h2>
-  <% week[:activities].each do |day| %>
-    <h4><%= day[0].strftime('%A, %B %-d') %></h4>
-    <% day[1].each do |activity| %>
-      <div id="activity_<%= activity.id %>">
-        <%= render partial: 'activity', locals: {activity: activity, friend: activity.friend} %>
+<div class="calendar-list">
+  <% @activities.each do |week| %>
+    <h2><%= week[:dates] %></h2>
+    <% week[:activities].each do |day| %>
+      <% if day[0] < Date.today %>
+        <div class="past-date">
+      <% else %>
+        <div>
+      <% end %>
+        <h4><%= day[0].strftime('%A, %B %-d') %></h4>
+        <% day[1].each do |activity| %>
+          <div id="activity_<%= activity.id %>" class="activity-detail">
+            <%= render partial: 'activity', locals: {activity: activity, friend: activity.friend} %>
+          </div>
+        <% end %>
       </div>
     <% end %>
   <% end %>
-<% end %>
-<br>
+</div>
+
+<script type="text/javascript">
+  if ($(".past-date").length) {
+    $("#show-past-date-toggle").show().click(function(){
+      if ($("#show-past-date").is(":checked")) {
+        $(".past-date").show();
+      } else {
+        $(".past-date").hide();
+      }
+    });
+  }
+</script>
