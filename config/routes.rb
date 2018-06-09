@@ -77,7 +77,7 @@ Rails.application.routes.draw do
     resources :regions, only: [:index] do
       resources :communities, only: [:index, :new, :create, :edit, :update]
     end
-    resources :remote_lawyers, only: [:index]
+    resources :remote_lawyers, only: [:index, :destroy]
   end
 
 	match "/404", :to => "errors#not_found", :via => :all
