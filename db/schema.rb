@@ -276,6 +276,13 @@ ActiveRecord::Schema.define(version: 20180610140434) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_application_draft_associations", force: :cascade do |t|
+    t.integer  "user_id",              null: false
+    t.integer  "application_draft_id", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
   create_table "user_draft_associations", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.integer  "draft_id",   null: false
