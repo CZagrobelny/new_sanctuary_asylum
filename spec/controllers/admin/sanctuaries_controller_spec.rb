@@ -104,17 +104,17 @@ RSpec.describe Admin::SanctuariesController, type: :controller do
 
         it 'does not create a new location' do
           expect {
-            patch :update, id: @sanctuary.id, params: params
+            patch :update, params: params
           }.not_to change { Sanctuary.count }
         end
 
         it 'renders "edit" ' do
-          patch :update, id: @sanctuary.id, params: params
+          patch :update, params: params
           expect(response).to render_template(:edit)
         end
 
         it 'sets flash' do
-          patch :update, id: @sanctuary.id, params: params
+          patch :update, params: params
           expect(flash.now[:error]).to eq "Something went wrong :("
         end
       end
