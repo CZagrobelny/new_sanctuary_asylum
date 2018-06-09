@@ -31,7 +31,11 @@
     padding: 5px 15px 0px;
 
     > .row {
-      padding-bottom: 20px;
+      padding-bottom: 30px;
+    }
+
+    &:last-child > .row {
+      padding-bottom: 5px;
     }
 
     strong {
@@ -42,7 +46,22 @@
       }
     }
 
+    .confirm {
+      clear: left;
+      margin-left: 15px;
+      padding-top: 10px;
+
+      strong {
+        background: #E0F0D8;
+        padding: 2px 8px;
+        display: inline-block;
+        border-radius: 4px;
+        color: rgba(0,0,0,0.7);
+      }
+    }
+
     .button_to {
+      margin-top: -10px;
       margin-left: 5px;
     }
   }
