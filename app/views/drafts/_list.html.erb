@@ -15,6 +15,8 @@
         <% if draft.notes.present? %>
           <strong>Notes:  </strong><%= draft.notes %><br>
         <% end %>
+        
+        <strong>Status:</strong><%= draft.status %><br>
 
         <%= link_to 'Edit', edit_community_friend_draft_path(current_community.slug, friend, draft) %>
         <% if current_user.admin? %>
