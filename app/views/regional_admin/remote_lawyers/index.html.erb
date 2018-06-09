@@ -1,8 +1,8 @@
 <div class='row'>
-  <%= link_to 'Invite a user', regional_admin_lawyers_path, class: 'btn btn-primary pull-right'%>
+  <%= link_to 'Invite a user', regional_admin_remote_lawyers_path, class: 'btn btn-primary pull-right'%>
 </div>
 
-<% if @lawyers.present? %>
+<% if @remote_lawyers.present? %>
   <h3>Lawyers</h3>
   <table class='table table-bordered'>
     <thead>
@@ -18,7 +18,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @lawyers.each do |lawyer| %>
+      <% @remote_lawyers.each do |lawyer| %>
         <tr id="lawyer-<%=lawyer.id%>" style="<%= 'color: #b3b3b3;' unless lawyer.confirmed? %>">
           <td><%= lawyer.id %></td>
           <td><%= lawyer.first_name %></td>
@@ -33,8 +33,8 @@
     </tbody>
   </table>
   <div class='pull-right'>
-    <%= will_paginate @lawyers %>
+    <%= will_paginate @remote_lawyers %>
   </div>
 <% else %>
-  <h3>No lawyers</h3>
+  <h3>No remote lawyers</h3>
 <% end %>
