@@ -1,7 +1,7 @@
 class Application < ApplicationRecord
-  CATEGORIES = ['asylum', 'sijs', 'work_authorization',
-                'detention', 'foia', 'change_of_venue',
-                'other']
+  CATEGORIES = %w[asylum sijs work_authorization
+                  detention foia change_of_venue
+                  other].freeze
 
   has_many :drafts
   belongs_to :friend
@@ -11,11 +11,11 @@ class Application < ApplicationRecord
 
   before_save :validate_category_uniquness
 
-  enum status: [ :in_progress, 
-                 :in_review,
-                 :changes_requested,
-                 :approved,
-                 :closed ]
+  enum status: %i[in_progress
+                  in_review
+                  changes_requested
+                  approved
+                  closed]
 
   private
 
@@ -28,13 +28,13 @@ class Application < ApplicationRecord
   end
 
   def friend_categories
-    friend.applications.map { |application| application.category }
+    friend.applications.map(&:category)
   end
 
   def check_category
-    if friend_categories.include?(category)
-      self.errors.add(:category, "category must be unique to friend")
-      throw :abort
-    end
+    return unless friend_categories.include?(category)
+
+    errors.add(:category, 'category must be unique to friend')
+    throw :abort
   end
 end

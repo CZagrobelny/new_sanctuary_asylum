@@ -26,7 +26,7 @@ class User < ApplicationRecord
   has_many :user_event_attendances, dependent: :destroy
   has_many :accompaniment_reports, dependent: :destroy
 
-  scope :remote_lawyers,   -> { where(remote_clinic_lawyer: true) }
+  scope :remote_lawyers, -> { where(remote_clinic_lawyer: true) }
 
   def confirmed?
     invitation_accepted_at.present?
