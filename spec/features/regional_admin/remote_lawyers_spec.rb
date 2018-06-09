@@ -45,6 +45,37 @@ RSpec.describe 'Regional Admin manages lawyers', type: :feature do
     end
   end
 
+  describe 'edit' do
+    before do
+      keeper
+    end
+
+    it 'should render the proper form' do
+      visit edit_regional_admin_remote_lawyer_path(keeper.id)
+      expect(page).to have_content 'Edit Remote Clinic Lawyer'
+    end
+
+    it 'should successfully render a page' do
+      visit regional_admin_remote_lawyers_path
+      expect(page).to have_content('Persistent')
+      within("tr#lawyer-#{keeper.id}") do
+        # Delete is in Bootstrap dropdown so open that first
+        find("a\#edit-lawyer-#{keeper.id}").click
+      end
+      expect(page).to have_content 'Edit Remote Clinic Lawyer'
+    end
+
+    it 'should successfully prefill the form' do
+      visit regional_admin_remote_lawyers_path
+      expect(page).to have_content('Persistent')
+      within("tr#lawyer-#{keeper.id}") do
+        # Delete is in Bootstrap dropdown so open that first
+        find("a\#edit-lawyer-#{keeper.id}").click
+      end
+      expect(find_field('First Name').value).to eq 'Persistent'
+    end
+  end
+
   describe 'destroy' do
     before do
       deleteable
@@ -61,6 +92,7 @@ RSpec.describe 'Regional Admin manages lawyers', type: :feature do
         find('button').click
         click_link 'Delete'
       end
+      expect(page).to_not have_content('Deleteable')
     end
   end
 end
