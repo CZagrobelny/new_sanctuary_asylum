@@ -13,7 +13,7 @@ RSpec.describe 'Regional Admin manages lawyers', type: :feature do
 
   describe 'index' do
     it 'page renders' do
-      visit regional_admin_lawyers_path
+      visit regional_admin_remote_lawyers_path
       expect(page).to have_link('Invite a user')
     end
 
@@ -23,8 +23,8 @@ RSpec.describe 'Regional Admin manages lawyers', type: :feature do
       end
 
       it 'renders no lawyers text' do
-        visit regional_admin_lawyers_path
-        expect(page).to have_content('No lawyers')
+        visit regional_admin_remote_lawyers_path
+        expect(page).to have_content('No remote lawyers')
       end
     end
 
@@ -36,7 +36,7 @@ RSpec.describe 'Regional Admin manages lawyers', type: :feature do
       end
 
       it 'renders lawyers' do
-        visit regional_admin_lawyers_path
+        visit regional_admin_remote_lawyers_path
         expect(page).to have_content('Asha')
         expect(page).to have_content('Robbie')
       end

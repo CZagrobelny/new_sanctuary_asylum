@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe RegionalAdmin::LawyersController, type: :controller do
+RSpec.describe RegionalAdmin::RemoteLawyersController, type: :controller do
 
   let(:regional_admin) { create :user, :regional_admin, community: community }
 
@@ -11,7 +11,7 @@ RSpec.describe RegionalAdmin::LawyersController, type: :controller do
 
   describe 'GET #index' do
     describe 'when no lawyers' do
-      let(:lawyers) { nil }
+      let(:remote_lawyers) { nil }
       let!(:community) { create :community }
 
       it 'returns no lawyers' do
