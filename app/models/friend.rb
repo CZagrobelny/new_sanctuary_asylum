@@ -36,7 +36,8 @@ class Friend < ApplicationRecord
   has_many :detentions, dependent: :destroy
   has_many :user_friend_associations, dependent: :destroy
   has_many :users, through: :user_friend_associations
-  has_many :application_drafts, dependent: :restrict_with_error
+  has_many :drafts, dependent: :restrict_with_error
+  has_many :applications, dependent: :restrict_with_error
   has_many :friend_event_attendances, dependent: :destroy
   has_many :events, through: :friend_event_attendances
 
@@ -80,11 +81,11 @@ class Friend < ApplicationRecord
     other? ? self[:other_ethnicity] : self[:ethnicity]
   end
 
-  def grouped_application_drafts
+  def grouped_drafts
     grouped_drafts = []
-    ApplicationDraft::CATEGORIES.each do |category|
-      drafts_for_category = application_drafts.where(category: category).order('created_at desc')
-      grouped_drafts << { name: category, drafts: drafts_for_category } if drafts_for_category.present?
+    applications.each do |application|
+      grouped_drafts << { name: application.category,
+                          drafts: application.drafts.order('created_at desc') }
     end
     grouped_drafts
   end

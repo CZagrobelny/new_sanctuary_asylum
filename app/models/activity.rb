@@ -31,6 +31,52 @@ class Activity < ApplicationRecord
 
   validates :event, :occur_at, :friend_id, :region_id, presence: true
 
+  scope :by_event, ->(events) {
+    where(event: events)
+  }
+
+  scope :by_region, ->(region) {
+    where(region_id: region.id)
+  }
+
+  scope :confirmed, -> {
+    where(confirmed: true)
+  }
+
+  scope :unconfirmed, -> {
+    where(confirmed: false)
+  }
+
+  scope :by_dates, ->(beginning_of_week, end_of_week) {
+    where('occur_at >= ? AND occur_at <= ? ',
+          beginning_of_week,
+          end_of_week)
+  }
+
+  scope :by_order, ->(order) {
+    order(occur_at: order).group_by do |activity|
+      activity.occur_at.to_date
+    end
+  }
+
+  scope :for_week_confirmed_region, ->(events, region, beginning_of_week, end_of_week, result_order) {
+                                      by_event(events)
+                                        .by_region(region)
+                                        .confirmed.by_dates(beginning_of_week,
+                                                            end_of_week)
+                                        .by_order(result_order)
+                                    }
+
+  scope :for_week_unconfirmed_region, ->(events, region, beginning_of_week, end_of_week, result_order) {
+                                        by_event(events)
+                                          .by_region(region)
+                                          .confirmed.by_dates(beginning_of_week, end_of_week)
+                                          .by_order(result_order)
+                                      }
+  def start_time
+    occur_at
+  end
+
   User.roles.each do |role, _index|
     define_method "#{role}_accompaniments" do
       accompaniments.select do |accompaniment|
@@ -42,16 +88,17 @@ class Activity < ApplicationRecord
   def self.for_week(region:, beginning_of_week:, end_of_week:, order:, events:, confirmed: false)
     week = { dates: "#{beginning_of_week.strftime('%B %-d')} - #{(end_of_week - 2.days).strftime('%B %-d')}" }
     week[:activities] = if confirmed == true
-                          Activity.where(event: events)
-                                  .where(confirmed: true)
-                                  .where(region_id: region.id)
-                                  .where('occur_at >= ? AND occur_at <= ? ', beginning_of_week, end_of_week)
-                                  .order(occur_at: order).group_by { |activity| activity.occur_at.to_date }
+                          Activity.for_week_confirmed_region(events,
+                                                             region,
+                                                             beginning_of_week,
+                                                             end_of_week,
+                                                             order)
                         else
-                          Activity.where(event: events)
-                                  .where(region_id: region.id)
-                                  .where('occur_at >= ? AND occur_at <= ? ', beginning_of_week, end_of_week)
-                                  .order(occur_at: order).group_by { |activity| activity.occur_at.to_date }
+                          Activity.for_week_unconfirmed_region(events,
+                                                               region,
+                                                               beginning_of_week,
+                                                               end_of_week,
+                                                               order)
                         end
     week
   end

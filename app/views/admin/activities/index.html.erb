@@ -1,17 +1,39 @@
-<p><%= link_to 'Add Activity', new_community_admin_activity_path(current_community.slug), class: 'btn btn-primary pull-right' %></p>
+<%= link_to '+ Add Activity', new_community_admin_activity_path(current_community.slug), class: 'btn btn-primary pull-right', id: "add_activity" %>
 <h1>Activities</h1>
 
-<p><%= link_to 'View Last Month Activities', last_month_community_admin_activities_path(current_community.slug) %></p>
-
-<% @activities.each do |week| %>
-  <h2><%= week[:dates] %></h2>
-  <% week[:activities].each do |day| %>
-    <h4><%= day[0].strftime('%A, %B %-d') %></h4>
-    <% day[1].each do |activity| %>
-      <div id="activity_<%= activity.id %>">
-        <%= render partial: 'activity', locals: {activity: activity, friend: activity.friend} %>
-      </div>
-    <% end %>
+<%= month_calendar events: @all do |date, activities| %>
+  <h5><%= date.day %></h5>
+  <dl>
+  <% activities.each do |activity| %>
+      <dt><%= activity.occur_at.strftime("%I:%M %p") %></dt>
+      <dd>
+        <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>"><%= "#{activity.event.humanize} for #{activity.friend.name}" %></a>
+         <div id="modal_activity_<%= activity.id %>" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title"><span><%= activity.occur_at.strftime("%I:%M %p") %></span><%= "#{activity.event.humanize} for #{activity.friend.name}" %></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div>
+                  <%= render partial: 'activity', locals: {activity: activity, friend: activity.friend} %>
+                </div>
+                <%= link_to "Edit Activity", edit_community_admin_activity_path(current_community.slug, activity), class: "btn btn-primary" %>
+              </div>
+            </div>
+          </div>
+        </div>  
+      </dd>
   <% end %>
+  </dl>
 <% end %>
-<br>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("body").removeClass("modal-open");
+    $(".in").hide();
+  });
+</script>

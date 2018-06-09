@@ -52,10 +52,25 @@ RSpec.describe Friend, type: :model do
     end
 
     context 'has an associated Application Draft' do
-      before { create :application_draft, friend: friend }
+      before { create :draft, friend: friend }
       it 'is not deleted' do
         expect{ friend.destroy }.not_to change{ Friend.count }
       end
+    end
+  end
+
+  describe "#grouped_drafts" do
+		let(:friend) { create :friend }
+		let(:application1) { create :application, category: 'asylum', friend: friend }
+  	let(:application2) { create :application, category: 'foia', friend: friend }
+		let!(:draft1) { create :draft, application: application1, friend: friend }
+		let!(:draft2) { create :draft, application: application2, friend: friend }
+
+    it "returns an array of grouped drafts" do
+			result = [{ :name=>"asylum", :drafts=> [draft1] },
+ 	  	   				{ :name=>"foia", :drafts=> [draft2] }]
+								
+      expect(friend.reload.grouped_drafts).to eq result
     end
   end
 

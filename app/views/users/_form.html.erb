@@ -34,14 +34,14 @@
     <div class='row form-group'>
       <%= f.label :volunteer_type, 'Type', class: 'col-md-2 control-label required' %>
       <div class='col-md-6'>
-        <%= f.select :volunteer_type, User.volunteer_types.map {|k, v| [k.humanize.titleize, k]}, {:prompt => "Select"}, { :class => 'form-control input-md'} %>
+        <%= f.select :volunteer_type, User.volunteer_types.map {|k, v| [k.humanize.titleize, k]}, {prompt: "Select"}, { class: 'form-control input-md'} %>
       </div>
     </div>
   </div>
 
   <div class='row'>
     <div class='col-md-1 col-md-offset-7'>
-      <%= f.submit 'Save', :class => 'btn btn-primary' %>
+      <%= f.submit 'Save', class: 'btn btn-primary' %>
     </div>
   </div>
 <% end %>

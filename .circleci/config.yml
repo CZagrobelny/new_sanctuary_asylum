@@ -1,0 +1,35 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.3.5
+      - image: postgres:9.6
+    steps:
+      - checkout
+      - run:
+          name: Install NodeJS
+          command: sudo apt-get update --quiet && sudo apt-get install --assume-yes nodejs
+      - run:
+          name: Install bundler
+          command: gem install bundler --version 1.16.2
+      - run:
+          name: Install gems
+          command: bundle install
+      - run:
+          name: Install PhantomJS
+          command: sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
+      - run:
+          name: Database config
+          command: cp config/database.yml.sample config/database.yml
+      - run:
+          name: Setup database
+          command: rake db:setup
+      - run:
+          name: Create dot-env file
+          command: echo FROM_ADDRESS='test@example.com' > .env
+      - run:
+          name: Test
+          command: rspec
+      - run:
+          name: Audit dependencies
+          command: rake bundle:audit

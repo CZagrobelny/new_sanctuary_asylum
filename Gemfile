@@ -26,6 +26,7 @@ gem 'phantomjs'
 gem 'redis', '~> 3.3.1'
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem "simple_calendar", "~> 2.0"
 gem 'textacular', '~> 5.0'
 gem 'turbolinks', '~> 5.x'
 gem 'will_paginate', '~> 3.1.0'
@@ -60,6 +61,7 @@ group :production do
 end
 
 group :development do
+  gem 'bundler-audit'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-commands-rspec'

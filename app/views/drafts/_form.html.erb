@@ -1,7 +1,7 @@
-<% if @application_draft.errors.present? %>
-  <%= display_validation_errors(@application_draft) %>
+<% if @draft.errors.present? %>
+  <%= display_validation_errors(@draft) %>
 <% end %>
-<%= form_for([current_community, @friend, @application_draft]) do |f| %>
+<%= form_for([current_community, @friend, @draft]) do |f| %>
 
   <div class='form-inputs'>
 
@@ -9,7 +9,7 @@
       <div class='col-md-12'>
         <%= f.label :pdf_draft, 'File Upload', class: 'control-label required', style: 'padding-right: 20px;' %>
         <%= button_to 'Browse', '#', class: 'btn btn-primary', id: 'browse' %>
-        <span id='current-file'><%= @application_draft.pdf_draft.file.filename if @application_draft.pdf_draft.file.present? %></span>
+        <span id='current-file'><%= @draft.pdf_draft.file.filename if @draft.pdf_draft.file.present? %></span>
         <%= f.file_field :pdf_draft, class: 'form-control', style: 'display:none;' %>
       </div>
     </div>
@@ -18,7 +18,7 @@
       <div class='col-md-12'>
         <div class='col-md-1'><%= f.label :category, 'Type', class: 'control-label required', style: 'margin-left:-15px;' %></div>
         <div class='col-md-3'>
-          <%= f.select :category, options_for_select(ApplicationDraft::CATEGORIES.map{|event| [event.titlecase, event]}, @application_draft.category), {include_blank: true}, {class: 'form-control', style: 'margin-left: 10px;'} %>
+          <%= f.select :category, options_for_select(Application::CATEGORIES.map{|event| [event.titlecase, event]}, @draft.category), {include_blank: true}, {class: 'form-control', style: 'margin-left: 10px;'} %>
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@
     <div class='row form-group'>
       <%= f.label :users, 'Volunteers', class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
-        <%= collection_select(:application_draft, :user_ids, current_community.users, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+        <%= collection_select(:draft, :user_ids, current_community.users, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
       </div>
     </div>
 
@@ -39,7 +39,7 @@
 
     <div class='row'>
       <div class='col-md-1 col-md-offset-10'>
-        <%= f.submit 'Save', :class => 'btn btn-primary' %>
+        <%= f.submit 'Save', class: 'btn btn-primary' %>
       </div>
     </div>
   </div>
@@ -50,10 +50,10 @@
     // Click on the file input browse button
     $('#browse').click(function(e) {
       e.preventDefault();
-      $('#application_draft_pdf_draft').click();
+      $('#draft_pdf_draft').click();
     });
     // If the file input changes, display the new filename
-    $('#application_draft_pdf_draft').change(function() {
+    $('#draft_pdf_draft').change(function() {
       var filename = $(this).val().split(/(\\|\/)/g).pop();
       $('#current-file').text(filename);
     });

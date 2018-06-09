@@ -1,6 +1,6 @@
 <div class='row' style='margin-left:5px;'>
   <strong>
-    <%= link_to 'Remove', community_admin_friend_detention_path(current_community.slug, friend, detention), method: :delete, :remote => true, class: 'delete' %>
+    <%= link_to 'Remove', community_admin_friend_detention_path(current_community.slug, friend, detention), method: :delete, remote: true, class: 'delete' %>
   </strong><br>
   <strong>Date Detained:  </strong><%= detention.date_detained.strftime('%m/%d/%Y') if detention.date_detained.present? %><br>
   <strong>Date Released:  </strong><%= detention.date_released.strftime('%m/%d/%Y') if detention.date_released.present? %><br>
