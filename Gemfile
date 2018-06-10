@@ -38,6 +38,7 @@ group :assets do
 end
 
 group :development, :test do
+  gem 'bundler-audit'
   gem 'byebug'
   gem 'capybara', '~> 2.10.1', require: false
   gem 'database_cleaner', '~> 1.5.3', require: false
@@ -61,7 +62,6 @@ group :production do
 end
 
 group :development do
-  gem 'bundler-audit'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-commands-rspec'
