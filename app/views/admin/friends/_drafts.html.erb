@@ -5,7 +5,7 @@
       <p>
         <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
         <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
-      
+
         <% if draft.users.present? %>
           <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
         <% end %>
@@ -13,7 +13,8 @@
         <% if draft.notes.present? %>
           <strong>Notes:  </strong><%= draft.notes %><br>
         <% end %>
-      </p> 
+      </p>
+      <%= render partial: 'drafts/draft_status', locals: {current_community: current_community, friend: friend, draft: draft} %>
     </div>
   <% end %>
 <% end %>

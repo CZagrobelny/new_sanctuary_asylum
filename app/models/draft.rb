@@ -12,4 +12,8 @@ class Draft < ApplicationRecord
                   changes_requested
                   approved
                   closed]
+
+  def status_string
+    status ? status.humanize : 'No status set'
+  end
 end

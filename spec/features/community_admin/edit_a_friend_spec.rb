@@ -4,7 +4,6 @@ require 'carrierwave/test/matchers'
 RSpec.describe 'Friend edit', type: :feature, js: true do
 
   let(:community_admin) { create(:user, :community_admin, community: community) }
-  let(:community) { create :community }
   let!(:friend) { create(:friend, community: community) }
   let!(:location) { create(:location, region: community.region) }
 
@@ -15,6 +14,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
   end
 
   describe 'editing "Basic" information' do
+    let(:community) { create :community }
     it 'displays the "Basic" tab' do
       within '.tab-content' do
         expect(page).to have_content 'Basic'
@@ -23,6 +23,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
   end
 
   describe 'editing "Family" information' do
+    let(:community) { create :community }
     describe 'adding a new family relationship' do
       before do
         click_link 'Family'
@@ -60,7 +61,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
   end
 
   describe 'editing "Activity" information' do
-
+  let(:community) { create :community }
     describe 'adding a new activity' do
       before do
         within '.nav-tabs' do
@@ -143,7 +144,36 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
     end
   end
 
+  describe 'managing docs' do
+    let!(:application) { create(:application, friend: friend) }
+    let!(:draft) { create(:draft, friend: friend, application: application) }
+    before do
+      click_link 'Documents'
+    end
+    describe 'primary community' do
+      let(:community) { create :community, :primary }
+
+      describe 'managing friend applications' do
+
+        it 'does not display status for primary community volunteer' do
+          expect(page).not_to have_content('Submit for Review')
+        end
+      end
+    end
+    describe 'non-primary community' do
+      let(:community) { create :community }
+
+      describe 'managing friend applications' do
+        it 'does display status for non-primary community volunteer' do
+          pending("this test does not seem to be displaying the drafts which are being displayed in prod")
+          expect(page).to have_content('Submit for Review')
+        end
+      end
+    end
+  end
+
   describe 'editing "Documents"' do
+    let(:community) { create :community }
     before {click_link 'Documents'}
     # add the scenario wherein there is at least one file
     it 'displays the "Documents" tab' do

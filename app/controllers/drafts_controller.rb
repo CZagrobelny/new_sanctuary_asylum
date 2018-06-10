@@ -50,18 +50,18 @@ class DraftsController < ApplicationController
     end
   end
 
-def submit_for_review
-  draft.status = :in_review
-  application.status = :in_review
-  if draft.save && application.save
-    flash[:success] = 'Draft submitted for review.'
-  else
-    flash[:error] = 'There was an issue submitting the draft for review.'
+  def submit_for_review
+    draft.status = :in_review
+    application.status = :in_review
+    if draft.save && application.save
+      flash[:success] = 'Draft submitted for review.'
+    else
+      flash[:error] = 'There was an issue submitting the draft for review.'
+    end
+    render_document_list
   end
-  render_document_list
-end
 
-private
+  private
 
   def render_document_list
     if current_user.admin?

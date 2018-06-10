@@ -15,5 +15,4 @@ class Application < ApplicationRecord
                   changes_requested
                   approved
                   closed]
-
 end
