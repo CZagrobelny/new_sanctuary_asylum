@@ -23,6 +23,7 @@ class RegionalAdmin::RemoteLawyersController < AdminController
   end
 
   private
+
   def set_lawyer
     @remote_lawyer = User.find(params[:id])
   end

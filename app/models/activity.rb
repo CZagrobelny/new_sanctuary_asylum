@@ -47,10 +47,10 @@ class Activity < ApplicationRecord
     where(confirmed: false)
   }
 
-  scope :by_dates, ->(beginning_of_week, end_of_week) {
+  scope :by_dates, ->(period_begin, period_end) {
     where('occur_at >= ? AND occur_at <= ? ',
-          beginning_of_week,
-          end_of_week)
+          period_begin,
+          period_end)
   }
 
   scope :by_order, ->(order) {
@@ -59,20 +59,26 @@ class Activity < ApplicationRecord
     end
   }
 
-  scope :for_week_confirmed_region, ->(events, region, beginning_of_week, end_of_week, result_order) {
+  scope :for_time_confirmed_region, ->(events, region, period_begin, period_end, result_order) {
                                       by_event(events)
                                         .by_region(region)
-                                        .confirmed.by_dates(beginning_of_week,
-                                                            end_of_week)
+                                        .confirmed.by_dates(period_begin,
+                                                            period_end)
                                         .by_order(result_order)
                                     }
 
-  scope :for_week_unconfirmed_region, ->(events, region, beginning_of_week, end_of_week, result_order) {
-                                        by_event(events)
-                                          .by_region(region)
-                                          .confirmed.by_dates(beginning_of_week, end_of_week)
-                                          .by_order(result_order)
-                                      }
+  scope :for_time_confirmed, ->(events, period_begin, period_end) {
+                               by_event(events)
+                                 .confirmed.by_dates(period_begin,
+                                                     period_end)
+                                 .order(occur_at: 'asc')
+                             }
+
+  scope :for_time_unconfirmed, ->(events, period_begin, period_end) {
+                                 by_event(events)
+                                   .confirmed.by_dates(period_begin, period_end)
+                                   .order(occur_at: 'desc')
+                               }
   def start_time
     occur_at
   end
@@ -83,85 +89,6 @@ class Activity < ApplicationRecord
         accompaniment.user.role == role
       end
     end
-  end
-
-  def self.for_week(region:, beginning_of_week:, end_of_week:, order:, events:, confirmed: false)
-    week = { dates: "#{beginning_of_week.strftime('%B %-d')} - #{(end_of_week - 2.days).strftime('%B %-d')}" }
-    week[:activities] = if confirmed == true
-                          Activity.for_week_confirmed_region(events,
-                                                             region,
-                                                             beginning_of_week,
-                                                             end_of_week,
-                                                             order)
-                        else
-                          Activity.for_week_unconfirmed_region(events,
-                                                               region,
-                                                               beginning_of_week,
-                                                               end_of_week,
-                                                               order)
-                        end
-    week
-  end
-
-  def self.upcoming_two_weeks(region:)
-    if Date.today.cwday >= 5 && !Activity.remaining_this_week?
-      week_1_beg = 1.weeks.from_now.beginning_of_week.beginning_of_day
-      week_1_end = 1.weeks.from_now.end_of_week.end_of_day
-      week_2_beg = 2.weeks.from_now.beginning_of_week.beginning_of_day
-      week_2_end = 2.weeks.from_now.end_of_week.end_of_day
-    else
-      week_1_beg = Date.today.beginning_of_week.beginning_of_day
-      week_1_end = Date.today.end_of_week.end_of_day
-      week_2_beg = 1.weeks.from_now.beginning_of_week.beginning_of_day
-      week_2_end = 1.weeks.from_now.end_of_week.end_of_day
-    end
-
-    activities = [Activity.for_week(beginning_of_week: week_1_beg,
-                                    end_of_week: week_1_end,
-                                    order: 'asc',
-                                    events: ACCOMPANIMENT_ELIGIBLE_EVENTS,
-                                    confirmed: true,
-                                    region: region)]
-
-    activities << Activity.for_week(beginning_of_week: week_2_beg,
-                                    end_of_week: week_2_end,
-                                    order: 'asc',
-                                    events: ACCOMPANIMENT_ELIGIBLE_EVENTS,
-                                    confirmed: true,
-                                    region: region)
-    activities
-  end
-
-  def self.current_month(events:, region:)
-    activities = [Activity.for_week(beginning_of_week: Date.today.beginning_of_week,
-                                    end_of_week: Date.today.end_of_week,
-                                    order: 'asc',
-                                    events: events,
-                                    region: region)]
-    (1..4).each do |i|
-      beginning_of_week = i.weeks.from_now.beginning_of_week
-      end_of_week = i.weeks.from_now.end_of_week
-      activities << Activity.for_week(beginning_of_week: beginning_of_week,
-                                      end_of_week: end_of_week,
-                                      order: 'asc',
-                                      events: events,
-                                      region: region)
-    end
-    activities
-  end
-
-  def self.last_month(events:, region:)
-    activities = []
-    (1..5).each do |i|
-      beginning_of_week = i.weeks.ago.beginning_of_week
-      end_of_week = i.weeks.ago.end_of_week
-      activities << Activity.for_week(beginning_of_week: beginning_of_week,
-                                      end_of_week: end_of_week,
-                                      order: 'desc',
-                                      events: events,
-                                      region: region)
-    end
-    activities
   end
 
   def self.remaining_this_week?

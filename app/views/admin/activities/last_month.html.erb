@@ -4,11 +4,11 @@
 <p><%= link_to 'View Current Month Activities', community_admin_activities_path(current_community.slug) %></p>
 
 <div class="calendar-list">
-  <% @activities.each do |week| %>
-    <h2><%= week[:dates] %></h2>
-    <% week[:activities].each do |day| %>
-      <h4><%= day[0].strftime('%A, %B %-d') %></h4>
-      <% day[1].each do |activity| %>
+  <% group_activities_by_week(@activities).each do |week, week_activities| %>
+    <h2><%= print_week_start_end_dates(week) %></h2>
+    <% group_activities_by_day(week_activities).each do |day, activities| %>
+      <h4><%= day.strftime('%A, %B %-d') %></h4>
+      <% activities.each do |activity| %>
         <div id="activity_<%= activity.id %>" class="activity-detail">
           <%= render partial: 'activity', locals: {activity: activity, friend: activity.friend} %>
         </div>
