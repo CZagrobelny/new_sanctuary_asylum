@@ -28,7 +28,8 @@ class UsersController < ApplicationController
       :email,
       :phone,
       :volunteer_type,
-      :pledge_signed
+      :pledge_signed,
+      :remote_clinic_lawyer
     )
   end
 

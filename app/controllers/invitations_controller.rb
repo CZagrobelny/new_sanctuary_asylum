@@ -3,7 +3,7 @@ class InvitationsController < Devise::InvitationsController
   before_action :require_admin, only: %i[new create]
   before_action :require_access_to_community, only: %i[new create]
   before_action :update_sanitized_params, only: :update
-  before_action :allow_community_id, only: :create
+  before_action :allow_devise_params, only: :create
 
   ## This is a devise invitable method that I needed to overwrite, unfortunately
   ## because of the way they implemented the 'redirect' on success (they used respond_with)
@@ -35,12 +35,13 @@ class InvitationsController < Devise::InvitationsController
                                                phone
                                                password
                                                password_confirmation
+                                               remote_clinic_lawyer
                                                invitation_token
                                                volunteer_type
                                                pledge_signed])
   end
 
-  def allow_community_id
-    devise_parameter_sanitizer.permit(:invite, keys: [:community_id])
+  def allow_devise_params
+    devise_parameter_sanitizer.permit(:invite, keys: [:community_id, :remote_clinic_lawyer])
   end
 end
