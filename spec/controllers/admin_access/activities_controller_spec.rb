@@ -18,23 +18,9 @@ RSpec.describe Admin::ActivitiesController, type: :controller do
         end
       end
 
-      describe 'GET #last_month' do
-        it 'allows access' do
-          get :last_month, params: { community_slug: community.slug }
-          expect(response.success?).to eq true
-        end
-      end
-
       describe 'GET #accompaniments' do
         it 'allows access' do
           get :accompaniments, params: { community_slug: community.slug }
-          expect(response.success?).to eq true
-        end
-      end
-
-      describe 'GET #last_month_accompaniments' do
-        it 'allows access' do
-          get :last_month_accompaniments, params: { community_slug: community.slug }
           expect(response.success?).to eq true
         end
       end
@@ -81,21 +67,9 @@ RSpec.describe Admin::ActivitiesController, type: :controller do
         end
       end
 
-      describe 'GET #last_month' do
-        it 'does NOT allow access' do
-          expect { get :last_month, params: { community_slug: community.slug } }.to raise_error('Not Found')
-        end
-      end
-
       describe 'GET #accompaniments' do
         it 'does NOT allow access' do
           expect { get :accompaniments, params: { community_slug: community.slug } }.to raise_error('Not Found')
-        end
-      end
-
-      describe 'GET #last_month_accompaniments' do
-        it 'does NOT allow access' do
-          expect { get :last_month_accompaniments, params: { community_slug: community.slug } }.to raise_error('Not Found')
         end
       end
 
@@ -137,21 +111,9 @@ RSpec.describe Admin::ActivitiesController, type: :controller do
       end
     end
 
-    describe 'GET #last_month' do
-      it 'does NOT allow access' do
-        expect { get :last_month, params: { community_slug: other_community.slug } }.to raise_error('Not Found')
-      end
-    end
-
     describe 'GET #accompaniments' do
       it 'does NOT allow access' do
         expect { get :accompaniments, params: { community_slug: other_community.slug } }.to raise_error('Not Found')
-      end
-    end
-
-    describe 'GET #last_month_accompaniments' do
-      it 'does NOT allow access' do
-        expect { get :last_month_accompaniments, params: { community_slug: other_community.slug } }.to raise_error('Not Found')
       end
     end
 

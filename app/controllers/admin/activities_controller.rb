@@ -6,25 +6,9 @@ class Admin::ActivitiesController < AdminController
                                 .where(event: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS)
   end
 
-  def last_month
-    last_month = DatesHelper.last_month
-    @activities = current_region.activities
-                                .for_time_unconfirmed(Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS,
-                                                      last_month.begin,
-                                                      last_month.end)
-  end
-
   def accompaniments
     @activities = current_region.activities
                                 .where(event: Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS)
-  end
-
-  def last_month_accompaniments
-    last_month = DatesHelper.last_month
-    @activities = current_region.activities
-                                .for_time_unconfirmed(Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS,
-                                                      last_month.begin,
-                                                      last_month.end)
   end
 
   def new
