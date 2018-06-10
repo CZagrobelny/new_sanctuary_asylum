@@ -1,12 +1,10 @@
 class AdminController < ApplicationController
   before_action :authenticate_user!
   before_action :require_admin
+  before_action :require_access_to_community
   after_action :log_action
 
   private
-  def require_admin
-    not_found unless current_user.admin?
-  end
 
   def log_action
     Rails.logger.info "ADMIN [#{current_user.email}, ip: #{request.remote_ip}]:  #{request_path_parameters} #{request_query_parameters}"

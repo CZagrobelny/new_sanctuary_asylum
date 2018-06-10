@@ -2,7 +2,7 @@
 
 <%= display_validation_errors(@report) %>
 
-<%= form_for :report, url: admin_reports_create_path do |f| %>
+<%= form_for :report, url: community_admin_reports_create_path(current_community.slug) do |f| %>
   <div class='row form-group'>
     <%= f.label :type, 'Type', class: 'col-md-3 col-xs-12 control-label' %>
     <div class='col-md-4 col-xs-12'>

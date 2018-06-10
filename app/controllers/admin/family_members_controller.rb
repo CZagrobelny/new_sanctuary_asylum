@@ -22,7 +22,7 @@ class Admin::FamilyMembersController < AdminController
   private
 
   def friend
-    @friend ||= Friend.find(params[:friend_id])
+    @friend ||= current_community.friends.find(params[:friend_id])
   end
 
   def family_member_constructor

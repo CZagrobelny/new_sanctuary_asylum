@@ -21,7 +21,7 @@ bundle install
 
 ### Database setup
 
-Run your favorite database server in your favorite way. 
+Run your favorite database server in your favorite way.
 
 Postgres.app is the best option on Mac:  https://postgresapp.com
 
@@ -65,7 +65,7 @@ For local development, create a '.env' file in the root directory of the applica
 rspec
 ```
 
-CircleCI is set up for the app, and will run the full test suite when you push to github.  There are still some flappy specs, unfortunately :/ ...so, if the specs pass locally, but not on CircleCI, feel free to leave a note when you create your PR. 
+CircleCI is set up for the app, and will run the full test suite when you push to github.  There are still some flappy specs, unfortunately :/ ...so, if the specs pass locally, but not on CircleCI, feel free to leave a note when you create your PR.
 
 
 ## Running the App Locally
@@ -76,39 +76,64 @@ rails server
 
 ## User Roles
 
-#### Admin Role (has access to everything)
+#### Regional Admin (has access to all communities within their regions)
+- Can do everything that a Community Admin can do for the communities in their regions
+- Can view, create, edit communities in their regions
+
+Login as a Regional Admin with:
+* username: ny_admin@example.com
+* password: Password1234
+
+
+#### Community Admin Role (has access to everything scoped to their Community)
 - Can view friends, create new friend records, edit friend records, and delete friend records
 - Can view users, invite users, edit users, and delete users
 - Can create activities for a friend (and can edit them)
 - Can create, edit, and remove asylum application drafts for a friend
 - Can share friend records with specific users (In the 'Asylum' tab when editing a friend, the 'Volunteers with Access' field)
-- Can view detailed information about friend activities in the current month and last month
-- Can manage lawyer records, location records, and judge records
-- Can create, edit, delete NSC events (ie. trainings and workshops) and can take attendance of volunteers and friends attending the event 
+- Can view, create, edit sanctuaries
+- Can view create, edit lawyers
 
-Login as an Admin with:
-* username: admin@example.com
+IF the Community is 'primary' (ie. primary = true), additionally:
+- Can view create, edit locations
+- Can view create, edit judges
+- Can generate reports
+- Can create, edit, delete NSC events (ie. trainings and workshops) and can take attendance of volunteers and friends attending the event
+- Can view an index of upcoming and past Activities and Accompaniments
+
+Login as an Admin of a Primary Community with:
+* username: nyc_admin@example.com
 * password: Password1234
 
-#### Volunteer Role (has limited access)
+Login as an Admin of a Non-Primary Community with:
+* username: li_admin@example.com
+* password: Password1234
+
+#### Community Volunteer Role (has limited access to their community)
 - Can receive an invitation (emailed) and follow the link to create a volunteer account
-- Can view limited details about friend activities (ie. accompaniments) this week and next week
-- Can RSVP to attend a friend activity (ie. accompaniment) and can edit their RSVP
 - Can view friend records that have been shared with them
 - Can add other users to friend records that have been shared with them
 - Can create, edit, and remove asylum application drafts
 
-Login as an Volunteeer with:
-* username: volunteer@example.com
+IF the Community is 'primary' (ie. primary = true), additionally:
+- Can view limited details about friend activities (ie. accompaniments) this week and next week
+- Can RSVP to attend a friend activity (ie. accompaniment) and can edit their RSVP
+
+Login as an Volunteeer for a Primary Community with:
+* username: nyc_volunteer@example.com
 * password: Password1234
 
-#### Accompaniment Leader Role
+Login as an Volunteeer for a Non-Primary Community with:
+* username: li_volunteer@example.com
+* password: Password1234
+
+#### Community Accompaniment Leader Role (only applicable to Primary communities)
 - Can do everything a volunteer can do
 - Can view contact information about friends and volunteers involved in accompaniments
 - Can create report for accompaniments they attend
 
-Login as an Volunteeer with:
-* username: accompaniment_leader@example.com
+Login as an Accompaniment Leader with:
+* username: nyc_accompaniment_leader@example.com
 * password: Password1234
 
 ## How are we building it?
@@ -129,7 +154,7 @@ Aiming to cover the functionality we build with:
 
 ### Staging App
 We have a staging app here with seed data:  https://frozen-sea-20640.herokuapp.com
-The data is refeshed occassionally, but activities/accompaniments are likely to be out of date. 
+The data is refeshed occassionally, but activities/accompaniments are likely to be out of date.
 
 ## Contributing
 1. Contact Christine at newsanctuary.tech@gmail.com to request access to the Trello board (backlog) and github repo.

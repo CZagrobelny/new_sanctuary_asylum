@@ -1,5 +1,5 @@
-<%= form_for @user do |f| %>
-  
+<%= form_for [current_community, @user] do |f| %>
+
   <%= display_validation_errors(@user) %>
 
   <div class='form-inputs'>

@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Volunteer managing asylum application drafts for shared friends', type: :feature, js: true do
-  let!(:volunteer) { create(:user, :volunteer) }
-  let!(:shared_friend) { create(:friend) }
-  let!(:not_shared_friend) { create(:friend) }
+  let(:community) { create :community }
+  let!(:volunteer) { create(:user, :volunteer, community: community) }
+  let!(:shared_friend) { create(:friend, community: community) }
+  let!(:not_shared_friend) { create(:friend, community: community) }
   let!(:user_friend_association) { create(:user_friend_association, friend: shared_friend, user: volunteer)}
   before { login_as(volunteer) }
 

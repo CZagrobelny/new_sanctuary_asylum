@@ -1,22 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin creates a new sanctuary', type: :feature do
-  let(:admin) { create(:user, :admin) }
+  let(:community_admin) { create(:user, :community_admin) }
+  let(:community) { community_admin.community }
 
   before do
-    login_as(admin)
+    login_as(community_admin)
   end
 
   scenario 'creating a new sanctuary' do
-    location_count = Sanctuary.count
-    visit new_admin_sanctuary_path
+    sanctuary_count = community.sanctuaries.count
+    visit new_community_admin_sanctuary_path(community)
 
     fill_in 'Name', with: FFaker::Name.name
     fill_in 'Leader Name', with: FFaker::Name.name
     click_button 'Save'
 
-    expect(Sanctuary.count).to eq (location_count + 1)
-    expect(current_path).to eq admin_sanctuaries_path
+    expect(community.sanctuaries.count).to eq (sanctuary_count + 1)
+    expect(current_path).to eq community_admin_sanctuaries_path(community)
   end
 
 end

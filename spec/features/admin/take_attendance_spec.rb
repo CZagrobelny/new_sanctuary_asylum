@@ -1,20 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe 'Take attendance', type: :feature, js: true do
-  let!(:admin) { create(:user, :admin) }
-  let!(:event) { create(:event) }
-  let!(:attending_volunteer) { create(:user, :volunteer) }
-  let!(:not_attending_volunteer) { create(:user, :volunteer) }
-  let!(:attending_friend) { create(:friend) }
-  let!(:not_attending_friend) { create(:friend) }
+  let(:community_admin) { create(:user, :community_admin, community: community) }
+  let(:community) { create :community, :primary }
+  let!(:event) { create(:event, community: community) }
+  let!(:attending_volunteer) { create(:user, :volunteer, community: community) }
+  let!(:not_attending_volunteer) { create(:user, :volunteer, community: community) }
+  let!(:attending_friend) { create(:friend, community: community) }
+  let!(:not_attending_friend) { create(:friend, community: community) }
 
   before do
     create(:user_event_attendance, event: event, user: attending_volunteer)
     3.times { create(:user_event_attendance, event: event) }
     create(:friend_event_attendance, event: event, friend: attending_friend)
     3.times { create(:friend_event_attendance, event: event) }
-    login_as(admin)
-    visit attendance_admin_event_path(event)
+    login_as(community_admin)
+    visit attendance_community_admin_event_path(community, event)
   end
 
   describe 'taking volunteer attendance' do
