@@ -1,0 +1,7 @@
+<h1>Friends with Active Applications</h1>
+<% @regional_friends.each do |region| %>
+  <h3><%= region[0].upcase %></h3>
+  <% region[1].each do |friend| %>
+    <p><%= link_to friend.name, regional_admin_friend_path(friend) %></p>
+  <% end %>
+<% end %>
