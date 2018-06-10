@@ -42,6 +42,6 @@ class InvitationsController < Devise::InvitationsController
   end
 
   def allow_devise_params
-    devise_parameter_sanitizer.permit(:invite, keys: [:community_id, :remote_clinic_lawyer])
+    devise_parameter_sanitizer.permit(:invite, keys: %i[community_id remote_clinic_lawyer])
   end
 end

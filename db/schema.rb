@@ -40,8 +40,8 @@ ActiveRecord::Schema.define(version: 20180610140434) do
     t.text     "notes"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "region_id"
     t.boolean  "confirmed"
+    t.integer  "region_id"
     t.index ["region_id"], name: "index_activities_on_region_id", using: :btree
   end
 
