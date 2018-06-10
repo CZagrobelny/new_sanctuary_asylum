@@ -43,10 +43,13 @@ User.create(first_name: 'NYC Community', last_name: 'Volunteer', email: 'nyc_vol
 User.create(first_name: 'NYC Community', last_name: 'Admin', email: 'nyc_admin@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 2, pledge_signed: true)
 
 #Some additional NYC volunteer users
-30.times do
+20.times do
   User.create(first_name: FFaker::Name.first_name, last_name: FFaker::Name.last_name, email: FFaker::Internet.safe_email, community_id: nyc_community.id, phone: FFaker::PhoneNumber.short_phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 0, pledge_signed: true)
 end
 
+10.times do
+  User.create(first_name: FFaker::Name.first_name, last_name: FFaker::Name.last_name, email: FFaker::Internet.safe_email, community_id: nyc_community.id, phone: FFaker::PhoneNumber.short_phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 2, role: 0, pledge_signed: true, remote_clinic_lawyer: [true, false].shuffle)
+end
 ## Long Island Users
 
 #Accompaniment Leader User
@@ -94,7 +97,7 @@ end
 
 # Long Islang Friends
 30.times do
-  Friend.create(first_name: FFaker::Name.first_name,
+  friend = Friend.create(first_name: FFaker::Name.first_name,
     last_name: FFaker::Name.last_name,
     a_number: rand.to_s[2..10],
     community_id: long_island_community.id,
@@ -119,6 +122,10 @@ end
     language_ids: [Language.order("RANDOM()").first.id],
     user_ids: User.where(community_id: long_island_community.id).order("RANDOM()").limit(5).map(&:id)
     )
+
+  friend.user_friend_associations.each do |assoc|
+    assoc.update_attributes(remote: [true, false].sample)
+  end
 end
 
 #Lawyers
