@@ -21,7 +21,6 @@
                 <div>
                   <%= render partial: 'activity', locals: {activity: activity, friend: activity.friend} %>
                 </div>
-                <%= link_to "Edit Activity", edit_community_admin_activity_path(current_community.slug, activity), class: "btn btn-primary" %>
               </div>
             </div>
           </div>
