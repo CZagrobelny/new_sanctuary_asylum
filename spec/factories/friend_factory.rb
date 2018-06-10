@@ -4,6 +4,7 @@ FactoryGirl.define do
     last_name { FFaker::Name.last_name }
     a_number { rand.to_s[2..10] }
     association :community
+    association :region
   end
 
   factory :detained_friend, parent: :friend do

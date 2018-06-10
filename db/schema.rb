@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180608201237) do
+ActiveRecord::Schema.define(version: 20180610140434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,18 +40,9 @@ ActiveRecord::Schema.define(version: 20180608201237) do
     t.text     "notes"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.boolean  "confirmed"
     t.integer  "region_id"
+    t.boolean  "confirmed"
     t.index ["region_id"], name: "index_activities_on_region_id", using: :btree
-  end
-
-  create_table "application_drafts", force: :cascade do |t|
-    t.text     "notes"
-    t.integer  "friend_id",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "pdf_draft"
-    t.string   "category"
   end
 
   create_table "applications", force: :cascade do |t|
@@ -176,7 +167,9 @@ ActiveRecord::Schema.define(version: 20180608201237) do
     t.datetime "date_foia_request_submitted"
     t.text     "foia_request_notes"
     t.integer  "community_id"
+    t.integer  "region_id"
     t.index ["community_id"], name: "index_friends_on_community_id", using: :btree
+    t.index ["region_id"], name: "index_friends_on_region_id", using: :btree
   end
 
   create_table "judges", force: :cascade do |t|
@@ -365,6 +358,7 @@ ActiveRecord::Schema.define(version: 20180608201237) do
   add_foreign_key "communities", "regions"
   add_foreign_key "events", "communities"
   add_foreign_key "friends", "communities"
+  add_foreign_key "friends", "regions"
   add_foreign_key "judges", "regions"
   add_foreign_key "lawyers", "regions"
   add_foreign_key "locations", "regions"

@@ -30,6 +30,7 @@ class Friend < ApplicationRecord
                      denied].map { |status| [status.titlecase, status] }
 
   belongs_to :community
+  belongs_to :region
   has_many :friend_languages, dependent: :destroy
   has_many :languages, through: :friend_languages
   has_many :activities, dependent: :restrict_with_error
@@ -60,7 +61,7 @@ class Friend < ApplicationRecord
   has_many :inverse_partner_relationships, class_name: 'PartnerRelationship', foreign_key: 'partner_id', dependent: :destroy
   has_many :inverse_partners, through: :inverse_partner_relationships, source: :friend
 
-  validates :first_name, :last_name, :community_id, presence: true
+  validates :first_name, :last_name, :community_id, :region_id, presence: true
   validates :zip_code, length: { is: 5 }, allow_blank: true, numericality: true
   validates :a_number, presence: { if: :a_number_available? }, numericality: { if: :a_number_available? }
   validates :a_number, length: { minimum: 8, maximum: 9 }, if: :a_number_available?
@@ -71,6 +72,11 @@ class Friend < ApplicationRecord
       .distinct
       .where('detentions.date_detained < ?', Time.now)
       .where('detentions.date_released IS NULL OR detentions.date_released > ?', Time.now)
+  }
+
+  scope :with_active_applications, -> {
+    joins(:applications)
+      .where(applications: { status: [:in_review, :changes_requested, :approved] })
   }
 
   def name
