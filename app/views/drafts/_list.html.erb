@@ -24,8 +24,8 @@
         </p>
       </div>
       <div class ='col-md-3 col-md-push-1 text-muted'>
-        <% if draft.status == 'in_review' %>
-          <button type='button' class='btn btn-default'> Submit for Review </button>
+        <% if draft.status == 'in_progress' %>
+        <%= link_to 'Submit for Review', submit_for_review_community_friend_draft_path(current_community.slug, friend, draft), class: 'btn btn-success'%>
         <% else %>
           <%= draft.status.humanize %> <%= draft.updated_at.strftime('%m/%d/%Y') %><br>
         <% end %>

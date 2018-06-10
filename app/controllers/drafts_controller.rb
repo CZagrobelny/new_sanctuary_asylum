@@ -13,7 +13,7 @@ class DraftsController < ApplicationController
     @draft = application.drafts.new(draft_params.merge(friend: friend))
     if @draft.save
       flash[:success] = 'Application draft saved.'
-      render_success
+      render_document_list
     else
       flash.now[:error] = 'Application draft not saved.'
       render :new
@@ -28,7 +28,7 @@ class DraftsController < ApplicationController
   def update
     if draft.update(draft_params)
       flash[:success] = 'Application draft saved.'
-      render_success
+      render_document_list
     else
       friend
       flash.now[:error] = 'Friend record not saved.'
@@ -50,7 +50,20 @@ class DraftsController < ApplicationController
     end
   end
 
-  def render_success
+def submit_for_review
+  draft.status = :in_review
+  application.status = :in_review
+  if draft.save && application.save
+    flash[:success] = 'Draft submitted for review.'
+  else
+    flash[:error] = 'There was an issue submitting the draft for review.'
+  end
+  render_document_list
+end
+
+private
+
+  def render_document_list
     if current_user.admin?
       redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#documents')
     else
@@ -62,11 +75,13 @@ class DraftsController < ApplicationController
     @draft ||= Draft.find(params[:id])
   end
 
+  def application
+    @application ||= draft.application
+  end
+
   def friend
     @friend ||= current_community.friends.find(params[:friend_id])
   end
-
-  private
 
   def draft_params
     params.require(:draft).permit(
