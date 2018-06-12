@@ -2,8 +2,11 @@
   <div class='col-md-offset-3'>
     <div class='row'>
       <h1 class='page-header'>Edit User</h1>
-      
+
       <%= render 'form' %>
+      <% if current_user.admin? %>
+        <%= render 'user_friend_list' %>
+      <% end %>
     </div>
   </div>
 <div />

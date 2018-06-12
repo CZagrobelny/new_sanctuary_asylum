@@ -29,6 +29,10 @@ class User < ApplicationRecord
     activity.users.include?(self)
   end
 
+  def friend_list
+    self.friends.order('first_name ASC')
+  end
+
   def accompaniment_report_for(activity)
     self.accompaniment_reports.where(activity_id: activity.id).first
   end
