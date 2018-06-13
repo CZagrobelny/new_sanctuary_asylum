@@ -54,6 +54,7 @@ class DraftsController < ApplicationController
     draft.status = :in_review
     application.status = :in_review
     if draft.save && application.save
+      notify_lawyer(draft)
       flash[:success] = 'Draft submitted for review.'
     else
       flash[:error] = 'There was an issue submitting the draft for review.'
@@ -62,6 +63,10 @@ class DraftsController < ApplicationController
   end
 
   private
+
+  def notify_lawyer(draft)
+    Notification.draft_for_review(draft: draft)
+  end
 
   def render_document_list
     if current_user.admin?
