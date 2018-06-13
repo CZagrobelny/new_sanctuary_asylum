@@ -28,6 +28,10 @@ class User < ApplicationRecord
 
   scope :remote_lawyers, -> { where(remote_clinic_lawyer: true) }
 
+  def remote_clinic_friends
+    friends.where(user_friend_associations: { remote: true })
+  end
+
   def confirmed?
     invitation_accepted_at.present?
   end
