@@ -79,6 +79,10 @@ class Friend < ApplicationRecord
       .where(applications: { status: [:in_review, :changes_requested, :approved] })
   }
 
+  def remote_clinic_lawyers
+    users.where(user_friend_associations: { remote: true })
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
