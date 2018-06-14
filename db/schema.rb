@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180610140434) do
+ActiveRecord::Schema.define(version: 20180610160526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,18 +40,9 @@ ActiveRecord::Schema.define(version: 20180610140434) do
     t.text     "notes"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.boolean  "confirmed"
     t.integer  "region_id"
+    t.boolean  "confirmed"
     t.index ["region_id"], name: "index_activities_on_region_id", using: :btree
-  end
-
-  create_table "application_drafts", force: :cascade do |t|
-    t.text     "notes"
-    t.integer  "friend_id",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "pdf_draft"
-    t.string   "category"
   end
 
   create_table "applications", force: :cascade do |t|
@@ -91,13 +82,13 @@ ActiveRecord::Schema.define(version: 20180610140434) do
 
   create_table "drafts", force: :cascade do |t|
     t.text     "notes"
-    t.integer  "friend_id",      null: false
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.integer  "friend_id",                  null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.string   "pdf_draft"
     t.string   "category"
     t.integer  "application_id"
-    t.integer  "status"
+    t.integer  "status",         default: 0
     t.index ["application_id"], name: "index_drafts_on_application_id", using: :btree
   end
 
@@ -276,13 +267,6 @@ ActiveRecord::Schema.define(version: 20180610140434) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_application_draft_associations", force: :cascade do |t|
-    t.integer  "user_id",              null: false
-    t.integer  "application_draft_id", null: false
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
   create_table "user_draft_associations", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.integer  "draft_id",   null: false
@@ -298,10 +282,11 @@ ActiveRecord::Schema.define(version: 20180610140434) do
   end
 
   create_table "user_friend_associations", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "friend_id",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "user_id",                    null: false
+    t.integer  "friend_id",                  null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "remote",     default: false
     t.index ["friend_id"], name: "index_user_friend_associations_on_friend_id", using: :btree
     t.index ["user_id"], name: "index_user_friend_associations_on_user_id", using: :btree
   end

@@ -17,12 +17,12 @@
             <strong>Notes:  </strong><%= draft.notes %><br>
           <% end %>
         </p>
-        <%= render partial: 'drafts/draft_status', locals: {current_community: current_community, friend: friend, draft: draft} %>
+        <%= render partial: 'drafts/draft_status', locals: { current_community: current_community, friend: friend, draft: draft } %>
       </div>
     <% end %>
   <% end %>
 <% end %>
 <br>
 <div class='col-md-2 col-md-offset-10'>
-  <%= f.submit 'Manage Documents', name: 'manage_drafts', :class => 'btn btn-primary' %>
+  <%= f.submit 'Manage Documents', name: 'manage_drafts', class: 'btn btn-primary' %>
 </div>
