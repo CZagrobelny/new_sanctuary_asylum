@@ -20,7 +20,11 @@ Rails.application.routes.draw do
 
     resources :users, only: [:edit, :update]
     resources :friends, only: [:index, :show, :update] do
-      resources :drafts
+      resources :drafts do
+        member do
+          get :submit_for_review
+        end
+      end
     end
     resources :accompaniments
     resources :activities, only: [:index]

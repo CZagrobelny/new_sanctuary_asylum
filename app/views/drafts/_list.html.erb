@@ -1,29 +1,33 @@
 <%= link_to 'Create Document', new_community_friend_draft_path(current_community.slug, friend), class: 'pull-right btn btn-primary' %>
 <br>
-<%if friend.drafts.any? %>
+<% if friend.grouped_drafts.empty? %>
+  <h3> There are no files associated with this user.</h3>
+<% else %>
   <% friend.grouped_drafts.each do |group| %>
     <h3><%= group[:name].titlecase %></h3>
     <% group[:drafts].each do |draft| %>
-      <div>
-        <p>
-          <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
-          <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
-          <% if draft.users.present? %>
-            <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
-          <% end %>
+    <div class = 'row'>
+        <div class ='col-md-9'>
+          <p>
+            <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
+            <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
 
-          <% if draft.notes.present? %>
-            <strong>Notes:  </strong><%= draft.notes %><br>
-          <% end %>
+            <% if draft.users.present? %>
+              <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
+            <% end %>
 
-          <%= link_to 'Edit', edit_community_friend_draft_path(current_community.slug, friend, draft) %>
-          <% if current_user.admin? %>
-            <%= link_to 'Delete', community_friend_draft_path(current_community.slug, friend, draft), method: :delete, confirm: true, class: 'delete' %><br>
-          <% end %>
-        </p>
-      </div>
+            <% if draft.notes.present? %>
+              <strong>Notes:  </strong><%= draft.notes %><br>
+            <% end %>
+
+            <%= link_to 'Edit', edit_community_friend_draft_path(current_community.slug, friend, draft) %>
+            <% if current_user.admin? %>
+              <%= link_to 'Delete', community_friend_draft_path(current_community.slug, friend, draft), method: :delete, confirm: true, class: 'delete' %><br>
+            <% end %>
+          </p>
+        </div>
+      <%= render partial: 'drafts/draft_status', locals: {current_community: current_community, friend: friend, draft: draft} %>
+    </div>
     <% end %>
   <% end %>
-<%else%>
-<p>There are no files associated with this user.</p>
-<%end%>
+<% end %>

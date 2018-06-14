@@ -1,6 +1,6 @@
 <% if @friend.grouped_drafts.empty? %>
-<h3> There are no files associated with this user.</h3>
-<%else%>
+  <h3> There are no files associated with this user.</h3>
+<% else %>
   <% @friend.grouped_drafts.each do |group| %>
     <h3><%= group[:name].titlecase %></h3>
     <% group[:drafts].each do |draft| %>
@@ -8,6 +8,7 @@
         <p>
           <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
           <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
+
           <% if draft.users.present? %>
             <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
           <% end %>
@@ -16,11 +17,11 @@
             <strong>Notes:  </strong><%= draft.notes %><br>
           <% end %>
         </p>
+        <%= render partial: 'drafts/draft_status', locals: { current_community: current_community, friend: friend, draft: draft } %>
       </div>
     <% end %>
   <% end %>
 <% end %>
-
 <br>
 <div class='col-md-2 col-md-offset-10'>
   <%= f.submit 'Manage Documents', name: 'manage_drafts', class: 'btn btn-primary' %>

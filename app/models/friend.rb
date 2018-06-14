@@ -76,7 +76,7 @@ class Friend < ApplicationRecord
 
   scope :with_active_applications, -> {
     joins(:applications)
-      .where(applications: { status: [:in_review, :changes_requested, :approved] })
+      .where(applications: { status: %i[in_review changes_requested approved] })
   }
 
   def remote_clinic_lawyers
