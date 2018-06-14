@@ -6,7 +6,9 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
     let(:community) { create :community }
     let(:community_admin) { create(:user, :community_admin, community: community) }
     let(:friend) { create(:friend, community: community) }
-    let(:location) { create(:location, region: community.region) }
+    let!(:location) { create(:location, region: community.region) }
+    let!(:application) { create(:application, friend: friend) }
+    let!(:draft) { create(:draft, friend: friend, application: application) }
 
     before do
       3.times { create(:friend, community: community) }
@@ -69,7 +71,6 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
 
         describe 'with valid information' do
           it 'displays the new activity' do
-            pending('location does not seem to be showing up in lists')
             expect(page).to have_link 'Add Activity'
             click_link 'Add Activity'
             sleep 1
@@ -122,12 +123,17 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
           end
         end
 
-        describe 'with valid information' do
-
-        end
-
-        describe 'with incomplete information' do
-
+        it 'displays the new detention' do
+          expect(page).to have_link 'Add Detention'
+          click_link 'Add Detention'
+          sleep 1
+          select 'Immigration Court', from: 'Case Status'
+          within '#new_detention' do
+            click_button 'Save'
+          end
+          within '#detention-list' do
+            expect(page).to have_content('Immigration Court')
+          end
         end
       end
     end
@@ -143,30 +149,22 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
       end
     end
 
-    describe 'managing docs' do
-      let!(:application) { create(:application, friend: friend) }
-      let!(:draft) { create(:draft, friend: friend, application: application) }
-      before do
-        click_link 'Documents'
-      end
-      describe 'managing friend applications' do
-        it 'does display status for non-primary community volunteer' do
-          pending("this test does not seem to be displaying the drafts which are being displayed in prod")
-          expect(page).to have_content('Submit for Review')
-        end
-      end
-    end
-
     describe 'editing "Documents"' do
-      before {click_link 'Documents'}
-      # add the scenario wherein there is at least one file
-      it 'displays the "Documents" tab' do
-        within '.tab-content' do
-          expect(page).to have_content 'There are no files associated with this user.'
-        end
+      before  { click_link 'Documents' }
+
+      it 'displays the application category' do
+        expect(page).to have_content application.category.titlecase
       end
 
-      it 'redirects to application drafts page' do
+      it 'displays the draft name' do
+        expect(page).to have_link 'nsc_logo.png'
+      end
+
+      it 'displays a "Submit for Review" link' do
+        expect(page).to have_link('Submit for Review')
+      end
+
+      it 'redirects to application drafts page to "Manage Documents"' do
         click_button 'Manage Documents'
         expect(current_path).to eq community_friend_drafts_path(community_slug: community.slug, friend_id: friend.id)
       end
@@ -178,6 +176,8 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
     let(:community_admin) { create(:user, :community_admin, community: community) }
     let(:friend) { create(:friend, community: community) }
     let(:location) { create(:location, region: community.region) }
+    let!(:application) { create(:application, friend: friend) }
+    let!(:draft) { create(:draft, friend: friend, application: application) }
 
     before do
       3.times { create(:friend, community: community) }
@@ -185,18 +185,13 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
       visit edit_community_admin_friend_path(community, friend)
     end
 
-    describe 'managing docs' do
-      let!(:application) { create(:application, friend: friend) }
-      let!(:draft) { create(:draft, friend: friend, application: application) }
+    describe 'editing "Documents"' do
       before do
         click_link 'Documents'
       end
 
-      describe 'managing friend applications' do
-
-        it 'does not display status for primary community volunteer' do
-          expect(page).not_to have_content('Submit for Review')
-        end
+      it 'does NOT display a "Submit for Review" link' do
+        expect(page).to_not have_link('Submit for Review')
       end
     end
   end
