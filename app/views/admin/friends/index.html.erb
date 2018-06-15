@@ -27,6 +27,21 @@
               data: {search_filter: true} %>
           </label>
         </dd>
+        <dt>1 year deadline</dt>
+        <dd>
+          <label>
+            Start
+            <%= text_field_tag 'one_year_deadline[end_date]', Date.today, class: 'datepicker',
+              selected: params[:one_year_deadline].try(:get, :start_date),
+              data: {search_filter: true} %>
+          </label>
+          <label>
+            End
+            <%= text_field_tag 'one_year_deadline[end_date]', Date.today + 2.months, class: 'datepicker',
+              selected: params[:one_year_deadline].try(:get, :end_date),
+              data: {search_filter: true} %>
+          </label>
+        </dd>
       </dl>
     <% end %>
   <% end %>
