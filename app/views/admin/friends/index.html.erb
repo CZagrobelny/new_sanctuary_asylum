@@ -31,14 +31,12 @@
         <dd>
           <label>
             Start
-            <%= text_field_tag 'one_year_deadline[end_date]', Date.today, class: 'datepicker',
-              selected: params[:one_year_deadline].try(:get, :start_date),
+            <%= text_field_tag 'deadline_start_date', params[:deadline_start_date] || Date.today, class: 'datepicker',
               data: {search_filter: true} %>
           </label>
           <label>
             End
-            <%= text_field_tag 'one_year_deadline[end_date]', Date.today + 2.months, class: 'datepicker',
-              selected: params[:one_year_deadline].try(:get, :end_date),
+            <%= text_field_tag 'deadline_end_date', params[:deadline_end_date] || Date.today + 2.months, class: 'datepicker',
               data: {search_filter: true} %>
           </label>
         </dd>
