@@ -15,4 +15,5 @@
  *= require font-awesome
  *= require chosen
  *= require_tree .
+ *= require jquery-ui/datepicker
  */
