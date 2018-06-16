@@ -29,6 +29,15 @@ class RegionalAdmin::RemoteLawyersController < AdminController
   end
 
   def remote_lawyer_params
-    params.require(:remote_lawyer).permit(:first_name, :last_name, :email, :phone)
+    params.require(:remote_lawyer).permit(
+      :first_name,
+      :last_name,
+      :email,
+      :phone,
+      :volunteer_type,
+      :role,
+      :signed_guidelines,
+      :remote_clinic_lawyer
+    )
   end
 end

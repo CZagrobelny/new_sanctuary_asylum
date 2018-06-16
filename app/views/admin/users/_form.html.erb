@@ -47,14 +47,23 @@
 
     <div class='form-group'>
       <div class='col-md-6 col-md-offset-2'>
-        <div class='checkbox' />
+        <%= f.check_box :signed_guidelines, id: 'signed-check' %>
+        <label>
+          Signed Guidelines
+        </label>
+      </div>
+    </div>
+
+    <% if current_user.regional_admin? %>
+      <div class='form-group'>
+        <div class='col-md-6 col-md-offset-2'>
+          <%= f.check_box :remote_clinic_lawyer %>
           <label>
-            <%= f.check_box :signed_guidelines, id: 'signed-check' %>
-            Signed Guidelines
+            Remote Clinic Lawyer
           </label>
         </div>
       </div>
-    </div>
+    <% end %>
 
     <div class='row'>
       <div class='col-md-1 col-md-offset-7'>

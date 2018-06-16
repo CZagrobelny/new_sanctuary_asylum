@@ -16,6 +16,7 @@
       <% if current_user %>
         <% if current_user.regional_admin? %>
           <li><%= link_to 'Manage Regions', regional_admin_regions_path %></li>
+          <li><%= link_to 'Manage Remote Lawyers', regional_admin_remote_lawyers_path %></li>
         <% end %>
         <% if current_user.admin? && !%w(communities regions remote_lawyers).include?(controller.controller_name) %>
           <% if current_community.primary?  %>

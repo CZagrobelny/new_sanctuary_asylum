@@ -15,7 +15,7 @@
         <%= f.check_box :remote_clinic_lawyer, {class: 'form-check-input'}, true , false %>
         <%= f.label :remote_clinic_lawyer, "Remote Clinic Lawyer?", {class: 'form-check-label'} %>
       </div>
-      <% end %>
+    <% end %>
     <%= f.hidden_field :community_id, value: current_community.id %>
     <p><%= f.submit t('devise.invitations.new.submit_button'), class: 'btn btn-primary' %></p>
   <% end %>
