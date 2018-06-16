@@ -7,17 +7,6 @@ class Admin::FriendsController < AdminController
                end
   end
 
-  def friend_index_scope
-    scope = Friend
-    case params[:detained]
-    when 'yes'
-      scope = scope.detained
-    when 'no'
-      scope = scope.not_detained
-    end
-    scope
-  end
-
   def new
     @friend = Friend.new
   end
@@ -134,5 +123,16 @@ class Admin::FriendsController < AdminController
       :language_ids => [],
       :user_ids => []
     )
+  end
+
+  def friend_index_scope
+    scope = Friend
+    case params[:detained]
+    when 'yes'
+      scope = scope.detained
+    when 'no'
+      scope = scope.not_detained
+    end
+    scope
   end
 end
