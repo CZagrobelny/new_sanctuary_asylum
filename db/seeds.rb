@@ -80,7 +80,7 @@ end
     gender: ['male', 'female', 'awesome'].sample,
     date_of_birth: FFaker::Time.between(10.years.ago, 40.years.ago),
     status: 'not_in_deportation_proceedings',
-    date_of_entry: FFaker::Time.between(1.day.ago, 6.months.ago),
+    date_of_entry: FFaker::Time.between(1.day.ago, 5.years.ago),
     notes: FFaker::Lorem.paragraph,
     asylum_status: ['not_eligible', 'eligible', 'application_started'].sample,
     asylum_notes: FFaker::Lorem.paragraph,
