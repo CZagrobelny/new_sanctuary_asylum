@@ -4,8 +4,8 @@ module FriendsHelper
   def friend_search_filtered?
     {
       detained: 'yes',
-      deadline_start_date: DATEPICKER_DATE_REGEXP,
-      deadline_end_date: DATEPICKER_DATE_REGEXP
+      deadlines_ending_floor: DATEPICKER_DATE_REGEXP,
+      deadlines_ending_ceiling: DATEPICKER_DATE_REGEXP
     }.any? do |key, value|
       if value.is_a?(Regexp)
         value.match(params[key])

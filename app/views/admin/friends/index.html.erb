@@ -31,12 +31,12 @@
         <dd>
           <label>
             Start
-            <%= text_field_tag 'deadline_start_date', @filters[:deadline_start_date], class: 'datepicker',
+            <%= text_field_tag 'deadlines_ending_floor', @filters[:deadlines_ending_floor], class: 'datepicker',
               data: {search_filter: true} %>
           </label>
           <label>
             End
-            <%= text_field_tag 'deadline_end_date', @filters[:deadline_end_date], class: 'datepicker',
+            <%= text_field_tag 'deadlines_ending_ceiling', @filters[:deadlines_ending_ceiling], class: 'datepicker',
               data: {search_filter: true} %>
           </label>
         </dd>
