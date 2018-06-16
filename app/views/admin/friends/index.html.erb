@@ -23,7 +23,7 @@
         <dd>
           <label>
             Detained
-            <%= check_box_tag :detained, 'yes', params[:detained] == 'yes',
+            <%= check_box_tag :detained, 'yes', @filters[:detained],
               data: {search_filter: true} %>
           </label>
         </dd>
@@ -31,12 +31,12 @@
         <dd>
           <label>
             Start
-            <%= text_field_tag 'deadline_start_date', params[:deadline_start_date] || Date.today, class: 'datepicker',
+            <%= text_field_tag 'deadline_start_date', @filters[:deadline_start_date], class: 'datepicker',
               data: {search_filter: true} %>
           </label>
           <label>
             End
-            <%= text_field_tag 'deadline_end_date', params[:deadline_end_date] || Date.today + 2.months, class: 'datepicker',
+            <%= text_field_tag 'deadline_end_date', @filters[:deadline_end_date], class: 'datepicker',
               data: {search_filter: true} %>
           </label>
         </dd>
