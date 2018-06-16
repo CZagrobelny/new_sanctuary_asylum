@@ -10,6 +10,7 @@ Software to support the core work of the New Sanctuary Coalition: helping our fr
 
 * ruby (see Gemfile for version)
 * postgres
+* filemagic system libraries (check out the [https://github.com/blackwinter/ruby-filemagic](filemagic gem docs) to see what to install for your OS)
 
 ### Ruby Dependencies
 
