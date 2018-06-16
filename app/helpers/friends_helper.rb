@@ -7,7 +7,7 @@ module FriendsHelper
 
   def any_filter_check_boxes_checked?
     {
-      detained: 'yes',
+      detained: 'yes'
     }.any? do |key, value|
       params[key] == value
     end
