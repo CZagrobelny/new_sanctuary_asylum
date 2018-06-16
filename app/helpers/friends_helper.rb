@@ -5,7 +5,7 @@ module FriendsHelper
     {
       detained: 'yes',
       deadline_start_date: DATE_REGEXP,
-      deadline_start_date: DATE_REGEXP
+      deadline_end_date: DATE_REGEXP
     }.any? do |key, value|
       if value.is_a?(Regexp)
         value.match(params[key])
