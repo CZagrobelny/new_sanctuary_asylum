@@ -1,5 +1,10 @@
 class Admin::FriendsController < AdminController
   def index
+    @filters = {
+      detained: params[:detained] == 'yes',
+      deadline_start_date: params[:deadline_start_date] || Date.today,
+      deadline_end_date: params[:deadline_end_date] || Date.today + 2.months
+    }
     @friends = if params[:query].present?
                  search.perform
                else
