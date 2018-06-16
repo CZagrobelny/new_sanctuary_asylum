@@ -17,7 +17,8 @@ class Activity < ApplicationRecord
                                          sijs_granted
                                          sijs_denied
                                          change_of_venue_submitted
-                                         foia_request_submitted].freeze
+                                         foia_request_submitted
+                                         foia_recieved].freeze
   EVENT_KEYS = ACCOMPANIMENT_ELIGIBLE_EVENTS + NON_ACCOMPANIMENT_ELIGIBLE_EVENTS
   EVENTS = EVENT_KEYS.map { |event| [event.titlecase, event] }
 
