@@ -2,16 +2,21 @@ module FriendsHelper
   DATEPICKER_DATE_REGEXP = /\d{2}\/\d{2}\/\d{4}/
 
   def friend_search_filtered?
+    any_filter_check_boxes_checked? || filter_asylum_deadline_params_valid?
+  end
+
+  def any_filter_check_boxes_checked?
     {
       detained: 'yes',
-      deadlines_ending_floor: DATEPICKER_DATE_REGEXP,
-      deadlines_ending_ceiling: DATEPICKER_DATE_REGEXP
     }.any? do |key, value|
-      if value.is_a?(Regexp)
-        value.match(params[key])
-      else
-        params[key] == value
-      end
+      params[key] == value
     end
+  end
+
+  def filter_asylum_deadline_params_valid?
+    [:deadlines_ending_ceiling, :deadlines_ending_floor].each do |key|
+      return false unless DATEPICKER_DATE_REGEXP.match(params[key])
+    end
+    true
   end
 end
