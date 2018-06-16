@@ -108,12 +108,12 @@ RSpec.describe Friend, type: :model do
     context '.asylum_deadlines_ending scope' do
       it 'should return only the friends whose deadlines fall within the two boundaries, inclusive' do
         # Lookup boundaries
-        deadlines_ending_start_date = 2.months.from_now
-        deadlines_ending_end_date = deadlines_ending_start_date + 1.month
+        deadlines_ending_floor = 2.months.from_now
+        deadlines_ending_ceiling = deadlines_ending_floor + 1.month
 
         # date_of_entry fixture data
-        earliest_date_of_entry = deadlines_ending_start_date - 1.year
-        latest_date_of_entry = deadlines_ending_end_date - 1.year
+        earliest_date_of_entry = deadlines_ending_floor - 1.year
+        latest_date_of_entry = deadlines_ending_ceiling - 1.year
 
         within_boundaries = [
           create(:friend, date_of_entry: earliest_date_of_entry), # inclusive (ON the lower boundary)
@@ -130,7 +130,7 @@ RSpec.describe Friend, type: :model do
           create(:friend, date_of_entry: latest_date_of_entry + 1.week)
         ]
 
-        friends = Friend.asylum_deadlines_ending(deadlines_ending_start_date, deadlines_ending_end_date)
+        friends = Friend.asylum_deadlines_ending(deadlines_ending_floor, deadlines_ending_ceiling)
         expect(friends).to eq(within_boundaries)
       end
     end
