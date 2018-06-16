@@ -23,7 +23,7 @@
         <dd>
           <label>
             Detained
-            <%= check_box_tag :detained, 'yes', @filters[:detained],
+            <%= check_box_tag :detained, 'yes', params[:detained] == 'yes',
               data: {search_filter: true} %>
           </label>
         </dd>
@@ -31,13 +31,13 @@
         <dd>
           <label>
             Start
-            <%= text_field_tag 'deadlines_ending_floor', @filters[:deadlines_ending_floor], class: 'datepicker',
-              data: {search_filter: true} %>
+            <%= text_field_tag 'deadlines_ending_floor', params[:deadlines_ending_floor], class: 'datepicker',
+              data: {search_filter: true}, placeholder: @filter_placeholders[:deadlines_ending_floor] %>
           </label>
           <label>
             End
-            <%= text_field_tag 'deadlines_ending_ceiling', @filters[:deadlines_ending_ceiling], class: 'datepicker',
-              data: {search_filter: true} %>
+            <%= text_field_tag 'deadlines_ending_ceiling', params[:deadlines_ending_ceiling], class: 'datepicker',
+              data: {search_filter: true}, placeholder: @filter_placeholders[:deadlines_ending_ceiling] %>
           </label>
         </dd>
       </dl>
