@@ -1,5 +1,5 @@
 module FriendsHelper
-  DATEPICKER_DATE_REGEXP = /\d{4}\-\d{2}-\d{2}/
+  DATEPICKER_DATE_REGEXP = /\d{2}\/\d{2}\/\d{4}/
 
   def friend_search_filtered?
     {
