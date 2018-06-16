@@ -4,7 +4,7 @@ $(document).on('turbolinks:load', function () {
     return false;
   });
 
-  $('[data-search-filter=true]').on('click', function () {
+  $('[data-search-filter=true]').on('change', function () {
     $(this).closest('form').submit()
   });
 });
