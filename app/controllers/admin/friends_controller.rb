@@ -7,17 +7,6 @@ class Admin::FriendsController < AdminController
                end
   end
 
-  def friend_index_scope
-    scope = current_community.friends
-    case params[:detained]
-    when 'yes'
-      scope = scope.detained
-    when 'no'
-      scope = scope.not_detained
-    end
-    scope
-  end
-
   def new
     @friend = current_community.friends.new
   end
@@ -132,5 +121,16 @@ class Admin::FriendsController < AdminController
       language_ids: [],
       user_ids: []
     ).merge(community_id: current_community.id, region_id: current_region.id)
+  end
+
+  def friend_index_scope
+    scope = current_community.friends
+    case params[:detained]
+    when 'yes'
+      scope = scope.detained
+    when 'no'
+      scope = scope.not_detained
+    end
+    scope
   end
 end
