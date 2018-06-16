@@ -1,11 +1,11 @@
 class ApplicationDraftsController < ApplicationController
   before_action :authenticate_user!
+  before_action :require_access_to_community
   before_action :require_admin_or_access_to_friend
   before_action :require_admin, only: [:destroy]
 
   def new
-    @application_draft = ApplicationDraft.new
-    @friend = friend
+    @application_draft = friend.application_drafts.new
   end
 
   def create
@@ -20,8 +20,8 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def edit
-    @application_draft = application_draft
-    @friend = friend
+    application_draft
+    friend
   end
 
   def update
@@ -29,31 +29,31 @@ class ApplicationDraftsController < ApplicationController
       flash[:success] = 'Application draft saved.'
       render_success
     else
-      @friend = friend
+      friend
       flash.now[:error] = 'Friend record not saved.'
       render :edit
     end
   end
 
   def index
-    @friend = friend
+    friend
   end
 
   def destroy
     if application_draft.destroy
       flash[:success] = 'Application draft destroyed.'
-      redirect_to edit_admin_friend_path(friend, tab: '#documents')
+      redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#documents')
     else
       flash[:error] = 'Error destroying application draft.'
-      redirect_to friend_application_drafts_path(friend)
+      redirect_to community_friend_application_drafts_path(current_community.slug, friend)
     end
   end
 
   def render_success
     if current_user.admin?
-      redirect_to edit_admin_friend_path(friend, tab: '#documents')
+      redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#documents')
     else
-      redirect_to friend_path(friend, tab: '#documents')
+      redirect_to community_friend_path(current_community.slug, friend, tab: '#documents')
     end
   end
 
@@ -62,7 +62,7 @@ class ApplicationDraftsController < ApplicationController
   end
 
   def friend
-    @friend ||= Friend.find(params[:friend_id])
+    @friend ||= current_community.friends.find(params[:friend_id])
   end
 
   private

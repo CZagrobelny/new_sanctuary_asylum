@@ -1,14 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe 'Give volunteers access to friends', type: :feature, js: true do
-  let!(:admin) { create(:user, :admin) }
-  let!(:friend) { create(:friend) }
-  let!(:volunteer) { create(:user, :volunteer) }
+  let(:community_admin) { create(:user, :community_admin, community: community) }
+  let(:community) { create :community }
+  let!(:friend) { create(:friend, community: community) }
+  let!(:volunteer) { create(:user, :volunteer, community: community) }
 
   describe 'An admin adds a volunteer to a friend record' do
     it 'allows the volunteer access to the record' do
-      login_as(admin)
-      visit edit_admin_friend_path(friend)
+      login_as(community_admin)
+      visit edit_community_admin_friend_path(community, friend)
       click_link 'Access'
       select_from_multi_chosen(volunteer.name, from: {id: 'friend_user_ids'})
       within '#submission_wrapper' do
@@ -16,7 +17,7 @@ RSpec.describe 'Give volunteers access to friends', type: :feature, js: true do
       end
       logout(:user)
       login_as(volunteer)
-      visit friend_path(friend)
+      visit community_friend_path(community, friend)
 
       expect(page).to have_content 'Basic'
       expect(page).to have_content 'Documents'

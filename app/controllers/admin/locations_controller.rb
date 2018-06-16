@@ -1,22 +1,23 @@
 class Admin::LocationsController < AdminController
+  before_action :require_primary_community
   before_action :set_location, only: [:edit, :update]
 
   def index
-    @locations = Location.order('created_at desc').paginate(:page => params[:page])
+    @locations = current_region.locations.order('created_at desc').paginate(:page => params[:page])
   end
 
   def new
-    @location = Location.new
+    @location = current_region.locations.new
   end
 
   def edit
   end
 
   def create
-    @location = Location.new(location_params)
+    @location = current_region.locations.new(location_params)
 
     if @location.save
-      redirect_to admin_locations_path
+      redirect_to community_admin_locations_path(current_community.slug)
     else
       flash.now[:error] = "Something went wrong :("
       render 'new'
@@ -25,7 +26,7 @@ class Admin::LocationsController < AdminController
 
   def update
     if @location.update(location_params)
-      redirect_to admin_locations_path
+      redirect_to community_admin_locations_path(current_community.slug)
     else
       flash.now[:error] = "Something went wrong :("
       render 'edit'
@@ -35,7 +36,7 @@ class Admin::LocationsController < AdminController
   private
 
   def set_location
-    @location = Location.find(params[:id])
+    @location = current_region.locations.find(params[:id])
   end
 
   def location_params

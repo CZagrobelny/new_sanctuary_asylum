@@ -1,4 +1,4 @@
-<%= form_for [:admin, @sanctuary] do |f| %>
+<%= form_for [current_community, :admin, @sanctuary] do |f| %>
 
   <%= display_validation_errors(@sanctuary) %>
 

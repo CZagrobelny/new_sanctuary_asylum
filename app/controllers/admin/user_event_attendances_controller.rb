@@ -1,4 +1,5 @@
 class Admin::UserEventAttendancesController < AdminController
+  before_action :require_primary_community
   def create
     user_id_array = user_event_attendance_params[:user_id].reject { |u| u.empty? }
     if user_id_array.present?

@@ -1,5 +1,7 @@
 class Lawyer < ApplicationRecord
-  validates :first_name, :last_name, presence: true
+  belongs_to :region
+  validates :first_name, :last_name, :region_id, presence: true
+
   def name
     "#{first_name} #{last_name}"
   end

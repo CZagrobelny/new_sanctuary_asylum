@@ -32,17 +32,17 @@ class Admin::Friends::DetentionsController < AdminController
   end
 
   def detention
-    @detention ||= Detention.find(params[:id]) 
+    @detention ||= Detention.find(params[:id])
   end
 
   def friend
-    @friend ||= Friend.find(params[:friend_id])
+    @friend ||= current_community.friends.find(params[:friend_id])
   end
 
   private
 
   def detention_params
-    params.require(:detention).permit( 
+    params.require(:detention).permit(
       :friend_id,
       :location_id,
       :date_detained,

@@ -9,9 +9,10 @@ FactoryGirl.define do
     password_confirmation { password }
     invitation_accepted_at { Time.now }
     pledge_signed true
+    association :community
   end
 
-  trait :admin do
+  trait :community_admin do
     role :admin
   end
 
@@ -21,6 +22,13 @@ FactoryGirl.define do
 
   trait :accompaniment_leader do
     role :accompaniment_leader
+  end
+
+  trait :regional_admin do
+    role :admin
+    after(:create) do |regional_admin|
+      create(:user_region, user: regional_admin, region: regional_admin.community.region)
+    end
   end
 
   trait :unconfirmed do

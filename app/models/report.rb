@@ -1,9 +1,9 @@
 class Report
   include ActiveModel::Model
 
-  attr_accessor :start_date, :end_date, :start_day, :start_month, :start_year, :end_day, :end_month, :end_year, :type
+  attr_accessor :start_date, :end_date, :start_day, :start_month, :start_year, :end_day, :end_month, :end_year, :type, :community_id, :region_id
   validates :start_date, :end_date, :type, presence: true
-  DATE_ATTRIBUTE_MAPPING = [['start_day', 'start_date(3i)'], ['start_month', 'start_date(2i)'], ['start_year', 'start_date(1i)'], ['end_day', 'end_date(3i)'], ['end_month', 'end_date(2i)'], ['end_year', 'end_date(1i)']] 
+  DATE_ATTRIBUTE_MAPPING = [['start_day', 'start_date(3i)'], ['start_month', 'start_date(2i)'], ['start_year', 'start_date(1i)'], ['end_day', 'end_date(3i)'], ['end_month', 'end_date(2i)'], ['end_year', 'end_date(1i)']]
 
   def initialize(attributes={})
     date_attribute_hash = Hash.new
@@ -13,7 +13,7 @@ class Report
       date_attribute_hash[new_key] = attributes[initial_key].present? ? attributes[initial_key].to_i : nil
     end
 
-    super date_attribute_hash.merge({type: attributes['type']})
+    super date_attribute_hash.merge({ type: attributes['type'], community_id: attributes['community_id'], region_id: attributes['region_id'] })
   end
 
   def csv_string

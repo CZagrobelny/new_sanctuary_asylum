@@ -17,12 +17,13 @@ class ActivityReport < Report
       end
     end
   end
- 
+
 
   private
 
   def data
     Activity.includes(:location, :judge)
+            .where(region_id: region_id)
             .between_dates(start_date, end_date)
             .order(:occur_at)
   end
