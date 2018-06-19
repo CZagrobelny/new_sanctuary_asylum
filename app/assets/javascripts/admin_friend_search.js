@@ -5,6 +5,26 @@ $(document).on('turbolinks:load', function () {
   });
 
   $('[data-search-filter=true]').on('change', function () {
-    $(this).closest('form').submit()
+    if (checkOneYearDeadlineRange()) {
+      $(this).closest('form').submit()
+    }
   });
+
+  $(".datepicker").datepicker();
 });
+
+function checkOneYearDeadlineRange() {
+  var floor = $('#deadlines_ending_floor').datepicker().val();
+  var ceiling = $('#deadlines_ending_ceiling').datepicker().val();
+  if (isEmpty(floor) && isEmpty(ceiling)) {
+    return true
+  } else if (!isEmpty(floor) && !isEmpty(ceiling)) {
+    return true
+  } else {
+    return false
+  }
+}
+
+function isEmpty(str) {
+  return (!str || 0 === str.length);
+}
