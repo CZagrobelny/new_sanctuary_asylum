@@ -15,10 +15,19 @@
     <ul class='nav navbar-nav navbar-right' style='margin-right:10px;'>
       <% if current_user %>
         <% if current_user.regional_admin? %>
-          <li><%= link_to 'Manage Regions', regional_admin_regions_path %></li>
-          <li><%= link_to 'Manage Remote Lawyers', regional_admin_remote_lawyers_path %></li>
+          <li class='dropdown'>
+            <a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Regional Management<span class='caret'></span></a>
+            <ul class='dropdown-menu'>
+              <% current_user.regions.each do |region| %>
+                <li><%= link_to "#{region.name.upcase} Communities", regional_admin_region_communities_path(region) %></li>
+                <li><%= link_to "#{region.name.upcase} Remote Clinic", regional_admin_region_friends_path(region) %></li>
+                <li role='separator' class='divider'></li>
+              <% end %>
+              <li><%= link_to 'Manage Remote Lawyers', regional_admin_remote_lawyers_path %></li>
+            </ul>
+          </li>
         <% end %>
-        <% if current_user.admin? && !%w(communities regions remote_lawyers).include?(controller.controller_name) %>
+        <% if current_user.admin? && !controller.controller_path.include?('regional_admin') %>
           <% if current_community.primary?  %>
             <%= render 'shared/primary_community_admin_navigation' %>
           <% else %>

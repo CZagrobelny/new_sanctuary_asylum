@@ -78,9 +78,9 @@ Rails.application.routes.draw do
     devise_for :users, only: [:invitations], controllers: { invitations: "invitations" }
     resources :regions, only: [:index] do
       resources :communities, only: [:index, :new, :create, :edit, :update]
+      resources :friends, only: [:index, :show]
     end
     resources :remote_lawyers, only: [:index, :destroy, :edit, :update]
-    resources :friends, only: [:index, :show]
   end
 
 	match '/404', to: 'errors#not_found', via: :all

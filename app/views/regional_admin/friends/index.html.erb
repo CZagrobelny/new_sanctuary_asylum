@@ -1,7 +1,24 @@
-<h1>Friends with Active Applications</h1>
-<% @regional_friends.each do |region| %>
-  <h3><%= region[0].upcase %></h3>
-  <% region[1].each do |friend| %>
-    <p><%= link_to friend.name, regional_admin_friend_path(friend) %></p>
+<h1><%= current_region.name.upcase %> Friends with Active Applications</h1>
+<% @friends.group_by { |f| f.community_id }.each do |community_id, community_friends| %>
+  <h3><%= Community.find(community_id).name %></h3>
+  <% community_friends.each do |friend| %>
+    <div class='row'>
+      <div class='col-md-6'>
+        <strong><%= link_to friend.name, regional_admin_region_friend_path(current_region, friend) %></strong><br>
+        <strong>Assigned Lawyers:</strong> <%= friend.remote_clinic_lawyers.map(&:name).to_sentence %>
+      </div>
+      <div class='col-md-6'>
+        <% friend.applications.each do |application| %>
+          <div class='col-md-8'>
+            <strong><%= application.category.titlecase %></strong>
+            <i><%= "(#{application.status.titlecase} #{application.updated_at.strftime('%m/%d/%Y')}" %></i>
+          </div>
+          <div class='col-md-4'>
+            Open <%= (Date.today - application.created_at.to_date).to_i %> days
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </br>
   <% end %>
 <% end %>

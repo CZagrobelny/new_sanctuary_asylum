@@ -1,9 +1,6 @@
 class RegionalAdmin::FriendsController < RegionalAdminController
   def index
-    @regional_friends = []
-    current_user.regions.each do |region|
-      @regional_friends << [region.name, region.friends.with_active_applications]
-    end
+    @friends = current_region.friends.with_active_applications.with_assigned_lawyers.order('last_name asc')
   end
 
   def show
