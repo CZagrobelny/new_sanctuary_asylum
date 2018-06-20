@@ -76,7 +76,7 @@ Rails.application.routes.draw do
 
   namespace :regional_admin do
     devise_for :users, only: [:invitations], controllers: { invitations: "invitations" }
-    resources :regions, only: [:index] do
+    resources :regions, only: [] do
       resources :communities, only: [:index, :new, :create, :edit, :update]
       resources :friends, only: [:index, :show]
     end

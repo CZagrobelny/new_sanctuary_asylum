@@ -11,12 +11,6 @@ RSpec.describe 'Regional Admin manages communities', type: :feature do
     login_as(regional_admin)
   end
 
-  scenario 'viewing regions' do
-    visit regional_admin_regions_path
-    expect(page).to have_content(region.name.upcase)
-    expect(page).to_not have_content(other_region.name.upcase)
-  end
-
   scenario 'viewing communities in a region' do
     visit regional_admin_region_communities_path(region, community.id)
     expect(page).to have_content(community.name)
