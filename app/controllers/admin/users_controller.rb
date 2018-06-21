@@ -3,7 +3,7 @@ class Admin::UsersController < AdminController
     @users = if params[:query].present?
                search.perform
              else
-               User.order('created_at desc').paginate(page: params[:page])
+               user_index_scope.order('created_at desc').paginate(page: params[:page])
              end
   end
 
@@ -31,7 +31,7 @@ class Admin::UsersController < AdminController
   private
 
   def search
-    Search.new(User, params[:query], params[:page])
+    Search.new(user_index_scope, params[:query], params[:page])
   end
 
   def user_params
@@ -44,5 +44,11 @@ class Admin::UsersController < AdminController
       :role,
       :signed_guidelines
     )
+  end
+
+  def user_index_scope
+    scope = User
+    scope = scope.for_volunteer_type(params[:volunteer_type]) if params[:volunteer_type]
+    scope
   end
 end

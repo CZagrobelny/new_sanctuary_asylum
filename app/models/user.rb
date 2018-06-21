@@ -17,6 +17,8 @@ class User < ApplicationRecord
   has_many :user_event_attendances, dependent: :destroy
   has_many :accompaniment_reports, dependent: :destroy
 
+  scope :for_volunteer_type, ->(volunteer_type) { where(volunteer_type: volunteer_type) }
+
   def confirmed?
     self.invitation_accepted_at.present?
   end
