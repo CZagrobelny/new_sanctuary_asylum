@@ -23,12 +23,9 @@ class ReviewsController < ApplicationController
     user = current_user
     @review = @draft.reviews.new(review_params.merge(user: user))
     if @review.save
-      redirect_to community_friend_draft_review_path(
-        current_community.slug,
-        @friend,
-        @draft,
-        @review
-      )
+      @draft.update(status: :changes_requested)
+      @draft.application.update(status: :changes_requested)
+      redirect_to edit_community_admin_friend_path(current_community.slug, @friend, tab: '#documents')
     else
       flash.now[:error] = 'Review failed to save. Did you already create one?'
       render :new
