@@ -4,8 +4,8 @@
   <% @friend.grouped_drafts.each do |group| %>
     <h3><%= group[:name].titlecase %></h3>
     <% group[:drafts].each do |draft| %>
-      <div>
-        <p>
+      <div class='row'>
+        <div class='col-md-6'>
           <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
           <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
 
@@ -16,9 +16,11 @@
           <% if draft.notes.present? %>
             <strong>Notes:  </strong><%= draft.notes %><br>
           <% end %>
-        </p>
+        </div>
         <%= render partial: 'drafts/draft_status', locals: { current_community: current_community, friend: friend, draft: draft } %>
       </div>
+    <br>
+    <br>
     <% end %>
   <% end %>
 <% end %>

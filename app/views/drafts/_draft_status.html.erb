@@ -1,5 +1,5 @@
 <% if !current_community.primary %>
-  <div class ='col-md-3 col-md-push-1 text-muted'>
+  <div class ='col-md-5 text-muted'>
     <% if draft.status == 'in_progress' %>
       <%= link_to 'Submit for Review', submit_for_review_community_friend_draft_path(current_community.slug, friend, draft), class: 'btn btn-success'%>
     <% else %>
