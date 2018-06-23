@@ -31,6 +31,10 @@ FactoryGirl.define do
     end
   end
 
+  trait :remote_clinic_lawyer do
+    remote_clinic_lawyer true
+  end
+
   trait :unconfirmed do
     first_name nil
     last_name nil
