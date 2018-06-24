@@ -33,7 +33,11 @@ class Admin::ActivitiesController < AdminController
   def update
     if activity.update(activity_params)
       flash[:success] = 'Activity saved.'
-      redirect_to community_admin_activities_path(current_community.slug)
+      if activity.accompaniment_eligible?
+        redirect_to accompaniments_community_admin_activities_path(current_community.slug)
+      else
+        redirect_to community_admin_activities_path(current_community.slug)
+      end
     else
       flash.now[:error] = 'Activity not saved.'
       render :edit
