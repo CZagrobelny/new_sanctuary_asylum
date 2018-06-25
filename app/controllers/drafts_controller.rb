@@ -21,8 +21,13 @@ class DraftsController < ApplicationController
   end
 
   def edit
-    draft
-    friend
+    if draft.reviews.present?
+      flash[:alert] = "This draft has already been reviewed and can not be edited. Please submit a new draft."
+      render_document_list
+    else
+      draft
+      friend
+    end
   end
 
   def update

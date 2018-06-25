@@ -28,9 +28,10 @@
               ) %><%= review.created_at.strftime(" -- %A, %B %-d, %Y") %>
             <br>
             <% end %>
+          <% else %>
+            <%= link_to 'Edit', edit_community_friend_draft_path(current_community.slug, friend, draft) %>
           <% end %>
 
-          <%= link_to 'Edit', edit_community_friend_draft_path(current_community.slug, friend, draft) %>
         </div>
         <%= render partial: 'drafts/draft_status', locals: { current_community: current_community, friend: friend, draft: draft } %>
         <div class='col-md-1'>
