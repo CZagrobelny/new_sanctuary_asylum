@@ -1,6 +1,6 @@
 <% if @friend.grouped_drafts.empty? %>
   <h3> There are no files associated with this user.</h3>
-<%else%>
+<% else %>
   <% @friend.grouped_drafts.each do |group| %>
     <h3><%= group[:name].titlecase %></h3>
     <% group[:drafts].each do |draft| %>
@@ -35,10 +35,9 @@
         </div>
         <%= render partial: 'drafts/draft_status', locals: { current_community: current_community, friend: friend, draft: draft } %>
         <br>
-        </p> 
       </div>
-      <br>
-      <br>
+    <br>
+    <br>
     <% end %>
   <% end %>
 <% end %>
