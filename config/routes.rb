@@ -78,7 +78,11 @@ Rails.application.routes.draw do
     devise_for :users, only: [:invitations], controllers: { invitations: "invitations" }
     resources :regions, only: [] do
       resources :communities, only: [:index, :new, :create, :edit, :update]
-      resources :friends, only: [:index, :show]
+      resources :friends, only: [:index, :show] do
+        member do
+          post :assign_friendship
+        end
+      end
     end
     resources :remote_lawyers, only: [:index, :destroy, :edit, :update]
   end
