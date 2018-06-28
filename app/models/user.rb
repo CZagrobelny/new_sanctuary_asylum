@@ -77,6 +77,10 @@ class User < ApplicationRecord
     UserFriendAssociation.where(friend_id: friend_id, user_id: id).present?
   end
 
+  def relationship(friend)
+    UserFriendAssociation.where(friend: friend, user: self).last
+  end
+
   def admin_or_existing_relationship?(friend_id)
     admin? || existing_relationship?(friend_id)
   end

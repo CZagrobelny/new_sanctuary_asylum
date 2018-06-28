@@ -83,6 +83,14 @@ Rails.application.routes.draw do
     resources :remote_lawyers, only: [:index, :destroy, :edit, :update]
   end
 
+  namespace :remote_clinic do
+    namespace :lawyers do
+      resources :users, only: [], path: '' do
+        resources :friends, only: [:index, :show]
+      end
+    end
+  end
+
 	match '/404', to: 'errors#not_found', via: :all
 	match '/500', to: 'errors#internal_server_error', via: :all
 end
