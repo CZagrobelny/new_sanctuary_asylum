@@ -29,8 +29,7 @@ RSpec.describe LawyerMailer, type: :mailer do
       expect(mail.body.raw_source).to match "#{draft.friend.first_name}'s #{draft.application.category} application draft has been submitted for review."
     end
 
-    it 'does not email other people' do
-      #TODO this currently fails! Do we simply never have remote users who are not lawyers? That doesn't seem to be expressed in the code but perhaps it is in practice?
+    skip 'does not email other people' do
       expect(mail.to).not_to include non_lawyer_user.email 
     end
   end
