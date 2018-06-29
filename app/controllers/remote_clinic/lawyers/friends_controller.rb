@@ -12,6 +12,7 @@ class RemoteClinic::Lawyers::FriendsController < UsersController
 
   private def require_access_to_friend
     friend = Friend.find_by(id: params[:id])
-    current_user.existing_relationship?(friend.id)
+
+    return not_found unless current_user.existing_relationship?(friend.id)
   end
 end
