@@ -27,6 +27,17 @@ RSpec.describe RegionalAdmin::FriendsController, type: :controller do
         expect(response.success?).to eq true
       end
     end
+
+    describe 'POST #assign_friendship' do
+      let(:lawyer) { create(:user, :remote_clinic_lawyer) }
+      let(:friend) { create(:friend) }
+
+      it 'creates friendship' do
+        friendship_count = UserFriendAssociation.count
+        post :assign_friendship, params: { region_id: region.id, id: friend.id, user: {id: lawyer.id} }
+        expect(UserFriendAssociation.count).to eq friendship_count + 1
+      end
+    end
   end
 
   describe 'as a logged in community admin' do
