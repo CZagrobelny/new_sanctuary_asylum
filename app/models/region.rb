@@ -10,4 +10,8 @@ class Region < ApplicationRecord
 
   validates :name, presence: true
   validates_uniqueness_of :name
+
+  def regional_admins
+    users.where(role: 'admin')
+  end
 end
