@@ -25,7 +25,7 @@ RSpec.describe RegionalAdminMailer, type: :mailer do
     end
 
     it 'renders the body' do
-      expect(mail.body.raw_source).to match "#{draft.friend.first_name}'s #{draft.application.category} application draft has been submitted for review."
+      expect(mail.body.raw_source).to eq "#{draft.friend.first_name}'s #{draft.application.category} application draft has been submitted for review and is awaiting lawyer assignment."
     end
 
     it 'does not email non admins' do
