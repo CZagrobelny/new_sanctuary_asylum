@@ -2,6 +2,7 @@ class Friend < ApplicationRecord
   enum ethnicity: [:white, :black, :hispanic, :asian, :south_asian, :caribbean, :indigenous, :other]
   enum gender: [:male, :female, :awesome]
 
+  ASYLUM_APPLICATION_DEADLINE = 1.year
   STATUSES = ['in_deportation_proceedings', 'not_in_deportation_proceedings', 'asylum_reciepient', 'asylum_application_denied', 'legal_permanent_resident', 'in_detention', 'green_card_holder'].map{|status| [status.titlecase, status]}
   ASYLUM_STATUSES = ['not_eligible', 'eligible', 'application_started', 'application_completed', 'application_submitted', 'granted', 'denied'].map{|status| [status.titlecase, status]}
   WORK_AUTHORIZATION_STATUSES = ['not_eligible', 'eligible', 'application_started', 'application_completed', 'application_submitted', 'granted', 'denied'].map{|status| [status.titlecase, status]}
@@ -47,6 +48,11 @@ class Friend < ApplicationRecord
       .distinct
       .where('detentions.date_detained < ?', Time.now)
       .where('detentions.date_released IS NULL OR detentions.date_released > ?', Time.now)
+  }
+
+  scope :asylum_deadlines_ending, ->(date_floor, date_ceiling) {
+    where('date_of_entry BETWEEN ? AND ?', date_floor - ASYLUM_APPLICATION_DEADLINE,
+      date_ceiling - ASYLUM_APPLICATION_DEADLINE)
   }
 
   def name

@@ -29,7 +29,7 @@ end
     gender: ['male', 'female', 'awesome'].sample,
     date_of_birth: FFaker::Time.between(10.years.ago, 40.years.ago),
     status: 'not_in_deportation_proceedings',
-    date_of_entry: FFaker::Time.between(10.years.ago, 40.years.ago),
+    date_of_entry: FFaker::Time.between(1.day.ago, 5.years.ago),
     notes: FFaker::Lorem.paragraph,
     asylum_status: ['not_eligible', 'eligible', 'application_started'].sample,
     asylum_notes: FFaker::Lorem.paragraph,
@@ -89,10 +89,12 @@ Event.all.each do |event|
 end
 
 #Detentions
-Friend.all[0..25].each do |friend|
+Friend.all[0..25].each_with_index do |friend, index|
+  is_released = index % 5 == 0
+  date_released = is_released ? FFaker::Time.between(1.month.from_now, 1.month.ago) : nil
   friend.detentions.create(
     date_detained: FFaker::Time.between(8.months.ago, 7.months.ago),
-    date_released: FFaker::Time.between(1.months.ago, 2.months.ago),
+    date_released: date_released,
     case_status: ['immigration_court', 'bia', 'circuit_court'].sample,
     location_id: Location.last.id,
     notes: FFaker::Lorem.paragraph)
