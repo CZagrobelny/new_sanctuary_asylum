@@ -21,10 +21,19 @@ RSpec.describe RegionalAdmin::FriendsController, type: :controller do
       end
     end
 
-    describe 'GET #new' do
+    describe 'GET #show' do
       it 'allows access' do
         get :show, params: { region_id: region.id, id: friend.id }
         expect(response.success?).to eq true
+      end
+    end
+
+    describe 'PUT #update' do
+      let(:user) { create :user, remote_clinic_lawyer: true }
+      it 'updates the friend' do
+        user_friend_association_count = UserFriendAssociation.count
+        put :update, params: { region_id: region.id, id: friend.id, friend: { user_ids: [user.id] } }
+        expect(UserFriendAssociation.count).to eq user_friend_association_count + 1
       end
     end
   end

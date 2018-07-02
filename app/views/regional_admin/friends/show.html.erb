@@ -1,25 +1,42 @@
 <h1><%= link_to @friend.name, edit_community_admin_friend_path(@friend.community.slug, @friend) %></h1>
-  <% @friend.grouped_drafts.each do |group| %>
-    <h3><%= group[:name].titlecase %></h3>
-    <% group[:drafts].each do |draft| %>
-      <div class='row'>
-        <div class='col-md-9'>
-          <p>
-            <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
-            <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
 
-            <% if draft.users.present? %>
-              <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
-            <% end %>
+<% @friend.grouped_drafts.each do |group| %>
+  <h3><%= group[:name].titlecase %></h3>
+  <% group[:drafts].each do |draft| %>
+    <div class='row'>
+      <div class='col-md-9'>
+        <p>
+          <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
+          <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
 
-            <% if draft.notes.present? %>
-              <strong>Notes:  </strong><%= draft.notes %><br>
-            <% end %>
-          </p>
-        </div>
-        <div class='col-md-3 text-muted'>
-          <%= draft.status_string %> <%= draft.updated_at.strftime('%m/%d/%Y') %>
-        </div>
+          <% if draft.users.present? %>
+            <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
+          <% end %>
+
+          <% if draft.notes.present? %>
+            <strong>Notes:  </strong><%= draft.notes %><br>
+          <% end %>
+        </p>
+      </div>
+      <div class='col-md-3 text-muted'>
+        <%= draft.status_string %> <%= draft.updated_at.strftime('%m/%d/%Y') %>
+      </div>
     </div>
   <% end %>
 <% end %>
+
+
+
+<h3>Assigned Lawyers</h3>
+<div class='row form-group'>
+  <%= form_for [:regional_admin, current_region, @friend] do |f| %>
+    <%= fields_for @friend.user_friend_associations do |fl| %>
+      <div class='col-md-6'>
+        <%= collection_select(:friend, :user_ids, User.remote_lawyers, :id, :name, {selected: @friend.remote_clinic_lawyers.map(&:id)}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+      </div>
+    <% end %>
+
+    <%= f.submit 'Save', class: 'btn btn-primary' %>
+  <% end %>
+</div>
+
