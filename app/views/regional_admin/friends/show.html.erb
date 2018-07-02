@@ -1,3 +1,5 @@
+<div class='row'><%= link_to "Back to #{@friend.region.name.upcase} Friends with Active Applications", regional_admin_region_friends_path(@friend.region) %></div>
+
 <h1><%= link_to @friend.name, edit_community_admin_friend_path(@friend.community.slug, @friend) %></h1>
 
 <% @friend.grouped_drafts.each do |group| %>

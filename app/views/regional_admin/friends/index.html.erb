@@ -6,7 +6,11 @@
       <div class='row'>
         <div class='col-md-6'>
           <strong><%= link_to friend.name, regional_admin_region_friend_path(current_region, friend) %></strong><br>
-          <strong>Assigned Lawyers:</strong> <%= friend.remote_clinic_lawyers.map(&:name).to_sentence %>
+          <% if friend.remote_clinic_lawyers.present? %>
+            <strong>Assigned Lawyers:</strong> <%= friend.remote_clinic_lawyers.map(&:name).to_sentence %>
+          <% else %>
+            <strong style='color: red;'>Needs Lawyer Assignment</strong>
+          <% end %>
         </div>
         <div class='col-md-6'>
           <% friend.applications.each do |application| %>

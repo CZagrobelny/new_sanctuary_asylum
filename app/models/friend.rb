@@ -82,12 +82,6 @@ class Friend < ApplicationRecord
       .where(applications: { status: %i[in_review changes_requested approved] })
   }
 
-  scope :with_assigned_lawyers, -> {
-    joins(:user_friend_associations)
-      .distinct
-      .where(user_friend_associations: { remote: true })
-  }
-
   def remote_clinic_lawyers
     users.where(user_friend_associations: { remote: true })
   end
