@@ -84,11 +84,7 @@ Rails.application.routes.draw do
   end
 
   namespace :remote_clinic do
-    namespace :lawyers do
-      resources :users, only: [], path: '' do
-        resources :friends, only: [:index, :show]
-      end
-    end
+    resources :friends, only: [:index, :show]
   end
 
 	match '/404', to: 'errors#not_found', via: :all

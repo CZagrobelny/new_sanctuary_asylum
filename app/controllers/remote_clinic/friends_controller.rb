@@ -1,4 +1,4 @@
-class RemoteClinic::Lawyers::FriendsController < UsersController
+class RemoteClinic::FriendsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_access_to_friend, only: [:show]
 
@@ -10,9 +10,9 @@ class RemoteClinic::Lawyers::FriendsController < UsersController
     @friend = Friend.find_by(id: params[:id])
   end
 
-  private def require_access_to_friend
+  private
+  def require_access_to_friend
     friend = Friend.find_by(id: params[:id])
-
-    return not_found unless current_user.existing_relationship?(friend.id)
+    return not_found unless current_user.existing_remote_relationship?(friend.id)
   end
 end
