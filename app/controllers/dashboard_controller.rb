@@ -3,6 +3,10 @@ class DashboardController < ApplicationController
   before_action :require_access_to_community
 
   def index
-    redirect_to community_admin_path(current_community.slug) if current_user.admin?
+    if current_user.admin?
+      redirect_to community_admin_path(current_community.slug)
+    elsif current_user.remote_clinic_lawyer?
+      redirect_to remote_clinic_friends_path
+    end
   end
 end

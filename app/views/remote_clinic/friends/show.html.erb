@@ -1,0 +1,25 @@
+<h1><%= @friend.name %></h1>
+  <% @friend.grouped_drafts.each do |group| %>
+    <h3><%= group[:name].titlecase %></h3>
+    <% group[:drafts].each do |draft| %>
+      <div class='row'>
+        <div class='col-md-9'>
+          <p>
+            <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
+            <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
+
+            <% if draft.users.present? %>
+              <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
+            <% end %>
+
+            <% if draft.notes.present? %>
+              <strong>Notes:  </strong><%= draft.notes %><br>
+            <% end %>
+          </p>
+        </div>
+        <div class='col-md-3 text-muted'>
+          <%= draft.status_string %> <%= draft.updated_at.strftime('%m/%d/%Y') %>
+        </div>
+    </div>
+  <% end %>
+<% end %>

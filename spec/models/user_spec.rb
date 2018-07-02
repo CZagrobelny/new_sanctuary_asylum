@@ -86,4 +86,23 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#existing_relationship?' do
+    let(:friend) { create(:friend) }
+    let(:user) { create :user, :volunteer }
+
+    context 'when relationship does not exist' do
+      it 'returns false' do
+        expect(user.existing_relationship?(friend)).to eq false
+      end
+    end
+
+    context 'when relationship exists' do
+      let!(:friendship) { create(:user_friend_association, user: user, friend: friend) }
+
+      it 'returns true' do
+        expect(user.existing_relationship?(friend)).to eq true
+      end
+    end
+  end
 end
