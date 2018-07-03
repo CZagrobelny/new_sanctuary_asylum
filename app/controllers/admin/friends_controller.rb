@@ -3,19 +3,8 @@ class Admin::FriendsController < AdminController
     @friends = if params[:query].present?
                  search.perform
                else
-                 friend_index_scope.all.order('first_name asc').paginate(:page => params[:page])
+                 friend_index_scope.order('first_name asc').paginate(page: params[:page])
                end
-  end
-
-  def friend_index_scope
-    scope = Friend
-    case params[:detained]
-    when 'yes'
-      scope = scope.detained
-    when 'no'
-      scope = scope.not_detained
-    end
-    scope
   end
 
   def new
@@ -134,5 +123,16 @@ class Admin::FriendsController < AdminController
       :language_ids => [],
       :user_ids => []
     )
+  end
+
+  def friend_index_scope
+    scope = Friend
+    case params[:detained]
+    when 'yes'
+      scope = scope.detained
+    when 'no'
+      scope = scope.not_detained
+    end
+    scope
   end
 end
