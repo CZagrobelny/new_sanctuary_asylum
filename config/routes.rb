@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       resources :drafts do
         member do
           get :submit_for_review
+          get :approve
         end
         resources :reviews, only: [:new, :show, :create, :edit, :update]
       end

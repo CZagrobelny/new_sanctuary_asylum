@@ -6,7 +6,7 @@
   <h3><%= group[:name].titlecase %></h3>
   <% group[:drafts].each do |draft| %>
     <div class='row'>
-      <div class='col-md-9'>
+      <div class='col-md-6'>
         <p>
           <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
           <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
@@ -24,14 +24,20 @@
             <br>
           <% end %>
           <% unless draft.reviews.by_user(current_user).present? %>
-            <%= link_to 'Add Review', new_community_friend_draft_review_path(current_community.slug, @friend, draft) %>
+            <%= link_to 'Add Review', new_community_friend_draft_review_path(@friend.community.slug, @friend, draft) %>
           <% end %>
         </p>
       </div>
       <div class='col-md-3 text-muted'>
         <%= draft.status_string %> <%= draft.updated_at.strftime('%m/%d/%Y') %>
       </div>
+      <% unless draft.application.approved? %>
+        <div class='col-md-3'>
+          <%= link_to 'Approve Draft', approve_community_friend_draft_path(@friend.community.slug, @friend, draft), class: 'btn btn-success', data: { confirm: 'Are you sure?  This will notify community admins and volunteers that the draft has been approved and cannot be undone.' } %>
+        </div>
+      <% end %>
     </div>
+    <br>
   <% end %>
 <% end %>
 

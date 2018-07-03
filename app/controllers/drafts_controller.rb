@@ -1,8 +1,9 @@
 class DraftsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_access_to_community
-  before_action :require_admin_or_access_to_friend
+  before_action :require_access_to_community, except: [:approve]
+  before_action :require_admin_or_access_to_friend, except: [:approve]
   before_action :require_admin, only: [:destroy]
+  before_action :require_regional_admin_or_remote_lawyer_with_access_to_friend, only: [:approve]
 
   def new
     @draft = friend.drafts.new
@@ -65,6 +66,22 @@ class DraftsController < ApplicationController
       flash[:error] = 'There was an issue submitting the draft for review.'
     end
     render_document_list
+  end
+
+  def approve
+    draft.status = :approved
+    application.status = :approved
+    if draft.save && application.save
+      ReviewMailer.application_approved(application).deliver_now
+      flash[:success] = 'Draft approved.'
+    else
+      flash[:error] = 'There was an issue approving the draft.'
+    end
+    if current_user.regional_admin?
+      redirect_to regional_admin_region_friend_path(friend.region, friend)
+    else
+      redirect_to remote_clinic_friend_path(friend)
+    end
   end
 
   private

@@ -22,6 +22,12 @@ class ReviewMailer < ApplicationMailer
     mail(to: emails, subject: "Changes requested on #{friend.first_name}'s application", body: changes_requested_body(review, friend))
   end
 
+  def application_approved(application)
+    friend = application.friend
+    emails = (friend.community.users.where(role: 'admin').map(&:email) + friend.users.where(user_friend_associations: { remote: false }).map(&:email)).flatten
+    mail(to: emails, subject: "A draft of #{friend.first_name}'s application has been approved ", body: application_approved_body(application, friend))
+  end
+
   private
 
   def review_needed_body(draft)
@@ -34,5 +40,9 @@ class ReviewMailer < ApplicationMailer
 
   def changes_requested_body(review, friend)
     "#{friend.first_name}'s #{review.draft.application.category} application draft has recieved a review: #{community_friend_draft_review_url(friend.community.slug, friend, review.draft, review)}."
+  end
+
+  def application_approved_body(application, friend)
+    "#{friend.first_name}'s #{application.category} application has an approved draft!"
   end
 end
