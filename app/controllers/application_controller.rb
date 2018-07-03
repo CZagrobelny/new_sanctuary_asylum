@@ -35,4 +35,10 @@ class ApplicationController < ActionController::Base
   def require_primary_community
     not_found unless current_community.primary?
   end
+
+  def require_regional_admin_or_remote_lawyer_with_access_to_friend
+    unless current_user.regional_admin? || current_user.existing_remote_relationship?(params[:friend_id])
+      not_found
+    end
+  end
 end
