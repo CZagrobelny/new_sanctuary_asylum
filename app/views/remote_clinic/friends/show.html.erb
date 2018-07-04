@@ -1,6 +1,13 @@
 <h1><%= @friend.name %></h1>
 <% @friend.grouped_drafts.each do |group| %>
-  <h3><%= group[:name].titlecase %></h3>
+  <h2 style='display: inline;'>
+    <%= group[:name].titlecase %>
+  </h2>
+  <% if group[:application].closed? %>
+    <span class='text-muted'><%= "#{group[:application].status.titlecase} #{group[:application].updated_at.strftime('%m/%d/%Y')}" %></span>
+  <% end %>
+  <br>
+  <br>
   <% group[:drafts].each do |draft| %>
     <div class='row'>
       <div class='col-md-6'>
@@ -28,7 +35,7 @@
       <div class='col-md-3 text-muted'>
         <%= draft.status_string %> <%= draft.updated_at.strftime('%m/%d/%Y') %>
       </div>
-      <% unless draft.application.approved? %>
+      <% unless draft.application.approved? || draft.application.closed?  %>
         <div class='col-md-3'>
           <%= link_to 'Approve Draft', approve_community_friend_draft_path(@friend.community.slug, @friend, draft), class: 'btn btn-success', data: { confirm: 'Are you sure?  This will notify community admins and volunteers that the draft has been approved and cannot be undone.' } %>
         </div>
