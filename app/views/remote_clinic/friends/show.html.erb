@@ -3,7 +3,7 @@
   <h3><%= group[:name].titlecase %></h3>
   <% group[:drafts].each do |draft| %>
     <div class='row'>
-      <div class='col-md-9'>
+      <div class='col-md-6'>
         <p>
           <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
           <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
