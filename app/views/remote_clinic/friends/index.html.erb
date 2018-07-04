@@ -13,7 +13,9 @@
         <% friend.applications.each do |application| %>
           <div class='col-md-8'>
             <strong><%= application.category.titlecase %></strong>
-            <i><%= "(#{application.status.titlecase} #{application.updated_at.strftime('%m/%d/%Y')})" %></i>
+            <span class="status <%= application.status %>">
+              <%= "-- #{application.status.titlecase} #{application.updated_at.strftime('%m/%d/%Y')}" %>
+            </span>
           </div>
           <div class='col-md-4'>
             Open <%= (Date.today - application.created_at.to_date).to_i %> days
