@@ -67,8 +67,8 @@ RSpec.describe Friend, type: :model do
 		let!(:draft2) { create :draft, application: application2, friend: friend }
 
     it "returns an array of grouped drafts" do
-			result = [{ :name=>"asylum", :drafts=> [draft1] },
- 	  	   				{ :name=>"foia", :drafts=> [draft2] }]
+			result = [{ :name=>"asylum", :drafts=> [draft1], application: application1 },
+ 	  	   				{ :name=>"foia", :drafts=> [draft2], application: application2 }]
 
       expect(friend.reload.grouped_drafts).to eq result
     end
