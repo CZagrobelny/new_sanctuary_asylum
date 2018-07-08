@@ -169,3 +169,9 @@ The data is refeshed occassionally, but activities/accompaniments are likely to 
 - Questions about a Trello card, leave a comment tagging '@Christine Zagrobelny'
 - Questions about a PR, tag CZagrobelny in a comment on the PR
 - Other questions, email newsanctuary.tech@gmail.com
+
+## Contributors
+We have an amazing group of contributors and organizations working to build out the software!
+- Individual Contributors: https://github.com/CZagrobelny/new_sanctuary_asylum/graphs/contributors
+- Ruby for Good: https://rubyforgood.org
+- Progressive Hacknight:  http://www.progressivehacknight.org
