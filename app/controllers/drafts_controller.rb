@@ -47,7 +47,7 @@ class DraftsController < ApplicationController
   end
 
   def destroy
-    if draft.destroy
+    if destroy_application_if_no_drafts_remaining && draft.destroy
       flash[:success] = 'Application draft destroyed.'
       redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#documents')
     else
@@ -108,6 +108,14 @@ class DraftsController < ApplicationController
 
   def friend
     @friend ||= current_community.friends.find(params[:friend_id])
+  end
+
+  def destroy_application_if_no_drafts_remaining
+    if application.drafts > 1
+      true
+    else
+      application.destroy ? true : false
+    end
   end
 
   def draft_params
