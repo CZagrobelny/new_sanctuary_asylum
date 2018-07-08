@@ -3,6 +3,7 @@ class Activity < ApplicationRecord
                                      individual_hearing
                                      special_accompaniment
                                      check_in
+                                     high_risk_ice_check_in
                                      family_court
                                      bond_hearing
                                      fingerprinting].freeze
@@ -19,6 +20,7 @@ class Activity < ApplicationRecord
                                          change_of_venue_submitted
                                          foia_request_submitted
                                          foia_recieved].freeze
+
   EVENT_KEYS = ACCOMPANIMENT_ELIGIBLE_EVENTS + NON_ACCOMPANIMENT_ELIGIBLE_EVENTS
   EVENTS = EVENT_KEYS.map { |event| [event.titlecase, event] }
 
