@@ -397,7 +397,7 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)
-  sprockets (~> 3.5.0)
+  sprockets (~> 3.5.2)
   textacular (~> 5.0)
   turbolinks (~> 5.x)
   uglifier (~> 2.7.2)

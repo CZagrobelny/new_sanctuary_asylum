@@ -33,7 +33,7 @@ gem 'will_paginate', '~> 3.1.0'
 
 group :assets do
   gem 'coffee-rails', '~> 4.1.0'
-  gem 'sprockets', '~> 3.5.0'
+  gem 'sprockets', '~> 3.5.2'
   gem 'uglifier', '~> 2.7.2'
 end
 
