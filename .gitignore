@@ -33,3 +33,4 @@
 /public/uploads/*
 
 coverage
+/logfile

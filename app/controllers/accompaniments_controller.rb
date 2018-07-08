@@ -1,6 +1,8 @@
 class AccompanimentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_accompaniment_owner
+  before_action :require_access_to_community
+  before_action :require_primary_community
+  before_action :require_accompaniment_owner, only: [:update]
 
   def create
     if params[:attending] == 'true'
@@ -21,16 +23,14 @@ class AccompanimentsController < ApplicationController
         flash[:success] = 'RSVP updated successfully.'
         render_activities
       end
-    else
-      if accompaniment.destroy
-        flash[:success] = 'Your RSVP was deleted.'
-        render_activities
-      end
+    elsif accompaniment.destroy
+      flash[:success] = 'Your RSVP was deleted.'
+      render_activities
     end
   end
 
   def accompaniment_params
-    params.require(:accompaniment).permit( 
+    params.require(:accompaniment).permit(
       :availability_notes,
       :user_id,
       :activity_id
@@ -39,16 +39,15 @@ class AccompanimentsController < ApplicationController
 
   def render_activities
     if current_user.accompaniment_leader?
-      redirect_to accompaniment_leader_activities_path
+      redirect_to community_accompaniment_leader_activities_path(current_community.slug)
     else
-      redirect_to activities_path
+      redirect_to community_activities_path(current_community.slug)
     end
   end
 
   private
+
   def require_accompaniment_owner
-    unless current_user.id.to_s == accompaniment_params[:user_id]
-      not_found
-    end
+    not_found unless current_user.id.to_s == accompaniment_params[:user_id]
   end
 end

@@ -1,23 +1,18 @@
 class Admin::ActivitiesController < AdminController
+  before_action :require_primary_community
 
   def index
-    @activities = Activity.current_month(events: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS)
-  end
-
-  def last_month
-    @activities = Activity.last_month(events: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS)
+    @activities = current_region.activities
+                                .where(event: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS)
   end
 
   def accompaniments
-    @activities = Activity.current_month(events: Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS)
-  end
-
-  def last_month_accompaniments
-    @activities = Activity.last_month(events: Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS)
+    @activities = current_region.activities
+                                .where(event: Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS)
   end
 
   def new
-    @activity = Activity.new
+    @activity = current_region.activities.new
   end
 
   def edit
@@ -25,10 +20,10 @@ class Admin::ActivitiesController < AdminController
   end
 
   def create
-    @activity = Activity.new(activity_params)
+    @activity = current_region.activities.new(activity_params)
     if activity.save
       flash[:success] = 'Activity saved.'
-      redirect_to admin_activities_path
+      redirect_to community_admin_activities_path(current_community.slug)
     else
       flash.now[:error] = 'Activity not saved.'
       render :new
@@ -38,7 +33,11 @@ class Admin::ActivitiesController < AdminController
   def update
     if activity.update(activity_params)
       flash[:success] = 'Activity saved.'
-      redirect_to admin_activities_path
+      if activity.accompaniment_eligible?
+        redirect_to accompaniments_community_admin_activities_path(current_community.slug)
+      else
+        redirect_to community_admin_activities_path(current_community.slug)
+      end
     else
       flash.now[:error] = 'Activity not saved.'
       render :edit
@@ -48,18 +47,18 @@ class Admin::ActivitiesController < AdminController
   def confirm
     if activity.update(confirmed: true)
       flash[:success] = 'Accompaniment confirmed.'
-      redirect_to accompaniments_admin_activities_path
     else
       flash.now[:error] = 'There was an issue confirming this accompaniment.'
-      redirect_to accompaniments_admin_activities_path
     end
+    redirect_to accompaniments_community_admin_activities_path
   end
 
   def activity
-    @activity ||= Activity.find(params[:id])
+    @activity ||= current_region.activities.find(params[:id])
   end
 
   private
+
   def activity_params
     params.require(:activity).permit(
       :event,

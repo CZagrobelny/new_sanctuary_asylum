@@ -1,0 +1,67 @@
+<div class='row'><%= link_to "Back to #{@friend.region.name.upcase} Friends with Active Applications", regional_admin_region_friends_path(@friend.region) %></div>
+
+<h1><%= link_to @friend.name, edit_community_admin_friend_path(@friend.community.slug, @friend) %></h1>
+
+<% @friend.grouped_drafts.each do |group| %>
+  <h2 style='display: inline;'>
+    <%= group[:name].titlecase %>
+  </h2>
+  <% if group[:application].closed? %>
+    <span class='text-muted'><%= "#{group[:application].status.titlecase} #{group[:application].updated_at.strftime('%m/%d/%Y')}" %></span>
+  <% else %>
+    <%= link_to "Close #{group[:name].titlecase} Application", regional_admin_region_friend_application_approve_path(current_region, @friend, group[:application]), class: 'text-muted', data: { confirm: 'Are you sure? If the friend has no other active applications, this will remove all assigned remote clinic lawyers from the friend and will remove the friend from the Active Applications dashboard.' } %>
+  <% end %>
+  <br>
+  <br>
+  <% group[:drafts].each do |draft| %>
+    <div class='row'>
+      <div class='col-md-6'>
+        <p>
+          <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
+          <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
+
+          <% if draft.users.present? %>
+            <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
+          <% end %>
+
+          <% if draft.notes.present? %>
+            <strong>Notes:  </strong><%= draft.notes %><br>
+          <% end %>
+
+          <% draft.reviews.each do |review| %>
+            <%= link_to "Review by #{review.user.name} (#{review.user.role.tr('_', ' ').titlecase})", review.authored_by?(current_user) ? edit_community_friend_draft_review_path(@friend.community.slug, @friend, draft, review) : community_friend_draft_review_path(@friend.community.slug, @friend, draft, review) %><%= review.created_at.strftime(" -- %A, %B %-d, %Y") %>
+            <br>
+          <% end %>
+          <% unless draft.reviews.by_user(current_user).present? %>
+            <%= link_to 'Add Review', new_community_friend_draft_review_path(@friend.community.slug, @friend, draft) %>
+          <% end %>
+        </p>
+      </div>
+      <div class='col-md-3 status <%= draft.status %>'>
+        <%= draft.status_string %> <%= draft.updated_at.strftime('%m/%d/%Y') %>
+      </div>
+      <% unless draft.application.approved? || draft.application.closed? %>
+        <div class='col-md-3'>
+          <%= link_to 'Approve Draft', approve_community_friend_draft_path(@friend.community.slug, @friend, draft), class: 'btn btn-success', data: { confirm: 'Are you sure?  This will notify community admins and volunteers that the draft has been approved and cannot be undone.' } %>
+        </div>
+      <% end %>
+    </div>
+    <br>
+  <% end %>
+<% end %>
+
+
+
+<h3>Assigned Lawyers</h3>
+<div class='row form-group'>
+  <%= form_for [:regional_admin, current_region, @friend] do |f| %>
+    <%= fields_for @friend.user_friend_associations do |fl| %>
+      <div class='col-md-6'>
+        <%= collection_select(:friend, :user_ids, User.remote_lawyers, :id, :name, {selected: @friend.remote_clinic_lawyers.map(&:id)}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+      </div>
+    <% end %>
+
+    <%= f.submit 'Save', class: 'btn btn-primary' %>
+  <% end %>
+</div>
+

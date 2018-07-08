@@ -1,10 +1,10 @@
 <div class="row">
-  <%= link_to "Add a new judge", new_admin_judge_path, class: 'btn btn-primary pull-right' %>
+  <%= link_to "Add a new judge", new_community_admin_judge_path(current_community.slug), class: 'btn btn-primary pull-right' %>
   </div>
-<div class="row">  
+<div class="row">
   <h1>Judges</h1>
 </div>
-  
+
 <div class="row">
   <div class="col-sm-12 col-md-10">
     <% if @judges.present? %>
@@ -17,12 +17,12 @@
         <tbody>
           <% @judges.each do |judge| %>
             <tr>
-              <td><%= link_to judge.name, edit_admin_judge_path(judge) %></td>
+              <td><%= link_to judge.name, edit_community_admin_judge_path(current_community.slug, judge) %></td>
             </tr>
           <% end %>
         </tbody>
       </table>
-      
+
       <div class='pull-right'>
         <%= will_paginate @judges %>
       </div>

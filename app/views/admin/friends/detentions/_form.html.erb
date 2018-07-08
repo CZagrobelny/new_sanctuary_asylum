@@ -1,7 +1,7 @@
 <% if detention.errors.present? %>
   <%= display_validation_errors(detention) %>
 <% end %>
-<%= form_for([:admin, friend, detention], controller: 'friends/detentions', remote: true) do |f| %>
+<%= form_for([current_community, :admin, friend, detention], controller: 'friends/detentions', remote: true) do |f| %>
   <div class='form-inputs'>
 
     <div class='row form-group'>
@@ -21,10 +21,10 @@
     <div class='row form-group'>
       <%= f.label :location_id, 'Location', class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
-        <%= collection_select(:detention, :location_id, Location.all, :id, :name, {prompt: true}, {class: 'form-control'}) %>
+        <%= collection_select(:detention, :location_id, current_region.locations, :id, :name, {prompt: true}, {class: 'form-control'}) %>
       </div>
     </div>
-    
+
     <div class='row form-group'>
       <%= f.label :case_status, 'Case Status', class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
@@ -48,7 +48,7 @@
 
     <div class='row'>
       <div class='col-md-1 col-md-offset-10'>
-        <%= f.submit 'Save', :class => 'btn btn-primary' %>
+        <%= f.submit 'Save', class: 'btn btn-primary' %>
       </div>
     </div>
   </div>

@@ -1,0 +1,46 @@
+<h1><%= @friend.name %></h1>
+<% @friend.grouped_drafts.each do |group| %>
+  <h2 style='display: inline;'>
+    <%= group[:name].titlecase %>
+  </h2>
+  <% if group[:application].closed? %>
+    <span class='text-muted'><%= "#{group[:application].status.titlecase} #{group[:application].updated_at.strftime('%m/%d/%Y')}" %></span>
+  <% end %>
+  <br>
+  <br>
+  <% group[:drafts].each do |draft| %>
+    <div class='row'>
+      <div class='col-md-6'>
+        <p>
+          <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
+          <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
+
+          <% if draft.users.present? %>
+            <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
+          <% end %>
+
+          <% if draft.notes.present? %>
+            <strong>Notes:  </strong><%= draft.notes %><br>
+          <% end %>
+
+          <% draft.reviews.each do |review| %>
+            <%= link_to "Review by #{review.user.name} (#{review.user.role.tr('_', ' ').titlecase})", review.authored_by?(current_user) ? edit_community_friend_draft_review_path(@friend.community.slug, @friend, draft, review) : community_friend_draft_review_path(@friend.community.slug, @friend, draft, review) %><%= review.created_at.strftime(" -- %A, %B %-d, %Y") %>
+            <br>
+          <% end %>
+          <% unless draft.reviews.by_user(current_user).present? %>
+            <%= link_to 'Add Review', new_community_friend_draft_review_path(@friend.community.slug, @friend, draft) %>
+          <% end %>
+        </p>
+      </div>
+      <div class='col-md-3 status <%= draft.status %>'>
+        <%= draft.status_string %> <%= draft.updated_at.strftime('%m/%d/%Y') %>
+      </div>
+      <% unless draft.application.approved? || draft.application.closed?  %>
+        <div class='col-md-3'>
+          <%= link_to 'Approve Draft', approve_community_friend_draft_path(@friend.community.slug, @friend, draft), class: 'btn btn-success', data: { confirm: 'Are you sure?  This will notify community admins and volunteers that the draft has been approved and cannot be undone.' } %>
+        </div>
+      <% end %>
+    </div>
+    <br>
+  <% end %>
+<% end %>

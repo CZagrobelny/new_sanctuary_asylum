@@ -1,0 +1,74 @@
+<%= form_for :remote_lawyer, url: regional_admin_remote_lawyer_path, method: :put, html: { class: 'form-horizontal' } do |f| %>
+
+  <%= display_validation_errors(@remote_lawyer) %>
+
+  <div class='form-inputs'>
+    <div class='form-group'>
+      <%= f.label :first_name, 'First Name', class: 'col-md-2 control-label required' %>
+      <div class='col-md-6'>
+        <%= f.text_field :first_name, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :last_name, 'Last Name', class: 'col-md-2 control-label required' %>
+      <div class='col-md-6'>
+        <%= f.text_field :last_name, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :email, class: 'col-md-2 control-label required' %>
+      <div class='col-md-6'>
+        <%= f.text_field :email, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :phone, class: 'col-md-2 control-label required' %>
+      <div class='col-md-6'>
+        <%= f.text_field :phone, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :volunteer_type, 'Type', class: 'col-md-2 control-label required' %>
+      <div class='col-md-6'>
+        <%= f.select :volunteer_type, User.volunteer_types.map {|k, v| [k.humanize.titleize, k]}, {prompt: "Select"}, { class: 'form-control input-md'} %>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :role, class: 'col-md-2 control-label required' %>
+      <div class='col-md-6'>
+        <%= f.select :role, User::NON_PRIMARY_ROLES, {}, {class: 'form-control input-md'} %>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <div class='col-md-6 col-md-offset-2'>
+        <%= f.check_box :signed_guidelines, id: 'signed-check' %>
+        <label>
+          Signed Guidelines
+        </label>
+      </div>
+    </div>
+
+    <% if current_user.regional_admin? %>
+      <div class='form-group'>
+        <div class='col-md-6 col-md-offset-2'>
+          <%= f.check_box :remote_clinic_lawyer %>
+          <label>
+            Remote Clinic Lawyer
+          </label>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class='row'>
+    <div class='col-md-1 col-md-offset-7'>
+      <%= f.submit 'Save', class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>

@@ -13,11 +13,11 @@
             <strong>When:  </strong><%= activity.occur_at.strftime("%I:%M %p, %A, %B %-d, %Y") %><br>
             <strong>Where:  </strong><%= activity.location.name if activity.location.present? %><br>
           </div>
-          <%= form_for(accompaniment) do |f| %>
+          <%= form_for [current_community, accompaniment] do |f| %>
             <%= f.hidden_field :activity_id, value: activity.id %>
             <%= f.hidden_field :user_id, value: current_user.id %>
-            <div class='form-inputs'>  
-              <div class='row form-group'>            
+            <div class='form-inputs'>
+              <div class='row form-group'>
                 <%= label_tag :attending, 'Attending', class: 'col-md-2' %>
                 <div class='col-md-2'>
                   <%= select_tag :attending, options_for_select([['Yes', true], ['No', false]]), include_blank: false, class: 'form-control' %>
@@ -25,17 +25,17 @@
               </div>
               <div class='row form-group'>
                 <%= f.label :availability_notes, 'Availability Notes', class: 'col-md-12' %>
-                <div class='col-md-12'> 
+                <div class='col-md-12'>
                   <%= f.text_area :availability_notes, {style: 'height: 100px;', class: 'form-control'} %>
                 </div>
               </div>
               <div class='row'>
                 <div class='col-md-1 col-md-offset-10'>
-                  <%= f.submit 'Confirm', :class => 'btn btn-primary' %>
+                  <%= f.submit 'Confirm', class: 'btn btn-success' %>
                 </div>
               </div>
             </div>
-          <% end %> 
+          <% end %>
         </div>
       </div>
     </div>

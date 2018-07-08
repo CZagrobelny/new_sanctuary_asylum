@@ -1,0 +1,61 @@
+<% if @draft.errors.present? %>
+  <%= display_validation_errors(@draft) %>
+<% end %>
+<%= form_for([current_community, @friend, @draft]) do |f| %>
+
+  <div class='form-inputs'>
+
+    <div class='row form-group'>
+      <div class='col-md-12'>
+        <%= f.label :pdf_draft, 'File Upload', class: 'control-label required', style: 'padding-right: 20px;' %>
+        <%= button_to 'Browse', '#', class: 'btn btn-primary', id: 'browse' %>
+        <span id='current-file'><%= @draft.pdf_draft.file.filename if @draft.pdf_draft.file.present? %></span>
+        <%= f.file_field :pdf_draft, class: 'form-control', style: 'display:none;' %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <div class='col-md-12'>
+        <div class='col-md-1'><%= f.label :category, 'Type', class: 'control-label required', style: 'margin-left:-15px;' %></div>
+        <div class='col-md-3'>
+          <%= f.select :category, options_for_select(Application::CATEGORIES.map{|event| [event.titlecase, event]}, @draft.category), {include_blank: true}, {class: 'form-control', style: 'margin-left: 10px;'} %>
+        </div>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :users, 'Volunteers', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= collection_select(:draft, :user_ids, current_community.users, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :notes, class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.text_area :notes, {class: 'form-control', style: 'height: 200px;'} %>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-md-1 col-md-offset-10'>
+        <%= f.submit 'Save', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $(document).ready(function () {
+    // Click on the file input browse button
+    $('#browse').click(function(e) {
+      e.preventDefault();
+      $('#draft_pdf_draft').click();
+    });
+    // If the file input changes, display the new filename
+    $('#draft_pdf_draft').change(function() {
+      var filename = $(this).val().split(/(\\|\/)/g).pop();
+      $('#current-file').text(filename);
+    });
+  });
+</script>

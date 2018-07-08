@@ -1,9 +1,9 @@
 <div class='col-md-offset-3'>
   <h2><%= t 'devise.invitations.edit.header' %></h2>
-  <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f| %>
+  <%= form_for resource, as: resource_name, url: user_community_invitation_path(resource.community.slug), html: { method: :put } do |f| %>
     <%= devise_error_messages! %>
     <%= f.hidden_field :invitation_token %>
-    
+
     <div class='form-inputs'>
       <div class='row form-group'>
         <%= f.label :first_name, 'First Name', class: 'col-md-2 control-label required' %>
@@ -29,7 +29,7 @@
       <div class='row form-group'>
         <%= f.label :volunteer_type, 'Type', class: 'col-md-2 control-label required' %>
         <div class='col-md-6'>
-          <%= f.select :volunteer_type, User.volunteer_types.map {|k, v| [k.humanize.titleize, k]}, {:prompt => "Select"}, { :class => 'form-control input-md'} %>
+          <%= f.select :volunteer_type, User.volunteer_types.map {|k, v| [k.humanize.titleize, k]}, {prompt: "Select"}, { class: 'form-control input-md'} %>
         </div>
       </div>
 
@@ -59,7 +59,7 @@
 
     <div class='row'>
       <div class='col-md-1 col-md-offset-7'>
-        <%= f.submit 'Save', :class => 'btn btn-primary' %>
+        <%= f.submit 'Save', class: 'btn btn-primary' %>
       </div>
     </div>
   <% end %>

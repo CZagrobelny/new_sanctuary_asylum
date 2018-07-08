@@ -1,6 +1,6 @@
 class Admin::Friends::ActivitiesController < AdminController
   def new
-    @activity = friend.activities.new
+    @activity = friend.activities.new(region_id: current_region.id)
     render_modal
   end
 
@@ -26,27 +26,24 @@ class Admin::Friends::ActivitiesController < AdminController
   end
 
   def destroy
-    if activity.destroy
-      render_success
-    end
+    render_success if activity.destroy
   end
 
   def confirm
     if activity.update(confirmed: true)
       flash[:success] = 'Accompaniment confirmed.'
-      redirect_to edit_admin_friend_path(friend, tab: '#activities')
     else
       flash.now[:error] = 'There was an issue confirming this accompaniment.'
-      redirect_to edit_admin_friend_path(friend, tab: '#activities')
     end
+    redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#activities')
   end
 
   def activity
-    @activity ||= Activity.find(params[:id])
+    @activity ||= friend.activities.find(params[:id])
   end
 
   def friend
-    @friend ||= Friend.find(params[:friend_id])
+    @friend ||= current_community.friends.find(params[:friend_id])
   end
 
   private
@@ -59,18 +56,18 @@ class Admin::Friends::ActivitiesController < AdminController
       :judge_id,
       :occur_at,
       :notes
-    )
+    ).merge(region_id: current_region.id)
   end
 
   def render_modal
     respond_to do |format|
-      format.js { render :file => 'admin/friends/activities/modal', locals: { friend: friend, activity: activity } }
+      format.js { render file: 'admin/friends/activities/modal', locals: { friend: friend, activity: activity } }
     end
   end
 
   def render_success
     respond_to do |format|
-      format.js { render :file => 'admin/friends/activities/list', locals: { friend: friend } }
+      format.js { render file: 'admin/friends/activities/list', locals: { friend: friend } }
     end
   end
 end

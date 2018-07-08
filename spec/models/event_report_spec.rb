@@ -5,7 +5,8 @@ RSpec.describe EventReport do
   let!(:event) { FactoryGirl.create(:event) }
   let(:start_date) { 1.month.ago }
   let(:end_date) { 1.month.from_now }
-  let(:report_params) { {"type"=>"event", "start_date(2i)"=>start_date.strftime('%m'), "start_date(3i)"=>start_date.strftime('%d'), "start_date(1i)"=>start_date.strftime('%Y'), "end_date(2i)"=>end_date.strftime('%m'), "end_date(3i)"=>end_date.strftime('%d'), "end_date(1i)"=>end_date.strftime('%Y')} }
+  let(:community) { event.community }
+  let(:report_params) { {"type"=>"event", "start_date(2i)"=>start_date.strftime('%m'), "start_date(3i)"=>start_date.strftime('%d'), "start_date(1i)"=>start_date.strftime('%Y'), "end_date(2i)"=>end_date.strftime('%m'), "end_date(3i)"=>end_date.strftime('%d'), "end_date(1i)"=>end_date.strftime('%Y'), "community_id"=>community.id} }
   let(:event_report) { EventReport.new(report_params) }
 
   describe '.csv_string' do

@@ -1,13 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: true do
-  let!(:volunteer) { create(:user, :volunteer) }
-  let!(:activity) { create(:activity, occur_at: 1.week.from_now, confirmed: true ) }
+  let(:community) { create :community, :primary }
+  let(:region) { community.region }
+  let(:volunteer) { create(:user, :volunteer, community: community) }
+  let!(:activity) { create(:activity, occur_at: 1.week.from_now, region: region, confirmed: true ) }
   before { login_as(volunteer) }
 
   describe 'viewing upcoming accompaniments' do
     before do
-      visit activities_path
+      visit community_activities_path(community)
     end
 
     it 'displays full details of upcoming accompaniments' do
@@ -18,7 +20,7 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: tr
 
   describe 'signing up for an accompaniment' do
     before do
-      visit activities_path
+      visit community_activities_path(community)
       within "#activity_#{activity.id}" do
         click_button 'Attend'
       end
@@ -45,7 +47,7 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: tr
   describe 'canceling an RSVP for an accompaniment' do
     let!(:accompaniment) { create(:accompaniment, activity: activity, user: volunteer) }
     before do
-      visit activities_path
+      visit community_activities_path(community)
       within "#activity_#{activity.id}" do
         click_button 'Edit RSVP'
       end

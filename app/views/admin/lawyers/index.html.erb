@@ -1,10 +1,10 @@
 <div class="row">
-  <%= link_to "Add a new lawyer", new_admin_lawyer_path, class: 'btn btn-primary pull-right' %>
+  <%= link_to "Add a new lawyer", new_community_admin_lawyer_path(current_community.slug), class: 'btn btn-primary pull-right' %>
   </div>
-<div class="row">  
+<div class="row">
   <h1>Lawyers</h1>
 </div>
-  
+
 <div class="row">
   <div class="col-sm-12 col-md-10">
     <% if @lawyers.present? %>
@@ -20,7 +20,7 @@
         <tbody>
           <% @lawyers.each do |lawyer| %>
             <tr>
-              <td><%= link_to lawyer.name, edit_admin_lawyer_path(lawyer) %></td>
+              <td><%= link_to lawyer.name, edit_community_admin_lawyer_path(current_community.slug, lawyer) %></td>
               <td><%= lawyer.organization %></td>
               <td><%= lawyer.phone_number %></td>
               <td><%= lawyer.email %></td>
@@ -28,7 +28,7 @@
           <% end %>
         </tbody>
       </table>
-      
+
       <div class='pull-right'>
         <%= will_paginate @lawyers %>
       </div>
