@@ -111,10 +111,10 @@ class DraftsController < ApplicationController
   end
 
   def destroy_application_if_no_drafts_remaining
-    if application.drafts > 1
+    if application.drafts.count > 1
       true
     else
-      application.destroy ? true : false
+      application.destroy
     end
   end
 
