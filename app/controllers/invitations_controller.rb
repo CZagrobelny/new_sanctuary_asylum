@@ -18,7 +18,8 @@ class InvitationsController < Devise::InvitationsController
       flash[:notice] = "An invitation email has been sent to #{resource.email}." if resource.invitation_sent_at
       redirect_to new_user_community_invitation_path(resource.community.slug)
     else
-      respond_with_navigational(resource) { render :new }
+      flash[:notice] = 'An account has already been created with this email.'
+      redirect_to new_user_community_invitation_path(resource.community.slug)
     end
   end
 
