@@ -5,8 +5,9 @@
 
       <%= render 'form' %>
       <% if current_user.admin? %>
-        <%= render 'user_friend_list' %>
+        <h4>Has access to Friend records:</h4>
+          <%= raw @user.local_clinic_friends.collect { |friend| link_to friend.name, edit_community_admin_friend_path(current_community.slug, friend), target: '_blank' }.join(' | ') %>
       <% end %>
     </div>
   </div>
-<div />
+</div>
