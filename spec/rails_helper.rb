@@ -13,7 +13,6 @@ require 'ffaker'
 require 'capybara/rspec'
 require 'capybara/rails'
 require 'capybara/poltergeist'
-require 'database_cleaner'
 require 'launchy'
 
 require 'support/wait_for_ajax'
