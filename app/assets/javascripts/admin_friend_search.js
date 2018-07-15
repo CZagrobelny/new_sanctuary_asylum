@@ -1,4 +1,10 @@
 $(document).on('turbolinks:load', function () {
+  $('#query').on('keyup', function(e) {
+    if (e.which == 13) {
+      this.closest('form').submit()
+    }
+  });
+
   $('[data-toggle-search-filters=true]').on('click', function () {
     $('.friend-search-filters').toggle();
     return false;
@@ -6,7 +12,7 @@ $(document).on('turbolinks:load', function () {
 
   $('[data-search-filter=true]').on('change', function () {
     if (checkOneYearDeadlineRange()) {
-      $(this).closest('form').submit()
+      $(this).closest('form').submit();
     }
   });
 
