@@ -33,6 +33,8 @@ class User < ApplicationRecord
     friends.where(user_friend_associations: { remote: true })
   end
 
+  scope :for_volunteer_type, ->(volunteer_type) { where(volunteer_type: volunteer_type) }
+
   def confirmed?
     invitation_accepted_at.present?
   end
@@ -43,6 +45,10 @@ class User < ApplicationRecord
 
   def attending?(activity)
     activity.users.include?(self)
+  end
+
+  def local_clinic_friends
+    friends.where(user_friend_associations: { remote: false }).order('first_name ASC')
   end
 
   def accompaniment_report_for(activity)

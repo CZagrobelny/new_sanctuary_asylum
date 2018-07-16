@@ -7,24 +7,8 @@ class Admin::FriendsController < AdminController
     @friends = if params[:query].present?
                  search.perform
                else
-                 friend_index_scope.all.order('first_name asc').paginate(page: params[:page])
+                 friend_index_scope.order('first_name asc').paginate(page: params[:page])
                end
-  end
-
-  def friend_index_scope
-    scope = current_community.friends
-    case params[:detained]
-    when 'yes'
-      scope = scope.detained
-    when 'no'
-      scope = scope.not_detained
-    end
-    if helpers.filter_asylum_deadline_params_valid?
-      date_floor = Date.parse(params[:deadlines_ending_floor])
-      date_ceiling = Date.parse(params[:deadlines_ending_ceiling])
-      scope = scope.asylum_deadlines_ending(date_floor, date_ceiling)
-    end
-    scope
   end
 
   def new
@@ -141,5 +125,21 @@ class Admin::FriendsController < AdminController
       language_ids: [],
       user_ids: []
     ).merge(community_id: current_community.id, region_id: current_region.id)
+  end
+
+  def friend_index_scope
+    scope = current_community.friends
+    case params[:detained]
+    when 'yes'
+      scope = scope.detained
+    when 'no'
+      scope = scope.not_detained
+    end
+    if helpers.filter_asylum_deadline_params_valid?
+      date_floor = Date.parse(params[:deadlines_ending_floor])
+      date_ceiling = Date.parse(params[:deadlines_ending_ceiling])
+      scope = scope.asylum_deadlines_ending(date_floor, date_ceiling)
+    end
+    scope
   end
 end
