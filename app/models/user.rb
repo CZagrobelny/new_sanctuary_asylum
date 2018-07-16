@@ -45,6 +45,10 @@ class User < ApplicationRecord
     activity.users.include?(self)
   end
 
+  def local_clinic_friends
+    friends.where(user_friend_associations: { remote: false }).order('first_name ASC')
+  end
+
   def accompaniment_report_for(activity)
     accompaniment_reports.where(activity_id: activity.id).first
   end
