@@ -3,7 +3,7 @@ class Admin::UsersController < AdminController
     @users = if params[:query].present?
                search.perform
              else
-               current_community.users.all.order('created_at desc').paginate(page: params[:page])
+               user_index_scope.order('created_at desc').paginate(page: params[:page])
              end
   end
 
@@ -30,7 +30,7 @@ class Admin::UsersController < AdminController
   private
 
   def search
-    Search.new(current_community.users, params[:query], params[:page])
+    Search.new(user_index_scope, params[:query], params[:page])
   end
 
   def user_params
@@ -44,5 +44,11 @@ class Admin::UsersController < AdminController
       :signed_guidelines,
       :remote_clinic_lawyer
     )
+  end
+
+  def user_index_scope
+    scope = current_community.users
+    scope = scope.for_volunteer_type(params[:volunteer_type]) if params[:volunteer_type].present?
+    scope
   end
 end

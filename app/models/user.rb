@@ -33,6 +33,8 @@ class User < ApplicationRecord
     friends.where(user_friend_associations: { remote: true })
   end
 
+  scope :for_volunteer_type, ->(volunteer_type) { where(volunteer_type: volunteer_type) }
+
   def confirmed?
     invitation_accepted_at.present?
   end
