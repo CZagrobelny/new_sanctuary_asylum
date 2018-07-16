@@ -40,6 +40,7 @@ group :development, :test do
   gem 'bundler-audit'
   gem 'byebug'
   gem 'capybara', '~> 2.10.1', require: false
+  gem 'database_cleaner', '~> 1.7', require: false
   gem 'dotenv-rails'
   gem 'factory_girl_rails', '~> 4.6.0', require: false
   gem 'launchy', require: false

@@ -13,6 +13,7 @@ require 'ffaker'
 require 'capybara/rspec'
 require 'capybara/rails'
 require 'capybara/poltergeist'
+require 'database_cleaner'
 require 'launchy'
 
 require 'support/wait_for_ajax'
@@ -63,6 +64,38 @@ RSpec.configure do |config|
   config.before(:each) do
     Rails.application.routes.default_url_options[:host] = 'test.host'
   end
+
+  config.before(:each, js: true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  #
+  # Database Cleaner
+  #
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each, :type => :feature) do
+    driver_shared_db_connection = (Capybara.current_driver == :rack_test)
+
+    unless driver_shared_db_connection
+      DatabaseCleaner.strategy = :truncation
+    end
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.append_after(:each) do
+    DatabaseCleaner.clean
+  end
+
 
   #
   # Wait longer for certain feature specs
