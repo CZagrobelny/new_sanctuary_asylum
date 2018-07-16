@@ -13,15 +13,15 @@
   </div>
   <%= content_tag :div, class: 'row' do %>
     <%=
-      content_tag :div, class: 'col-md-12 friend-search-filters',
-        data: {show_search_filters: user_search_filtered?} do
+      content_tag :div, class: 'col-md-12 search-filters',
+        data: { show_search_filters: user_search_filtered? } do
     %>
       <h4>Filters</h4>
       <dl>
         <dt>User Type</dt>
         <dd>
           <label>
-            <%= select_tag :volunteer_type, options_for_select(user_volunteer_type_options, params[:volunteer_type]), include_blank: true %>
+            <%= select_tag :volunteer_type, options_for_select(user_volunteer_type_options, params[:volunteer_type]), include_blank: true, class: 'form-control input-md' %>
           </label>
         </dd>
       </dl>

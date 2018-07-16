@@ -48,7 +48,7 @@ class Admin::UsersController < AdminController
 
   def user_index_scope
     scope = current_community.users
-    scope = scope.for_volunteer_type(params[:volunteer_type]) if params[:volunteer_type]
+    scope = scope.for_volunteer_type(params[:volunteer_type]) if params[:volunteer_type].present?
     scope
   end
 end
