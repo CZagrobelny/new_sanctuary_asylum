@@ -63,41 +63,11 @@ ActiveRecord::Base.transaction do
   #Admin User
   User.create(first_name: 'LI Community', last_name: 'Admin', email: 'li_admin@example.com', community_id: long_island_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 2, pledge_signed: true)
 
-<<<<<<< HEAD
-# NYC Friends
-30.times do
-  Friend.create(first_name: FFaker::Name.first_name,
-    last_name: FFaker::Name.last_name,
-    a_number: rand.to_s[2..10],
-    community_id: nyc_community.id,
-    region_id: ny_region.id,
-    middle_name: FFaker::Name.first_name,
-    email: FFaker::Internet.safe_email,
-    phone: FFaker::PhoneNumber.short_phone_number,
-    ethnicity: ['white', 'black', 'hispanic', 'asian', 'south_asian', 'caribbean', 'indigenous'].sample,
-    gender: ['male', 'female', 'awesome'].sample,
-    date_of_birth: FFaker::Time.between(10.years.ago, 40.years.ago),
-    status: 'not_in_deportation_proceedings',
-    date_of_entry: FFaker::Time.between(1.day.ago, 5.years.ago),
-    notes: FFaker::Lorem.paragraph,
-    asylum_status: ['not_eligible', 'eligible', 'application_started'].sample,
-    asylum_notes: FFaker::Lorem.paragraph,
-    lawyer_notes: FFaker::Lorem.paragraph,
-    work_authorization_notes: FFaker::Lorem.paragraph,
-    work_authorization_status: ['not_eligible', 'eligible', 'application_started'].sample,
-    sijs_status: ['not_eligible', 'eligible', 'application_started'].sample,
-    sijs_notes: FFaker::Lorem.paragraph,
-    country_id: Country.order("RANDOM()").first.id,
-    language_ids: [Language.order("RANDOM()").first.id],
-    user_ids: User.where(community_id: nyc_community.id).order("RANDOM()").limit(5).map(&:id)
-    )
-end
-=======
+
   #Some additional Long Island volunteer users
   30.times do
     User.create(first_name: FFaker::Name.first_name, last_name: FFaker::Name.last_name, email: FFaker::Internet.safe_email, community_id: long_island_community.id, phone: FFaker::PhoneNumber.short_phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 0, pledge_signed: true)
   end
->>>>>>> master
 
   # NYC Friends
   30.times do
@@ -113,7 +83,7 @@ end
       gender: ['male', 'female', 'awesome'].sample,
       date_of_birth: FFaker::Time.between(10.years.ago, 40.years.ago),
       status: 'not_in_deportation_proceedings',
-      date_of_entry: FFaker::Time.between(10.years.ago, 40.years.ago),
+      date_of_entry: FFaker::Time.between(1.day.ago, 5.years.ago),
       notes: FFaker::Lorem.paragraph,
       asylum_status: ['not_eligible', 'eligible', 'application_started'].sample,
       asylum_notes: FFaker::Lorem.paragraph,
