@@ -1,6 +1,6 @@
 class RegionalAdmin::ApplicationsController < RegionalAdminController
 
-  def approve
+  def close
     if application.update_attributes(status: :closed)
       if friend.applications.where(status: [:in_review, :changes_requested, :approved]).empty?
         friend.user_friend_associations.where(remote: true).destroy_all

@@ -82,7 +82,7 @@ Rails.application.routes.draw do
       resources :communities, only: [:index, :new, :create, :edit, :update]
       resources :friends, only: [:index, :show, :update] do
         resources :applications, only: [] do
-          get :approve
+          get :close
         end
       end
     end
