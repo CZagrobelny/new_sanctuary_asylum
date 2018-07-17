@@ -108,7 +108,7 @@ RSpec.describe Friend, type: :model do
     context '.asylum_deadlines_ending scope' do
       it 'should return only the friends whose deadlines fall within the two boundaries, inclusive' do
         # Lookup boundaries
-        deadlines_ending_floor = 2.months.from_now
+        deadlines_ending_floor = 2.months.from_now.beginning_of_day
         deadlines_ending_ceiling = deadlines_ending_floor + 1.month
 
         # date_of_entry fixture data
