@@ -8,7 +8,7 @@
     </div>
     <div class='col-md-4 col-md-offset-5'>
       <%= text_field_tag :query, params[:query], placeholder: 'Search by first name, last name, or A#',
-        class: 'form-control input-md', style: 'margin-top: 20px; margin-bottom: 10px;' %>
+        class: 'form-control input-md', id: 'friend-query', style: 'margin-top: 20px; margin-bottom: 10px;' %>
       <a href="#" data-toggle-search-filters="true">Advanced Search</a>
     </div>
   </div>
@@ -25,6 +25,19 @@
             Detained
             <%= check_box_tag :detained, 'yes', params[:detained] == 'yes',
               data: {search_filter: true} %>
+          </label>
+        </dd>
+        <dt>With their 1 year asylum application deadlines ending between dates:</dt>
+        <dd>
+          <label>
+            Start
+            <%= text_field_tag 'deadlines_ending_floor', params[:deadlines_ending_floor], class: 'datepicker',
+              data: {search_filter: true}, placeholder: @filter_placeholders[:deadlines_ending_floor] %>
+          </label>
+          <label>
+            End
+            <%= text_field_tag 'deadlines_ending_ceiling', params[:deadlines_ending_ceiling], class: 'datepicker',
+              data: {search_filter: true}, placeholder: @filter_placeholders[:deadlines_ending_ceiling] %>
           </label>
         </dd>
       </dl>

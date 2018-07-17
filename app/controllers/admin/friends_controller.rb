@@ -1,5 +1,9 @@
 class Admin::FriendsController < AdminController
   def index
+    @filter_placeholders = {
+      deadlines_ending_floor: "Ex. #{(Date.today + 1.month).strftime('%m/%d/%Y')}",
+      deadlines_ending_ceiling: "Ex. #{(Date.today + 2.months).strftime('%m/%d/%Y')}"
+    }
     @friends = if params[:query].present?
                  search.perform
                else
@@ -130,6 +134,11 @@ class Admin::FriendsController < AdminController
       scope = scope.detained
     when 'no'
       scope = scope.not_detained
+    end
+    if helpers.filter_asylum_deadline_params_valid?
+      date_floor = Date.parse(params[:deadlines_ending_floor])
+      date_ceiling = Date.parse(params[:deadlines_ending_ceiling])
+      scope = scope.asylum_deadlines_ending(date_floor, date_ceiling)
     end
     scope
   end

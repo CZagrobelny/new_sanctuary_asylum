@@ -17,6 +17,7 @@ gem 'ffaker', require: false
 gem 'font-awesome-rails', '~> 4.6.3.1'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
+gem 'jquery-ui-rails', '~> 6.0', '>= 6.0.1'
 gem 'multi_json', '~> 1.11.2'
 gem 'newrelic_rpm'
 gem 'nokogiri', '~> 1.8.3'

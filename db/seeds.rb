@@ -63,6 +63,7 @@ ActiveRecord::Base.transaction do
   #Admin User
   User.create(first_name: 'LI Community', last_name: 'Admin', email: 'li_admin@example.com', community_id: long_island_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 2, pledge_signed: true)
 
+
   #Some additional Long Island volunteer users
   30.times do
     User.create(first_name: FFaker::Name.first_name, last_name: FFaker::Name.last_name, email: FFaker::Internet.safe_email, community_id: long_island_community.id, phone: FFaker::PhoneNumber.short_phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 0, pledge_signed: true)
@@ -82,7 +83,7 @@ ActiveRecord::Base.transaction do
       gender: ['male', 'female', 'awesome'].sample,
       date_of_birth: FFaker::Time.between(10.years.ago, 40.years.ago),
       status: 'not_in_deportation_proceedings',
-      date_of_entry: FFaker::Time.between(10.years.ago, 40.years.ago),
+      date_of_entry: FFaker::Time.between(1.day.ago, 5.years.ago),
       notes: FFaker::Lorem.paragraph,
       asylum_status: ['not_eligible', 'eligible', 'application_started'].sample,
       asylum_notes: FFaker::Lorem.paragraph,
@@ -177,13 +178,16 @@ ActiveRecord::Base.transaction do
   end
 
   #Detentions
-  Friend.all[0..25].each do |friend|
+  Friend.all[0..25].each_with_index do |friend, index|
+    is_released = index % 5 == 0
+    date_released = is_released ? FFaker::Time.between(1.month.from_now, 1.month.ago) : nil
     friend.detentions.create(
       date_detained: FFaker::Time.between(8.months.ago, 7.months.ago),
-      date_released: FFaker::Time.between(1.months.ago, 2.months.ago),
+      date_released: date_released,
       case_status: ['immigration_court', 'bia', 'circuit_court'].sample,
       location_id: Location.last.id,
-      notes: FFaker::Lorem.paragraph)
+      notes: FFaker::Lorem.paragraph
+    )
   end
 
   #Sanctuaries

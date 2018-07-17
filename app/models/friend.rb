@@ -29,6 +29,8 @@ class Friend < ApplicationRecord
                      approved
                      denied].map { |status| [status.titlecase, status] }
 
+  ASYLUM_APPLICATION_DEADLINE = 1.year
+
   belongs_to :community
   belongs_to :region
   has_many :friend_languages, dependent: :destroy
@@ -85,6 +87,11 @@ class Friend < ApplicationRecord
   def remote_clinic_lawyers
     users.where(user_friend_associations: { remote: true })
   end
+
+  scope :asylum_deadlines_ending, ->(date_floor, date_ceiling) {
+    where('date_of_entry BETWEEN ? AND ?', date_floor - ASYLUM_APPLICATION_DEADLINE,
+      date_ceiling - ASYLUM_APPLICATION_DEADLINE)
+  }
 
   def name
     "#{first_name} #{last_name}"

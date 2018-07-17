@@ -12,11 +12,11 @@ RSpec.describe 'Admin deletes a friend record', type: :feature, js: :true do
     deleteable
 
     login_as(community_admin)
-    visit community_admin_friends_path(community)
   end
 
   describe 'when I delete a Friend record' do
     scenario 'with no search terms' do
+      visit community_admin_friends_path(community)
       expect(page).to have_content('Deleteable')
       expect(page).to have_content('Persistent')
 
@@ -32,8 +32,7 @@ RSpec.describe 'Admin deletes a friend record', type: :feature, js: :true do
     end
 
     scenario 'with search terms' do
-      fill_in id: 'query', with: "Deleteable"
-      find('#query').native.send_keys(:return)
+      visit community_admin_friends_path(community, query: 'Deleteable')
 
       expect(page).to have_content('Deleteable')
       expect(page).to_not have_content('Persistent')
