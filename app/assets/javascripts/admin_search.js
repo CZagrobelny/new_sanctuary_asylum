@@ -11,7 +11,7 @@ $(document).on('turbolinks:load', function () {
   });
 
   // For friend advanced search, submit search form (since the submit on enter doesn't work with multiple text fields in a form)
-  $('#query').on('keyup', function(e) {
+  $('#friend-query').on('keyup', function(e) {
     if (e.which == 13) {
       this.closest('form').submit()
     }
@@ -24,6 +24,7 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
+  // For friend search, initialize datepickers for the deadlines
   $(".datepicker").datepicker();
 });
 
