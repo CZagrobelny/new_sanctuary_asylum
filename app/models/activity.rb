@@ -82,6 +82,10 @@ class Activity < ApplicationRecord
                                    .confirmed.by_dates(period_begin, period_end)
                                    .order(occur_at: 'desc')
                                }
+  def accompaniable?
+    event != 'family_court' || accompaniments.count < 3
+  end
+
   def start_time
     occur_at
   end

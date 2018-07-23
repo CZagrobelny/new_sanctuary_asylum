@@ -16,16 +16,10 @@ class Accompaniment < ApplicationRecord
   private
 
   def limit_for_family_court
-    if limit_reached? 
+    if !activity.try(:accompaniable?)
       errors.add(:activity, family_court_error)
       false
     end
-  end
-
-  def limit_reached?
-    return false if activity.try(:event) != 'family_court'
-
-    activity.accompaniments.count >= 3
   end
 
   def family_court_error
