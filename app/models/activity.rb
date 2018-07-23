@@ -86,6 +86,12 @@ class Activity < ApplicationRecord
     event != 'family_court' || accompaniments.count < 3
   end
 
+  def volunteers_needed
+    if accompaniable? 
+      "#{3 - accompaniments.count} volunteers needed."
+    end
+  end
+
   def start_time
     occur_at
   end
