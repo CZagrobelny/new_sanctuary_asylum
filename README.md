@@ -2,7 +2,13 @@
 
 ## What are we building?
 
-Software to support the core work of the New Sanctuary Coalition: helping our friends (undocumented immigrants) fill out applications for asylum and accompanying them to their hearings and check-ins.
+The New Sanctuary Coalition is a network of congregations, organizations, and individuals standing publicly in solidarity with families and communities resisting detention and deportation. This internal database software facilitates NSC's core programs and allows them to operate at increasing scale.
+
+NSC's programs include:
+- Accompaniment Program: pairs undocumented people with a group of trained volunteers to accompany them to their immigration hearings and check-ins with ICE.
+- Pro-se Clinic: a weekly clinic where undocumented people work with trained volunteers and lawyers to prepare documents (asylum applications, juvenile visas, etc.) to fight their immigration case.
+- Anti-Detention Program: works with detained immigrants across the US and their families to fight for their release.
+More information:  http://www.newsanctuarynyc.org/
 
 ## Getting setup
 
