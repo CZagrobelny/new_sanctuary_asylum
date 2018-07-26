@@ -8,6 +8,7 @@ NSC's programs include:
 - Accompaniment Program: pairs undocumented people with a group of trained volunteers to accompany them to their immigration hearings and check-ins with ICE.
 - Pro-se Clinic: a weekly clinic where undocumented people work with trained volunteers and lawyers to prepare documents (asylum applications, juvenile visas, etc.) to fight their immigration case.
 - Anti-Detention Program: works with detained immigrants across the US and their families to fight for their release.
+
 More information:  http://www.newsanctuarynyc.org/
 
 ## Getting setup
