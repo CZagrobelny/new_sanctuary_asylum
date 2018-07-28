@@ -158,22 +158,24 @@ Here are the big ones:
 Aiming to cover the functionality we build with:
 - model tests
 - feature tests to cover the main pathways through the app
+- controller specs (ONLY for authorization)
 
 ### Staging App
 We have a staging app here with seed data:  https://frozen-sea-20640.herokuapp.com
 The data is refeshed occassionally, but activities/accompaniments are likely to be out of date.
 
 ## Contributing
-1. Contact Christine at newsanctuary.tech@gmail.com to request access to the Trello board (backlog) and github repo.
-2. Select a story from the Trello board: https://trello.com/b/nSt2qssz/new-sanctuary
-3. Create a feature branch off master.
-4. Complete feature with tests!
-5. Check CircleCI to make sure tests are passing.
-6. Make a pull request and tag CZagrobelny to review.
-7. CZagrobelny will leave feedback and merge into master upon approval of the pull request.
+1. Add a comment on your chosen Github issue to let other contributors know that you have 'claimed' it.
+2. Create a feature branch off master.
+3. Complete feature with tests!
+4. Check CircleCI to make sure tests are passing.
+5. Make a pull request and tag CZagrobelny to review.
+6. CZagrobelny will leave feedback and merge into master upon approval of the pull request.
+
+## Code of Conduct
+[Here](CODE_OF_CONDUCT)
 
 ## Questions?
-- Questions about a Trello card, leave a comment tagging '@Christine Zagrobelny'
 - Questions about a PR, tag CZagrobelny in a comment on the PR
 - Other questions, email newsanctuary.tech@gmail.com
 
