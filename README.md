@@ -173,7 +173,7 @@ The data is refeshed occassionally, but activities/accompaniments are likely to 
 6. CZagrobelny will leave feedback and merge into master upon approval of the pull request.
 
 ## Code of Conduct
-[Here](CODE_OF_CONDUCT)
+[Here](CODE_OF_CONDUCT.md)
 
 ## Questions?
 - Questions about a PR, tag CZagrobelny in a comment on the PR
