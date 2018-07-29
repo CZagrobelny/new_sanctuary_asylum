@@ -18,7 +18,7 @@
       <div class='col-md-12'>
         <div class='col-md-1'><%= f.label :category, 'Type', class: 'control-label required', style: 'margin-left:-15px;' %></div>
         <div class='col-md-3'>
-          <%= f.select :category, options_for_select(Application::CATEGORIES.map{|event| [event.titlecase, event]}, @draft.category), {include_blank: true}, {class: 'form-control', style: 'margin-left: 10px;'} %>
+          <%= f.select :category, options_for_select(Application::CATEGORIES.map{|event| [event.titlecase, event]}, @draft.application.category), {include_blank: true}, {class: 'form-control', style: 'margin-left: 10px;'} %>
         </div>
       </div>
     </div>
