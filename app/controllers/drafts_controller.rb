@@ -10,7 +10,7 @@ class DraftsController < ApplicationController
   end
 
   def create
-    application = friend.applications.find_or_initialize_by(category: draft_params[:category])
+    application = friend.applications.find_or_create_by(category: application_params[:category])
     draft = application.drafts.new(draft_params.merge(friend: friend))
     if draft.save
       flash[:success] = 'Application draft saved.'
@@ -118,11 +118,16 @@ class DraftsController < ApplicationController
     end
   end
 
+  def application_params
+    params.require(:application).permit(
+      :category
+    )
+  end
+
   def draft_params
     params.require(:draft).permit(
       :notes,
       :pdf_draft,
-      :category,
       user_ids: []
     )
   end
