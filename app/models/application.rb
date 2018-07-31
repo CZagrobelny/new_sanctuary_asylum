@@ -3,7 +3,7 @@ class Application < ApplicationRecord
                   detention foia change_of_venue
                   other].freeze
 
-  has_many :drafts
+  has_many :drafts, dependent: :restrict_with_error
   belongs_to :friend
 
   validates :friend, presence: true

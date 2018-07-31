@@ -1,6 +1,10 @@
 <% if @draft.errors.present? %>
   <%= display_validation_errors(@draft) %>
 <% end %>
+
+<% if @application.errors.present? %>
+  <%= display_validation_errors(@application) %>
+<% end %>
 <%= form_for([current_community, @friend, @draft]) do |f| %>
 
   <div class='form-inputs'>
@@ -18,8 +22,8 @@
       <div class='col-md-12'>
         <div class='col-md-1'><%= f.label :category, 'Type', class: 'control-label required', style: 'margin-left:-15px;' %></div>
         <div class='col-md-3'>
-          <%= fields_for(Application.find_or_initialize_by(id: @draft.application_id)) do |application_fields| %>
-            <%= application_fields.select :category, options_for_select(Application::CATEGORIES.map{|event| [event.titlecase, event]}, @draft.application.try(:category)), {include_blank: true}, {class: 'form-control', style: 'margin-left: 10px;'} %>
+          <%= fields_for(@application) do |application_fields| %>
+            <%= application_fields.select :category, options_for_select(Application::CATEGORIES.map{|event| [event.titlecase, event]}, @application.category), {include_blank: true}, {class: 'form-control', style: 'margin-left: 10px;'} %>
           <% end %>
         </div>
       </div>
