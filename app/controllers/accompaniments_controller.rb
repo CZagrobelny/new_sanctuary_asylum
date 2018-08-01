@@ -10,6 +10,9 @@ class AccompanimentsController < ApplicationController
       if accompaniment.save
         flash[:success] = 'Your RSVP was successful.'
         render_activities
+      else
+        flash[:error] = accompaniment.errors.full_messages.to_sentence 
+        render_activities
       end
     else
       render_activities

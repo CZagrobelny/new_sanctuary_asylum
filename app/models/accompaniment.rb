@@ -23,7 +23,7 @@ class Accompaniment < ApplicationRecord
   end
 
   def family_court_error
-    "Only 3 accompaniments are allowed per family_court activity"
+    "can't exceed 3 volunteer accompaniments."
   end
 
 end
