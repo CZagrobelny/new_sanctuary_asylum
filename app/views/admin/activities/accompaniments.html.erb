@@ -7,10 +7,10 @@
   <% activities.each do |activity| %>
       <dt>
         <% if activity.confirmed? %>
-          <span class="confirmed">&#10003;</span>
+          <span class="confirmed event-info-icon">&#10003;</span>
         <% end %>
         <% if activity.accompaniment_leader_accompaniments.present? %>
-          <i class="fa fa-user" aria-hidden="true" title="Accompaniment leader attending"></i>
+          <i class="fa fa-user event-info-icon" aria-hidden="true" title="Accompaniment leader attending"></i>
         <% end %>
         <%= activity.occur_at.strftime("%I:%M %p") %>
       </dt>
