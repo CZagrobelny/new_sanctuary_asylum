@@ -3,7 +3,7 @@ class Admin::LocationsController < AdminController
   before_action :set_location, only: %i[edit update]
 
   def index
-    @locations = current_region.locations.order('created_at desc').paginate(page: params[:page])
+    @locations = current_region.locations.order('name').paginate(page: params[:page])
   end
 
   def new
