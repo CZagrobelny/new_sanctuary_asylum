@@ -41,7 +41,13 @@ To start from scratch completely and eliminate previously-built containers, run 
 
 If you get the error `A server is already running. Check /tmp/sanctuary/tmp/pids/server.pid`: 
 * Note the container name a few lines below in a line like `new_sanctuary_web_1 exited with code 1` -- the container name is `new_sanctuary_web_1`
-* In another tab run `docker start <container name>; docker exec <container name> rm /tmp/sanctuary/tmp/pids/server.pid` and the container should restart with a new pid.
+* In another tab run `docker start <container name>; docker exec <container name> rm /sanctuary/tmp/pids/server.pid` and the container should restart with a new pid.
+
+#### Testing with Docker
+1. Run `make up`
+2. From another tab, run `docker exec -it <container name> sh`
+3. Then run `rspec`
+
 
 
 ### Ruby Dependencies

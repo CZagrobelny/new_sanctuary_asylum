@@ -26,4 +26,8 @@ down_clean:
 	@echo "Removing compose constructs and images"
 	docker-compose -f docker-compose.yml down --rmi all
 
+# TO DO:
+# test:
+# 	@echo "Runs tests on container"
+
 .PHONY: all

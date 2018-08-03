@@ -9,18 +9,17 @@ services:
   web:
     build:
       context: ./
-    working_dir: /tmp/sanctuary
+    working_dir: /sanctuary
     env_file: .env
     command: >
       sh -c '
       ./wait-for-it.sh -t 30 db:5432;
-      rm -rf tmp/sanctuary/tmp/server/pids;
       cp config/database.yml.sample config/database.yml;
       rake db:setup;
       bundle exec rails s -p 5000 -b '0.0.0.0';
       '
     volumes:
-      - ./:/tmp/sanctuary
+      - ./:/sanctuary
     ports:
       - "5000:5000"
     links:

@@ -15,13 +15,14 @@ RUN apt-get update -qq \
   postgresql-client-9.6 \
   && rm -rf /var/lib/apt/lists/*t
 
-RUN mkdir /tmp/sanctuary
-COPY Gemfile /tmp/sanctuary/
-COPY Gemfile.lock /tmp/sanctuary/
-WORKDIR /tmp/sanctuary
+RUN mkdir /sanctuary
+COPY Gemfile /sanctuary/
+COPY Gemfile.lock /sanctuary/
+WORKDIR /sanctuary
 
 # Bundle install
 RUN gem install bundler && bundle install
-COPY . /tmp/sanctuary
+COPY . /sanctuary
+RUN rm -rf /sanctuary/tmp/pids/server.pid
 
 EXPOSE 5000
