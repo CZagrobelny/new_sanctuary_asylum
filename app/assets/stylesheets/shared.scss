@@ -188,11 +188,14 @@
 
         .confirmed {
           color: #229608;
-          margin-right: 4px;
           display: inline-block;
           overflow: visible;
           font-size: 16px;
           line-height: 10px;
+        }
+
+        .event-info-icon {
+          width: 15px;
         }
       }
       dd {
