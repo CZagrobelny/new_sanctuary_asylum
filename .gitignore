@@ -34,3 +34,7 @@
 
 coverage
 /logfile
+
+# Ignore IntelliJ stuff
+.idea/
+*.iml
