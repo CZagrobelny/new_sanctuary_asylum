@@ -19,4 +19,11 @@ module FriendsHelper
     end
     true
   end
+
+  def created_at_params_valid?
+    [:created_at_ceiling, :created_at_floor].each do |key|
+      return false unless DATEPICKER_DATE_REGEXP.match(params[key])
+    end
+    true
+  end
 end

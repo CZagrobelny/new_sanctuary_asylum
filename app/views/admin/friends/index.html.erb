@@ -40,6 +40,19 @@
               data: {search_filter: true}, placeholder: @filter_placeholders[:deadlines_ending_ceiling] %>
           </label>
         </dd>
+        <dt>Created between dates:</dt>
+        <dd>
+          <label>
+            Start
+            <%= text_field_tag 'created_at_floor', params[:created_at_floor], class: 'datepicker',
+              data: {search_filter: true}, placeholder: @filter_placeholders[:created_at_floor] %>
+          </label>
+          <label>
+            End
+            <%= text_field_tag 'created_at_ceiling', params[:created_at_ceiling], class: 'datepicker',
+              data: {search_filter: true}, placeholder: @filter_placeholders[:created_at_ceiling] %>
+          </label>
+        </dd>
       </dl>
     <% end %>
   <% end %>
