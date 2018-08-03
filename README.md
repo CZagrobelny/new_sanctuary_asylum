@@ -11,12 +11,24 @@ NSC's programs include:
 
 More information:  http://www.newsanctuarynyc.org/
 
-## Setting up your Local Development Environment
+## Getting setup
 
 ### System Dependencies
 
 * ruby (see Gemfile for version)
 * postgres
+
+### Using Docker 
+You can run this application inside of a docker container using docker-compose and a Makefile. 
+
+To build your container and image for the first time, or after making major changes, run `make`, which is the equivalent of `docker-compose build && docker-compose up`. 
+
+To stop and down your running container, `ctrl+c` then `make down`.
+
+To bring your container back up after building previously, run `make up` to skip the build process.
+
+To start from scratch completely and eliminate previously-built containers, run `make down_clean`.
+
 
 ### Ruby Dependencies
 
@@ -166,14 +178,11 @@ The data is refeshed occassionally, but activities/accompaniments are likely to 
 
 ## Contributing
 1. Add a comment on your chosen Github issue to let other contributors know that you have 'claimed' it.
-1. Fork the new_sanctuary_asylum repo and get it set up on your local development environment.
-1. Create a local feature branch off master.
-1. Complete the feature/fix the bug with passing tests!
-1. Push your feature branch back up to your fork of the repo.
-1. Make a new pull request between your branch and the original repo.
-1. Check CircleCI to make sure tests are passing.
-1. Tag CZagrobelny to review your pull request.
-1. CZagrobelny will leave feedback and merge into master upon approval of the pull request.
+2. Create a feature branch off master.
+3. Complete feature with tests!
+4. Check CircleCI to make sure tests are passing.
+5. Make a pull request and tag CZagrobelny to review.
+6. CZagrobelny will leave feedback and merge into master upon approval of the pull request.
 
 ## Code of Conduct
 [Here](CODE_OF_CONDUCT.md)

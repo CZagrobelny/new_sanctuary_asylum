@@ -6,7 +6,6 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
   web:
     build:
       context: ./
@@ -14,16 +13,16 @@ services:
     env_file: .env
     command: >
       sh -c '
-      sleep 30;
+      ./wait-for-it.sh -t 300 db:5432;
+      rm -rf tmp/sanctuary/tmp/server/pids;
       cp config/database.yml.sample config/database.yml;
       rake db:setup;
       bundle exec rails s -p 80 -b '0.0.0.0';
       '
     volumes:
-      # ./wait-for-it.sh -t 300 db:5432;
       - ./:/tmp/sanctuary
     ports:
-      - "80:5000"
+      - "5000:80"
     links:
       - db
     depends_on:
