@@ -18,10 +18,6 @@ up:
 	@echo "Composing the containers..."
 	docker-compose -f docker-compose.yml up
 
-force_up:
-	@echo "Forcibly re-building and standing-up containers"
-	docker-compose -f docker-compose.yml down --rmi all && docker-compose -f docker-compose.yml up --build --force-recreate
-
 down:
 	@echo "Removing compose constructs"
 	docker-compose -f docker-compose.yml down

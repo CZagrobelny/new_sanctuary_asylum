@@ -18,16 +18,30 @@ More information:  http://www.newsanctuarynyc.org/
 * ruby (see Gemfile for version)
 * postgres
 
+### Environment Variables
+
+```
+FROM_ADDRESS='test@example.com'
+```
+
+For local development, create a '.env' file in the root directory of the application and put the environment variable in there.
+
 ### Using Docker 
 You can run this application inside of a docker container using docker-compose and a Makefile. 
 
 To build your container and image for the first time, or after making major changes, run `make`, which is the equivalent of `docker-compose build && docker-compose up`. 
 
-To stop and down your running container, `ctrl+c` then `make down`.
+To stop and down your running container, `ctrl+c` (mac) then `make down`.
 
 To bring your container back up after building previously, run `make up` to skip the build process.
 
+#### Docker Troubleshooting
+
 To start from scratch completely and eliminate previously-built containers, run `make down_clean`.
+
+If you get the error `A server is already running. Check /tmp/sanctuary/tmp/pids/server.pid`: 
+* Note the container name a few lines below in a line like `new_sanctuary_web_1 exited with code 1` -- the container name is `new_sanctuary_web_1`
+* In another tab run `docker start <container name>; docker exec <container name> rm /tmp/sanctuary/tmp/pids/server.pid` and the container should restart with a new pid.
 
 
 ### Ruby Dependencies
@@ -68,14 +82,6 @@ To run initial migrations and seed the DB:
 cp config/database.yml.sample config/database.yml
 rake db:setup
 ```
-
-### Environment Variables
-
-```
-FROM_ADDRESS='test@example.com'
-```
-
-For local development, create a '.env' file in the root directory of the application and put the environment variable in there.
 
 
 ## Running the test suite
