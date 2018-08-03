@@ -5,7 +5,15 @@
   <h5><%= date.day %></h5>
   <dl>
   <% activities.each do |activity| %>
-      <dt><% if activity.confirmed? %><span class="confirmed">&#10003;</span><% end %><%= activity.occur_at.strftime("%I:%M %p") %></dt>
+      <dt>
+        <% if activity.confirmed? %>
+          <span class="confirmed">&#10003;</span>
+        <% end %>
+        <% if activity.accompaniment_leader_accompaniments.present? %>
+          <i class="fa fa-user" aria-hidden="true" title="Accompaniment leader attending"></i>
+        <% end %>
+        <%= activity.occur_at.strftime("%I:%M %p") %>
+      </dt>
       <dd>
         <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>"><%= "#{activity.event.humanize} for #{activity.friend.name}" %></a>
          <div id="modal_activity_<%= activity.id %>" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
