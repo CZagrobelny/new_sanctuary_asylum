@@ -33,12 +33,14 @@ RSpec.describe 'Regional Admin views friends with active applications', type: :f
         expect(page).to_not have_link(friend.name)
       end
 
+      expect(page).to have_content('Friends with Active Applications')
+
       success_text = 'Application closed and assigned remote clinic lawyers removed. Friend has been removed from Active Applications dashboard.'
       expect(page).to have_content(success_text)
 
       expect(friend.reload.users).to be_empty
 
-      expect(application.reload.status).to eq("closed")
+      expect(application.reload.status).to eq('closed')
     end
   end
 
