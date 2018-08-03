@@ -11,7 +11,7 @@ NSC's programs include:
 
 More information:  http://www.newsanctuarynyc.org/
 
-## Getting setup
+## Setting up your Local Development Environment
 
 ### System Dependencies
 
@@ -166,11 +166,14 @@ The data is refeshed occassionally, but activities/accompaniments are likely to 
 
 ## Contributing
 1. Add a comment on your chosen Github issue to let other contributors know that you have 'claimed' it.
-2. Create a feature branch off master.
-3. Complete feature with tests!
-4. Check CircleCI to make sure tests are passing.
-5. Make a pull request and tag CZagrobelny to review.
-6. CZagrobelny will leave feedback and merge into master upon approval of the pull request.
+1. Fork the new_sanctuary_asylum repo and get it set up on your local development environment.
+1. Create a local feature branch off master.
+1. Complete the feature/fix the bug with passing tests!
+1. Push your feature branch back up to your fork of the repo.
+1. Make a new pull request between your branch and the original repo.
+1. Check CircleCI to make sure tests are passing.
+1. Tag CZagrobelny to review your pull request.
+1. CZagrobelny will leave feedback and merge into master upon approval of the pull request.
 
 ## Code of Conduct
 [Here](CODE_OF_CONDUCT.md)
