@@ -61,8 +61,8 @@
       <% @friends.each do |friend| %>
         <tr id="friend-<%=friend.id%>" style="color: <%= friend.detained? ? "red" : "black" %>;"}>
           <td><%= friend.id %></td>
-          <td><%= friend.first_name %></td>
-          <td><%= friend.last_name %></td>
+          <td><%= link_to friend.first_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>
+          <td><%= link_to friend.last_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>
           <td><%= friend.a_number %></td>
           <td><%= friend.phone %></td>
           <td><%= friend.created_at.strftime('%m/%d/%y') %></td>
