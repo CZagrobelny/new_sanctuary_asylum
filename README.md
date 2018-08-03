@@ -24,14 +24,14 @@ More information:  http://www.newsanctuarynyc.org/
 FROM_ADDRESS='test@example.com'
 ```
 
-For local development, create a '.env' file in the root directory of the application and put the environment variable in there.
+For local development, create a `.env` file in the root directory of the application and put the environment variable in there. There is a `.env.example` file.
 
 ### Using Docker 
 You can run this application inside of a docker container using docker-compose and a Makefile. 
 
 To build your container and image for the first time, or after making major changes, run `make`, which is the equivalent of `docker-compose build && docker-compose up`. 
 
-To stop and down your running container, `ctrl+c` (mac) then `make down`.
+To stop and down your running container, `ctrl+c` then `make down`.
 
 To bring your container back up after building previously, run `make up` to skip the build process.
 
