@@ -74,6 +74,36 @@ RSpec.describe Friend, type: :model do
     end
   end
 
+	describe "#name" do
+		subject { friend.name }
+
+		it "returns the first name and last name" do
+			expected_value = "#{friend.first_name} #{friend.last_name}"
+
+			expect(subject).to eq(expected_value)
+		end
+	end
+
+	describe "#ethnicity" do
+		subject { friend.ethnicity }
+
+		context "is other ethnicity" do
+			let(:friend) { create :friend, ethnicity: 'other', other_ethnicity: 'awesome' }
+
+			it "returns the other ethnicity" do
+				expect(subject).to eq(friend.other_ethnicity)
+			end
+		end
+
+		context "is not other ethnicity" do
+			let(:friend) { create :friend, ethnicity: 'asian' }
+
+			it "returns the ethnicity" do
+				expect(subject).to eq(friend.ethnicity)
+			end
+		end
+	end
+
   describe 'detained friends' do
     let!(:currently_detained_friend) { create :detained_friend }
     let!(:never_detained_friend) { create :friend }
