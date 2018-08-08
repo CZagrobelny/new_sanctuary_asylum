@@ -28,7 +28,7 @@
 # Ignore Emacs stuff
 *~
 
-.env
+*.env
 
 /public/uploads/*
 
