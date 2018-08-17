@@ -29,6 +29,10 @@ module ApplicationHelper
     nil
   end
 
+  def locations_by_name(region)
+    region.locations.order('name')
+  end
+
   def us_states_options
     [
       ['Select a State', nil],
@@ -85,4 +89,5 @@ module ApplicationHelper
       %w[Wyoming WY]
     ]
   end
+
 end
