@@ -29,7 +29,7 @@
     <div class='row form-group'>
       <%= f.label :location_id, 'Location', class: 'col-md-2 control-label required' %>
       <div class='col-md-6'>
-        <%= collection_select(:event, :location_id, current_region.locations, :id, :name, {prompt: true}, {class: 'form-control'}) %>
+        <%= collection_select(:event, :location_id, locations_by_name(current_region), :id, :name, {prompt: true}, {class: 'form-control'}) %>
       </div>
     </div>
 
