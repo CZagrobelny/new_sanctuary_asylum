@@ -4,11 +4,13 @@ class Admin::ActivitiesController < AdminController
   def index
     @activities = current_region.activities
                                 .where(event: Activity::NON_ACCOMPANIMENT_ELIGIBLE_EVENTS)
+                                .includes(:friend, :location)
   end
 
   def accompaniments
     @activities = current_region.activities
                                 .where(event: Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS)
+                                .includes(:accompaniments, :users, :accompaniment_reports, :friend, :location)
   end
 
   def new

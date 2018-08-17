@@ -155,6 +155,7 @@ ActiveRecord::Base.transaction do
       judge_id: Judge.first.id,
       occur_at: FFaker::Time.between(1.month.ago, 1.month.from_now),
       notes: FFaker::Lorem.paragraph,
+      confirmed: true,
       region_id: ny_region.id)
   end
 

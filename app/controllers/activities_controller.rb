@@ -9,5 +9,6 @@ class ActivitiesController < ApplicationController
                                          .for_time_confirmed(Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS,
                                                              week1.begin,
                                                              week2.end)
+                                         .includes(:accompaniments, :users, :friend, :location)
   end
 end
