@@ -5,7 +5,7 @@ development:
   password: password
   adapter: postgresql
   database: new_sanctuary_asylum_development
-  host: localhost
+  host: db
   pool: 30
 
 test: &test
@@ -13,4 +13,4 @@ test: &test
   password: password
   adapter: postgresql
   database: new_sanctuary_asylum_test
-  host: localhost
+  host: db
