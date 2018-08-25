@@ -1,3 +1,5 @@
+# Adapted from a version by MJ Berends @approximatelylinear
+
 VERSION=1
 BUILD_DATE=$(shell date +%Y%m%dT%H%M)
 
@@ -26,8 +28,8 @@ down_clean:
 	@echo "Removing compose constructs and images"
 	docker-compose -f docker-compose.yml down --rmi all
 
-# TO DO:
-# test:
-# 	@echo "Runs tests on container"
+test:
+	@echo "Runs tests on container"
+	docker exec -it sanctuary_web rspec
 
 .PHONY: all

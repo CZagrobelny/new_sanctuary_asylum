@@ -26,28 +26,11 @@ FROM_ADDRESS='test@example.com'
 
 For local development, create a `.env` file in the root directory of the application and put the environment variable in there. There is a `.env.example` file.
 
-### Using Docker 
-You can run this application inside of a docker container using docker-compose and a Makefile. 
+### Using Docker to Run the Application 
 
-To build your container and image for the first time, or after making major changes, run `make`, which is the equivalent of `docker-compose build && docker-compose up`. 
+Docker is a way for you to run this application on your machine without changing any of your local settings or installing anything new (besides Docker itself).
 
-To stop and down your running container, `ctrl+c` then `make down`.
-
-To bring your container back up after building previously, run `make up` to skip the build process.
-
-#### Docker Troubleshooting
-
-To start from scratch completely and eliminate previously-built containers, run `make down_clean`.
-
-If you get the error `A server is already running. Check /tmp/sanctuary/tmp/pids/server.pid`: 
-* Note the container name a few lines below in a line like `new_sanctuary_web_1 exited with code 1` -- the container name is `new_sanctuary_web_1`
-* In another tab run `docker start <container name>; docker exec <container name> rm /sanctuary/tmp/pids/server.pid` and the container should restart with a new pid.
-
-#### Testing with Docker
-1. Run `make up`
-2. From another tab, run `docker exec -it <container name> sh`
-3. Then run `rspec`
-
+More instructions [here]('DOCKER_README.md').
 
 
 ### Ruby Dependencies
