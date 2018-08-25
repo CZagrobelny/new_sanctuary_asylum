@@ -32,7 +32,6 @@ Docker is a way for you to run this application on your machine without changing
 
 More instructions [here](DOCKER_README.md).
 
-
 ### Ruby Dependencies
 
 ```
