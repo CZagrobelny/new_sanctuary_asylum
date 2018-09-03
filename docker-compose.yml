@@ -1,0 +1,33 @@
+version: '3'
+services:
+  db:
+    image: postgres:9.6
+    container_name: sanctuary_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  web:
+    build:
+      context: ./
+    working_dir: /sanctuary
+    container_name: sanctuary_web
+    env_file: .env
+    command: >
+      sh -c '
+      ./wait-for-it.sh -t 30 db:5432;
+      cp config/database_docker.yml.sample config/database.yml;
+      rake db:setup;
+      bundle exec rails s -p 5000 -b '0.0.0.0';
+      '
+    volumes:
+      - ./:/sanctuary
+    ports:
+      - "5000:5000"
+    links:
+      - db
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
