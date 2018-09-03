@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.5'
 
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.2.0'
 
 gem 'airbrake', '~> 6.2'
 gem 'american_date'
@@ -14,7 +14,7 @@ gem 'devise', '~> 4.2'
 gem 'devise_invitable', '~> 1.7.0'
 gem 'devise_security_extension', git: 'https://github.com/phatworx/devise_security_extension.git'
 gem 'ffaker', require: false
-gem 'font-awesome-rails', '~> 4.6.3.1'
+gem 'font-awesome-rails', '~> 4.6'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0', '>= 6.0.1'
@@ -33,7 +33,6 @@ gem 'turbolinks', '~> 5.x'
 gem 'will_paginate', '~> 3.1.0'
 
 group :assets do
-  gem 'coffee-rails', '~> 4.1.0'
   gem 'sprockets', '~> 3.7.2'
   gem 'uglifier', '~> 2.7.2'
 end
@@ -42,7 +41,7 @@ group :development, :test do
   gem 'bundler-audit'
   gem 'byebug'
   gem 'capybara', '~> 2.10.1', require: false
-  gem 'database_cleaner', '~> 1.5.3', require: false
+  gem 'database_cleaner', '~> 1.7', require: false
   gem 'dotenv-rails'
   gem 'factory_girl_rails', '~> 4.6.0', require: false
   gem 'launchy', require: false
