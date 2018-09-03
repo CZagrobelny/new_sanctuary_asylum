@@ -9,14 +9,11 @@ class AccompanimentsController < ApplicationController
       accompaniment = Accompaniment.new(accompaniment_params)
       if accompaniment.save
         flash[:success] = 'Your RSVP was successful.'
-        render_activities
       else
-        flash[:error] = accompaniment.errors.full_messages.to_sentence 
-        render_activities
+        flash[:error] = accompaniment.errors.full_messages.to_sentence
       end
-    else
-      render_activities
     end
+    render_activities
   end
 
   def update
@@ -24,12 +21,11 @@ class AccompanimentsController < ApplicationController
     if params['attending'] == 'true'
       if accompaniment.update(accompaniment_params)
         flash[:success] = 'RSVP updated successfully.'
-        render_activities
       end
     elsif accompaniment.destroy
       flash[:success] = 'Your RSVP was deleted.'
-      render_activities
     end
+    render_activities
   end
 
   def accompaniment_params
