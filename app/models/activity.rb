@@ -83,13 +83,7 @@ class Activity < ApplicationRecord
                                    .order(occur_at: 'desc')
                                }
   def accompaniment_limit_met?
-    event == 'family_court' && accompaniments.count > 2
-  end
-
-  def volunteers_needed
-    unless accompaniment_limit_met?
-      "#{3 - accompaniments.count} volunteers needed."
-    end
+    event == 'family_court' && volunteer_accompaniments.count > 2
   end
 
   def start_time
