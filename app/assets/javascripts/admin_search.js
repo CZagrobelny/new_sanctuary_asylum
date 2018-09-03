@@ -18,8 +18,8 @@ $(document).on('turbolinks:load', function () {
   });
 
   // Submit the friend search form if there are changes and the deadline range is valid
-  $('[data-search-filter=true]').on('change', function () {
-    if (checkOneYearDeadlineRange()) {
+  $('[data-search-filter=true]').on('change', function (e) {
+    if (validateDateRange('deadlines_ending') && validateDateRange('created_at')) {
       $(this).closest('form').submit();
     }
   });
@@ -28,9 +28,12 @@ $(document).on('turbolinks:load', function () {
   $(".datepicker").datepicker();
 });
 
-function checkOneYearDeadlineRange() {
-  var floor = $('#deadlines_ending_floor').datepicker().val();
-  var ceiling = $('#deadlines_ending_ceiling').datepicker().val();
+function validateDateRange(attribute) {
+  var floor_id = '#' + attribute + '_floor'
+  var ceiling_id = '#' + attribute + '_ceiling'
+
+  var floor = $(floor_id).datepicker().val();
+  var ceiling = $(ceiling_id).datepicker().val();
   if (isEmpty(floor) && isEmpty(ceiling)) {
     return true
   } else if (!isEmpty(floor) && !isEmpty(ceiling)) {
