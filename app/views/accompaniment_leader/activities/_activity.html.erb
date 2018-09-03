@@ -44,6 +44,7 @@
     <% else %>
       <%= link_to 'Add Accompaniment Leader Notes', new_community_accompaniment_leader_activity_accompaniment_report_path(current_community.slug, activity) %>
     <% end %>
+  <div><em><%= volunteers_needed(activity) %></em></div>
   </div>
 
   <div class='confirm'>

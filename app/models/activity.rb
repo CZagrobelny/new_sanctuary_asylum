@@ -82,6 +82,10 @@ class Activity < ApplicationRecord
                                    .confirmed.by_dates(period_begin, period_end)
                                    .order(occur_at: 'desc')
                                }
+  def accompaniment_limit_met?
+    event == 'family_court' && volunteer_accompaniments.count > 2
+  end
+
   def start_time
     occur_at
   end

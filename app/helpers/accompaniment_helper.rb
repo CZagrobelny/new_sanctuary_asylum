@@ -20,4 +20,10 @@ module AccompanimentHelper
   def group_activities_by_day(activities)
     activities.group_by { |a| a.occur_at.to_date }
   end
+
+  def volunteers_needed(activity)
+    if activity.event == 'family_court'
+      pluralize(3 - activity.volunteer_accompaniments.count, 'volunteer') + ' needed.'
+    end
+  end
 end
