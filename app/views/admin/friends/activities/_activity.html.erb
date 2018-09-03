@@ -3,6 +3,9 @@
     <strong>
       <%= link_to "#{activity.event.humanize}", edit_community_admin_friend_activity_path(current_community.slug, friend, activity), remote: true, class: 'open_activity_modal' %>
       <%= activity.occur_at.strftime("-- %I:%M %p, %A, %B %-d, %Y") %>
+      <% if activity.accompaniable? %>
+        <em>3 volunteers needed.</em>
+      <% end %>
     </strong><br>
     <% if activity.location.present? %>
       <strong>Location:  </strong><%= activity.location.name %><br>

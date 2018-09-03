@@ -3,6 +3,7 @@ class Accompaniment < ApplicationRecord
   belongs_to :activity
 
   validates :activity_id, :user_id, presence: true
+  validate :limit_for_family_court
 
   def self.find_or_build(activity, user)
     if user.attending?(activity)
@@ -11,4 +12,18 @@ class Accompaniment < ApplicationRecord
       user.accompaniments.new(activity_id: activity.id)
     end
   end
+
+  private
+
+  def limit_for_family_court
+    if !activity.try(:accompaniable?)
+      errors.add(:activity, family_court_error)
+      false
+    end
+  end
+
+  def family_court_error
+    "can't exceed 3 volunteer accompaniments."
+  end
+
 end
