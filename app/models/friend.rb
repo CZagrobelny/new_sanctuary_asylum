@@ -93,6 +93,10 @@ class Friend < ApplicationRecord
       date_ceiling - ASYLUM_APPLICATION_DEADLINE)
   }
 
+  scope :created_at, ->(date_floor, date_ceiling) {
+    where('created_at BETWEEN ? AND ?', date_floor, date_ceiling)
+  }
+
   def name
     "#{first_name} #{last_name}"
   end
