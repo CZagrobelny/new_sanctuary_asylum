@@ -137,12 +137,12 @@ class Admin::FriendsController < AdminController
     when 'no'
       scope = scope.not_detained
     end
-    if helpers.filter_asylum_deadline_params_valid?
+    if helpers.date_params_valid?('deadlines_ending')
       date_floor = Date.parse(params[:deadlines_ending_floor])
       date_ceiling = Date.parse(params[:deadlines_ending_ceiling])
       scope = scope.asylum_deadlines_ending(date_floor, date_ceiling)
     end
-    if helpers.created_at_params_valid?
+    if helpers.date_params_valid?('created_at')
       date_floor = Date.parse(params[:created_at_floor])
       date_ceiling = Date.parse(params[:created_at_ceiling])
       scope = scope.created_at(date_floor, date_ceiling)
