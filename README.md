@@ -40,13 +40,15 @@ bundle install
 ```
 
 
-### Database setup
+### Database installation
 
-Run your favorite database server in your favorite way.
+This app uses a Postgresql database.  Instructions diverge based on your operating system.
 
-Postgres.app is the best option on Mac:  https://postgresapp.com
+#### 1. Mac OS
+Install Postgres.app:  https://postgresapp.com
 
-If you are not working on a Mac, I recommend running Postgres in a docker container. To run Postgres on docker, you can do the following:
+#### 2. All non-Mac OS
+I recommend running Postgres in a docker container. To run Postgres on docker, you can do the following:
 
 ```shell
 docker pull postgres:9.6
@@ -63,6 +65,8 @@ Type "help" for help.
 
 yourname=# ALTER USER postgres WITH PASSWORD 'password';
 ```
+
+### Database setup
 
 To run initial migrations and seed the DB:
 
@@ -87,8 +91,7 @@ CircleCI is set up for the app, and will run the full test suite when you push t
 
 ## Running the App Locally
 
-``` 
-shell
+```shell
 rails server
 ```
 
