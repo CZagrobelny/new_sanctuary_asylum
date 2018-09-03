@@ -44,15 +44,15 @@
     <% else %>
       <%= link_to 'Add Accompaniment Leader Notes', new_community_accompaniment_leader_activity_accompaniment_report_path(current_community.slug, activity) %>
     <% end %>
-  <% if activity.accompaniable? %>
-    <div><em><%= activity.volunteers_needed%> </em></div>
+  <% unless activity.accompaniment_limit_met? %>
+    <div><em><%= activity.volunteers_needed %> </em></div>
   <% end %>
   </div>
 
   <div class='confirm'>
     <% if current_user.attending?(activity) %>
       <button type='button' class='btn btn-success' data-toggle='modal' data-target="#activity_<%= activity.id %>_accompaniment_modal">Edit RSVP</button>
-    <% elsif activity.accompaniable? %>
+    <% elsif !activity.accompaniment_limit_met? %>
       <button type='button' class='btn btn-primary' data-toggle='modal' data-target="#activity_<%= activity.id %>_accompaniment_modal">Attend</button>
     <% end %>
   </div>

@@ -82,12 +82,12 @@ class Activity < ApplicationRecord
                                    .confirmed.by_dates(period_begin, period_end)
                                    .order(occur_at: 'desc')
                                }
-  def accompaniable?
-    event != 'family_court' || accompaniments.count < 3
+  def accompaniment_limit_met?
+    event == 'family_court' && accompaniments.count > 2
   end
 
   def volunteers_needed
-    if accompaniable? 
+    unless accompaniment_limit_met?
       "#{3 - accompaniments.count} volunteers needed."
     end
   end

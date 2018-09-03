@@ -16,7 +16,7 @@ class Accompaniment < ApplicationRecord
   private
 
   def limit_for_family_court
-    if !activity.try(:accompaniable?)
+    if activity.try(:accompaniment_limit_met?)
       errors.add(:activity, family_court_error)
       false
     end

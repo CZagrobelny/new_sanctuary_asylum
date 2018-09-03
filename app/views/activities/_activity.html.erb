@@ -9,7 +9,7 @@
       <%= render 'shared/scoped_activity_users_details', activity: activity, scope: 'accompaniment_leader' %>
     <% end %>
     <strong>Volunteers:  </strong><%= activity.users.volunteer.map(&:first_name).to_sentence %>
-  <% if activity.accompaniable? %>
+  <% unless activity.accompaniment_limit_met? %>
     <div><em><%= activity.volunteers_needed%> </em></div>
   <% end %>
   </div>
