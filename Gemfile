@@ -28,6 +28,7 @@ gem 'redis', '~> 3.3.1'
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'simple_calendar', '~> 2.0'
+gem 'skylight'
 gem 'textacular', '~> 5.0'
 gem 'turbolinks', '~> 5.x'
 gem 'will_paginate', '~> 3.1.0'
