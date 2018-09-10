@@ -106,9 +106,17 @@ ActiveRecord::Schema.define(version: 20181003235720) do
     t.integer  "friend_id"
     t.integer  "relation_id"
     t.string   "relationship_type"
+<<<<<<< HEAD
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.index ["friend_id"], name: "index_family_relationships_on_friend_id", using: :btree
+=======
+    t.integer  "reciprocal_relationship_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["friend_id"], name: "index_family_relationships_on_friend_id", using: :btree
+    t.index ["reciprocal_relationship_id"], name: "index_family_relationships_on_reciprocal_relationship_id", unique: true, using: :btree
+>>>>>>> create family_relationships table
     t.index ["relation_id"], name: "index_family_relationships_on_relation_id", using: :btree
   end
 
