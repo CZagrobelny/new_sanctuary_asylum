@@ -17,9 +17,9 @@ class FamilyRelationship < ApplicationRecord
 
     reciprocal_relationship = FamilyRelationship.create!(friend_id: relation_id,
       relation_id: friend_id,
-      relationship_type: reciprocal_relationship_type)
+      relationship_type: reciprocal_relationship_type,
+      reciprocal_relationship_id: id)
 
-    reciprocal_relationship.update_attributes!(reciprocal_relationship_id: id)
     self.update_attributes!(reciprocal_relationship_id: reciprocal_relationship.id)
   end
 
