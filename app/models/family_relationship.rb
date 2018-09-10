@@ -8,6 +8,7 @@ class FamilyRelationship < ApplicationRecord
   validates_presence_of :reciprocal_relationship_id, on: :update
 
   after_create :create_reciprocal_relationship
+  after_destroy :destroy_reciprocal_relationship
 
   private
 
@@ -20,6 +21,12 @@ class FamilyRelationship < ApplicationRecord
 
     reciprocal_relationship.update_attributes!(reciprocal_relationship_id: id)
     self.update_attributes!(reciprocal_relationship_id: reciprocal_relationship.id)
+  end
+
+  def destroy_reciprocal_relationship
+    reciprocal_relationship = FamilyRelationship.where(friend_id: relation_id, relation_id: friend_id).first
+    return unless reciprocal_relationship.present?
+    reciprocal_relationship.destroy!
   end
 
   def reciprocal_relationship_type

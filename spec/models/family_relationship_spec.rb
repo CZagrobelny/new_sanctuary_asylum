@@ -62,4 +62,15 @@ RSpec.describe FamilyRelationship, type: :model do
         expect(family_relationship.errors.full_messages).to include("Relationship type can't be blank")
     end
   end
+
+  describe '#destroy' do
+    it 'destroys the family relationship AND the reciprocal family relationship' do
+      family_relationship = FamilyRelationship.create(friend_id: friend.id, relation_id: relation.id, relationship_type: relationship_type)
+      expect(FamilyRelationship.where(friend_id: friend.id, relation_id: relation.id, relationship_type: relationship_type).count).to eq 1
+      expect(FamilyRelationship.where(friend_id: relation.id, relation_id: friend.id, relationship_type: reciprocal_relationship_type).count).to eq 1
+      family_relationship.destroy
+       expect(FamilyRelationship.where(friend_id: friend.id, relation_id: relation.id, relationship_type: relationship_type).count).to eq 0
+      expect(FamilyRelationship.where(friend_id: relation.id, relation_id: friend.id, relationship_type: reciprocal_relationship_type).count).to eq 0
+    end
+  end
 end
