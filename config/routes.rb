@@ -48,7 +48,6 @@ Rails.application.routes.draw do
           end
         end
         resources :detentions, controller: 'friends/detentions'
-        resources :family_members
         resources :family_relationships
       end
 
