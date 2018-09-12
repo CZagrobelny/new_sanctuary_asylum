@@ -10,6 +10,8 @@ class FamilyRelationship < ApplicationRecord
   after_create :create_reciprocal_relationship
   after_destroy :destroy_reciprocal_relationship
 
+  TYPES = %w(parent child spouse partner).map{ |type| [type.titlecase, type] }
+
   private
 
   def create_reciprocal_relationship

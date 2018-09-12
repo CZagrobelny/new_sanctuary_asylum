@@ -38,7 +38,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
             family_member = Friend.last
             select 'Spouse', from: 'Relationship'
             expect(page).to have_select('Relationship', selected: 'Spouse')
-            select_from_chosen(family_member.name, from: {id: 'family_member_constructor_relation_id'})
+            select_from_chosen(family_member.name, from: { id: 'family_relationship_relation_id' })
             click_button 'Add'
             wait_for_ajax
 
@@ -55,7 +55,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
             sleep 1
             click_button 'Add'
             wait_for_ajax
-            expect(page).to have_content("Relationship can't be blank")
+            expect(page).to have_content("Relationship type can't be blank")
           end
         end
       end

@@ -1,0 +1,33 @@
+<% if family_relationship.errors.present? %>
+  <%= display_validation_errors(family_relationship) %>
+<% end %>
+
+<%= form_for([current_community, :admin, friend, family_relationship], url: community_admin_friend_family_relationships_path(current_community.slug, friend), action: :post, remote: true) do |f| %>
+  <div class='form-inputs'>
+    <div class='row form-group'>
+      <%= f.label :relationship_type, 'Relationship', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.select :relationship_type, options_for_select(FamilyRelationship::TYPES), { include_blank: true }, { class: 'form-control' } %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :relation_id, 'Friend', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= collection_select(:family_relationship, :relation_id, current_community.friends, :id, :name, { prompt: true }, { class: 'chzn-select form-control' }) %>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-md-1 col-md-offset-10'>
+        <%= f.submit 'Add', class: 'btn btn-primary', id: 'add-family-link' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $(document).ready(function(){
+    activateChosen();
+  });
+</script>

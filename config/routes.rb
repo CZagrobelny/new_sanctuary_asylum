@@ -49,6 +49,7 @@ Rails.application.routes.draw do
         end
         resources :detentions, controller: 'friends/detentions'
         resources :family_members
+        resources :family_relationships
       end
 
       resources :judges, except: [:show, :destroy]
