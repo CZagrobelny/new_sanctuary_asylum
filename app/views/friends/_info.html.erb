@@ -18,24 +18,11 @@
 
 <h3>Family</h3>
 
-<% if friend.spouses.present? || friend.inverse_spouses.present? %>
-  <p><strong>Spouse:  </strong><%= (friend.spouses.map(&:name) + friend.inverse_spouses.map(&:name)).to_sentence %></p>
-<% end %>
-
-<% if friend.parents.present? %>
-  <p><strong>Parents:  </strong><%= friend.parents.map(&:name).to_sentence %></p>
-<% end %>
-
-<% if friend.children.present? %>
-  <p><strong>Children:  </strong><%= friend.children.map(&:name).to_sentence %></p>
-<% end %>
-
-<% if %>
-  <p><strong>Siblings: </strong><%= (friend.siblings.map(&:name) + friend.inverse_siblings.map(&:name)).to_sentence %></p>
-<% end %>
-
-<% if friend.partners.present? || friend.inverse_partners.present? %>
-  <p><strong>Partner: </strong><%= (friend.partners.map(&:name) + friend.inverse_partners.map(&:name)).to_sentence %></p>
+<% friend.family_relationships.order(:relationship_type).each do |family_relationship| %>
+  <p>
+    <strong><%= family_relationship.relationship_type.titlecase %>:  </strong>
+    <%= family_relationship.relation.name %>
+  </p>
 <% end %>
 
 <% if friend.activities.present? %>
