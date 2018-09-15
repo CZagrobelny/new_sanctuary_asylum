@@ -9,17 +9,14 @@ class Admin::FamilyRelationshipsController < AdminController
     if @family_relationship.persisted?
       render_list
     else
-      # TO DO, fix population of relation dropdown and set error on base
       render_modal
     end
   end
 
   def destroy
     @family_relationship ||= FamilyRelationship.find(params[:id])
-    if @family_relationship.destroy
-      # TO DO flash message
-    else
-      # TO DO flash message
+    unless @family_relationship.destroy
+      flash[:error] = 'There was an issue removing this family relationship.'
     end
     render_list
   end
