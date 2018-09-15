@@ -4,7 +4,7 @@ class FamilyRelationship < ApplicationRecord
   has_one :reciprocal_relationship, class_name: 'FamilyRelationship', foreign_key: 'reciprocal_relationship_id'
 
   validates_presence_of :friend_id, :relation_id, :relationship_type
-  validates_uniqueness_of :relation_id, scope: :friend_id
+  validates_uniqueness_of :relation_id, scope: :friend_id, message: 'is already listed as a family member for this friend'
   validates_presence_of :reciprocal_relationship_id, on: :update
 
   after_create :create_reciprocal_relationship
