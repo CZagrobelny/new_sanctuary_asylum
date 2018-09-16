@@ -36,8 +36,8 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
             click_link 'Add Family Member'
             sleep 1
             family_member = Friend.last
-            select 'Spouse', from: 'Relationship'
-            expect(page).to have_select('Relationship', selected: 'Spouse')
+            select 'Spouse', from: 'Relationship type'
+            expect(page).to have_select('Relationship type', selected: 'Spouse')
             select_from_chosen(family_member.name, from: { id: 'family_relationship_relation_id' })
             click_button 'Add'
             wait_for_ajax
