@@ -25,37 +25,41 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
     end
 
     describe 'editing "Family" information' do
-      describe 'adding a new family relationship' do
-        before do
-          click_link 'Family'
-        end
+      before { click_link 'Family' }
 
-        describe 'with valid information' do
-          it 'displays the new family member' do
-            expect(page).to have_link 'Add Family Member'
-            click_link 'Add Family Member'
-            sleep 1
-            family_member = Friend.last
+      it 'displays the "Family" tab' do
+        within '.tab-content' do
+          expect(page).to have_content 'Family'
+        end
+      end
+
+      describe 'adding a new family relationship with valid information' do
+        it 'displays the new family member' do
+          family_member = Friend.last
+          expect(page).to have_link 'Add Family Member'
+          click_link 'Add Family Member'
+          within '#add_family_relationship_modal' do
+            expect(page).to have_content('Add a Family Member')
+            expect(page).to have_select('Relationship type', selected: '')
             select 'Spouse', from: 'Relationship type'
             expect(page).to have_select('Relationship type', selected: 'Spouse')
             select_from_chosen(family_member.name, from: { id: 'family_relationship_relation_id' })
             click_button 'Add'
-            wait_for_ajax
-
-            within '#family-list' do
-              expect(page).to have_content(family_member.name)
-            end
+          end
+          within '#family-list' do
+            expect(page).to have_content("Spouse: #{family_member.name}")
           end
         end
 
-        describe 'with incomplete information' do
+        describe 'adding a new family relationship with incomplete information' do
           it 'displays validation errors' do
             expect(page).to have_link 'Add Family Member'
             click_link 'Add Family Member'
-            sleep 1
-            click_button 'Add'
-            wait_for_ajax
-            expect(page).to have_content("Relationship type can't be blank")
+            within '#add_family_relationship_modal' do
+              expect(page).to have_select('Relationship type', selected: '')
+              click_button 'Add'
+              expect(page).to have_content("Relationship type can't be blank")
+            end
           end
         end
       end
