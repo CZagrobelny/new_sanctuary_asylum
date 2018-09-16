@@ -48,7 +48,6 @@ class Admin::FamilyRelationshipsController < AdminController
     params.require(:family_relationship).permit(
       :relation_id,
       :relationship_type,
-      :reciprocal_relationship_id
     ).merge(friend_id: friend.id)
   end
 end
