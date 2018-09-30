@@ -16,6 +16,7 @@ class Friend < ApplicationRecord
                        application_started
                        application_completed
                        application_submitted
+                       affirmative_application_referred_to_immigration_judge
                        granted denied].map { |status| [status.titlecase, status] }
   WORK_AUTHORIZATION_STATUSES = %w[not_eligible
                                    eligible
