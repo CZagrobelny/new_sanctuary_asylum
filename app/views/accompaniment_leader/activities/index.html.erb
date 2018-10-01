@@ -5,8 +5,8 @@
     <% group_activities_by_day(week_activities).each do |day, activities| %>
       <h4><%= day.strftime('%A, %B %-d') %></h4>
       <% activities.each do |activity| %>
-        <%= render partial: 'activity', locals: {activity: activity} %>
-        <%= render partial: 'activities/accompaniment_modal', locals: {activity: activity, accompaniment: Accompaniment.find_or_build(activity, current_user) } %>
+        <%= render partial: 'activity', locals: { activity: activity } %>
+        <%= render partial: 'accompaniment_modal', locals: { activity: activity, accompaniment: Accompaniment.find_or_build(activity, current_user) } %>
       <% end %>
     <% end %>
   <% end %>
