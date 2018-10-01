@@ -5,6 +5,7 @@ class Activity < ApplicationRecord
                                      check_in
                                      high_risk_ice_check_in
                                      family_court
+                                     criminal_court
                                      bond_hearing
                                      fingerprinting].freeze
 
@@ -19,7 +20,11 @@ class Activity < ApplicationRecord
                                          sijs_denied
                                          change_of_venue_submitted
                                          foia_request_submitted
-                                         foia_recieved].freeze
+                                         foia_recieved
+                                         I_130_sent
+                                         stay_of_deportation_filed
+                                         u_visa_filed
+                                         habeas_corpus_filed].freeze
 
   EVENT_KEYS = ACCOMPANIMENT_ELIGIBLE_EVENTS + NON_ACCOMPANIMENT_ELIGIBLE_EVENTS
   EVENTS = EVENT_KEYS.map { |event| [event.titlecase, event] }
