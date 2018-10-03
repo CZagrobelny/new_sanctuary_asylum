@@ -1,7 +1,14 @@
-<h3>Detention</h3>
-
 <br>
-<h4>General Information</h4>
+<div class='pull-right'>
+  <%= link_to 'Add Detention', new_community_admin_friend_detention_path(current_community.slug, @friend), remote: true, class: 'btn btn-primary', data: { toggle: 'modal', target: '#detention_modal' } %>
+</div>
+
+<h3>Detentions</h3>
+<div id='detention-list' >
+  <%= render partial: 'admin/friends/detentions/list', locals: { friend: @friend } %>
+</div>
+
+<h3>General Information</h3>
 
 <div class='form-group'>
   <div class='col-md-12'>
@@ -60,14 +67,4 @@
   <div class='col-md-6'>
     <%= f.text_area :detention_advocate_contact_notes, class: 'form-control', style: 'height: 100px;' %>
   </div>
-</div>
-
-<br>
-<div class='pull-right'>
-  <%= link_to 'Add Detention', new_community_admin_friend_detention_path(current_community.slug, @friend), remote: true, class: 'btn btn-primary', data: {toggle: 'modal', target: '#detention_modal'} %>
-</div>
-
-<h4>Detentions</h4>
-<div id='detention-list' >
-  <%= render partial: 'admin/friends/detentions/list', locals: { friend: @friend} %>
 </div>
