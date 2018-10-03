@@ -12,7 +12,13 @@
       </dt>
       <dd>
         <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>"><%= "#{activity.event.humanize} for #{activity.friend.first_name} at #{activity.location.name}" %></a>
-        <span>(<%= "#{activity.volunteer_accompaniments.count}" %>)</span>
+        <span>
+          <% if activity.accompaniment_limit_met? %>
+            (full)
+          <% else %>
+            <%= "(#{ activity.volunteer_accompaniments.count })" %>
+          <% end %>
+        </span>
         <%= render partial: 'accompaniment_modal', locals: { activity: activity, accompaniment: Accompaniment.find_or_build(activity, current_user) } %>
       </dd>
   <% end %>
