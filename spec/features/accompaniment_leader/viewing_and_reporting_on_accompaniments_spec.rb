@@ -6,6 +6,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
   let(:team_leader) { create(:user, :accompaniment_leader, community: community) }
   let!(:activity) { create(:activity, occur_at: 1.week.from_now, region: region, confirmed: true) }
   let!(:accompaniment) { create(:accompaniment, user: team_leader, activity: activity) }
+  let(:accompaniment_listing) { "#{activity.event.humanize} for #{activity.friend.first_name} at #{activity.location.name}" }
   before do
     login_as(team_leader)
   end
@@ -16,13 +17,13 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
     end
 
     it 'displays full details of upcoming accompaniments' do
-      expect(page).to have_content(activity.friend.first_name)
-      expect(page).to have_content(activity.friend.phone)
+      expect(page).to have_content(accompaniment_listing)
     end
 
     describe 'when the team leader is attending an activity' do
       it 'lists me as "Team Leader" for the activity' do
-        within "#activity_#{activity.id}" do
+        click_link accompaniment_listing
+        within "#modal_activity_#{activity.id}" do
           expect(page).to have_content("Accompaniment Leaders: #{team_leader.name}")
         end
       end

@@ -1,14 +1,33 @@
 <h1>Accompaniments</h1>
-<div class="calendar-list">
-  <% group_activities_by_week(@upcoming_activities).each do |week, week_activities| %>
-    <h2><%= print_week_start_end_dates(week) %></h2>
-    <% group_activities_by_day(week_activities).each do |day, activities| %>
-      <h4><%= day.strftime('%A, %B %-d') %></h4>
-      <% activities.each do |activity| %>
-        <%= render partial: 'activity', locals: {activity: activity} %>
-        <%= render partial: 'activities/accompaniment_modal', locals: {activity: activity, accompaniment: Accompaniment.find_or_build(activity, current_user) } %>
-      <% end %>
-    <% end %>
+
+<%= month_calendar events: @upcoming_activities do |date, activities| %>
+  <h5><%= date.day %></h5>
+  <dl>
+  <% activities.each do |activity| %>
+      <dt>
+        <% if current_user.attending?(activity) %>
+          <i class="confirmed fas fa-user-check"></i>
+        <% end %>
+        <%= activity.occur_at.strftime("%I:%M %p") %>
+      </dt>
+      <dd>
+        <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>"><%= "#{activity.event.humanize} for #{activity.friend.first_name} at #{activity.location.name}" %></a>
+        <span>
+          <% if activity.accompaniment_limit_met? %>
+            (full)
+          <% else %>
+            <%= "(#{ activity.volunteer_accompaniments.count })" %>
+          <% end %>
+        </span>
+        <%= render partial: 'accompaniment_modal', locals: { activity: activity, accompaniment: Accompaniment.find_or_build(activity, current_user) } %>
+      </dd>
   <% end %>
-</div>
-<br>
+  </dl>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("body").removeClass("modal-open");
+    $(".in").hide();
+  });
+</script>

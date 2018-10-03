@@ -14,7 +14,6 @@ gem 'devise', '~> 4.2'
 gem 'devise_invitable', '~> 1.7.0'
 gem 'devise_security_extension', git: 'https://github.com/phatworx/devise_security_extension.git'
 gem 'ffaker', require: false
-gem 'font-awesome-rails', '~> 4.6.3.1'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0', '>= 6.0.1'
