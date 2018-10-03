@@ -72,12 +72,7 @@ class Friend < ApplicationRecord
   validates :a_number, length: { minimum: 8, maximum: 9 }, if: :a_number_available?
   validates_uniqueness_of :a_number, if: :a_number_available?
 
-  scope :detained, -> {
-    joins(:detentions)
-      .distinct
-      .where('detentions.date_detained < ?', Time.now)
-      .where('detentions.date_released IS NULL OR detentions.date_released > ?', Time.now)
-  }
+  scope :detained, -> { where(status: 'in_detention') }
 
   scope :with_active_applications, -> {
     joins(:applications)
@@ -117,7 +112,7 @@ class Friend < ApplicationRecord
   end
 
   def detained?
-    detentions.where('date_detained < ?', Time.now).where('date_released IS NULL OR date_released > ?', Time.now).present?
+    status == 'in_detention'
   end
 
   private

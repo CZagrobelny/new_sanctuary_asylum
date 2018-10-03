@@ -105,31 +105,24 @@ RSpec.describe Friend, type: :model do
 	end
 
   describe 'detained friends' do
-    let!(:currently_detained_friend) { create :detained_friend }
-    let!(:never_detained_friend) { create :friend }
-    let!(:previously_detained_friend) do
-      create(:detained_friend).tap do |friend|
-        friend.detentions.first.update(date_released: 1.week.ago)
-      end
-    end
+    let!(:friend) { create :friend }
+    let!(:detained_friend) { create :friend, status: 'in_detention' }
 
     context 'default scope' do
       it 'should include all friends' do
         friends = Friend.all
-        expect(friends.size).to eq(3)
-        expect(friends.include?(currently_detained_friend)).to eq(true)
-        expect(friends.include?(never_detained_friend)).to eq(true)
-        expect(friends.include?(previously_detained_friend)).to eq(true)
+        expect(friends.size).to eq(2)
+        expect(friends.include?(friend)).to eq(true)
+        expect(friends.include?(detained_friend)).to eq(true)
       end
     end
 
     context '.detained scope' do
-      it 'should include only currently detained friends' do
+      it 'should include only detained friends' do
         friends = Friend.detained.all
         expect(friends.size).to eq(1)
-        expect(friends.include?(currently_detained_friend)).to eq(true)
-        expect(friends.include?(never_detained_friend)).to eq(false)
-        expect(friends.include?(previously_detained_friend)).to eq(false)
+        expect(friends).to include(detained_friend)
+        expect(friends).to_not include(friend)
       end
     end
   end

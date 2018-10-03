@@ -6,11 +6,4 @@ FactoryGirl.define do
     association :community
     association :region
   end
-
-  factory :detained_friend, parent: :friend do
-    after(:create) do |friend|
-      location = create(:location)
-      friend.detentions.create! location: location, date_detained: 1.month.ago
-    end
-  end
 end
