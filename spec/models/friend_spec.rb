@@ -70,7 +70,7 @@ RSpec.describe Friend, type: :model do
 			result = [{ :name=>"asylum", :drafts=> [draft1], application: application1 },
  	  	   				{ :name=>"foia", :drafts=> [draft2], application: application2 }]
 
-      expect(friend.reload.grouped_drafts).to eq result
+      expect(friend.reload.grouped_drafts).to match_array(result)
     end
   end
 
