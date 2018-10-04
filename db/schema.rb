@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180729212537) do
+ActiveRecord::Schema.define(version: 20181003235720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,16 @@ ActiveRecord::Schema.define(version: 20180729212537) do
     t.index ["community_id"], name: "index_events_on_community_id", using: :btree
   end
 
+  create_table "family_relationships", force: :cascade do |t|
+    t.integer  "friend_id"
+    t.integer  "relation_id"
+    t.string   "relationship_type"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["friend_id"], name: "index_family_relationships_on_friend_id", using: :btree
+    t.index ["relation_id"], name: "index_family_relationships_on_relation_id", using: :btree
+  end
+
   create_table "friend_event_attendances", force: :cascade do |t|
     t.integer  "friend_id",  null: false
     t.integer  "event_id",   null: false
@@ -151,14 +161,10 @@ ActiveRecord::Schema.define(version: 20180729212537) do
     t.integer  "lawyer_represented_by"
     t.integer  "sijs_lawyer"
     t.string   "zip_code"
-    t.boolean  "visited_the_clinic"
     t.boolean  "criminal_conviction"
     t.text     "criminal_conviction_notes"
     t.boolean  "final_order_of_removal"
     t.boolean  "has_a_lawyer_for_detention"
-    t.string   "detention_advocate_contact_name"
-    t.string   "detention_advocate_contact_phone"
-    t.text     "detention_advocate_contact_notes"
     t.boolean  "bonded_out_by_nsc"
     t.integer  "bond_amount"
     t.datetime "date_bonded_out"
