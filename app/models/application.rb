@@ -1,7 +1,7 @@
 class Application < ApplicationRecord
   CATEGORIES = %w[asylum sijs work_authorization
                   detention foia change_of_venue
-                  other].freeze
+                  habeas_corpus other].freeze
 
   has_many :drafts, dependent: :restrict_with_error
   belongs_to :friend
