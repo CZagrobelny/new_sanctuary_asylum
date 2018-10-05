@@ -171,7 +171,7 @@ GEM
     mustermann (1.0.2)
     newrelic_rpm (3.17.1.326)
     nio4r (2.1.0)
-    nokogiri (1.8.4)
+    nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     non-stupid-digest-assets (1.0.9)
       sprockets (>= 2.0)
@@ -379,7 +379,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   multi_json (~> 1.11.2)
   newrelic_rpm
-  nokogiri (~> 1.8.3)
+  nokogiri (~> 1.8.5)
   non-stupid-digest-assets
   pg (~> 0.18.4)
   phantomjs
