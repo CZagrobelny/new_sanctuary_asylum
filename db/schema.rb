@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181003235720) do
+ActiveRecord::Schema.define(version: 20181008195503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -219,20 +219,6 @@ ActiveRecord::Schema.define(version: 20181003235720) do
     t.index ["password_archivable_type", "password_archivable_id"], name: "index_password_archivable", using: :btree
   end
 
-  create_table "parent_child_relationships", force: :cascade do |t|
-    t.integer  "parent_id",  null: false
-    t.integer  "child_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "partner_relationships", force: :cascade do |t|
-    t.integer  "friend_id",  null: false
-    t.integer  "partner_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "regions", force: :cascade do |t|
     t.string "name"
   end
@@ -260,26 +246,12 @@ ActiveRecord::Schema.define(version: 20181003235720) do
     t.index ["community_id"], name: "index_sanctuaries_on_community_id", using: :btree
   end
 
-  create_table "sibling_relationships", force: :cascade do |t|
-    t.integer  "friend_id",  null: false
-    t.integer  "sibling_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "sijs_application_drafts", force: :cascade do |t|
     t.text     "notes"
     t.integer  "friend_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "pdf_draft",  null: false
-  end
-
-  create_table "spousal_relationships", force: :cascade do |t|
-    t.integer  "friend_id",  null: false
-    t.integer  "spouse_id",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "user_draft_associations", force: :cascade do |t|
