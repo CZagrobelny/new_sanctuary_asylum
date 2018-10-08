@@ -1,0 +1,7 @@
+<% friend.family_relationships.order(:relationship_type).each do |family_relationship| %>
+  <p>
+    <strong><%= family_relationship.relationship_type.titlecase %>:  </strong>
+    <%= link_to family_relationship.relation.name, edit_community_admin_friend_path(current_community.slug, family_relationship.relation), target: '_blank' %>
+    <%= link_to 'Remove', community_admin_friend_family_relationship_path(current_community.slug, friend, family_relationship), method: :delete, remote: true, class: 'delete' %>
+  </p>
+<% end %>

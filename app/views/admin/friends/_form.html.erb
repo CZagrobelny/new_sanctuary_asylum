@@ -76,7 +76,7 @@
 
 <%= render partial: 'admin/friends/activities/modal', locals: { activity: @friend.activities.new } %>
 
-<%= render partial: 'admin/friends/family_members/modal', locals: { family_member_constructor: FamilyMemberConstructor.new, friend: @friend } %>
+<%= render partial: 'admin/friends/family_relationships/modal', locals: { family_relationship: FamilyRelationship.new, friend: @friend } %>
 
 <%= render partial: 'admin/friends/detentions/modal', locals: { detention: @friend.detentions.new } %>
 

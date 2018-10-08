@@ -1,4 +1,4 @@
-<div class='modal' id='add_family_member_modal'>
+<div class='modal' id='add_family_relationship_modal'>
   <div class='modal-dialog'>
     <div class='modal-content'>
       <div class='modal-header'>
@@ -6,8 +6,8 @@
         <h4 class='modal-title'>Add a Family Member</h4>
       </div>
       <div class='modal-body'>
-        <div id='family-member-form'>
-          <%= render partial: 'admin/friends/family_members/form', locals: {friend: friend, family_member_constructor: family_member_constructor} %>
+        <div id='family-relationship-form'>
+          <%= render partial: 'admin/friends/family_relationships/form', locals: { friend: friend, family_relationship: family_relationship } %>
         </div>
       </div>
     </div>

@@ -44,9 +44,10 @@ class Friend < ApplicationRecord
   has_many :applications
   has_many :friend_event_attendances, dependent: :destroy
   has_many :events, through: :friend_event_attendances
+  has_many :family_relationships, dependent: :destroy
+  has_many :family_members, through: :family_relationships, source: 'relation'
 
-  ## All of the below associations are for 'Family' relationships
-  ## TO DO:  look at refactoring this, it's gotten a bit out of control.
+  ## TO DO: remove these after data migration of these old tables to the new family_relationships table
   has_many :parent_relationships, class_name: 'ParentChildRelationship', foreign_key: 'child_id', dependent: :destroy
   has_many :child_relationships, class_name: 'ParentChildRelationship', foreign_key: 'parent_id', dependent: :destroy
   has_many :parents, through: :parent_relationships
