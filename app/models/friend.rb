@@ -47,24 +47,6 @@ class Friend < ApplicationRecord
   has_many :family_relationships, dependent: :destroy
   has_many :family_members, through: :family_relationships, source: 'relation'
 
-  ## TO DO: remove these after data migration of these old tables to the new family_relationships table
-  has_many :parent_relationships, class_name: 'ParentChildRelationship', foreign_key: 'child_id', dependent: :destroy
-  has_many :child_relationships, class_name: 'ParentChildRelationship', foreign_key: 'parent_id', dependent: :destroy
-  has_many :parents, through: :parent_relationships
-  has_many :children, through: :child_relationships
-  has_many :sibling_relationships, dependent: :destroy
-  has_many :siblings, through: :sibling_relationships
-  has_many :inverse_sibling_relationships, class_name: 'SiblingRelationship', foreign_key: 'sibling_id', dependent: :destroy
-  has_many :inverse_siblings, through: :inverse_sibling_relationships, source: :friend
-  has_many :spousal_relationships, dependent: :destroy
-  has_many :spouses, through: :spousal_relationships
-  has_many :inverse_spousal_relationships, class_name: 'SpousalRelationship', foreign_key: 'spouse_id', dependent: :destroy
-  has_many :inverse_spouses, through: :inverse_spousal_relationships, source: :friend
-  has_many :partner_relationships, dependent: :destroy
-  has_many :partners, through: :partner_relationships
-  has_many :inverse_partner_relationships, class_name: 'PartnerRelationship', foreign_key: 'partner_id', dependent: :destroy
-  has_many :inverse_partners, through: :inverse_partner_relationships, source: :friend
-
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
 
   validates :first_name, :last_name, :community_id, :region_id, presence: true
