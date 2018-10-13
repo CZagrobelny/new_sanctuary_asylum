@@ -29,11 +29,41 @@ class User < ApplicationRecord
 
   scope :remote_lawyers, -> { where(remote_clinic_lawyer: true) }
 
+  filterrific(
+    default_filter_params: { sorted_by: 'created_at_desc' },
+    available_filters: %i[
+      search_query
+      volunteer_type
+      sorted_by
+    ]
+  )
+
+  def self.options_for_sorted_by
+    [
+      ['Created at (newest first)', 'created_at_desc'],
+      ['Created at (oldest first)', 'created_at_asc']
+    ]
+  end
+
   def remote_clinic_friends
     friends.where(user_friend_associations: { remote: true })
   end
 
-  scope :for_volunteer_type, ->(volunteer_type) { where(volunteer_type: volunteer_type) }
+  scope :sorted_by, ->(sort_option) {
+    direction = sort_option =~ /desc$/ ? 'desc' : 'asc'
+    case sort_option.to_s
+    when /^created_at_/
+      order("users.created_at #{direction}")
+    when /^name_/
+      # Simple sort on the name colums
+      order("LOWER(users.last_name) #{direction}, LOWER(users.first_name) #{direction}")
+    else
+      raise(ArgumentError, "Invalid sort option: #{sort_option.inspect}")
+    end
+  }
+
+  scope :search_query, ->(query) {}
+  scope :with_volunteer_type, ->(volunteer_types) { where(volunteer_type: [*volunteer_types]) }
 
   def confirmed?
     invitation_accepted_at.present?
