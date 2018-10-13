@@ -38,12 +38,28 @@ ActiveRecord::Schema.define(version: 20181212033943) do
     t.integer  "judge_id"
     t.datetime "occur_at"
     t.text     "notes"
+<<<<<<< HEAD
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "region_id"
     t.boolean  "confirmed"
     t.text     "public_notes"
+=======
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.boolean  "confirmed"
+    t.integer  "region_id"
+>>>>>>> WIP. Stuck on the select options in the view
     t.index ["region_id"], name: "index_activities_on_region_id", using: :btree
+  end
+
+  create_table "application_drafts", force: :cascade do |t|
+    t.text     "notes"
+    t.integer  "friend_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "pdf_draft"
+    t.string   "category"
   end
 
   create_table "applications", force: :cascade do |t|
@@ -83,12 +99,12 @@ ActiveRecord::Schema.define(version: 20181212033943) do
 
   create_table "drafts", force: :cascade do |t|
     t.text     "notes"
-    t.integer  "friend_id",                  null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "friend_id",      null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "pdf_draft"
     t.integer  "application_id"
-    t.integer  "status",         default: 0
+    t.integer  "status"
     t.index ["application_id"], name: "index_drafts_on_application_id", using: :btree
   end
 
@@ -271,6 +287,23 @@ ActiveRecord::Schema.define(version: 20181212033943) do
     t.string   "pdf_draft",  null: false
   end
 
+<<<<<<< HEAD
+=======
+  create_table "spousal_relationships", force: :cascade do |t|
+    t.integer  "friend_id",  null: false
+    t.integer  "spouse_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_application_draft_associations", force: :cascade do |t|
+    t.integer  "user_id",              null: false
+    t.integer  "application_draft_id", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+>>>>>>> WIP. Stuck on the select options in the view
   create_table "user_draft_associations", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.integer  "draft_id",   null: false
