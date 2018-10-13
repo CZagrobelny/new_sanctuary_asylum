@@ -33,11 +33,37 @@ class User < ApplicationRecord
 
   scope :remote_lawyers, -> { where(remote_clinic_lawyer: true) }
 
+  filterrific(
+    default_filter_params: { sorted_by: 'created_at_desc' },
+    available_filters: %i[
+      filter_first_name
+      filter_last_name
+      filter_email
+      filter_volunteer_type
+      sorted_by
+
+    ]
+  )
+
   def remote_clinic_friends
     friends.where(user_friend_associations: { remote: true })
   end
 
-  scope :for_volunteer_type, ->(volunteer_type) { where(volunteer_type: volunteer_type) }
+  scope :filter_volunteer_type, ->(volunteer_type) {
+    where(volunteer_type: volunteer_type)
+  }
+
+  scope :filter_first_name, ->(name) {
+    basic_search(first_name: name)
+  }
+
+  scope :filter_last_name, ->(name) {
+    basic_search(last_name: name)
+  }
+
+  scope :filter_email, -> (email) {
+    basic_search(email: email)
+  }
 
   def confirmed?
     invitation_accepted_at.present?
