@@ -11,25 +11,24 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: tr
 
   before do
     login_as(volunteer)
-    visit community_activities_path(community)
-    change_month(activity.occur_at)
   end
 
   describe 'viewing upcoming accompaniments' do
     it 'displays full details of upcoming accompaniments' do
+      visit community_activities_path(community)
+      change_month(activity.occur_at)
       expect(page).to have_content(accompaniment_listing)
     end
   end
 
   describe 'signing up for an accompaniment' do
-    before do
+    it 'creates an RSVP' do
+      visit community_activities_path(community)
+      change_month(activity.occur_at)
       click_link accompaniment_listing
       within "#modal_activity_#{activity.id}" do
         click_button 'Save'
       end
-    end
-
-    it 'creates an RSVP' do
       within '.alert' do
         expect(page).to have_content 'Your RSVP was successful.'
       end
@@ -37,16 +36,15 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: tr
   end
 
   describe 'canceling an RSVP for an accompaniment' do
-    let!(:accompaniment) { create(:accompaniment, activity: activity, user: volunteer) }
-    before do
+    it 'deletes the RSVP' do
+      create(:accompaniment, activity: activity, user: volunteer)
+      visit community_activities_path(community)
+      change_month(activity.occur_at)
       click_link accompaniment_listing
       within "#modal_activity_#{activity.id}" do
         select 'No', from: 'Attending'
         click_button 'Save'
       end
-    end
-
-    it 'deletes the RSVP' do
       within '.alert' do
         expect(page).to have_content 'Your RSVP was deleted.'
       end
