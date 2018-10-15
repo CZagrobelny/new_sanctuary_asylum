@@ -1,16 +1,19 @@
-<% if @users.present? %>
+<% if users.present? %>
 <div id='filterrific-results'>
   <table class='table table-bordered'>
+    <div>
+    <%= page_entries_info users  %>
+  </div>
     <thead>
       <tr>
         <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
+        <th><%= filterrific_sorting_link(@filterrific, :first_name) %></th>
+        <th><%= filterrific_sorting_link(@filterrific, :last_name) %></th>
+        <th><%= filterrific_sorting_link(@filterrific, :email) %></th>
         <th>Phone Number</th>
-        <th>Type</th>
-        <th>Admin?</th>
-        <th>Created</th>
+        <th><%= filterrific_sorting_link(@filterrific, :volunteer_type) %></th>
+        <th><%= filterrific_sorting_link(@filterrific, :admin?) %></th>
+        <th><%= filterrific_sorting_link(@filterrific, :created_at) %></th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -44,7 +47,7 @@
   </table>
 </div>
   <div class='pull-right'>
-    <%= will_paginate @users %>
+    <%= will_paginate users %>
   </div>
 <% else %>
   <h3>No search results matched your criteria.</h3>
