@@ -37,7 +37,7 @@ class User < ApplicationRecord
     default_filter_params: { sorted_by: 'created_at_desc' },
     available_filters: %i[
       search_query
-      volunteer_type
+      with_volunteer_type
       sorted_by
     ]
   )
@@ -58,15 +58,36 @@ class User < ApplicationRecord
     case sort_option.to_s
     when /^created_at_/
       order("users.created_at #{direction}")
-    when /^name_/
-      # Simple sort on the name colums
-      order("LOWER(users.last_name) #{direction}, LOWER(users.first_name) #{direction}")
+    when /^first_name_/
+      order("LOWER(users.first_name) #{ direction }")
+    when /^last_name_/
+      order("LOWER(users.last_name) #{ direction }")
+    when /^email_/
+      order("users.email #{direction}")
+    when /^admin?_/
+      order("users.admin? #{direction}")
     else
       raise(ArgumentError, "Invalid sort option: #{sort_option.inspect}")
     end
   }
 
-  scope :search_query, ->(query) {}
+  scope :search_query, lambda { |query|
+  return nil  if query.blank?
+  terms = query.downcase.split(/\s+/)
+  terms = terms.map { |e|
+    (e.gsub('*', '%') + '%').gsub(/%+/, '%')
+  }
+  # configure number of OR conditions for provision
+  # of interpolation arguments. Adjust this if you
+  # change the number of OR conditions.
+  num_or_conds = 3
+  where(
+    terms.map { |term|
+      "(LOWER(users.first_name) LIKE ? OR LOWER(users.last_name) LIKE ? OR LOWER(users.email) LIKE ?)"
+    }.join(' AND '),
+    *terms.map { |e| [e] * num_or_conds }.flatten
+  )
+}
   scope :with_volunteer_type, ->(volunteer_types) { where(volunteer_type: [*volunteer_types]) }
 
   def confirmed?

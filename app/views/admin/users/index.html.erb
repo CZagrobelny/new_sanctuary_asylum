@@ -2,39 +2,40 @@
   <%= link_to 'Invite User', new_user_community_invitation_path(current_community.slug), class: 'btn btn-primary pull-right'%>
 </div>
 
-
+<%= form_for_filterrific @filterrific do |f| %>
   <div class='row'>
     <div class='col-md-3'>
       <h1><%= link_to "Users", community_admin_users_path(current_community.slug) %></h1>
     </div>
-  <%= form_for_filterrific @filterrific do |f| %>
-      <div>
-        Search
-        <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
-        <%= f.text_field(:search_query, class: 'filterrific-periodically-observed') %>
+    <div class='col-md-4 col-md-offset-5'>
+      <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
+      <%= f.text_field(:search_query, class: 'filterrific-periodically-observed form-control input-md', placeholder: 'Search by first name, last name, or email', style: 'margin-top: 20px; margin-bottom: 10px;') %>
+        <a href="#" data-toggle-search-filters="true">Advanced Search</a>
+        <div>
+          <%= link_to(
+            'Reset filters',
+            reset_filterrific_url
+          ) %>
+        </div>
     </div>
   </div>
+  <%= content_tag :div, class: 'row' do %>
+  <%=
+    content_tag :div, class: 'col-md-12 search-filters',
+      data: { show_search_filters: user_search_filtered? } do
+  %>
       <h4>Filters</h4>
       <dl>
-        <dt>User Type</dt>
+        <dt>Volunteer Type</dt>
         <dd>
           <label>
-            Volunteer Type
-            <%= f.select(:with_volunteer_type, @filterrific.select_options[:with_volunteer_type], { include_blank: '- Any -' }) %>
+            <%= f.select(:with_volunteer_type, @filterrific.select_options[:with_volunteer_type], { include_blank: '- Any -' }, class: 'form-control input-md') %>
           </label>
         </dd>
       </dl>
-      <div>
-     Sorted by
-     <%= f.select(:sorted_by, @filterrific.select_options[:sorted_by]) %>
-   </div>
-   <div>
-     <%= link_to(
-       'Reset filters',
-       reset_filterrific_url,
-     ) %>
-   </div>
    <%# add an automated spinner to your form when the list is refreshed %>
    <%= render_filterrific_spinner %>`
+   <% end %>
+<% end %>
 <% end %>
 <%= render(partial: 'list', locals: { users: @users }) %>
