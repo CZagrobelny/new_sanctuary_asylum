@@ -131,6 +131,7 @@ GEM
       railties (>= 3.0.0)
     ffaker (2.9.0)
     ffi (1.9.25)
+    filterrific (5.1.0)
     given_core (3.8.0)
       sorcerer (>= 0.3.7)
     globalid (0.4.1)
@@ -372,6 +373,7 @@ DEPENDENCIES
   dotenv-rails
   factory_girl_rails (~> 4.6.0)
   ffaker
+  filterrific (~> 5.x)
   jbuilder (~> 2.0)
   jquery-rails
   jquery-ui-rails (~> 6.0, >= 6.0.1)
