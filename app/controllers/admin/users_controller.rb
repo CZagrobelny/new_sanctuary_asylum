@@ -7,7 +7,7 @@ class Admin::UsersController < AdminController
         sorted_by: User.options_for_sorted_by,
         with_volunteer_type: User.volunteer_types.keys.map { |volunteer_type| [volunteer_type.humanize, volunteer_type] }
       }
-    )) || return
+    )) or return
     @users = @filterrific.find.page(params[:page])
     respond_to do |format|
       format.html

@@ -68,7 +68,6 @@ class User < ApplicationRecord
   }
 
   scope :search_query, lambda { |query|
-  return nil  if query.blank?
   terms = query.downcase.split(/\s+/)
   terms = terms.map { |e|
     (e.gsub('*', '%') + '%').gsub(/%+/, '%')

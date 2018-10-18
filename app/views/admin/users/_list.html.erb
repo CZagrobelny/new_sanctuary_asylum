@@ -1,9 +1,5 @@
-<% if users.present? %>
-<div id='filterrific-results'>
+  <div>  <%= page_entries_info users  %> </div>
   <table class='table table-bordered'>
-    <div>
-    <%= page_entries_info users  %>
-  </div>
     <thead>
       <tr>
         <th>ID</th>
@@ -45,10 +41,5 @@
       <% end %>
     </tbody>
   </table>
-</div>
-  <div class='pull-right'>
+
     <%= will_paginate users %>
-  </div>
-<% else %>
-  <h3>No search results matched your criteria.</h3>
-<% end %>

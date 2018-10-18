@@ -20,10 +20,7 @@
     </div>
   </div>
   <%= content_tag :div, class: 'row' do %>
-  <%=
-    content_tag :div, class: 'col-md-12 search-filters',
-      data: { show_search_filters: user_search_filtered? } do
-  %>
+  <div class='col-md-12 search-filters'>
       <h4>Filters</h4>
       <dl>
         <dt>Volunteer Type</dt>
@@ -33,9 +30,11 @@
           </label>
         </dd>
       </dl>
+    </div>
    <%# add an automated spinner to your form when the list is refreshed %>
    <%= render_filterrific_spinner %>`
    <% end %>
 <% end %>
-<% end %>
-<%= render(partial: 'list', locals: { users: @users }) %>
+<div id='filterrific-results'>
+  <%= render(partial: 'admin/users/list', locals: { users: @users }) %>
+</div>
