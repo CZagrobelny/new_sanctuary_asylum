@@ -12,13 +12,9 @@
       </dt>
       <dd>
         <% location = activity.location.present? ? "at #{activity.location.name}" : '' %>
-        <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>"><%= "#{activity.event.humanize} for #{activity.friend.first_name} #{location}" %></a>
+        <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>" style="color: <%= "red" unless activity.accompaniment_leader_accompaniments.present? %>;"><%= "#{activity.event.humanize} for #{activity.friend.first_name} #{location}" %></a>
         <span>
-          <% if activity.accompaniment_limit_met? %>
-            (full)
-          <% else %>
-            <%= "(#{ activity.volunteer_accompaniments.count })" %>
-          <% end %>
+          <%= attending_summary(activity) %>
         </span>
         <%= render partial: 'accompaniment_modal', locals: { activity: activity, accompaniment: Accompaniment.find_or_build(activity, current_user) } %>
       </dd>

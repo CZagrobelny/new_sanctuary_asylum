@@ -26,4 +26,10 @@ module AccompanimentHelper
       pluralize(3 - activity.volunteer_accompaniments.count, 'volunteer') + ' needed.'
     end
   end
+
+  def attending_summary(activity)
+    attending = activity.accompaniment_leader_accompaniments.map{ |accompaniment| accompaniment.user.first_name }
+    attending << pluralize(activity.volunteer_accompaniments.count, 'volunteer')
+    "(#{ attending.join(', ') })"
+  end
 end
