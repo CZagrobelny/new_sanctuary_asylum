@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'support/simple_calendar_date_chooser'
+include SimpleCalendarDateChooser
 
 RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', type: :feature do
   let(:community) { create :community, :primary }
@@ -14,6 +16,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
   describe 'viewing upcoming accompaniments' do
     before do
       visit community_accompaniment_leader_activities_path(community)
+      change_month(activity.occur_at)
     end
 
     it 'displays full details of upcoming accompaniments' do
@@ -33,6 +36,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
   describe 'creating an accompaniment report' do
     before do
       visit new_community_accompaniment_leader_activity_accompaniment_report_path(community, activity)
+      change_month(activity.occur_at)
     end
 
     describe 'with valid info' do
@@ -61,6 +65,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
     before do
       report = team_leader.accompaniment_report_for(activity)
       visit edit_community_accompaniment_leader_activity_accompaniment_report_path(community, activity, report)
+      change_month(activity.occur_at)
     end
 
     describe 'with valid info' do
