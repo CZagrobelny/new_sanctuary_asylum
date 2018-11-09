@@ -64,6 +64,15 @@
         </div>
       </div>
     <% end %>
+
+    <% if @remote_lawyer.remote_clinic_friends.present? %>
+      <div class="form-group">
+        <%= label_tag :id, 'Assigned Friends', class: 'col-md-2 control-label' %>
+        <div class='col-md-6'>
+          <%= collection_select(:user, :id, @remote_lawyer.remote_clinic_friends, :id, :name, {selected: @remote_lawyer.remote_clinic_friends.map(&:id)}, {multiple: true, include_blank: true, class: 'chzn-select form-control' }) %>
+        </div>
+      </div>
+    <% end %>
   </div>
 
   <div class='row'>
