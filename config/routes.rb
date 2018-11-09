@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-
-  devise_for :users, skip: :invitations
+  devise_for :users, skip: :invitations,
+    controllers: { password_expired: 'devise_overrides/password_expired' }
   devise_scope :user do
     authenticated do
       root to: 'dashboard#index', as: :root
