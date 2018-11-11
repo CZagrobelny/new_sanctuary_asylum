@@ -4,15 +4,6 @@
       <h1 class='page-header'>Edit Remote Clinic Lawyer</h1>
 
       <%= render 'form' %>
-
-      <% unless @remote_lawyer.remote_clinic_friends.empty? %>
-	    <div class="field">
-		  <%= label_tag :id, 'Assigned Friends', class: 'col-xs-12 control-label' %>
-		  <div class='col-md-9'>
-		    <%= collection_select(:user, :id, @remote_lawyer.remote_clinic_friends, :id, :name, {include_blank: true, class: 'form-control' }) %>
-		  </div>
-	    </div>
-	  <% end %>
     </div>
   </div>
 <div />
