@@ -3,7 +3,7 @@ class Admin::JudgesController < AdminController
   before_action :set_judge, only: %i[edit update]
 
   def index
-    @judges = current_region.judges.order('created_at desc').paginate(page: params[:page])
+    @judges = current_region.judges.order('last_name desc').paginate(page: params[:page])
   end
 
   def new
