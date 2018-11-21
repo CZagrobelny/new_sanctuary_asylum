@@ -158,7 +158,7 @@ Login as an Accompaniment Leader with:
 * password: Password1234
 
 #### Remote Clinic Lawyer Role
-- Can be assigned Friends from a remote clinic
+- Can be assigned Friends from a non-primary Community
 - Can view assigned Friends and drafts of their application
 - Can add reviews to drafts of applications and can approve drafts of applications
 
