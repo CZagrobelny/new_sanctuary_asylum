@@ -26,7 +26,7 @@ FROM_ADDRESS='test@example.com'
 
 For local development, create a `.env` file in the root directory of the application and put the environment variable in there. There is a `.env.example` file.
 
-### Using Docker to Run the Application 
+### Using Docker to Run the Application
 
 Docker is a way for you to run this application on your machine without changing any of your local settings or installing anything new (besides Docker itself).
 
@@ -156,6 +156,11 @@ Login as an Volunteeer for a Non-Primary Community with:
 Login as an Accompaniment Leader with:
 * username: nyc_accompaniment_leader@example.com
 * password: Password1234
+
+#### Remote Clinic Lawyer Role
+- Can be assigned Friends from a remote clinic
+- Can view assigned Friends and drafts of their application
+- Can add reviews to drafts of applications and can approve drafts of applications
 
 ## How are we building it?
 

@@ -44,13 +44,16 @@ ActiveRecord::Base.transaction do
   #Admin User
   User.create(first_name: 'NYC Community', last_name: 'Admin', email: 'nyc_admin@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 2, pledge_signed: true)
 
+  #Remote Clinic Lawyer
+  User.create(first_name: 'Remote Clinic', last_name: 'Lawyer', email: 'remote_clinic_lawyer@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 2, role: 0, pledge_signed: true, remote_clinic_lawyer: true)
+
   #Some additional NYC volunteer users
   20.times do
     User.create(first_name: FFaker::Name.first_name, last_name: FFaker::Name.last_name, email: FFaker::Internet.safe_email, community_id: nyc_community.id, phone: FFaker::PhoneNumber.short_phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 0, pledge_signed: true)
   end
 
   10.times do
-    User.create(first_name: FFaker::Name.first_name, last_name: FFaker::Name.last_name, email: FFaker::Internet.safe_email, community_id: nyc_community.id, phone: FFaker::PhoneNumber.short_phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 2, role: 0, pledge_signed: true, remote_clinic_lawyer: [true, false].shuffle)
+    User.create(first_name: FFaker::Name.first_name, last_name: FFaker::Name.last_name, email: FFaker::Internet.safe_email, community_id: nyc_community.id, phone: FFaker::PhoneNumber.short_phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 2, role: 0, pledge_signed: true, remote_clinic_lawyer: false)
   end
   ## Long Island Users
 
