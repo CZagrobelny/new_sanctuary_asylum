@@ -1,4 +1,4 @@
-class FriendshipAssignmentMailer < Devise::Mailer
+class FriendshipAssignmentMailer < ApplicationMailer
 
   def send_assignment(user, friend)
     @friend = friend
