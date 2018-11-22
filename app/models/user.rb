@@ -28,6 +28,8 @@ class User < ApplicationRecord
   has_many :accompaniment_reports, dependent: :destroy
   has_many :reviews
 
+  accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
+
   scope :remote_lawyers, -> { where(remote_clinic_lawyer: true) }
 
   def remote_clinic_friends

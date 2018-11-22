@@ -8,7 +8,8 @@ class RegionalAdmin::RemoteLawyersController < AdminController
   def edit; end
 
   def update
-    if @remote_lawyer.update(remote_lawyer_params)
+    remote_lawyer_params.delete(:friend_ids)
+    if @remote_lawyer.update(remote_lawyer_params.merge(user_friend_associations_params))
       redirect_to regional_admin_remote_lawyers_path
     else
       flash.now[:error] = 'Something went wrong :('
@@ -24,6 +25,24 @@ class RegionalAdmin::RemoteLawyersController < AdminController
 
   private
 
+  def user_friend_associations_params
+    persisted_friend_ids = @remote_lawyer.remote_clinic_friends.map(&:id)
+    friend_ids_params = remote_lawyer_params[:friend_ids].map{ |id| id.to_i if id.present? }.compact
+    added_friend_ids = friend_ids_params - persisted_friend_ids
+    removed_friend_ids = persisted_friend_ids - friend_ids_params
+
+    user_friend_associations_attributes = []
+    added_friend_ids.each do |friend_id|
+      user_friend_associations_attributes << { friend_id: friend_id, user_id: @remote_lawyer.id, remote: true }
+    end
+
+    removed_friend_ids.each do |friend_id|
+      id = UserFriendAssociation.where(friend_id: friend_id, user_id: @remote_lawyer.id, remote: true).first.id
+      user_friend_associations_attributes << { id: id, _destroy: '1' }
+    end
+    { user_friend_associations_attributes: user_friend_associations_attributes }
+  end
+
   def set_lawyer
     @remote_lawyer = User.find(params[:id])
   end
@@ -37,7 +56,8 @@ class RegionalAdmin::RemoteLawyersController < AdminController
       :volunteer_type,
       :role,
       :signed_guidelines,
-      :remote_clinic_lawyer
+      :remote_clinic_lawyer,
+      friend_ids: []
     )
   end
 end
