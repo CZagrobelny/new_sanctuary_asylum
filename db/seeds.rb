@@ -128,10 +128,6 @@ ActiveRecord::Base.transaction do
       language_ids: [Language.order("RANDOM()").first.id],
       user_ids: User.where(community_id: long_island_community.id).order("RANDOM()").limit(5).map(&:id)
       )
-
-    friend.user_friend_associations.each do |assoc|
-      assoc.update_attributes(remote: [true, false].sample)
-    end
   end
 
   #Lawyers
