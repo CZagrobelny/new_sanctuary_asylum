@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Review, type: :model do
-  it { should validate_uniqueness_of(:user).scoped_to(:draft).with_message("You already have a review for this draft") }
+  subject { create(:review) }
+
+  it { should validate_uniqueness_of(:user_id).scoped_to(:draft_id).with_message(Review::VALIDATION_MESSAGE) }
   it { should belong_to(:user) }
   it { should belong_to(:draft) }
 
@@ -46,7 +48,7 @@ RSpec.describe Review, type: :model do
         let(:user) { not_author }
 
         it 'returns false' do
-          expect(subject).to eq true
+          expect(subject).to eq false
         end
       end
     end
