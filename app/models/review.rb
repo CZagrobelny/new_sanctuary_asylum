@@ -10,6 +10,6 @@ class Review < ApplicationRecord
   }
 
   def authored_by?(user)
-    !self.nil? && self.user == user
+    !self.author.nil? && self.user == user
   end
 end
