@@ -6,6 +6,6 @@ class CreateActivityType < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    add_column :activities, :activity_type_id
+    add_reference :activities, :activity_type, foreign_key: true
   end
 end
