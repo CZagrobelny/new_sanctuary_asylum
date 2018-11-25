@@ -7,6 +7,7 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: tr
   let(:region) { community.region }
   let(:volunteer) { create(:user, :volunteer, community: community) }
   let!(:activity) { create(:activity, occur_at: 1.week.from_now, region: region, confirmed: true ) }
+  let!(:activity_type) { create(:activity_type, :master_calendar_hearing) }
   let(:accompaniment_listing) { "#{activity.event.humanize} for #{activity.friend.first_name} at #{activity.location.name}" }
 
   before do
@@ -15,6 +16,7 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: tr
 
   describe 'viewing upcoming accompaniments' do
     it 'displays full details of upcoming accompaniments' do
+      activity.activity_type = activity_type
       visit community_activities_path(community)
       change_month(activity.occur_at)
       expect(page).to have_content(accompaniment_listing)
@@ -23,6 +25,7 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: tr
 
   describe 'signing up for an accompaniment' do
     it 'creates an RSVP' do
+      activity.activity_type = activity_type
       visit community_activities_path(community)
       change_month(activity.occur_at)
       within "#activity_#{activity.id}" do
@@ -40,6 +43,7 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: tr
   describe 'canceling an RSVP for an accompaniment' do
     it 'deletes the RSVP' do
       create(:accompaniment, activity: activity, user: volunteer)
+      activity.activity_type = activity_type
       visit community_activities_path(community)
       change_month(activity.occur_at)
       within "#activity_#{activity.id}" do
