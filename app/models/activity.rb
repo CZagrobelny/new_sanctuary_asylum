@@ -33,7 +33,7 @@ class Activity < ApplicationRecord
   belongs_to :region
   belongs_to :judge
   belongs_to :location
-  has_one :activity_type
+  belongs_to :activity_type
   has_many :accompaniments, -> { order(created_at: :asc) }, dependent: :destroy
   has_many :users, through: :accompaniments
   has_many :accompaniment_reports, dependent: :destroy
