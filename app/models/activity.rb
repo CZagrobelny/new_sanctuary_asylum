@@ -33,6 +33,7 @@ class Activity < ApplicationRecord
   belongs_to :region
   belongs_to :judge
   belongs_to :location
+  has_one :activity_type
   has_many :accompaniments, -> { order(created_at: :asc) }, dependent: :destroy
   has_many :users, through: :accompaniments
   has_many :accompaniment_reports, dependent: :destroy
@@ -88,7 +89,7 @@ class Activity < ApplicationRecord
                                    .order(occur_at: 'desc')
                                }
   def accompaniment_limit_met?
-    event == 'family_court' && volunteer_accompaniments.count > 2
+    activity_type.cap && volunteer_accompaniments.count >= activity_type.cap
   end
 
   def start_time
