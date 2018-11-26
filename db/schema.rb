@@ -43,7 +43,17 @@ ActiveRecord::Schema.define(version: 20181202005014) do
     t.datetime "updated_at",  null: false
     t.integer  "region_id"
     t.boolean  "confirmed"
+    t.integer  "activity_type_id"
+    t.index ["activity_type_id"], name: "index_activities_on_activity_type_id", using: :btree
     t.index ["region_id"], name: "index_activities_on_region_id", using: :btree
+  end
+
+  create_table "activity_types", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "cap"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.boolean  "accompaniment_eligible"
   end
 
   create_table "applications", force: :cascade do |t|
@@ -348,6 +358,7 @@ ActiveRecord::Schema.define(version: 20181202005014) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   end
 
+  add_foreign_key "activities", "activity_types"
   add_foreign_key "activities", "regions"
   add_foreign_key "communities", "regions"
   add_foreign_key "events", "communities"
