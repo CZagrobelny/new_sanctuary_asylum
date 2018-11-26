@@ -23,6 +23,7 @@ class Admin::ActivitiesController < AdminController
 
   def create
     @activity = current_region.activities.new(activity_params)
+    activity.activity_type = ActivityType.find(name: activity.event)
     if activity.save
       flash[:success] = 'Activity saved.'
       redirect_to community_admin_activities_path(current_community.slug)
