@@ -20,7 +20,7 @@
         <tbody>
           <% @lawyers.each do |lawyer| %>
             <tr>
-              <td><%= link_to lawyer.name, edit_community_admin_lawyer_path(current_community.slug, lawyer) %></td>
+              <td><%= link_to "#{lawyer.last_name}, #{lawyer.first_name}", edit_community_admin_lawyer_path(current_community.slug, lawyer) %></td>
               <td><%= lawyer.organization %></td>
               <td><%= lawyer.phone_number %></td>
               <td><%= lawyer.email %></td>

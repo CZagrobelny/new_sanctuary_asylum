@@ -63,6 +63,10 @@ class Friend < ApplicationRecord
       .where(applications: { status: %i[in_review changes_requested approved] })
   }
 
+  def volunteers_with_access
+    users.where(user_friend_associations: { remote: false })
+  end
+
   def remote_clinic_lawyers
     users.where(user_friend_associations: { remote: true })
   end

@@ -17,7 +17,7 @@
         <tbody>
           <% @judges.each do |judge| %>
             <tr>
-              <td><%= link_to judge.name, edit_community_admin_judge_path(current_community.slug, judge) %></td>
+              <td><%= link_to "#{judge.last_name}, #{judge.first_name}", edit_community_admin_judge_path(current_community.slug, judge) %></td>
             </tr>
           <% end %>
         </tbody>

@@ -85,15 +85,27 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { :host => ENV['MAILER_DOMAIN'] }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    :address        => 'smtp.sendgrid.net',
-    :port           => '587',
-    :authentication => :plain,
-    :user_name      => ENV['SENDGRID_USERNAME'],
-    :password       => ENV['SENDGRID_PASSWORD'],
-    :domain         => 'heroku.com',
-    :enable_starttls_auto => true
-  }
+
+  if ENV['SENDGRID_USERNAME'].present?
+    config.action_mailer.smtp_settings = {
+      :address        => 'smtp.sendgrid.net',
+      :port           => '587',
+      :authentication => :plain,
+      :user_name      => ENV['SENDGRID_USERNAME'],
+      :password       => ENV['SENDGRID_PASSWORD'],
+      :domain         => 'heroku.com',
+      :enable_starttls_auto => true
+    }
+  else
+    config.action_mailer.smtp_settings = {
+      :user_name => ENV['MAILTRAP_USERNAME'],
+      :password => ENV['MAILTRAP_PASSWORD'],
+      :address => "smtp.mailtrap.io",
+      :domain => "smtp.mailtrap.io",
+      :port => 25,
+      :authentication => :plain
+    }
+  end
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
 end

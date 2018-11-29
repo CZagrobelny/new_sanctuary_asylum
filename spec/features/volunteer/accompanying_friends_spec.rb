@@ -25,7 +25,9 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: tr
     it 'creates an RSVP' do
       visit community_activities_path(community)
       change_month(activity.occur_at)
-      click_link accompaniment_listing
+      within "#activity_#{activity.id}" do
+        click_link accompaniment_listing
+      end
       within "#modal_activity_#{activity.id}" do
         click_button 'Save'
       end
@@ -40,7 +42,9 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: tr
       create(:accompaniment, activity: activity, user: volunteer)
       visit community_activities_path(community)
       change_month(activity.occur_at)
-      click_link accompaniment_listing
+      within "#activity_#{activity.id}" do
+        click_link accompaniment_listing
+      end
       within "#modal_activity_#{activity.id}" do
         select 'No', from: 'Attending'
         click_button 'Save'

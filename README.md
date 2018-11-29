@@ -26,7 +26,7 @@ FROM_ADDRESS='test@example.com'
 
 For local development, create a `.env` file in the root directory of the application and put the environment variable in there. There is a `.env.example` file.
 
-### Using Docker to Run the Application 
+### Using Docker to Run the Application
 
 Docker is a way for you to run this application on your machine without changing any of your local settings or installing anything new (besides Docker itself).
 
@@ -157,6 +157,11 @@ Login as an Accompaniment Leader with:
 * username: nyc_accompaniment_leader@example.com
 * password: Password1234
 
+#### Remote Clinic Lawyer Role
+- Can be assigned Friends from a non-primary Community
+- Can view assigned Friends and drafts of their application
+- Can add reviews to drafts of applications and can approve drafts of applications
+
 ## How are we building it?
 
 ### Gems & Libraries!
@@ -180,11 +185,12 @@ The data is refeshed occassionally, but activities/accompaniments are likely to 
 
 ## Contributing
 1. Add a comment on your chosen Github issue to let other contributors know that you have 'claimed' it.
-2. Create a feature branch off master.
-3. Complete feature with tests!
-4. Check CircleCI to make sure tests are passing.
-5. Make a pull request and tag CZagrobelny to review.
-6. CZagrobelny will leave feedback and merge into master upon approval of the pull request.
+2. Fork the repo and download a clone of the forked repo: https://guides.github.com/activities/forking/
+3. Create a feature branch off master.
+4. Complete feature with tests!
+5. Check CircleCI to make sure tests are passing.
+6. Make a pull request and tag CZagrobelny to review.
+7. CZagrobelny will leave feedback and merge into master upon approval of the pull request.
 
 ## Code of Conduct
 [Here](CODE_OF_CONDUCT.md)

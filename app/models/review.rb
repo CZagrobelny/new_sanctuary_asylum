@@ -2,14 +2,16 @@ class Review < ApplicationRecord
   belongs_to :draft
   belongs_to :user
 
-  validates :user, uniqueness: { scope: :draft,
-                                 message: "You already have a review for this draft" }
+  VALIDATION_MESSAGE = "You already have a review for this draft"
+
+  validates :user_id, uniqueness: { scope: :draft_id,
+                                 message: VALIDATION_MESSAGE }
 
   scope :by_user, ->(user) {
     where(user: user)
   }
 
   def authored_by?(user)
-    !self.nil? && self.user == user
+    !self.user.nil? && self.user == user
   end
 end
