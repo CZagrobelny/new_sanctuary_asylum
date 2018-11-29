@@ -158,15 +158,4 @@ RSpec.describe Friend, type: :model do
       end
     end
   end
-
-  describe "#state" do
-    before { friend.state = "CA" }
-		subject { friend.state }
-
-		it "returns the state" do
-			expected_value = "#{friend.state}"
-
-			expect(subject).to eq(expected_value)
-		end
-	end
 end
