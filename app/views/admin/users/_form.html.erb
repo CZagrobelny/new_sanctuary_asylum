@@ -54,6 +54,15 @@
       </div>
     </div>
 
+    <div class='form-group'>
+      <div class='col-md-6 col-md-offset-2'>
+        <%= f.check_box :attended_training, id: 'training-check' %>
+        <label>
+          Attended Training
+        </label>
+      </div>
+    </div>
+
     <% if current_user.regional_admin? %>
       <div class='form-group'>
         <div class='col-md-6 col-md-offset-2'>
