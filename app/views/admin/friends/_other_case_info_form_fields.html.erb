@@ -50,3 +50,27 @@
     <%= collection_select(:friend, :bonded_out_by, current_community.sanctuaries, :id, :name, {prompt: true}, {class: 'chzn-select form-control'}) %>
   </div>
 </div>
+
+
+<h3>Potential Sponsor</h3>
+
+<div class='row form-group'>
+  <%= f.label :sponsor_name, 'Sponsor Name', class: 'col-md-2 control-label' %>
+  <div class='col-md-2'>
+    <%= f.text_field :sponsor_name, class: 'form-control' %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :sponsor_phone_number, 'Sponsor Phone Number', class: 'col-md-2 control-label' %>
+  <div class='col-md-2'>
+    <%= f.text_field :sponsor_phone_number, class: 'form-control' %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :sponsor_relationship, 'Sponsor Relationship', class: 'col-md-2 control-label' %>
+  <div class='col-md-2'>
+    <%= f.text_field :sponsor_relationship, class: 'form-control' %>
+  </div>
+</div>

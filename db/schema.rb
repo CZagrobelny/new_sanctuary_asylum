@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181008195503) do
+ActiveRecord::Schema.define(version: 20181129151537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -173,6 +173,9 @@ ActiveRecord::Schema.define(version: 20181008195503) do
     t.text     "foia_request_notes"
     t.integer  "community_id"
     t.integer  "region_id"
+    t.string   "sponsor_name"
+    t.string   "sponsor_phone_number"
+    t.string   "sponsor_relationship"
     t.index ["community_id"], name: "index_friends_on_community_id", using: :btree
     t.index ["region_id"], name: "index_friends_on_region_id", using: :btree
   end
