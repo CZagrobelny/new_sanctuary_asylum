@@ -27,6 +27,7 @@ Rails.application.routes.draw do
         end
         resources :reviews, only: [:new, :show, :create, :edit, :update]
       end
+      resources :releases, only: [:new, :create]
     end
     resources :accompaniments
     resources :activities, only: [:index]

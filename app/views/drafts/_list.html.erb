@@ -1,47 +1,5 @@
-<%= link_to 'Create Document', new_community_friend_draft_path(current_community.slug, friend), class: 'pull-right btn btn-primary' %>
-<br>
-<% if friend.grouped_drafts.empty? %>
-  <h3> There are no files associated with this user.</h3>
+<% if friend.releases.any? %>
+  <%= render 'drafts/friend_released', friend: friend %>
 <% else %>
-  <% friend.grouped_drafts.each do |group| %>
-    <h3><%= group[:name].titlecase %></h3>
-    <% group[:drafts].each do |draft| %>
-      <div class='row'>
-        <div class='col-md-6'>
-          <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
-          <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
-
-          <% if draft.users.present? %>
-            <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
-          <% end %>
-
-          <% if draft.notes.present? %>
-            <strong>Notes:  </strong><%= draft.notes %><br>
-          <% end %>
-          <% if draft.reviews.present? %>
-            <% draft.reviews.each do |review| %>
-              <%= link_to "Review by #{review.user.name} (#{review.user.role.tr('_', ' ').titlecase})", community_friend_draft_review_path(
-                current_community.slug,
-                friend,
-                draft,
-                review
-              ) %><%= review.created_at.strftime(" -- %A, %B %-d, %Y") %>
-            <br>
-            <% end %>
-          <% else %>
-            <%= link_to 'Edit', edit_community_friend_draft_path(current_community.slug, friend, draft) %>
-          <% end %>
-
-        </div>
-        <%= render partial: 'drafts/draft_status', locals: { current_community: current_community, friend: friend, draft: draft } %>
-        <div class='col-md-1'>
-          <% if current_user.admin? %>
-            <%= link_to 'Delete', community_friend_draft_path(current_community.slug, friend, draft), method: :delete, confirm: true, class: 'delete' %><br>
-          <% end %>
-        </div>
-      </div>
-      <br>
-      <br>
-    <% end %>
-  <% end %>
+  <%= render 'drafts/friend_needs_release', friend: friend %>
 <% end %>

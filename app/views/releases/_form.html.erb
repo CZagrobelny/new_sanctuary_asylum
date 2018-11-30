@@ -1,0 +1,47 @@
+<% if @release.errors.present? %>
+  <%= display_validation_errors(@release) %>
+<% end %>
+
+<%= form_for([current_community, @friend, @release]) do |f| %>
+  <div class='form-inputs'>
+    <div class='row form-group'>
+      <div class='col-md-12'>
+        <%= f.label :release_form, 'File Upload', class: 'control-label required', style: 'padding-right: 20px;' %>
+        <%= button_to 'Browse', '#', class: 'btn btn-primary', id: 'browse' %>
+        <span id='current-file'>
+          <%= @release.release_form.file.filename if @release.release_form.file.present? %>
+        </span>
+        <%= f.file_field :release_form, class: 'form-control', style: 'display:none;' %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <div class='col-md-12'>
+        <%= f.hidden_field :category, value: 'limited_scope' %>
+        <%= f.label :category %>
+        Limited Scope
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-md-1 col-md-offset-10'>
+        <%= f.submit 'Save', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $(document).ready(function () {
+    // Click on the file input browse button
+    $('#browse').click(function(e) {
+      e.preventDefault();
+      $('#release_release_form').click();
+    });
+    // If the file input changes, display the new filename
+    $('#release_release_form').change(function() {
+      var filename = $(this).val().split(/(\\|\/)/g).pop();
+      $('#current-file').text(filename);
+    });
+  });
+</script>
