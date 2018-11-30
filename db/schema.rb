@@ -231,8 +231,9 @@ ActiveRecord::Schema.define(version: 20181202005014) do
   create_table "releases", force: :cascade do |t|
     t.integer  "friend_id"
     t.string   "category"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "release_form"
     t.index ["friend_id"], name: "index_releases_on_friend_id", using: :btree
   end
 
