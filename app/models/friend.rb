@@ -46,6 +46,7 @@ class Friend < ApplicationRecord
   has_many :events, through: :friend_event_attendances
   has_many :family_relationships, dependent: :destroy
   has_many :family_members, through: :family_relationships, source: 'relation'
+  has_many :releases
 
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
 
