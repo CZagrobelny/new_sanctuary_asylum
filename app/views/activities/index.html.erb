@@ -4,24 +4,26 @@
   <h5><%= date.day %></h5>
   <dl>
   <% activities.each do |activity| %>
-      <dt>
-        <% if current_user.attending?(activity) %>
-          <i class="confirmed fas fa-user-check"></i>
-        <% end %>
-        <%= activity.occur_at.strftime("%I:%M %p") %>
-      </dt>
-      <dd>
-        <% location = activity.location.present? ? "at #{activity.location.name}" : '' %>
-        <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>"><%= "#{activity.event.humanize} for #{activity.friend.first_name} #{location}" %></a>
-        <span>
-          <% if activity.accompaniment_limit_met? %>
-            (full)
-          <% else %>
-            <%= "(#{ activity.volunteer_accompaniments.count })" %>
+      <div id="activity_<%= activity.id %>">
+        <dt>
+          <% if current_user.attending?(activity) %>
+            <i class="confirmed fas fa-user-check"></i>
           <% end %>
-        </span>
-        <%= render partial: 'accompaniment_modal', locals: { activity: activity, accompaniment: Accompaniment.find_or_build(activity, current_user) } %>
-      </dd>
+          <%= activity.occur_at.strftime("%I:%M %p") %>
+        </dt>
+        <dd>
+          <% location = activity.location.present? ? "at #{activity.location.name}" : '' %>
+          <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>"><%= "#{activity.event.humanize} for #{activity.friend.first_name} #{location}" %></a>
+          <span>
+            <% if activity.accompaniment_limit_met? %>
+              (full)
+            <% else %>
+              <%= "(#{ activity.volunteer_accompaniments.count })" %>
+            <% end %>
+          </span>
+          <%= render partial: 'accompaniment_modal', locals: { activity: activity, accompaniment: Accompaniment.find_or_build(activity, current_user) } %>
+        </dd>
+      </div>
   <% end %>
   </dl>
 <% end %>

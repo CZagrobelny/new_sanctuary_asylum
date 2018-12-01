@@ -14,7 +14,9 @@ class Draft < ApplicationRecord
                   approved
                   closed]
 
+  NO_STATUS_MESSAGE = 'No status set'
+
   def status_string
-    status ? status.humanize : 'No status set'
+    status ? status.humanize : NO_STATUS_MESSAGE
   end
 end

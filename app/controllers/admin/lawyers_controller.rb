@@ -2,7 +2,7 @@ class Admin::LawyersController < AdminController
   before_action :set_lawyer, only: %i[edit update]
 
   def index
-    @lawyers = current_region.lawyers.order('organization asc').paginate(page: params[:page])
+    @lawyers = current_region.lawyers.order('last_name asc').paginate(page: params[:page])
   end
 
   def new

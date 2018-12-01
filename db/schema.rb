@@ -173,6 +173,9 @@ ActiveRecord::Schema.define(version: 20181129210442) do
     t.text     "foia_request_notes"
     t.integer  "community_id"
     t.integer  "region_id"
+    t.string   "sponsor_name"
+    t.string   "sponsor_phone_number"
+    t.string   "sponsor_relationship"
     t.index ["community_id"], name: "index_friends_on_community_id", using: :btree
     t.index ["region_id"], name: "index_friends_on_region_id", using: :btree
   end

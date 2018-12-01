@@ -36,7 +36,6 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
   describe 'creating an accompaniment report' do
     before do
       visit new_community_accompaniment_leader_activity_accompaniment_report_path(community, activity)
-      change_month(activity.occur_at)
     end
 
     describe 'with valid info' do
@@ -65,7 +64,6 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
     before do
       report = team_leader.accompaniment_report_for(activity)
       visit edit_community_accompaniment_leader_activity_accompaniment_report_path(community, activity, report)
-      change_month(activity.occur_at)
     end
 
     describe 'with valid info' do
