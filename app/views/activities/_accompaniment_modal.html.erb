@@ -13,6 +13,7 @@
             <div class='row' style='padding-left:15px;'>
               <strong>When:  </strong><%= activity.occur_at.strftime("%I:%M %p, %A, %B %-d, %Y") %><br>
               <strong>Where:  </strong><%= activity.location.name if activity.location.present? %><br>
+              <strong>Public Notes:  </strong><%= activity.public_notes if activity.public_notes.present? %><br>
             </div>
             <% if activity.accompaniment_leader_accompaniments.present? %>
               <strong>Accompaniment Leaders:  </strong>
