@@ -7,7 +7,7 @@
     <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
     <li><%= link_to 'Edit My Info', edit_community_user_path(current_community.slug, current_user) %></li>
     <li role="separator" class="divider"></li>
-    <li><%= link_to 'Lawyers', community_admin_lawyers_path(current_community.slug) %></li>
+    <li><%= link_to 'External Lawyers', community_admin_lawyers_path(current_community.slug) %></li>
     <li><%= link_to 'Sanctuaries', community_admin_sanctuaries_path(current_community.slug) %></li>
   </ul>
 </li>
