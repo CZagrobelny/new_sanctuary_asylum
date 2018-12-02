@@ -1,6 +1,6 @@
 class Application < ApplicationRecord
   CATEGORIES = %w[intake humanitarian_parole identifying_document
-                  privacy_waiver asylum sijs work_authorization
+                  asylum sijs work_authorization
                   detention foia change_of_venue
                   habeas_corpus report_back other].freeze
 
