@@ -25,7 +25,7 @@ class ReviewsController < ApplicationController
       render_friend_page
     else
       friend
-      flash.now[:error] = 'Review failed to save. Did you already create one?'
+      flash.now[:error] = 'Review failed to save.'
       render :new
     end
   end
@@ -45,7 +45,10 @@ class ReviewsController < ApplicationController
       flash[:success] = 'Review updated.'
       render_friend_page
     else
-      flash.now[:error] = 'Review failed to save. Did you already create one?'
+      draft
+      review
+      friend
+      flash.now[:error] = 'Review failed to save.'
       render :edit
     end
   end
