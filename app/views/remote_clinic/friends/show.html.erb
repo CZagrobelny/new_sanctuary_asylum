@@ -16,7 +16,7 @@
           <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
 
           <% if draft.users.present? %>
-            <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
+            <strong>Team:  </strong><%= draft.users.collect{|u| "#{u.name} (#{u.phone})"}.to_sentence %><br>
           <% end %>
 
           <% if draft.notes.present? %>
