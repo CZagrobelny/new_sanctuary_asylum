@@ -27,6 +27,7 @@ class User < ApplicationRecord
   has_many :user_event_attendances, dependent: :destroy
   has_many :accompaniment_reports, dependent: :destroy
   has_many :reviews
+  has_many :releases
 
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
 

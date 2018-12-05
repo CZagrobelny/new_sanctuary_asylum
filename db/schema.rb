@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181202005014) do
+ActiveRecord::Schema.define(version: 20181205161300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -234,7 +234,9 @@ ActiveRecord::Schema.define(version: 20181202005014) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "release_form"
+    t.integer  "user_id"
     t.index ["friend_id"], name: "index_releases_on_friend_id", using: :btree
+    t.index ["user_id"], name: "index_releases_on_user_id", using: :btree
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -366,6 +368,7 @@ ActiveRecord::Schema.define(version: 20181202005014) do
   add_foreign_key "lawyers", "regions"
   add_foreign_key "locations", "regions"
   add_foreign_key "releases", "friends"
+  add_foreign_key "releases", "users"
   add_foreign_key "sanctuaries", "communities"
   add_foreign_key "user_regions", "regions"
   add_foreign_key "user_regions", "users"
