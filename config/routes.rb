@@ -91,7 +91,9 @@ Rails.application.routes.draw do
   end
 
   namespace :remote_clinic do
-    resources :friends, only: [:index, :show]
+    resources :friends, only: [:index, :show] do
+      resources :releases, only: [:new, :create, :destroy]
+    end
   end
 
 	match '/404', to: 'errors#not_found', via: :all

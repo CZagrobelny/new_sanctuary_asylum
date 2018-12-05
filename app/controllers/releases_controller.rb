@@ -5,7 +5,7 @@ class ReleasesController < ApplicationController
 
   def new
     friend
-    @release ||= @friend.releases.build
+    @release ||= friend.releases.build
   end
 
   def create
