@@ -26,7 +26,6 @@ class ReleasesController < ApplicationController
   end
 
   def release_params
-    pp params
     params.require(:release).permit(
       :category,
       :release_form
