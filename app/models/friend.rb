@@ -90,13 +90,13 @@ class Friend < ApplicationRecord
   end
 
   def grouped_drafts
-    grouped_drafts = []
-    applications.each do |application|
-      grouped_drafts << { name: application.category,
-                          drafts: application.drafts.order('created_at desc'),
-                          application: application }
+    applications.map do |application|
+      {
+        name: application.category,
+        drafts: application.drafts.order('created_at desc'),
+        application: application
+      }
     end
-    grouped_drafts
   end
 
   def detained?
