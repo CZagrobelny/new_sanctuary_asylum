@@ -45,7 +45,7 @@ RSpec.describe 'Volunteer managing asylum application drafts for shared friends'
 
     describe 'managing friend applications' do
       describe 'when friend has signed release' do
-        let!(:release) { puts 'letting'; create(:release, friend: shared_friend) }
+        let!(:release) { create(:release, friend: shared_friend) }
 
         # Cannot be shared at the 'managing friend applications' description
         # because the let! has to happen first [which does not if you try that]
