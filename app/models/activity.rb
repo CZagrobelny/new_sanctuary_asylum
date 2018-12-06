@@ -89,7 +89,7 @@ class Activity < ApplicationRecord
                                    .order(occur_at: 'desc')
                                }
   def accompaniment_limit_met?
-    activity_type.cap && volunteer_accompaniments.count >= activity_type.cap
+    !!activity_type.cap && volunteer_accompaniments.count >= activity_type.cap
   end
 
   def start_time
