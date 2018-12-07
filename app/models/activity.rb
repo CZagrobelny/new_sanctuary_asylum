@@ -94,6 +94,11 @@ class Activity < ApplicationRecord
     volunteer_accompaniments.count >= activity_type.cap
   end
 
+  def event=(event)
+    self.activity_type = ActivityType.find_by(name: event)
+    super(event)
+  end
+
   def start_time
     occur_at
   end
