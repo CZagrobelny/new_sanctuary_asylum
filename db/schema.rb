@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181202005014) do
+ActiveRecord::Schema.define(version: 20181206141243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,12 +38,12 @@ ActiveRecord::Schema.define(version: 20181202005014) do
     t.integer  "judge_id"
     t.datetime "occur_at"
     t.text     "notes"
-    t.text     "public_notes"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "region_id"
     t.boolean  "confirmed"
     t.integer  "activity_type_id"
+    t.text     "public_notes"
     t.index ["activity_type_id"], name: "index_activities_on_activity_type_id", using: :btree
     t.index ["region_id"], name: "index_activities_on_region_id", using: :btree
   end
