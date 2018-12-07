@@ -39,7 +39,7 @@ class PdfDraftUploader < CarrierWave::Uploader::Base
 
   # Whitelist for permitted extensions (both text and images)
   def extension_whitelist
-    %w[jpg jpeg gif png doc docx pdf txt pages]
+    %w[jpg jpeg gif png doc docx pdf txt pages cda mp3]
   end
 
   # Override the filename of the uploaded files:
