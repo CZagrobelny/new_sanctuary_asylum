@@ -19,6 +19,9 @@
       <% if activity.notes.present? %>
         <strong>Notes:  </strong><%= activity.notes %><br>
       <% end %>
+      <% if activity.public_notes.present? %>
+        <strong>Public Notes:  </strong><%= activity.public_notes %><br>
+      <% end %>
       <% if activity.accompaniment_leader_accompaniments.present? %>
         <strong>Accompaniment Leaders:  </strong>
         <%= render 'shared/scoped_activity_users_details', activity: activity, scope: 'accompaniment_leader' %>

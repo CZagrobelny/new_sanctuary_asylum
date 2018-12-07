@@ -42,6 +42,7 @@ class Admin::UsersController < AdminController
       :volunteer_type,
       :role,
       :signed_guidelines,
+      :attended_training,
       :remote_clinic_lawyer
     )
   end

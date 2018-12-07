@@ -55,7 +55,8 @@ class Admin::Friends::ActivitiesController < AdminController
       :friend_id,
       :judge_id,
       :occur_at,
-      :notes
+      :notes,
+      :public_notes
     ).merge(region_id: current_region.id)
   end
 

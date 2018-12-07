@@ -121,6 +121,9 @@ class Admin::FriendsController < AdminController
       :state,
       :date_foia_request_submitted,
       :foia_request_notes,
+      :sponsor_name,
+      :sponsor_phone_number,
+      :sponsor_relationship,
       language_ids: [],
       user_ids: []
     ).merge(community_id: current_community.id, region_id: current_region.id)

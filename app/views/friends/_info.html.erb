@@ -89,3 +89,8 @@
 <p><strong>Date Bonded Out:  </strong><%= friend.date_bonded_out.strftime('%m/%d/%y') if friend.date_bonded_out.present? %></p>
 <p><strong>Bonded Out By:  </strong><%= Sanctuary.find(friend.bonded_out_by).name if friend.bonded_out_by.present? %></p>
 <br>
+
+<h3>Potential Sponsor</h3>
+<p><strong>Sponsor Name: </strong><%= friend.sponsor_name %></p>
+<p><strong>Sponsor Phone Number: </strong><%= friend.sponsor_phone_number %></p>
+<p><strong>Sponsor Relationship: </strong><%= friend.sponsor_relationship %></p>

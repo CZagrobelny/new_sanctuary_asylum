@@ -5,6 +5,8 @@
   <strong>Draft: </strong><%= link_to @draft.pdf_draft.file.filename, @draft.pdf_draft_url, target: '_blank' %>
 </div>
 <br>
+<!-- Validation errors -->
+<%= display_validation_errors(@review) %>
 <%= form_for([current_community, @friend, @draft, @review]) do |f| %>
   <div class='form-inputs'>
 
