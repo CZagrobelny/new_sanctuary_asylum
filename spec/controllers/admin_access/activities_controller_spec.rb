@@ -10,6 +10,7 @@ RSpec.describe Admin::ActivitiesController, type: :controller do
 
   describe "managing activities in the user's community"  do
     let!(:community) { create :community, :primary }
+    let!(:activity_type) { create :activity_type, :master_calendar_hearing }
     context 'when the community is primary' do
       describe 'GET #index' do
         it 'allows access' do
