@@ -174,6 +174,7 @@ ActiveRecord::Schema.define(version: 20181202005014) do
     t.text     "foia_request_notes"
     t.integer  "community_id"
     t.integer  "region_id"
+    t.string   "state"
     t.string   "sponsor_name"
     t.string   "sponsor_phone_number"
     t.string   "sponsor_relationship"

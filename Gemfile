@@ -32,6 +32,7 @@ gem 'skylight'
 gem 'textacular', '~> 5.0'
 gem 'turbolinks', '~> 5.x'
 gem 'will_paginate', '~> 3.1.0'
+gem 'geography_helper'
 
 group :assets do
   gem 'coffee-rails', '~> 4.1.0'
