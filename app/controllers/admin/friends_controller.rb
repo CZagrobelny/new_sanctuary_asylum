@@ -1,16 +1,11 @@
 class Admin::FriendsController < AdminController
   def index
-    @filter_placeholders = {
-      deadlines_ending_floor: "Ex. #{(Date.today + 1.month).strftime('%m/%d/%Y')}",
-      deadlines_ending_ceiling: "Ex. #{(Date.today + 2.months).strftime('%m/%d/%Y')}",
-      created_at_floor: "Ex. #{(Date.today - 2.months).strftime('%m/%d/%Y')}",
-      created_at_ceiling: "Ex. #{(Date.today).strftime('%m/%d/%Y')}"
-    }
-    @friends = if params[:query].present?
-                 search.perform
-               else
-                 friend_index_scope.order('first_name asc').paginate(page: params[:page])
-               end
+    @filterrific = initialize_filterrific(Friend,
+                                          params[:filterrific],
+                                          default_filter_params: {},
+                                          persistence_id: false)
+
+    @friends = current_community.friends.filterrific_find(@filterrific).order(:first_name).paginate(page: params[:page])
   end
 
   def new
@@ -74,10 +69,6 @@ class Admin::FriendsController < AdminController
 
   private
 
-  def search
-    Search.new(friend_index_scope, params[:query], params[:page])
-  end
-
   def friend_params
     params.require(:friend).permit(
       :first_name,
@@ -128,26 +119,5 @@ class Admin::FriendsController < AdminController
       language_ids: [],
       user_ids: []
     ).merge(community_id: current_community.id, region_id: current_region.id)
-  end
-
-  def friend_index_scope
-    scope = current_community.friends
-    case params[:detained]
-    when 'yes'
-      scope = scope.detained
-    when 'no'
-      scope = scope.not_detained
-    end
-    if helpers.date_params_valid?('deadlines_ending')
-      date_floor = Date.parse(params[:deadlines_ending_floor])
-      date_ceiling = Date.parse(params[:deadlines_ending_ceiling])
-      scope = scope.asylum_deadlines_ending(date_floor, date_ceiling)
-    end
-    if helpers.date_params_valid?('created_at')
-      date_floor = Date.parse(params[:created_at_floor])
-      date_ceiling = Date.parse(params[:created_at_ceiling])
-      scope = scope.created_at(date_floor, date_ceiling)
-    end
-    scope
   end
 end

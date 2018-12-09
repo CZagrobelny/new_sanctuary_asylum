@@ -132,6 +132,7 @@ GEM
     ffaker (2.9.0)
     ffi (1.9.25)
     geography_helper (1.0.1)
+    filterrific (5.1.0)
     given_core (3.8.0)
       sorcerer (>= 0.3.7)
     globalid (0.4.1)
@@ -375,6 +376,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.6.0)
   ffaker
   geography_helper
+  filterrific
   jbuilder (~> 2.0)
   jquery-rails
   jquery-ui-rails (~> 6.0, >= 6.0.1)
