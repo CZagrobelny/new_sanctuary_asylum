@@ -19,4 +19,8 @@ class Draft < ApplicationRecord
   def status_string
     status ? status.humanize : NO_STATUS_MESSAGE
   end
+
+  def most_recent_user
+    users.last
+  end
 end
