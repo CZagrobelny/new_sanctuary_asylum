@@ -23,6 +23,7 @@ gem 'nokogiri', '~> 1.8.5'
 gem 'non-stupid-digest-assets'
 gem 'pg', '~> 1.1.3'
 gem 'phantomjs'
+gem 'puma'
 gem 'redis', '~> 3.3.1'
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
@@ -31,6 +32,7 @@ gem 'skylight'
 gem 'textacular', '~> 5.0'
 gem 'turbolinks', '~> 5.x'
 gem 'will_paginate', '~> 3.1.0'
+gem 'geography_helper'
 
 group :assets do
   gem 'coffee-rails', '~> 4.1.0'
