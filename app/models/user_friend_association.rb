@@ -5,6 +5,6 @@ class UserFriendAssociation < ApplicationRecord
   after_create :remote_lawyer_invitation, if: Proc.new { |friendship| friendship.remote? }
 
   def remote_lawyer_invitation
-    FriendshipAssignmentMailer.send_assignment(user, friend).deliver_now
+    FriendshipAssignmentMailer.send_assignment_email(user, friend).deliver_now
   end
 end

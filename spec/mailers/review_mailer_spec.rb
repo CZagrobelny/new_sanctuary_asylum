@@ -72,7 +72,7 @@ RSpec.describe ReviewMailer, type: :mailer do
     let!(:volunteer) { create :user, volunteer_type: 'english_speaking', community: community }
     let!(:community_admin) { create :user, :community_admin, community: community }
 
-    subject(:mail) { ReviewMailer.changes_requested(review)}
+    subject(:mail) { ReviewMailer.changes_requested_email(review)}
 
     before do
       UserFriendAssociation.create!(friend_id: friend.id,
@@ -96,7 +96,7 @@ RSpec.describe ReviewMailer, type: :mailer do
     let!(:volunteer) { create :user, volunteer_type: 'english_speaking', community: community }
     let!(:community_admin) { create :user, :community_admin, community: community }
 
-    subject(:mail) { ReviewMailer.application_approved(application)}
+    subject(:mail) { ReviewMailer.application_approved_email(application)}
 
     before do
       UserFriendAssociation.create!(friend_id: friend.id,

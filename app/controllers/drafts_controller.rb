@@ -79,7 +79,7 @@ class DraftsController < ApplicationController
     draft.status = :approved
     application.status = :approved
     if draft.save && application.save
-      ReviewMailer.application_approved(application).deliver_now
+      ReviewMailer.application_approved_email(application).deliver_now
       flash[:success] = 'Draft approved.'
     else
       flash[:error] = 'There was an issue approving the draft.'
