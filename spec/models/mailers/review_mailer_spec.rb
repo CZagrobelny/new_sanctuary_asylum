@@ -71,7 +71,7 @@ RSpec.describe ReviewMailer, type: :mailer do
     let(:friend) { create :friend, community: community, region: region }
     let!(:volunteer) { create :user, volunteer_type: 'english_speaking', community: community }
     let!(:community_admin) { create :user, :community_admin, community: community }
-    let!(:regional_admin) { create :user, :regional_admin, region: region }
+    let!(:regional_admin) { create :user, :regional_admin, regions: [region] }
 
     subject(:mail) { ReviewMailer.changes_requested_email(review)}
 
@@ -96,7 +96,7 @@ RSpec.describe ReviewMailer, type: :mailer do
     let(:friend) { create :friend, community: community, region: region }
     let!(:volunteer) { create :user, volunteer_type: 'english_speaking', community: community }
     let!(:community_admin) { create :user, :community_admin, community: community }
-    let!(:regional_admin) { create :user, :regional_admin, region: region }
+    let!(:regional_admin) { create :user, :regional_admin, regions: [region] }
 
     subject(:mail) { ReviewMailer.application_approved_email(application)}
 
