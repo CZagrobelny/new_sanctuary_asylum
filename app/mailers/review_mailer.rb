@@ -20,6 +20,8 @@ class ReviewMailer < ApplicationMailer
     friend = review.draft.friend
     emails = (friend.region.regional_admins.map(&:email) + friend.users.where(user_friend_associations: { remote: false }).map(&:email)).flatten
     @link_url = community_friend_url(friend.community.slug, friend)
+    # This link was originally in the email. Use it, or the one above? Or both?
+    # @link_url = community_friend_draft_review_url(friend.community.slug, friend, review.draft, review)
     mail(to: emails, subject: "Changes requested on #{friend.first_name}'s application", )
   end
 
