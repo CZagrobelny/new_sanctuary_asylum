@@ -71,6 +71,7 @@ RSpec.describe ReviewMailer, type: :mailer do
     let(:friend) { create :friend, community: community, region: region }
     let!(:volunteer) { create :user, volunteer_type: 'english_speaking', community: community }
     let!(:community_admin) { create :user, :community_admin, community: community }
+    let!(:regional_admin) { create :user, :regional_admin, region: region }
 
     subject(:mail) { ReviewMailer.changes_requested_email(review)}
 
@@ -79,8 +80,8 @@ RSpec.describe ReviewMailer, type: :mailer do
                                     user_id: volunteer.id)
     end
 
-    it 'emails the community admins and community volunteers associated with the friend' do
-      expect(mail.to).to eq [community_admin.email, volunteer.email]
+    it 'emails the regional admins and community volunteers associated with the friend' do
+      expect(mail.to).to eq [regional_admin.email, volunteer.email]
     end
 
     it 'renders the body' do
@@ -95,6 +96,7 @@ RSpec.describe ReviewMailer, type: :mailer do
     let(:friend) { create :friend, community: community, region: region }
     let!(:volunteer) { create :user, volunteer_type: 'english_speaking', community: community }
     let!(:community_admin) { create :user, :community_admin, community: community }
+    let!(:regional_admin) { create :user, :regional_admin, region: region }
 
     subject(:mail) { ReviewMailer.application_approved_email(application)}
 
@@ -103,8 +105,8 @@ RSpec.describe ReviewMailer, type: :mailer do
                                     user_id: volunteer.id)
     end
 
-    it 'emails the community admins and community volunteers associated with the friend' do
-      expect(mail.to).to eq [community_admin.email, volunteer.email]
+    it 'emails the regional admins and community volunteers associated with the friend' do
+      expect(mail.to).to eq [regional_admin.email, volunteer.email]
     end
 
     it 'renders the body' do
