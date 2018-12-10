@@ -1,6 +1,6 @@
 class RemoteClinic::ReleasesController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_access_to_friend, only: [:show]
+  before_action :require_access_to_friend
 
   def new
     friend
@@ -32,6 +32,10 @@ class RemoteClinic::ReleasesController < ApplicationController
 
   def release
     @release ||= current_user.releases.find_by(friend: friend)
+  end
+
+  def require_access_to_friend
+    return not_found unless current_user.existing_remote_relationship?(params[:friend_id])
   end
 
   def release_params

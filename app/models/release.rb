@@ -10,12 +10,13 @@ class Release < ApplicationRecord
 
   validates :release_form, :friend, presence: true
   validates :category, presence: true, inclusion: { in: TYPES }, uniqueness: { scope: [:friend_id, :user_id] }
-  validate :user_is_lawyer
+  validate :user_is_allowed_role
 
   private
 
-  def user_is_lawyer
+  # This is probably going to need to allow multiple roles/types
+  def user_is_allowed_role
     return unless user
-    errors.add(:user, 'must be lawyer') unless user.volunteer_type == 'lawyer'
+    errors.add(:user, 'is not authorized to sign releases') unless user.remote_clinic_lawyer?
   end
 end
