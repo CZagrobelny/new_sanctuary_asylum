@@ -1,7 +1,9 @@
 require 'ffaker'
 
 ActiveRecord::Base.transaction do
-  ##Populate Countries and Languages
+  puts "Seeding database"
+
+  # Populate Countries and Languages
   Rake::Task['populate_countries'].invoke
   Rake::Task['populate_languages'].invoke
 

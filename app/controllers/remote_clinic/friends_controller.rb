@@ -7,12 +7,24 @@ class RemoteClinic::FriendsController < ApplicationController
   end
 
   def show
-    @friend = Friend.find_by(id: params[:id])
+    if !release && !current_community.primary
+      redirect_to new_remote_clinic_friend_release_path(friend)
+    else
+      render
+    end
   end
 
   private
+
   def require_access_to_friend
-    friend = Friend.find_by(id: params[:id])
-    return not_found unless current_user.existing_remote_relationship?(friend.id)
+    return not_found unless current_user.existing_remote_relationship?(params[:id])
+  end
+
+  def friend
+    @friend ||= Friend.find_by_id(params[:id])
+  end
+
+  def release
+    @release ||= current_user.releases.find_by(friend: friend)
   end
 end
