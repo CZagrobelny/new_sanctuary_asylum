@@ -6,12 +6,6 @@
   <div class='form-inputs'>
     <div class='row form-group'>
       <div class='col-md-12'>
-        <%= link_to 'Download Friend Release', @friend.releases.first.release_form_url, class: 'btn btn-primary', target: '_blank' %>
-      </div>
-    </div>
-
-    <div class='row form-group'>
-      <div class='col-md-12'>
         <%= f.label :release_form, 'File Upload', class: 'control-label required', style: 'padding-right: 10px;' %>
         <%= button_to 'Browse', '#', class: 'btn btn-primary', id: 'browse' %>
         <span id='current-file'>
@@ -21,13 +15,7 @@
       </div>
     </div>
 
-    <div class='row form-group'>
-      <div class='col-md-12'>
-        <%= f.hidden_field :category, value: 'limited_scope' %>
-        <%= f.label :category %>
-        Limited Scope
-      </div>
-    </div>
+    <%= f.hidden_field :category, value: 'limited_scope' %>
 
     <div class='row'>
       <div class='col-md-1 col-md-offset-10'>
