@@ -43,17 +43,7 @@ ActiveRecord::Schema.define(version: 20181212033943) do
     t.integer  "region_id"
     t.boolean  "confirmed"
     t.text     "public_notes"
-    t.integer  "activity_type_id"
-    t.index ["activity_type_id"], name: "index_activities_on_activity_type_id", using: :btree
     t.index ["region_id"], name: "index_activities_on_region_id", using: :btree
-  end
-
-  create_table "activity_types", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "cap"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.boolean  "accompaniment_eligible"
   end
 
   create_table "applications", force: :cascade do |t|
