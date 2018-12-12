@@ -93,6 +93,7 @@ class Admin::FriendsController < AdminController
       :date_of_birth,
       :status,
       :date_of_entry,
+      :border_crossing_status,
       :notes,
       :asylum_status,
       :asylum_notes,
