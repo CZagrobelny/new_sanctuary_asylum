@@ -360,7 +360,6 @@ ActiveRecord::Schema.define(version: 20181212033943) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   end
 
-  add_foreign_key "activities", "activity_types"
   add_foreign_key "activities", "regions"
   add_foreign_key "communities", "regions"
   add_foreign_key "events", "communities"
