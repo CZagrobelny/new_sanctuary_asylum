@@ -7,7 +7,8 @@ class Activity < ApplicationRecord
                                      family_court
                                      criminal_court
                                      bond_hearing
-                                     fingerprinting].freeze
+                                     fingerprinting
+                                     border_crossing].freeze
 
   NON_ACCOMPANIMENT_ELIGIBLE_EVENTS = %w[filing_asylum_application
                                          asylum_granted

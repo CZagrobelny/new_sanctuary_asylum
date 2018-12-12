@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181205161300) do
+ActiveRecord::Schema.define(version: 20181212033943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,11 +38,11 @@ ActiveRecord::Schema.define(version: 20181205161300) do
     t.integer  "judge_id"
     t.datetime "occur_at"
     t.text     "notes"
-    t.text     "public_notes"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "region_id"
     t.boolean  "confirmed"
+    t.text     "public_notes"
     t.index ["region_id"], name: "index_activities_on_region_id", using: :btree
   end
 
@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(version: 20181205161300) do
     t.string   "sponsor_name"
     t.string   "sponsor_phone_number"
     t.string   "sponsor_relationship"
+    t.string   "border_crossing_status"
     t.index ["community_id"], name: "index_friends_on_community_id", using: :btree
     t.index ["region_id"], name: "index_friends_on_region_id", using: :btree
   end
