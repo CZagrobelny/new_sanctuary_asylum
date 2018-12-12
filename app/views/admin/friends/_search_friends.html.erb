@@ -1,13 +1,13 @@
 <%= form_for_filterrific @filterrific, html: { id: 'filterrific-no-ajax-auto-submit', class: 'well' }  do |f| %>
-  <div class='form-group'>
+  <div class='form-group col-md-3'>
     <%= f.label :filter_first_name, 'First Name' %>
     <%= f.text_field(:filter_first_name) %>
   </div>
-  <div class='form-group'>
+  <div class='form-group col-md-3'>
     <%= f.label :filter_last_name, 'Last Name' %>
     <%= f.text_field(:filter_last_name) %>
   </div>
-  <div class='form-group'>
+  <div class='form-group col-md-3'>
     <%= f.label :filter_a_number, 'A Number' %>
     <%= f.text_field(:filter_a_number) %>
   </div>
