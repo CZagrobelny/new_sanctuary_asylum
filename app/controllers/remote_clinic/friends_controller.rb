@@ -7,11 +7,8 @@ class RemoteClinic::FriendsController < ApplicationController
   end
 
   def show
-    if !release
-      redirect_to new_remote_clinic_friend_release_path(friend)
-    else
-      render
-    end
+    friend
+    render
   end
 
   private
