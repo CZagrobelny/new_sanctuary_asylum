@@ -36,9 +36,12 @@ class User < ApplicationRecord
   filterrific(
     default_filter_params: { sorted_by: 'created_at_desc' },
     available_filters: %i[
-      search_query
+      filter_first_name
+      filter_last_name
+      filter_email
       with_volunteer_type
       sorted_by
+
     ]
   )
 
@@ -89,9 +92,19 @@ class User < ApplicationRecord
   )
 }
   scope :with_volunteer_type, ->(volunteer_type) {
-    puts "The volunteer type is: #{volunteer_type}"
     where(volunteer_type: volunteer_type)
-    # where(volunteer_type: [*volunteer_types])
+  }
+
+  scope :filter_first_name, ->(name) {
+    basic_search(first_name: name)
+  }
+
+  scope :filter_last_name, ->(name) {
+    basic_search(last_name: name)
+  }
+
+  scope :filter_email, -> (email) {
+    basic_search(email: email)
   }
 
   def confirmed?

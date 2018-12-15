@@ -1,45 +1,30 @@
 <div class='row'>
   <%= link_to 'Invite User', new_user_community_invitation_path(current_community.slug), class: 'btn btn-primary pull-right'%>
-</div>
 
+  <h1><%= link_to "Users", community_admin_users_path(current_community.slug) %></h1>
+</div>
 <%= form_for_filterrific @filterrific, html: { id: 'filterrific-no-ajax-auto-submit', class: 'well' }  do |f| %>
-  <div class='row'>
-    <div class='col-md-3'>
-      <h1><%= link_to "Users", community_admin_users_path(current_community.slug) %></h1>
+
+    <div class='form-group col-md-3'>
+      <%= f.label :filter_first_name, 'First Name' %>
+      <%= f.text_field(:filter_first_name) %>
     </div>
-    <div class='col-md-4 col-md-offset-5'>
-      <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
-      <%= f.text_field(:search_query, class: 'filterrific-periodically-observed form-control input-md', placeholder: 'Search by first name, last name, or email', style: 'margin-top: 20px; margin-bottom: 10px;') %>
-        <a href="#" data-toggle-search-filters="true">Advanced Search</a>
-        <div>
-          <%= link_to(
-            'Reset filters',
-            reset_filterrific_url
-          ) %>
-        </div>
+    <div class='form-group col-md-3'>
+      <%= f.label :filter_last_name, 'Last Name' %>
+      <%= f.text_field(:filter_last_name) %>
     </div>
-  </div>
-  <%= content_tag :div, class: 'row' do %>
-  <%=
-    content_tag :div, class: 'col-md-12 search-filters',
-      data: { show_search_filters: user_search_filtered? } do
-  %>
-      <h4>Filters</h4>
-      <dl>
-        <dt>Volunteer Type</dt>
-        <dd>
-          <label>
-            <%= f.select(:with_volunteer_type, @filterrific.select_options[:with_volunteer_type], { include_blank: '- Any -' }, class: 'form-control input-md') %>
-          </label>
-        </dd>
-      </dl>
-   <%# add an automated spinner to your form when the list is refreshed %>
-   <%= render_filterrific_spinner %>`
-   <% end %>
-<% end %>
-<div>
-   <%= submit_tag 'Search'%>
- </div>
+    <div class='form-group col-md-3'>
+      <%= f.label :filter_email, 'Email' %>
+      <%= f.text_field(:filter_email) %>
+    </div>
+    <div class='row'>
+        <%= f.label :with_volunteer_type, 'Volunteer Type' %>
+        <%= f.select(:with_volunteer_type, @filterrific.select_options[:with_volunteer_type], { include_blank: '- Any -' }) %>
+    </div>
+
+
+   <%= submit_tag 'Search', class: 'btn btn-primary'%>
+
 
 <% end %>
 <%= render(partial: 'list', locals: { users: @users }) %>

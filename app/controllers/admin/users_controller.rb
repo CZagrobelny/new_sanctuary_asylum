@@ -9,6 +9,7 @@ class Admin::UsersController < AdminController
       }
      )
     @users = @filterrific.find.page(params[:page])
+
   end
 
   def destroy
