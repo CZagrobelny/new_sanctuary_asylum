@@ -2,7 +2,7 @@
   <%= link_to 'Invite User', new_user_community_invitation_path(current_community.slug), class: 'btn btn-primary pull-right'%>
 </div>
 
-<%= form_for_filterrific @filterrific do |f| %>
+<%= form_for_filterrific @filterrific, html: { id: 'filterrific-no-ajax-auto-submit', class: 'well' }  do |f| %>
   <div class='row'>
     <div class='col-md-3'>
       <h1><%= link_to "Users", community_admin_users_path(current_community.slug) %></h1>
@@ -37,5 +37,9 @@
    <%= render_filterrific_spinner %>`
    <% end %>
 <% end %>
+<div>
+   <%= submit_tag 'Search'%>
+ </div>
+
 <% end %>
 <%= render(partial: 'list', locals: { users: @users }) %>

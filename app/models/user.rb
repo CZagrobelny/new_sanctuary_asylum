@@ -88,7 +88,11 @@ class User < ApplicationRecord
     *terms.map { |e| [e] * num_or_conds }.flatten
   )
 }
-  scope :with_volunteer_type, ->(volunteer_types) { where(volunteer_type: [*volunteer_types]) }
+  scope :with_volunteer_type, ->(volunteer_type) {
+    puts "The volunteer type is: #{volunteer_type}"
+    where(volunteer_type: volunteer_type)
+    # where(volunteer_type: [*volunteer_types])
+  }
 
   def confirmed?
     invitation_accepted_at.present?
