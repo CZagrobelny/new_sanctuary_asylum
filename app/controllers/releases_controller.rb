@@ -12,7 +12,7 @@ class ReleasesController < ApplicationController
     @release = friend.releases.build(release_params)
     if @release.save
       flash[:success] = 'Release saved'
-      redirect_to community_friend_path(current_community.slug, friend, tab: '#documents')
+      render_document_list
     else
       flash.now[:error] = 'Release not saved'
       render :new
@@ -20,6 +20,14 @@ class ReleasesController < ApplicationController
   end
 
   private
+
+  def render_document_list
+    if current_user.admin?
+      redirect_to community_friend_drafts_path(current_community.slug, friend, tab: '#documents')
+    else
+      redirect_to community_friend_path(current_community.slug, friend, tab: '#documents')
+    end
+  end
 
   def friend
     @friend ||= current_community.friends.find(params[:friend_id])
