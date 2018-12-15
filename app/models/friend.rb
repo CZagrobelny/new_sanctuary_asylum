@@ -1,4 +1,6 @@
 class Friend < ApplicationRecord
+  include PgSearch
+
   enum ethnicity: %i[white black hispanic asian south_asian caribbean indigenous other]
   enum gender: %i[male female awesome]
 
@@ -74,13 +76,11 @@ class Friend < ApplicationRecord
     users.where(user_friend_associations: { remote: true })
   end
 
-  scope :filter_first_name, ->(name) {
-    basic_search(first_name: name)
-  }
+  pg_search_scope :filter_first_name, against: :first_name, 
+                                      using: {tsearch: {:prefix => true}}
 
-  scope :filter_last_name, ->(name) {
-    basic_search(last_name: name)
-  }
+  pg_search_scope :filter_last_name, against: :last_name,
+                                     using: {tsearch: {:prefix => true}}
 
   scope :filter_a_number, ->(number) {
     where(a_number: number)
