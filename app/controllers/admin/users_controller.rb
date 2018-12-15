@@ -1,26 +1,14 @@
 class Admin::UsersController < AdminController
   def index
-    (@filterrific = initialize_filterrific(
+    @filterrific = initialize_filterrific(
       User,
       params[:filterrific],
       select_options: {
         sorted_by: User.options_for_sorted_by,
         with_volunteer_type: User.volunteer_types.keys.map { |volunteer_type| [volunteer_type.humanize, volunteer_type] }
       }
-    )) || return
+     )
     @users = @filterrific.find.page(params[:page])
-    respond_to do |format|
-      format.html
-      format.js
-    end
-
-  # Recover from invalid param sets, e.g., when a filter refers to the
-  # database id of a record that doesn’t exist any more.
-  # In this case we reset filterrific and discard all filter params.
-  rescue ActiveRecord::RecordNotFound => e
-    # There is an issue with the persisted param_set. Reset it.
-    puts "Had to reset filterrific params: #{e.message}"
-    redirect_to(reset_filterrific_url(format: :html)) && return
   end
 
   def destroy
