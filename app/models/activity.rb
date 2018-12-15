@@ -67,6 +67,12 @@ class Activity < ApplicationRecord
     end
   }
 
+  scope :for_next_month,  ->(events, month) {
+                            by_event(events)
+                              .by_dates(month.beginning_of_month,
+                                        month.end_of_monght)
+                          }
+
   scope :for_time_confirmed_region, ->(events, region, period_begin, period_end, result_order) {
                                       by_event(events)
                                         .by_region(region)
