@@ -45,3 +45,9 @@
     <br>
   <% end %>
 <% end %>
+
+<% if @friend.notes.present? %>
+  <h3>Notes for <%= @friend.name %></h3>
+  <p><%= @friend.notes %></p>
+  </br>
+<% end %>
