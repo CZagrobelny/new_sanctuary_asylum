@@ -77,7 +77,7 @@ RSpec.describe ReviewMailer, type: :mailer do
     end
   end
 
-  describe 'changes_requested(review)' do
+  describe 'changes_requested_email(review)' do
     let(:community) { create :community }
     let(:region) { community.region }
     let(:draft) { create :draft, status: :changes_requested, friend: friend }
@@ -109,13 +109,12 @@ RSpec.describe ReviewMailer, type: :mailer do
     end
 
     it 'renders the body' do
-      # expect(mail.body.encoded).to include "#{friend.first_name}'s #{draft.application.category} application draft has recieved a review: #{community_friend_draft_review_url(friend.community.slug, friend, draft, review)}."
       expect(mail.html_part.body.raw_source).to include "#{friend.first_name}'s #{draft.application.category} application draft has recieved a review: <a href=\"#{community_friend_url(friend.community.slug, friend)}\">#{community_friend_url(friend.community.slug, friend)}</a>"
       expect(mail.text_part.body.raw_source).to include "#{friend.first_name}'s #{draft.application.category} application draft has recieved a review: #{community_friend_url(friend.community.slug, friend)}"
     end
   end
 
-  describe 'draft_approved(draft)' do
+  describe 'draft_approved_email(draft)' do
     let(:community) { create :community }
     let(:region) { community.region }
     let(:application) { create :application, friend: friend }
