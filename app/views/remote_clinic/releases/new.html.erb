@@ -1,0 +1,12 @@
+<h2>Limited Scope of Liability</h2>
+
+<p>Please follow these instructions to sign and upload the Limited Scope of Liability for <%= @friend.name %> to proceed.</p>
+<ol>
+    <li>Download the Limited Scope of Liability, signed by <%= @friend.name %>, <strong><%= link_to 'here', @friend.releases.first.release_form_url, target: '_blank' %></strong>. You will need to download and save the file to your computer, the file cannot be saved in the browser.</li>
+    <li>Sign the Limited Scope of Liability. We recommend you use <strong><%= link_to 'this tutorial', 'https://www.howtogeek.com/164668/how-to-electronically-sign-documents-without-printing-and-scanning-them/', target: '_blank' %></strong> to sign electronically.</li>
+    <li>Upload the signed version of the Limited Scope of Liability saved on your computer by clicking on 'Browse' below.</li>
+    <li>Click the 'Save' button on the right.</li>
+</ol>
+
+<%= render 'form' %>
+

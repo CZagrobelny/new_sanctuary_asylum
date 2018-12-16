@@ -26,11 +26,20 @@ module NewSanctuaryAsylum
     # Setting location for mailer previews. You can see the list of previews at localhost:3000/rails/mailers
     config.action_mailer.preview_path = Rails.root.join('lib/mailer_previews')
 
-		#Allow the app to controll it's own error routes (custom 404, etc.)
-		#NOTE:and app erros will still cause the server env to handle errors (Heroku), so these routes are only effective when the app is running
-	config.exceptions_app = self.routes
+    # Allow the app to controll it's own error routes (custom 404, etc.)
+    # NOTE:and app errors will still cause the server env to handle errors (Heroku),
+    # so these routes are only effective when the app is running
+  	config.exceptions_app = self.routes
+
     if !Rails.env.development? && !Rails.env.test?
       config.middleware.use Rack::Attack
+    end
+
+    config.generators do |g|
+      g.test_framework false
+      g.stylesheets false
+      g.javascripts false
+      g.helper false
     end
   end
 end

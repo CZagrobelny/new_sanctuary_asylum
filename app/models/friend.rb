@@ -30,6 +30,8 @@ class Friend < ApplicationRecord
                      approved
                      denied].map { |status| [status.titlecase, status] }
 
+  BORDER_CROSSING_STATUSES = %w[ready_to_cross successfully_crossed].map { |status| [status.titlecase, status] }
+
   ASYLUM_APPLICATION_DEADLINE = 1.year
 
   belongs_to :community
@@ -46,6 +48,7 @@ class Friend < ApplicationRecord
   has_many :events, through: :friend_event_attendances
   has_many :family_relationships, dependent: :destroy
   has_many :family_members, through: :family_relationships, source: 'relation'
+  has_many :releases, dependent: :destroy
 
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
 
@@ -89,13 +92,13 @@ class Friend < ApplicationRecord
   end
 
   def grouped_drafts
-    grouped_drafts = []
-    applications.each do |application|
-      grouped_drafts << { name: application.category,
-                          drafts: application.drafts.order('created_at desc'),
-                          application: application }
+    applications.map do |application|
+      {
+        name: application.category,
+        drafts: application.drafts.order('created_at desc'),
+        application: application
+      }
     end
-    grouped_drafts
   end
 
   def detained?

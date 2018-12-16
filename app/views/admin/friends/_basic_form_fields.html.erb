@@ -73,7 +73,7 @@
     <div class='col-md-6'>
       <%= collection_select(:friend, :language_ids, Language.all, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
     </div>
-  <% end %>    
+  <% end %>
 </div>
 
 <div class='row form-group'>
@@ -115,6 +115,13 @@
   <%= f.label :date_of_entry, 'Date of Entry', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
     <%= f.date_select :date_of_entry, { start_year: Date.current.year, end_year: 1930, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :border_crossing_status, 'Border Crossing Status', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.select :border_crossing_status, options_for_select(Friend::BORDER_CROSSING_STATUSES, @friend.border_crossing_status), {include_blank: true}, {class: 'form-control'} %>
   </div>
 </div>
 

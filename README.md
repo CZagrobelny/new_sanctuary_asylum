@@ -162,6 +162,10 @@ Login as an Accompaniment Leader with:
 - Can view assigned Friends and drafts of their application
 - Can add reviews to drafts of applications and can approve drafts of applications
 
+Login as a Remote Clinic Lawyer with:
+* username: remote_clinic_lawyer@example.com
+* password: Password1234
+
 ## How are we building it?
 
 ### Gems & Libraries!
