@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20181224212131) do
     t.integer  "judge_id"
     t.datetime "occur_at"
     t.text     "notes"
+<<<<<<< HEAD
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "region_id"
@@ -45,6 +46,13 @@ ActiveRecord::Schema.define(version: 20181224212131) do
     t.text     "public_notes"
     t.integer  "activity_type_id"
     t.index ["activity_type_id"], name: "index_activities_on_activity_type_id", using: :btree
+=======
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.boolean  "confirmed"
+    t.integer  "region_id"
+    t.text     "public_notes"
+>>>>>>> Post-rebase
     t.index ["region_id"], name: "index_activities_on_region_id", using: :btree
   end
 
@@ -283,6 +291,16 @@ ActiveRecord::Schema.define(version: 20181224212131) do
     t.string   "pdf_draft",  null: false
   end
 
+<<<<<<< HEAD
+=======
+  create_table "user_application_draft_associations", force: :cascade do |t|
+    t.integer  "user_id",              null: false
+    t.integer  "application_draft_id", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+>>>>>>> Post-rebase
   create_table "user_draft_associations", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.integer  "draft_id",   null: false

@@ -379,7 +379,11 @@ DEPENDENCIES
   dotenv-rails
   factory_girl_rails (~> 4.6.0)
   ffaker
+<<<<<<< HEAD
   filterrific
+=======
+  filterrific (~> 5.x)
+>>>>>>> Post-rebase
   geography_helper
   jbuilder (~> 2.0)
   jquery-rails
