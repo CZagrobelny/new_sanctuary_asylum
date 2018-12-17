@@ -20,7 +20,7 @@ RSpec.describe 'Community Admin viewing the accompaniments calendar', type: :fea
 
     it 'displays the activity event' do
       activity.activity_type = activity_type
-      expect(page).to have_content(activity.event.humanize)
+      expect(page).to have_content(activity.activity_type.name.humanize)
     end
 
     it 'displays the activity friend name' do

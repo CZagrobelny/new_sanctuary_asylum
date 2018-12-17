@@ -3,13 +3,13 @@ class Admin::ActivitiesController < AdminController
 
   def index
     @activities = current_region.activities
-                                .where(event: ActivityType.non_accompaniment_eligible)
+                                .non_accompaniment_eligible
                                 .includes(:friend, :location)
   end
 
   def accompaniments
     @activities = current_region.activities
-                                .where(event: ActivityType.accompaniment_eligible)
+                                .accompaniment_eligible
                                 .includes(:accompaniments, :users, :accompaniment_reports, :friend, :location)
   end
 
@@ -23,11 +23,6 @@ class Admin::ActivitiesController < AdminController
 
   def create
     @activity = current_region.activities.new(activity_params)
-    if activity.event
-      activity.activity_type = ActivityType.find_by(name: activity.event)
-    else
-      activity.event = ActivityType.find(activity.activity_type_id).name
-    end
     if activity.save
       flash[:success] = 'Activity saved.'
       redirect_to community_admin_activities_path(current_community.slug)
@@ -69,7 +64,6 @@ class Admin::ActivitiesController < AdminController
   def activity_params
     params.require(:activity).permit(
       :activity_type_id,
-      :event,
       :location_id,
       :friend_id,
       :judge_id,

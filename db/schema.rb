@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 20181212033943) do
     t.datetime "updated_at",       null: false
     t.integer  "region_id"
     t.boolean  "confirmed"
-    t.integer  "activity_type_id"
     t.text     "public_notes"
+    t.integer  "activity_type_id"
     t.index ["activity_type_id"], name: "index_activities_on_activity_type_id", using: :btree
     t.index ["region_id"], name: "index_activities_on_region_id", using: :btree
   end

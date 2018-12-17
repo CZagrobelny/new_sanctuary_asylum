@@ -23,7 +23,7 @@ RSpec.describe ActivityReport do
       aggregate_failures do
         expect(CSV.parse(subject)[0]).to eq(column_headers)
 
-        expect(subject).to include(activity.event.humanize)
+        expect(subject).to include(activity.activity_type.name.humanize)
         expect(subject).to include(activity.location.name)
         expect(subject).to include(activity.judge.name)
         expect(subject).to include(activity.accompaniments.count.to_s)

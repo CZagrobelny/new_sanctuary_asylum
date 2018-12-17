@@ -8,7 +8,7 @@ RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: tr
   let(:volunteer) { create(:user, :volunteer, community: community) }
   let!(:activity) { create(:activity, occur_at: 1.week.from_now, region: region, confirmed: true ) }
   let!(:activity_type) { create(:activity_type, :master_calendar_hearing) }
-  let(:accompaniment_listing) { "#{activity.event.humanize} for #{activity.friend.first_name} at #{activity.location.name}" }
+  let(:accompaniment_listing) { "#{activity.activity_type.name.humanize} for #{activity.friend.first_name} at #{activity.location.name}" }
 
   before do
     login_as(volunteer)

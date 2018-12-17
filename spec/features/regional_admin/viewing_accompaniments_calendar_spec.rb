@@ -17,10 +17,10 @@ RSpec.describe 'Regional Admin', type: :feature do
     before(:each) do
       visit accompaniments_community_admin_activities_path(community.slug)
     end
-    
+
     it 'displays the activity event' do
       activity.activity_type = activity_type
-      expect(page).to have_content(activity.event.humanize)
+      expect(page).to have_content(activity.activity_type.name.humanize)
     end
 
     it 'displays the activity friend name' do

@@ -15,13 +15,13 @@
         <%= activity.occur_at.strftime("%I:%M %p") %>
       </dt>
       <dd>
-        <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>"><%= "#{activity.event.humanize} for #{activity.friend.name}" %></a>
+        <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>"><%= "#{activity.activity_type.name.humanize} for #{activity.friend.name}" %></a>
         <span>(<%= "#{activity.volunteer_accompaniments.count}" %>)</span>
         <div id="modal_activity_<%= activity.id %>" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title"><span><%= activity.occur_at.strftime("%I:%M %p") %></span><%= "#{activity.event.humanize} for #{activity.friend.name}" %></h4>
+                <h4 class="modal-title"><span><%= activity.occur_at.strftime("%I:%M %p") %></span><%= "#{activity.activity_type.name.humanize} for #{activity.friend.name}" %></h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
                 </button>
