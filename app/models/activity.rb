@@ -34,6 +34,7 @@ class Activity < ApplicationRecord
   belongs_to :region
   belongs_to :judge
   belongs_to :location
+  belongs_to :activity_type
   has_many :accompaniments, -> { order(created_at: :asc) }, dependent: :destroy
   has_many :users, through: :accompaniments
   has_many :accompaniment_reports, dependent: :destroy
@@ -42,6 +43,14 @@ class Activity < ApplicationRecord
 
   scope :by_event, ->(events) {
     where(event: events)
+  }
+
+  scope :accompaniment_eligible, -> {
+    joins(:activity_type).where(activity_types: { accompaniment_eligible: true })
+  }
+
+  scope :non_accompaniment_eligible, -> {
+    joins(:activity_type).where(activity_types: { accompaniment_eligible: false })
   }
 
   scope :by_region, ->(region) {
@@ -89,7 +98,14 @@ class Activity < ApplicationRecord
                                    .order(occur_at: 'desc')
                                }
   def accompaniment_limit_met?
-    event == 'family_court' && volunteer_accompaniments.count > 2
+    !!activity_type &&
+    !!activity_type.cap &&
+    volunteer_accompaniments.count >= activity_type.cap
+  end
+
+  def event=(event)
+    self.activity_type = ActivityType.find_by(name: event)
+    super(event)
   end
 
   def start_time

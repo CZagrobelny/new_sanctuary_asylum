@@ -11,6 +11,7 @@ RSpec.describe Accompaniment, type: :model do
   describe '.limit_for_family_court validation' do
     let(:user) { create :user }
     context 'the activity is family_court' do
+      let!(:activity_type) { create :activity_type }
       let!(:activity) { create :activity, :family_court }
 
       context 'there are already 3 accompaniments for the activity' do
@@ -23,6 +24,7 @@ RSpec.describe Accompaniment, type: :model do
         end
 
         it 'does NOT save the accompaniment' do
+          activity.activity_type = activity_type
           expect{ new_accompaniment.save }.not_to change(Accompaniment, :count)
         end
 

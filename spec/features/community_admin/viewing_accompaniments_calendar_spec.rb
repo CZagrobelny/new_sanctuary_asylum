@@ -6,6 +6,7 @@ RSpec.describe 'Community Admin viewing the accompaniments calendar', type: :fea
   let(:region) { community.region }
   let(:team_leader) { create(:user, :accompaniment_leader, community: community) }
   let!(:activity) { create(:activity, occur_at: 1.hour.from_now, region: region, confirmed: true) }
+  let!(:activity_type) { create(:activity_type, :master_calendar_hearing) }
   let!(:accompaniment) { create(:accompaniment, user: team_leader, activity: activity) }
 
   before do
@@ -18,10 +19,12 @@ RSpec.describe 'Community Admin viewing the accompaniments calendar', type: :fea
     end
 
     it 'displays the activity event' do
+      activity.activity_type = activity_type
       expect(page).to have_content(activity.event.humanize)
     end
 
     it 'displays the activity friend name' do
+      activity.activity_type = activity_type
       expect(page).to have_content(activity.friend.name)
     end
 
