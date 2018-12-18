@@ -12,7 +12,7 @@
     </div>
 
     <div class='row form-group'>
-      <%= f.label :event, 'Type', class: 'col-md-3 col-xs-12 control-label' %>
+      <%= f.label :activity_type_id, 'Type', class: 'col-md-3 col-xs-12 control-label' %>
       <div class='col-md-6 col-xs-12'>
         <%= collection_select(:activity, :activity_type_id, ActivityType.all, :id, :title_name, prompt: true) %>
       </div>

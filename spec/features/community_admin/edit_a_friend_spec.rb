@@ -7,6 +7,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
     let(:community_admin) { create(:user, :community_admin, community: community) }
     let(:friend) { create(:friend, community: community) }
     let!(:location) { create(:location, region: community.region) }
+    let!(:activity_type_name) { create(:activity_type).name.titlecase }
     let!(:application) { create(:application, friend: friend) }
     let!(:draft) { create(:draft, friend: friend, application: application) }
 
@@ -78,8 +79,8 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
             expect(page).to have_link 'Add Activity'
             click_link 'Add Activity'
             sleep 1
-            select 'Individual Hearing', from: 'Type'
-            expect(page).to have_select('Type', selected: 'Individual Hearing')
+            select activity_type_name, from: 'Type'
+            expect(page).to have_select('Type', selected: activity_type_name)
             select location.name, from: 'Location'
             select_date_and_time(Time.now.beginning_of_hour, from: 'activity_occur_at')
             within '#new_activity' do
@@ -87,7 +88,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
             end
             wait_for_ajax
             within '#activity-list' do
-              expect(page).to have_content('Individual hearing')
+              expect(page).to have_content(activity_type_name)
               expect(page).to have_content(location.name)
             end
           end
@@ -102,7 +103,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
               click_button 'Save'
             end
             wait_for_ajax
-            expect(page).to have_content("Event can't be blank")
+            expect(page).to have_content("Activity type can't be blank")
           end
         end
       end

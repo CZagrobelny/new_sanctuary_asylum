@@ -7,7 +7,7 @@ class ActivityReport < Report
 
       data.each do |activity|
         row = []
-        row << activity.activity_type.name.humanize
+        row << activity.activity_type.name.titlecase
         row << activity.occur_at.strftime('%m/%d/%Y')
         row << activity.location.try(:name)
         row << activity.judge.try(:name)

@@ -13,7 +13,7 @@
         </dt>
         <dd>
           <% location = activity.location.present? ? "at #{activity.location.name}" : '' %>
-          <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>"><%= "#{activity.activity_type.name.humanize} for #{activity.friend.first_name} #{location}" %></a>
+          <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>"><%= "#{activity.activity_type.name.titlecase} for #{activity.friend.first_name} #{location}" %></a>
           <span>
             <% if activity.accompaniment_limit_met? %>
               (full)

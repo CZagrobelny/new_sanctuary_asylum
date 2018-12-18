@@ -31,7 +31,7 @@
   <h3>Activities</h3>
   <% friend.activities.order('occur_at desc').each do |activity| %>
     <p>
-      <strong>What:  </strong><%= activity.activity_type.name.humanize %><br>
+      <strong>What:  </strong><%= activity.activity_type.name.titlecase %><br>
       <strong>When:  </strong><%= activity.occur_at.strftime("%I:%M %p, %A, %B %-d, %Y") %><br>
       <strong>Where:  </strong><%= activity.location.name  if activity.location.present? %><br>
       <strong>Volunteers:  </strong><%= activity.users.map(&:first_name).to_sentence %>

@@ -3,11 +3,7 @@ FactoryGirl.define do
     association :friend
     association :location
     association :region
-    event 'master_calendar_hearing'
+    association :activity_type
     occur_at 1.day.from_now
-  end
-  
-  trait :family_court do
-    event 'family_court'
   end
 end

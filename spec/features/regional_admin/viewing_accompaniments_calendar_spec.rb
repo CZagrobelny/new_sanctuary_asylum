@@ -6,7 +6,7 @@ RSpec.describe 'Regional Admin', type: :feature do
   let(:region) { community.region }
   let(:team_leader) { create(:user, :accompaniment_leader, community: community) }
   let!(:activity) { create(:activity, occur_at: 1.hour.from_now, region: region, confirmed: true) }
-  let!(:activity_type) { create(:activity_type, :master_calendar_hearing) }
+  let!(:activity_type) { create(:activity_type) }
   let!(:accompaniment) { create(:accompaniment, user: team_leader, activity: activity) }
 
   before do
@@ -20,7 +20,7 @@ RSpec.describe 'Regional Admin', type: :feature do
 
     it 'displays the activity event' do
       activity.activity_type = activity_type
-      expect(page).to have_content(activity.activity_type.name.humanize)
+      expect(page).to have_content(activity.activity_type.name.titlecase)
     end
 
     it 'displays the activity friend name' do

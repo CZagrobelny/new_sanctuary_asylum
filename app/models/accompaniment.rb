@@ -3,7 +3,7 @@ class Accompaniment < ApplicationRecord
   belongs_to :activity
 
   validates :activity_id, :user_id, presence: true
-  validate :limit_for_family_court
+  validate :volunteer_cap_not_exceeded
 
   def self.find_or_build(activity, user)
     if user.attending?(activity)
@@ -15,15 +15,15 @@ class Accompaniment < ApplicationRecord
 
   private
 
-  def limit_for_family_court
+  def volunteer_cap_not_exceeded
     if user.try(:volunteer?) && activity.try(:accompaniment_limit_met?)
-      errors.add(:activity, family_court_error)
+      errors.add(:activity, volunteer_cap_exceeded)
       false
     end
   end
 
-  def family_court_error
-    "can't exceed 3 volunteer accompaniments."
+  def volunteer_cap_exceeded
+    "can't exceed #{activity.activity_type.cap} volunteer accompaniments."
   end
 
 end
