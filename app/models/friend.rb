@@ -76,7 +76,7 @@ class Friend < ApplicationRecord
     users.where(user_friend_associations: { remote: true })
   end
 
-  pg_search_scope :filter_first_name, against: :first_name, 
+  pg_search_scope :filter_first_name, against: :first_name,
                                       using: {tsearch: {:prefix => true}}
 
   pg_search_scope :filter_last_name, against: :last_name,
@@ -84,6 +84,10 @@ class Friend < ApplicationRecord
 
   scope :filter_a_number, ->(number) {
     where(a_number: number)
+  }
+
+  scope :filter_border_queue_number, ->(number) {
+    where(border_queue_number: number)
   }
 
   scope :filter_detained, ->(detained) {
@@ -116,7 +120,8 @@ class Friend < ApplicationRecord
                                     filter_asylum_application_deadline_ending_after
                                     filter_asylum_application_deadline_ending_before
                                     filter_created_after
-                                    filter_created_before])
+                                    filter_created_before
+                                    filter_border_queue_number])
 
   def name
     "#{first_name} #{last_name}"
