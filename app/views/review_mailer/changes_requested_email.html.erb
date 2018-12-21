@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>
+      <%= @review.draft.friend.first_name %>'s <%= @review.draft.application.category %> application draft has recieved a review: <%= link_to @link_url, @link_url %>
+    </p>
+</html>

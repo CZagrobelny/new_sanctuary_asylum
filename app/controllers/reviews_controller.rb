@@ -20,7 +20,7 @@ class ReviewsController < ApplicationController
     if review.save
       draft.update(status: :changes_requested)
       draft.application.update(status: :changes_requested)
-      ReviewMailer.changes_requested(review).deliver_now
+      ReviewMailer.changes_requested_email(review).deliver_now
       flash[:success] = 'Review created.'
       render_friend_page
     else

@@ -16,7 +16,7 @@ RSpec.describe 'Regional Admin manages drafts', type: :feature do
   scenario 'approving a draft' do
     visit regional_admin_region_friend_path(region, friend)
     expect(ReviewMailer)
-      .to receive_message_chain(:application_approved, :deliver_now)
+      .to receive_message_chain(:application_approved_email, :deliver_now)
         .and_return(double('ReviewMailer', deliver: true))
 
     click_link 'Approve Draft'

@@ -10,7 +10,7 @@ RSpec.describe UserFriendAssociation, type: :model do
     let(:mailer) { double(deliver_now: true) }
 
     it 'sends email to remote lawyer' do
-      expect(FriendshipAssignmentMailer).to receive(:send_assignment).once.and_return(mailer)
+      expect(FriendshipAssignmentMailer).to receive(:send_assignment_email).once.and_return(mailer)
       UserFriendAssociation.create(user: user, friend: friend, remote: true)
     end
   end
