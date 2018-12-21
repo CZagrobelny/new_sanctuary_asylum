@@ -94,8 +94,8 @@ RSpec.describe ReviewMailer, type: :mailer do
                                     user_id: volunteer.id)
     end
 
-    it 'emails the regional admins and community volunteers associated with the friend' do
-      expect(mail.to).to eq [regional_admin.email, volunteer.email]
+    it 'emails the community volunteers associated with the friend' do
+      expect(mail.to).to eq [volunteer.email]
     end
 
     it 'does not email community admins' do
@@ -109,8 +109,8 @@ RSpec.describe ReviewMailer, type: :mailer do
     end
 
     it 'renders the body' do
-      expect(mail.html_part.body.raw_source).to include "#{friend.first_name}'s #{draft.application.category} application draft has recieved a review: <a href=\"#{community_friend_url(friend.community.slug, friend)}\">#{community_friend_url(friend.community.slug, friend)}</a>"
-      expect(mail.text_part.body.raw_source).to include "#{friend.first_name}'s #{draft.application.category} application draft has recieved a review: #{community_friend_url(friend.community.slug, friend)}"
+      expect(mail.html_part.body.raw_source).to include "#{friend.first_name}'s #{draft.application.category} application draft has recieved a review: <a href=\"#{community_friend_draft_review_url(friend.community.slug, friend, review.draft, review)}\">#{community_friend_draft_review_url(friend.community.slug, friend, review.draft, review)}</a>"
+      expect(mail.text_part.body.raw_source).to include "#{friend.first_name}'s #{draft.application.category} application draft has recieved a review: #{community_friend_draft_review_url(friend.community.slug, friend, review.draft, review)}"
     end
   end
 
@@ -130,8 +130,8 @@ RSpec.describe ReviewMailer, type: :mailer do
                                     user_id: volunteer.id)
     end
 
-    it 'emails the regional admins and community volunteers associated with the friend' do
-      expect(mail.to).to eq [regional_admin.email, volunteer.email]
+    it 'emails the community volunteers associated with the friend' do
+      expect(mail.to).to eq [volunteer.email]
     end
 
     it 'does not email community admins' do
