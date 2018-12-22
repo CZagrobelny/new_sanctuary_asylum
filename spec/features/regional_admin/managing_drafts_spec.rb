@@ -8,6 +8,8 @@ RSpec.describe 'Regional Admin manages drafts', type: :feature do
   let(:friend) { create(:friend, community: community, region: region) }
   let(:application) { create(:application, friend: friend, status: 'in_review') }
   let!(:draft) { create(:draft, friend: friend, application: application) }
+  let!(:user_friend_association) { create(:user_friend_association, friend: friend, user: user)}
+  let(:user) { create(:user, :volunteer, community: community) }
 
   before do
     login_as(regional_admin)
