@@ -79,7 +79,9 @@ class DraftsController < ApplicationController
     draft.status = :approved
     application.status = :approved
     if draft.save && application.save
-      ReviewMailer.application_approved_email(application).deliver_now
+      if friend.users.where(user_friend_associations: { remote: false }).present?
+        ReviewMailer.application_approved_email(application).deliver_now
+      end
       flash[:success] = 'Draft approved.'
     else
       flash[:error] = 'There was an issue approving the draft.'
