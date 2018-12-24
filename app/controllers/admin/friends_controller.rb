@@ -111,6 +111,7 @@ class Admin::FriendsController < AdminController
       :bond_amount,
       :date_bonded_out,
       :bonded_out_by,
+      :city,
       :state,
       :date_foia_request_submitted,
       :foia_request_notes,

@@ -11,6 +11,7 @@
 <p><strong>Languages:  </strong><%= friend.languages.map(&:name).to_sentence %></p>
 <p><strong>Country of Origin:  </strong><%= Country.find(friend.country_id).name if friend.country_id.present? %></p>
 <p><strong>Zip Code: </strong><%= friend.zip_code if friend.zip_code.present? %></p>
+<p><strong>City: </strong><%= friend.city %></p>
 <p><strong>State: </strong><%= friend.state if friend.state.present? %></p>
 <p><strong>Date of Birth:  </strong><%= friend.date_of_birth.strftime('%m/%d/%y') if friend.date_of_birth.present? %></p>
 <p><strong>Status:  </strong><%= friend.status.try(:humanize) %></p>
