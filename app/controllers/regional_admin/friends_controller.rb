@@ -2,7 +2,7 @@ class RegionalAdmin::FriendsController < RegionalAdminController
   before_action :find_friend, only: [:show, :update]
 
   def index
-    @friends = current_region.friends.with_active_applications.order('last_name asc')
+    @friends = current_region.friends.with_active_applications.order('created_at desc')
   end
 
   def show; end
