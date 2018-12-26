@@ -43,7 +43,7 @@
       <div class='col-md-3 status <%= draft.status %>'>
         <%= draft.status_string %> <%= draft.updated_at.strftime('%m/%d/%Y') %>
       </div>
-      <% unless draft.application.approved? || draft.application.closed?  %>
+      <% unless draft.application.approved? || draft.application.closed? || draft.friend.region.border?  %>
         <div class='col-md-3'>
           <%= link_to 'Approve Draft', approve_community_friend_draft_path(@friend.community.slug, @friend, draft), class: 'btn btn-success', data: { confirm: 'Are you sure?  This will notify community admins and volunteers that the draft has been approved and cannot be undone.' } %>
         </div>

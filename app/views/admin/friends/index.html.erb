@@ -12,7 +12,11 @@
         <th>ID</th>
         <th>First Name</th>
         <th>Last Name</th>
-        <th>A#</th>
+        <% if current_region.border? %>
+          <th>Border Queue Number</th>
+        <% else %>
+          <th>A#</th>
+        <% end %>
         <th>Phone Number</th>
         <th>Created</th>
         <th>Actions</th>
@@ -24,7 +28,11 @@
           <td><%= friend.id %></td>
           <td><%= link_to friend.first_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>
           <td><%= link_to friend.last_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>
-          <td><%= friend.a_number %></td>
+          <% if current_region.border? %>
+            <td><%= friend.border_queue_number %></td>
+          <% else %>
+            <td><%= friend.a_number %></td>
+          <% end %>
           <td><%= friend.phone %></td>
           <td><%= friend.created_at.strftime('%m/%d/%y') %></td>
           <td>

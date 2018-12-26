@@ -112,6 +112,20 @@ class Friend < ApplicationRecord
     where('created_at <= ?', string_to_end_of_date(date))
   }
 
+  scope :sorted_by, lambda { |sort_option|
+    # extract the sort direction from the param value.
+    direction = (sort_option =~ /desc$/) ? 'desc' : 'asc'
+    case sort_option.to_s
+    when /^created_at_/
+      # Simple sort on the created_at column.
+      order("friends.created_at #{ direction }")
+    when /^border_queue_number/
+      order("friends.border_queue_number #{ direction }")
+    else
+      raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
+    end
+  }
+
   filterrific(default_filter_params: {},
               available_filters: %i[filter_first_name
                                     filter_last_name
@@ -121,7 +135,19 @@ class Friend < ApplicationRecord
                                     filter_asylum_application_deadline_ending_before
                                     filter_created_after
                                     filter_created_before
-                                    filter_border_queue_number])
+                                    filter_border_queue_number
+                                    sorted_by])
+
+  # This method provides select options for the `sorted_by` filter select input.
+  # It is called in the controller as part of `initialize_filterrific`.
+  def self.options_for_sorted_by
+    [
+      ['Newest', 'created_at_desc'],
+      ['Oldest', 'created_at_asc'],
+      ['Border Queue Number (Low to High)', 'border_queue_number_asc'],
+      ['Border Queue Number (High to Low)', 'border_queue_number_desc']
+    ]
+  end
 
   def name
     "#{first_name} #{last_name}"

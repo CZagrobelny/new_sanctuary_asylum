@@ -14,4 +14,9 @@ class Region < ApplicationRecord
   def regional_admins
     users.where(role: 'admin')
   end
+
+  # A gross hack we need for features that should only be turned on for the BORDER region
+  def border?
+    name == 'border'
+  end
 end

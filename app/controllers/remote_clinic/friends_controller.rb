@@ -7,15 +7,11 @@ class RemoteClinic::FriendsController < ApplicationController
   end
 
   def show
-    # Commented out when the decision was made to not do limited scope for the Tijuana clinic
-    # This will likely be used in future remote clinics
-    # if !release
-    #   redirect_to new_remote_clinic_friend_release_path(friend)
-    # else
-    #   render
-    # end
-    friend
-    render
+    if !release && !friend.region.border?
+      redirect_to new_remote_clinic_friend_release_path(friend)
+    else
+      render
+    end
   end
 
   private

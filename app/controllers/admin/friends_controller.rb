@@ -2,10 +2,11 @@ class Admin::FriendsController < AdminController
   def index
     @filterrific = initialize_filterrific(Friend,
                                           params[:filterrific],
-                                          default_filter_params: {},
+                                          default_filter_params: { sorted_by: 'created_at_desc' },
+                                          select_options: { sorted_by: Friend.options_for_sorted_by },
                                           persistence_id: false)
 
-    @friends = current_community.friends.filterrific_find(@filterrific).order(:first_name).paginate(page: params[:page])
+    @friends = current_community.friends.filterrific_find(@filterrific).paginate(page: params[:page])
   end
 
   def new
