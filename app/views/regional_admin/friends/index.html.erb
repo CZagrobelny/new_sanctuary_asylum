@@ -1,4 +1,16 @@
 <h1><%= current_region.name.upcase %> Friends with Active Applications</h1>
+
+<%= form_for_filterrific @filterrific, html: { id: 'filterrific-no-ajax-auto-submit', class: 'well' }  do |f| %>
+  <div class='form-group'>
+    <%= f.label :filter_application_status, 'Application Status' %>
+    <%= f.select :filter_application_status, @filterrific.select_options[:filter_application_status] %>
+  </div>
+
+  <div>
+    <%= submit_tag 'Search'%>
+  </div>
+<% end %>
+
 <div id='friends-with-active-applications'>
   <% @friends.group_by { |f| f.community_id }.each do |community_id, community_friends| %>
     <h3><%= Community.find(community_id).name %></h3>

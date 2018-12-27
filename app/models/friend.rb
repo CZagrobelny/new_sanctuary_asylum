@@ -112,6 +112,15 @@ class Friend < ApplicationRecord
     where('created_at <= ?', string_to_end_of_date(date))
   }
 
+  scope :filter_application_status, ->(status) {
+    if status == 'all_active'
+      status = %i[in_review changes_requested approved]
+    end
+    joins(:applications)
+    .distinct
+    .where(applications: { status: status })
+  }
+
   scope :sorted_by, lambda { |sort_option|
     # extract the sort direction from the param value.
     direction = (sort_option =~ /desc$/) ? 'desc' : 'asc'
@@ -136,16 +145,26 @@ class Friend < ApplicationRecord
                                     filter_created_after
                                     filter_created_before
                                     filter_border_queue_number
+                                    filter_application_status
                                     sorted_by])
 
   # This method provides select options for the `sorted_by` filter select input.
-  # It is called in the controller as part of `initialize_filterrific`.
   def self.options_for_sorted_by
     [
       ['Newest', 'created_at_desc'],
       ['Oldest', 'created_at_asc'],
       ['Border Queue Number (Low to High)', 'border_queue_number_asc'],
       ['Border Queue Number (High to Low)', 'border_queue_number_desc']
+    ]
+  end
+
+  # This method provides select options for the `application_status` filter select input.
+  def self.options_for_application_status_filter_by
+    [
+      ['All', 'all_active'],
+      ['In Review', 'in_review'],
+      ['Changes Requested', 'changes_requested'],
+      ['Approved', 'approved']
     ]
   end
 
