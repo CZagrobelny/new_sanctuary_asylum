@@ -32,7 +32,7 @@ class Friend < ApplicationRecord
                      approved
                      denied].map { |status| [status.titlecase, status] }
 
-  BORDER_CROSSING_STATUSES = %w[ready_to_cross successfully_crossed].map { |status| [status.titlecase, status] }
+  BORDER_CROSSING_STATUSES = %w[ready_to_cross detained_while_crossing successfully_crossed].map { |status| [status.titlecase, status] }
 
   ASYLUM_APPLICATION_DEADLINE = 1.year
 
