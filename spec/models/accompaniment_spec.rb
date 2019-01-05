@@ -8,10 +8,11 @@ RSpec.describe Accompaniment, type: :model do
   it { is_expected.to validate_presence_of :user_id }
   it { is_expected.to validate_presence_of :activity_id }
 
-  describe '.limit_for_family_court validation' do
+  describe '.volunteer_cap_not_exceeded validation' do
     let(:user) { create :user }
-    context 'the activity is family_court' do
-      let!(:activity) { create :activity, :family_court }
+    context 'the activity has a volunteer cap' do
+      let!(:activity_type) { create :activity_type, :with_cap_3 }
+      let!(:activity) { create :activity, activity_type: activity_type }
 
       context 'there are already 3 accompaniments for the activity' do
         let!(:accompaniments) do
@@ -23,6 +24,7 @@ RSpec.describe Accompaniment, type: :model do
         end
 
         it 'does NOT save the accompaniment' do
+          activity.activity_type = activity_type
           expect{ new_accompaniment.save }.not_to change(Accompaniment, :count)
         end
 
@@ -35,8 +37,6 @@ RSpec.describe Accompaniment, type: :model do
       end
 
       context 'there are no accompaniments for the activity' do
-        let!(:activity) { create :activity, :family_court }
-
         let(:new_accompaniment) do
           build :accompaniment, activity: activity.reload, user: user
         end
@@ -48,7 +48,7 @@ RSpec.describe Accompaniment, type: :model do
       end
     end
 
-    context 'the activity is not family_court' do
+    context 'the activity does not have a volunteer cap' do
       let!(:activity) { create :activity }
 
       context 'there are already 3 accompaniments for the activity' do

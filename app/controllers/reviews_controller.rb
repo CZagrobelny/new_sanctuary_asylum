@@ -20,7 +20,9 @@ class ReviewsController < ApplicationController
     if review.save
       draft.update(status: :changes_requested)
       draft.application.update(status: :changes_requested)
-      ReviewMailer.changes_requested(review).deliver_now
+      if friend.users.where(user_friend_associations: { remote: false }).present?
+        ReviewMailer.changes_requested_email(review).deliver_now
+      end
       flash[:success] = 'Review created.'
       render_friend_page
     else

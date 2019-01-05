@@ -50,7 +50,7 @@ class Admin::Friends::ActivitiesController < AdminController
 
   def activity_params
     params.require(:activity).permit(
-      :event,
+      :activity_type_id,
       :location_id,
       :friend_id,
       :judge_id,

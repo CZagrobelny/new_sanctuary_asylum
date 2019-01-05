@@ -22,8 +22,8 @@ module AccompanimentHelper
   end
 
   def volunteers_needed(activity)
-    if activity.event == 'family_court'
-      pluralize(3 - activity.volunteer_accompaniments.count, 'volunteer') + ' needed.'
+    if activity.activity_type.cap.present?
+      pluralize(activity.activity_type.cap - activity.volunteer_accompaniments.count, 'volunteer') + ' needed.'
     end
   end
 

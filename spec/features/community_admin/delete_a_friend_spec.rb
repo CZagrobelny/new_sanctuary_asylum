@@ -15,7 +15,7 @@ RSpec.describe 'Admin deletes a friend record', type: :feature, js: :true do
   end
 
   describe 'when I delete a Friend record' do
-    scenario 'with no search terms' do
+    scenario 'I visit the community admin page' do
       visit community_admin_friends_path(community)
       expect(page).to have_content('Deleteable')
       expect(page).to have_content('Persistent')
@@ -29,23 +29,6 @@ RSpec.describe 'Admin deletes a friend record', type: :feature, js: :true do
       expect(page).to have_content('Friend record destroyed')
       expect(page).to_not have_content('Deleteable')
       expect(page).to have_content('Persistent')
-    end
-
-    scenario 'with search terms' do
-      visit community_admin_friends_path(community, query: 'Deleteable')
-
-      expect(page).to have_content('Deleteable')
-      expect(page).to_not have_content('Persistent')
-
-      within("tr#friend-#{deleteable.id}") do
-        # Delete is in Bootstrap dropdown so open that first
-        find('button').click
-        click_link 'Delete'
-      end
-
-      expect(page).to have_content('Friend record destroyed')
-      expect(page).to_not have_content('Deleteable')
-      expect(page).to_not have_content('Persistent')
     end
   end
 end

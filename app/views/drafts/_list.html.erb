@@ -1,4 +1,4 @@
-<% if friend.releases.any? || current_community.primary? %>
+<% if friend.releases.any? || current_community.primary? || current_region.id == 2 %>
   <%= render 'drafts/friend_released', friend: friend %>
 <% else %>
   <%= render 'drafts/friend_needs_release', friend: friend %>

@@ -11,10 +11,12 @@
 <p><strong>Languages:  </strong><%= friend.languages.map(&:name).to_sentence %></p>
 <p><strong>Country of Origin:  </strong><%= Country.find(friend.country_id).name if friend.country_id.present? %></p>
 <p><strong>Zip Code: </strong><%= friend.zip_code if friend.zip_code.present? %></p>
+<p><strong>City: </strong><%= friend.city %></p>
 <p><strong>State: </strong><%= friend.state if friend.state.present? %></p>
 <p><strong>Date of Birth:  </strong><%= friend.date_of_birth.strftime('%m/%d/%y') if friend.date_of_birth.present? %></p>
 <p><strong>Status:  </strong><%= friend.status.try(:humanize) %></p>
 <p><strong>Date of Entry:  </strong><%= friend.date_of_entry.strftime('%m/%d/%y') if friend.date_of_entry.present? %></p>
+<p><strong>Border Queue Number:  </strong><%= friend.border_queue_number %></p>
 <p><strong>Border Crossing Status:  </strong><%= friend.border_crossing_status.try(:titlecase) %></p>
 <p><strong>Notes:  </strong><%= friend.notes %></p>
 
@@ -31,7 +33,7 @@
   <h3>Activities</h3>
   <% friend.activities.order('occur_at desc').each do |activity| %>
     <p>
-      <strong>What:  </strong><%= activity.event.humanize %><br>
+      <strong>What:  </strong><%= activity.activity_type.name.titlecase %><br>
       <strong>When:  </strong><%= activity.occur_at.strftime("%I:%M %p, %A, %B %-d, %Y") %><br>
       <strong>Where:  </strong><%= activity.location.name  if activity.location.present? %><br>
       <strong>Volunteers:  </strong><%= activity.users.map(&:first_name).to_sentence %>

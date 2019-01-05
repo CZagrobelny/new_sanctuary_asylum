@@ -7,8 +7,9 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
   let(:region) { community.region }
   let(:team_leader) { create(:user, :accompaniment_leader, community: community) }
   let!(:activity) { create(:activity, occur_at: 1.week.from_now, region: region, confirmed: true) }
+  let!(:activity_type) { create :activity_type }
   let!(:accompaniment) { create(:accompaniment, user: team_leader, activity: activity) }
-  let(:accompaniment_listing) { "#{activity.event.humanize} for #{activity.friend.first_name} at #{activity.location.name}" }
+  let(:accompaniment_listing) { "#{activity.activity_type.name.titlecase} for #{activity.friend.first_name} at #{activity.location.name}" }
   before do
     login_as(team_leader)
   end
@@ -20,6 +21,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
     end
 
     it 'displays full details of upcoming accompaniments' do
+      activity.activity_type = activity_type
       expect(page).to have_content(accompaniment_listing)
     end
 

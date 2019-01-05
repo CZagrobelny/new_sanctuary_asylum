@@ -1,4 +1,6 @@
 class Friend < ApplicationRecord
+  include PgSearch
+
   enum ethnicity: %i[white black hispanic asian south_asian caribbean indigenous other]
   enum gender: %i[male female awesome]
 
@@ -74,14 +76,52 @@ class Friend < ApplicationRecord
     users.where(user_friend_associations: { remote: true })
   end
 
-  scope :asylum_deadlines_ending, ->(date_floor, date_ceiling) {
-    where('date_of_entry BETWEEN ? AND ?', date_floor - ASYLUM_APPLICATION_DEADLINE,
-      date_ceiling - ASYLUM_APPLICATION_DEADLINE)
+  pg_search_scope :filter_first_name, against: :first_name,
+                                      using: {tsearch: {:prefix => true}}
+
+  pg_search_scope :filter_last_name, against: :last_name,
+                                     using: {tsearch: {:prefix => true}}
+
+  scope :filter_a_number, ->(number) {
+    where(a_number: number)
   }
 
-  scope :created_at, ->(date_floor, date_ceiling) {
-    where('created_at BETWEEN ? AND ?', date_floor, date_ceiling)
+  scope :filter_border_queue_number, ->(number) {
+    where(border_queue_number: number)
   }
+
+  scope :filter_detained, ->(detained) {
+    where(status: 'in_detention') if detained == 1
+  }
+
+  scope :filter_asylum_application_deadline_ending_after, ->(date) {
+    # if the date - 1.year is smaller than the date_of_entry
+    where('date_of_entry >= ?', string_to_beginning_of_date(date) - ASYLUM_APPLICATION_DEADLINE)
+  }
+
+  scope :filter_asylum_application_deadline_ending_before, ->(date) {
+    # if the date - 1.year is greater than the date_of_entry
+    where('date_of_entry <= ?', string_to_end_of_date(date) - ASYLUM_APPLICATION_DEADLINE)
+  }
+
+  scope :filter_created_after, ->(date) {
+    where('created_at >= ?', string_to_beginning_of_date(date))
+  }
+
+  scope :filter_created_before, ->(date) {
+    where('created_at <= ?', string_to_end_of_date(date))
+  }
+
+  filterrific(default_filter_params: {},
+              available_filters: %i[filter_first_name
+                                    filter_last_name
+                                    filter_a_number
+                                    filter_detained
+                                    filter_asylum_application_deadline_ending_after
+                                    filter_asylum_application_deadline_ending_before
+                                    filter_created_after
+                                    filter_created_before
+                                    filter_border_queue_number])
 
   def name
     "#{first_name} #{last_name}"
@@ -103,6 +143,14 @@ class Friend < ApplicationRecord
 
   def detained?
     status == 'in_detention'
+  end
+
+  def self.string_to_beginning_of_date(date)
+    date.to_str.to_date.beginning_of_day
+  end
+
+  def self.string_to_end_of_date(date)
+    date.to_str.to_date.end_of_day
   end
 
   private

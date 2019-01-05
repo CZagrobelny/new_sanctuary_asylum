@@ -39,9 +39,9 @@ RSpec.describe Admin::Friends::ActivitiesController, type: :controller do
     describe 'PUT #update' do
       let!(:activity) { create :activity, region: community.region, friend: friend }
       it 'allows access' do
-        activity.event = 'individual_hearing'
+        activity.notes = 'test test test'
         put :update, params: { community_slug: community.slug, friend_id: friend.id, id: activity.id, activity: activity.attributes }, format: 'js', xhr: true
-        expect(activity.event).to eq 'individual_hearing'
+        expect(activity.notes).to eq 'test test test'
       end
     end
 

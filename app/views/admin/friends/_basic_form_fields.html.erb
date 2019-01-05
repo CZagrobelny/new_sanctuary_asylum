@@ -91,6 +91,13 @@
 </div>
 
 <div class='row form-group'>
+  <%= f.label :city,'City', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.text_field :city, class: 'form-control' %>
+  </div>
+</div>
+
+<div class='row form-group'>
   <%= f.label :state, 'State', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
     <%= f.select :state, us_states_options(), {}, { class: 'form-control' } %>
@@ -115,6 +122,13 @@
   <%= f.label :date_of_entry, 'Date of Entry', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
     <%= f.date_select :date_of_entry, { start_year: Date.current.year, end_year: 1930, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :border_queue_number, 'Border Queue Number', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.text_field :border_queue_number, class: 'form-control' %>
   </div>
 </div>
 

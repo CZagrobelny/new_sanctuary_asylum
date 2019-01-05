@@ -127,35 +127,109 @@ RSpec.describe Friend, type: :model do
     end
   end
 
-  describe 'friends with their 1 year asylum application deadlines falling between two future boundaries, inclusive' do
-    context '.asylum_deadlines_ending scope' do
-      it 'should return only the friends whose deadlines fall within the two boundaries, inclusive' do
-        # Lookup boundaries
-        deadlines_ending_floor = 2.months.from_now.beginning_of_day
-        deadlines_ending_ceiling = deadlines_ending_floor + 1.month
+  describe '#filter_a_number' do
+    let(:friend) { create :friend }
 
-        # date_of_entry fixture data
-        earliest_date_of_entry = deadlines_ending_floor - 1.year
-        latest_date_of_entry = deadlines_ending_ceiling - 1.year
+    it 'returns the friend with the a number' do
+      expect(Friend.filter_a_number(friend.a_number)).to eq [friend]
+    end
+  end
 
-        within_boundaries = [
-          create(:friend, date_of_entry: earliest_date_of_entry), # inclusive (ON the lower boundary)
-          create(:friend, date_of_entry: earliest_date_of_entry + 1.day),
-          create(:friend, date_of_entry: earliest_date_of_entry + 2.weeks),
-          create(:friend, date_of_entry: latest_date_of_entry - 1.day),
-          create(:friend, date_of_entry: latest_date_of_entry) # inclusive (ON the upper boundary)
-        ]
+  describe '#filter_detained' do
+    let(:detained_friend) { create :friend, status: 'in_detention' }
+    let(:friend) { create :friend }
 
-        outside_boundaries = [
-          create(:friend, date_of_entry: earliest_date_of_entry - 1.week),
-          create(:friend, date_of_entry: earliest_date_of_entry - 1.day),
-          create(:friend, date_of_entry: latest_date_of_entry + 1.day),
-          create(:friend, date_of_entry: latest_date_of_entry + 1.week)
-        ]
+    it 'returns the friend that is in detention if 1' do
+      expect(Friend.filter_detained(1)).to eq [detained_friend]
+    end
 
-        friends = Friend.asylum_deadlines_ending(deadlines_ending_floor, deadlines_ending_ceiling)
-        expect(friends).to eq(within_boundaries)
+    it 'returns all friends if not 1' do
+      expect(Friend.filter_detained(0)).to eq [detained_friend, friend]
+    end
+  end
+
+  describe '#filter_first_name' do
+    let(:friend) { create :friend, first_name: "Cat"}
+    
+    it 'returns the friend with the first name' do
+      expect(Friend.filter_first_name(friend.first_name)).to eq [friend]
+    end
+  end
+
+  describe '#with_last_name' do
+    let(:friend) { create :friend, last_name: "Power" }
+
+    it 'returns the friend with the last name' do
+      expect(Friend.filter_last_name(friend.last_name)).to eq [friend]
+    end
+  end
+
+  describe '#filter_asylum_application_deadline_ending_after' do
+    let(:friend) { create :friend, date_of_entry: Time.now - 1.week }
+
+    context 'the filter is before the friend\'s deadline' do
+      let(:date) { friend.date_of_entry - 1.year }
+      let(:safe_buffer_date) { ActiveSupport::SafeBuffer.new(date.to_s) }
+
+      it 'returns the friend' do
+        expect(Friend.filter_asylum_application_deadline_ending_after(safe_buffer_date))
+          .to eq [friend] 
+      end
+    end 
+
+    context 'the filter is after the friend\'s deadline' do
+      let(:date) { friend.date_of_entry + 1.year + 1.day }
+      let(:safe_buffer_date) { ActiveSupport::SafeBuffer.new(date.to_s) }
+
+      it 'doesn\'t return the friend' do
+        expect(Friend.filter_asylum_application_deadline_ending_after(safe_buffer_date))
+          .to eq [] 
       end
     end
+  end
+
+  describe '#filter_asylum_application_deadline_ending_before' do
+    let(:friend) { create :friend, date_of_entry: Time.now - 1.week }
+    let(:safe_buffer_date) { ActiveSupport::SafeBuffer.new(date.to_s) }
+
+    context 'the filter is before the friend\'s deadline' do
+      let(:date) { friend.date_of_entry - 1.year }
+
+      it 'doesn\'t return the friend' do
+        expect(Friend.filter_asylum_application_deadline_ending_before(safe_buffer_date))
+          .to eq [] 
+      end
+    end 
+
+    context 'the filter is after the friend\'s deadline' do
+      let(:date) { friend.date_of_entry + 1.year }
+
+      it 'returns the friend' do
+        expect(Friend.filter_asylum_application_deadline_ending_before(safe_buffer_date))
+          .to eq [friend] 
+      end
+    end
+  end
+
+  describe '#filter_created_after' do
+    let(:friend) { create :friend }
+    let(:safe_buffer_date) { ActiveSupport::SafeBuffer.new(date.to_s) }
+
+    context 'the filter is for before the friend was created' do
+      let(:date) { friend.created_at }
+
+      it 'returns the friend' do
+        expect(Friend.filter_created_after(safe_buffer_date)).to eq [friend]
+      end
+    end
+
+    context 'the filter is for after the friend was created' do
+      let(:date) { friend.created_at + 1.year }
+
+      it 'doesn\'t return the friend' do
+        expect(Friend.filter_created_after(safe_buffer_date)).to eq []
+      end
+    end
+
   end
 end
