@@ -18,8 +18,8 @@
       <%= f.text_field(:filter_email) %>
     </div>
     <div class='row'>
-        <%= f.label :with_volunteer_type, 'Volunteer Type' %>
-        <%= f.select(:with_volunteer_type, @filterrific.select_options[:with_volunteer_type], { include_blank: '- Any -' }) %>
+        <%= f.label :filter_volunteer_type, 'Volunteer Type' %>
+        <%= f.select(:filter_volunteer_type, @filterrific.select_options[:filter_volunteer_type], { include_blank: '- Any -' }) %>
     </div>
 
 

@@ -5,7 +5,7 @@ class Admin::UsersController < AdminController
       params[:filterrific],
       select_options: {
         sorted_by: User.options_for_sorted_by,
-        with_volunteer_type: User.volunteer_types.keys.map { |volunteer_type| [volunteer_type.humanize, volunteer_type] }
+        filter_volunteer_type: User.volunteer_types.keys.map { |volunteer_type| [volunteer_type.humanize, volunteer_type] }
       }
     )) or return
     @users = @filterrific.find.page(params[:page])

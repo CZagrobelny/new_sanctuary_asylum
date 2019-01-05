@@ -39,7 +39,7 @@ class User < ApplicationRecord
       filter_first_name
       filter_last_name
       filter_email
-      with_volunteer_type
+      filter_volunteer_type
       sorted_by
 
     ]
@@ -74,24 +74,8 @@ class User < ApplicationRecord
     end
   }
 
-  scope :search_query, lambda { |query|
-  return nil  if query.blank?
-  terms = query.downcase.split(/\s+/)
-  terms = terms.map { |e|
-    (e.gsub('*', '%') + '%').gsub(/%+/, '%')
-  }
-  # configure number of OR conditions for provision
-  # of interpolation arguments. Adjust this if you
-  # change the number of OR conditions.
-  num_or_conds = 3
-  where(
-    terms.map { |term|
-      "(LOWER(users.first_name) LIKE ? OR LOWER(users.last_name) LIKE ? OR LOWER(users.email) LIKE ?)"
-    }.join(' AND '),
-    *terms.map { |e| [e] * num_or_conds }.flatten
-  )
-}
-  scope :with_volunteer_type, ->(volunteer_type) {
+
+  scope :filter_volunteer_type, ->(volunteer_type) {
     where(volunteer_type: volunteer_type)
   }
 
