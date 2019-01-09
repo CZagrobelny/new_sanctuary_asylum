@@ -1,14 +1,13 @@
 class Admin::UsersController < AdminController
   def index
-    (@filterrific = initialize_filterrific(
-      User,
-      params[:filterrific],
-      select_options: {
-        sorted_by: User.options_for_sorted_by,
-        filter_volunteer_type: User.volunteer_types.keys.map { |volunteer_type| [volunteer_type.humanize, volunteer_type] }
-      }
-    )) or return
+    @filterrific = initialize_filterrific(User,
+                                          params[:filterrific],
+                                          select_options: {
+                                            filter_volunteer_type: volunteer_type_options
+                                          })
+
     @users = @filterrific.find.page(params[:page])
+    
     respond_to do |format|
       format.html
       format.js
@@ -44,6 +43,12 @@ class Admin::UsersController < AdminController
   end
 
   private
+
+  def volunteer_type_options
+    User.volunteer_types.keys.map do |volunteer_type|
+       [volunteer_type.humanize, volunteer_type]
+     end
+  end
 
   def search
     Search.new(user_index_scope, params[:query], params[:page])

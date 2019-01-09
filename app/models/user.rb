@@ -45,13 +45,6 @@ class User < ApplicationRecord
     ]
   )
 
-  def self.options_for_sorted_by
-    [
-      ['Created at (newest first)', 'created_at_desc'],
-      ['Created at (oldest first)', 'created_at_asc']
-    ]
-  end
-
   def remote_clinic_friends
     friends.where(user_friend_associations: { remote: true })
   end
