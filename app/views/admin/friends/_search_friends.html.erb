@@ -36,7 +36,14 @@
       <%= f.text_field(:filter_border_queue_number) %>
     </div>
 
-    <div class='form-group col-md-7'>
+    <div class='form-group col-md-5'>
+      <%= f.label :filter_border_crossing_status, 'Border Crossing Status' %>
+      <%= f.select :filter_border_crossing_status, @filterrific.select_options[:filter_border_crossing_status], include_blank: true %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='form-group col-md-12'>
       <div>
         <%= f.label :sorted_by, 'Sorted by' %>
         <%= f.select :sorted_by, @filterrific.select_options[:sorted_by], { class: 'form-control' } %>

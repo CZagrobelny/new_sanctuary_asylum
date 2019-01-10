@@ -112,6 +112,10 @@ class Friend < ApplicationRecord
     where('created_at <= ?', string_to_end_of_date(date))
   }
 
+  scope :filter_border_crossing_status, ->(status) {
+    where(border_crossing_status: status)
+  }
+
   scope :filter_application_status, ->(status) {
     if status == 'all_active'
       status = %i[in_review changes_requested approved]
@@ -120,6 +124,7 @@ class Friend < ApplicationRecord
     .distinct
     .where(applications: { status: status })
   }
+
 
   scope :sorted_by, lambda { |sort_option|
     # extract the sort direction from the param value.
@@ -145,6 +150,7 @@ class Friend < ApplicationRecord
                                     filter_created_after
                                     filter_created_before
                                     filter_border_queue_number
+                                    filter_border_crossing_status
                                     filter_application_status
                                     sorted_by])
 
