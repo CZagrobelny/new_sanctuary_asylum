@@ -34,7 +34,6 @@ class User < ApplicationRecord
   scope :remote_lawyers, -> { where(remote_clinic_lawyer: true) }
 
   filterrific(
-    default_filter_params: { sorted_by: 'created_at_desc' },
     available_filters: %i[
       filter_first_name
       filter_last_name
