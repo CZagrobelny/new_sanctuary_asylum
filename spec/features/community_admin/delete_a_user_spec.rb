@@ -31,22 +31,5 @@ RSpec.describe 'Admin deletes a user record', type: :feature, js: :true do
       expect(page).to have_content('Persistent')
     end
 
-    scenario 'with search terms' do
-      fill_in id: 'query', with: "Deleteable"
-      find('#query').native.send_keys(:return)
-
-      expect(page).to have_content('Deleteable')
-      expect(page).to_not have_content('Persistent')
-
-      within("tr#user-#{deleteable.id}") do
-        # Delete is in Bootstrap dropdown so open that first
-        find('button').click
-        click_link 'Delete'
-      end
-
-      expect(page).to have_content('User record deleted')
-      expect(page).to_not have_content('Deleteable')
-      expect(page).to_not have_content('Persistent')
-    end
   end
 end
