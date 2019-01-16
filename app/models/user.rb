@@ -39,8 +39,6 @@ class User < ApplicationRecord
       filter_last_name
       filter_email
       filter_volunteer_type
-      sorted_by
-
     ]
   )
 
