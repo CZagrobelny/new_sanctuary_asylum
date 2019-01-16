@@ -6,8 +6,8 @@ class Admin::UsersController < AdminController
                                             filter_volunteer_type: volunteer_type_options
                                           })
 
-    @users = @filterrific.find.page(params[:page])
-    
+    @users = current_community.users.filterrific_find(@filterrific).paginate(page: params[:page])
+
     respond_to do |format|
       format.html
       format.js
