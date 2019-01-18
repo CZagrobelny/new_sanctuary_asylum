@@ -4,7 +4,8 @@ class Admin::UsersController < AdminController
                                           params[:filterrific],
                                           select_options: {
                                             filter_volunteer_type: volunteer_type_options
-                                          })
+                                          },
+                                          persistence_id: false)
 
     @users = current_community.users.filterrific_find(@filterrific).paginate(page: params[:page])
 
