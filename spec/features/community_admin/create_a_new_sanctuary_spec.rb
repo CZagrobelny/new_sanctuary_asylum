@@ -12,8 +12,8 @@ RSpec.describe 'Admin creates a new sanctuary', type: :feature do
     sanctuary_count = community.sanctuaries.count
     visit new_community_admin_sanctuary_path(community)
 
-    fill_in 'Name', with: FFaker::Name.name
-    fill_in 'Leader Name', with: FFaker::Name.name
+    fill_in 'Name', with: Faker::Name.name
+    fill_in 'Leader Name', with: Faker::Name.name
     click_button 'Save'
 
     expect(community.sanctuaries.count).to eq (sanctuary_count + 1)

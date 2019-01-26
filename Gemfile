@@ -13,7 +13,7 @@ gem 'chosen-rails'
 gem 'devise', '~> 4.2'
 gem 'devise_invitable', '~> 1.7.0'
 gem 'devise_security_extension', git: 'https://github.com/phatworx/devise_security_extension.git'
-gem 'ffaker', require: false
+gem 'faker', require: false
 gem 'filterrific', '~> 5.x'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'

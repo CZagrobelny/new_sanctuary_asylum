@@ -13,8 +13,8 @@ RSpec.describe 'Admin creates a new judge', type: :feature do
     judge_count = region.judges.count
     visit new_community_admin_judge_path(community)
 
-    fill_in 'First Name', with: FFaker::Name.first_name
-    fill_in 'Last Name', with: FFaker::Name.last_name
+    fill_in 'First Name', with: Faker::Name.first_name
+    fill_in 'Last Name', with: Faker::Name.last_name
     click_button 'Save'
 
     expect(region.judges.count).to eq (judge_count + 1)

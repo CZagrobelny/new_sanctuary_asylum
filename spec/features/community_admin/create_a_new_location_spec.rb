@@ -13,7 +13,7 @@ RSpec.describe 'Admin creates a new location', type: :feature do
     location_count = region.locations.count
     visit new_community_admin_location_path(community)
 
-    fill_in 'Name', with: FFaker::Name.name
+    fill_in 'Name', with: Faker::Name.name
     click_button 'Save'
 
     expect(region.locations.count).to eq (location_count + 1)

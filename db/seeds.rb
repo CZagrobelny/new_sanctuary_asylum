@@ -1,4 +1,4 @@
-require 'ffaker'
+require 'faker'
 
 ActiveRecord::Base.transaction do
   puts "Seeding database"
@@ -51,11 +51,11 @@ ActiveRecord::Base.transaction do
 
   #Some additional NYC volunteer users
   20.times do
-    User.create(first_name: FFaker::Name.first_name, last_name: FFaker::Name.last_name, email: FFaker::Internet.safe_email, community_id: nyc_community.id, phone: FFaker::PhoneNumber.short_phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 0, pledge_signed: true)
+    User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: nyc_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 0, pledge_signed: true)
   end
 
   10.times do
-    User.create(first_name: FFaker::Name.first_name, last_name: FFaker::Name.last_name, email: FFaker::Internet.safe_email, community_id: nyc_community.id, phone: FFaker::PhoneNumber.short_phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 2, role: 0, pledge_signed: true, remote_clinic_lawyer: false)
+    User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: nyc_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 2, role: 0, pledge_signed: true, remote_clinic_lawyer: false)
   end
   ## Long Island Users
 
@@ -71,32 +71,32 @@ ActiveRecord::Base.transaction do
 
   #Some additional Long Island volunteer users
   30.times do
-    User.create(first_name: FFaker::Name.first_name, last_name: FFaker::Name.last_name, email: FFaker::Internet.safe_email, community_id: long_island_community.id, phone: FFaker::PhoneNumber.short_phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 0, pledge_signed: true)
+    User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: long_island_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 0, pledge_signed: true)
   end
 
   # NYC Friends
   30.times do
-    Friend.create(first_name: FFaker::Name.first_name,
-      last_name: FFaker::Name.last_name,
+    Friend.create(first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
       a_number: rand.to_s[2..10],
       community_id: nyc_community.id,
       region_id: ny_region.id,
-      middle_name: FFaker::Name.first_name,
-      email: FFaker::Internet.safe_email,
-      phone: FFaker::PhoneNumber.short_phone_number,
+      middle_name: Faker::Name.first_name,
+      email: Faker::Internet.safe_email,
+      phone: Faker::PhoneNumber.phone_number,
       ethnicity: ['white', 'black', 'hispanic', 'asian', 'south_asian', 'caribbean', 'indigenous'].sample,
       gender: ['male', 'female', 'awesome'].sample,
-      date_of_birth: FFaker::Time.between(10.years.ago, 40.years.ago),
+      date_of_birth: Faker::Time.between(10.years.ago, 40.years.ago),
       status: 'not_in_deportation_proceedings',
-      date_of_entry: FFaker::Time.between(1.day.ago, 5.years.ago),
-      notes: FFaker::Lorem.paragraph,
+      date_of_entry: Faker::Time.between(1.day.ago, 5.years.ago),
+      notes: Faker::Lorem.paragraph,
       asylum_status: ['not_eligible', 'eligible', 'application_started'].sample,
-      asylum_notes: FFaker::Lorem.paragraph,
-      lawyer_notes: FFaker::Lorem.paragraph,
-      work_authorization_notes: FFaker::Lorem.paragraph,
+      asylum_notes: Faker::Lorem.paragraph,
+      lawyer_notes: Faker::Lorem.paragraph,
+      work_authorization_notes: Faker::Lorem.paragraph,
       work_authorization_status: ['not_eligible', 'eligible', 'application_started'].sample,
       sijs_status: ['not_eligible', 'eligible', 'application_started'].sample,
-      sijs_notes: FFaker::Lorem.paragraph,
+      sijs_notes: Faker::Lorem.paragraph,
       country_id: Country.order("RANDOM()").first.id,
       language_ids: [Language.order("RANDOM()").first.id],
       user_ids: User.where(community_id: nyc_community.id).order("RANDOM()").limit(5).map(&:id)
@@ -105,27 +105,27 @@ ActiveRecord::Base.transaction do
 
   # Long Islang Friends
   30.times do
-    friend = Friend.create(first_name: FFaker::Name.first_name,
-      last_name: FFaker::Name.last_name,
+    friend = Friend.create(first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
       a_number: rand.to_s[2..10],
       community_id: long_island_community.id,
       region_id: ny_region.id,
-      middle_name: FFaker::Name.first_name,
-      email: FFaker::Internet.safe_email,
-      phone: FFaker::PhoneNumber.short_phone_number,
+      middle_name: Faker::Name.first_name,
+      email: Faker::Internet.safe_email,
+      phone: Faker::PhoneNumber.phone_number,
       ethnicity: ['white', 'black', 'hispanic', 'asian', 'south_asian', 'caribbean', 'indigenous'].sample,
       gender: ['male', 'female', 'awesome'].sample,
-      date_of_birth: FFaker::Time.between(10.years.ago, 40.years.ago),
+      date_of_birth: Faker::Time.between(10.years.ago, 40.years.ago),
       status: 'not_in_deportation_proceedings',
-      date_of_entry: FFaker::Time.between(10.years.ago, 40.years.ago),
-      notes: FFaker::Lorem.paragraph,
+      date_of_entry: Faker::Time.between(10.years.ago, 40.years.ago),
+      notes: Faker::Lorem.paragraph,
       asylum_status: ['not_eligible', 'eligible', 'application_started'].sample,
-      asylum_notes: FFaker::Lorem.paragraph,
-      lawyer_notes: FFaker::Lorem.paragraph,
-      work_authorization_notes: FFaker::Lorem.paragraph,
+      asylum_notes: Faker::Lorem.paragraph,
+      lawyer_notes: Faker::Lorem.paragraph,
+      work_authorization_notes: Faker::Lorem.paragraph,
       work_authorization_status: ['not_eligible', 'eligible', 'application_started'].sample,
       sijs_status: ['not_eligible', 'eligible', 'application_started'].sample,
-      sijs_notes: FFaker::Lorem.paragraph,
+      sijs_notes: Faker::Lorem.paragraph,
       country_id: Country.order("RANDOM()").first.id,
       language_ids: [Language.order("RANDOM()").first.id],
       user_ids: User.where(community_id: long_island_community.id).order("RANDOM()").limit(5).map(&:id)
@@ -154,8 +154,8 @@ ActiveRecord::Base.transaction do
       event: ['check_in', 'master_calendar_hearing', 'individual_hearing'].sample,
       location_id: Location.first.id,
       judge_id: Judge.first.id,
-      occur_at: FFaker::Time.between(1.month.ago, 1.month.from_now),
-      notes: FFaker::Lorem.paragraph,
+      occur_at: Faker::Time.between(1.month.ago, 1.month.from_now),
+      notes: Faker::Lorem.paragraph,
       confirmed: true,
       region_id: ny_region.id)
   end
@@ -169,7 +169,7 @@ ActiveRecord::Base.transaction do
   30.times do |t|
     Event.create(location: Location.order("RANDOM()").first,
                 category: Event::CATEGORIES.sample[0],
-                date: FFaker::Time.between(2.months.ago, 2.months.from_now),
+                date: Faker::Time.between(2.months.ago, 2.months.from_now),
                 title: "Test Event #{t}",
                 community_id: nyc_community.id)
   end
@@ -182,26 +182,26 @@ ActiveRecord::Base.transaction do
   #Detentions
   Friend.all[0..25].each_with_index do |friend, index|
     is_released = index % 5 == 0
-    date_released = is_released ? FFaker::Time.between(1.month.from_now, 1.month.ago) : nil
+    date_released = is_released ? Faker::Time.between(1.month.from_now, 1.month.ago) : nil
     friend.detentions.create(
-      date_detained: FFaker::Time.between(8.months.ago, 7.months.ago),
+      date_detained: Faker::Time.between(8.months.ago, 7.months.ago),
       date_released: date_released,
       case_status: ['immigration_court', 'bia', 'circuit_court'].sample,
       location_id: Location.last.id,
-      notes: FFaker::Lorem.paragraph
+      notes: Faker::Lorem.paragraph
     )
   end
 
   #Sanctuaries
   10.times do
-    Sanctuary.create(name: FFaker::Company.name,
-                      address: FFaker::Address.street_address,
+    Sanctuary.create(name: Faker::Company.name,
+                      address: Faker::Address.street_address,
                       city: 'New York',
                       state: 'NY',
                       zip_code: '10001',
-                      leader_name:  FFaker::Name.name,
-                      leader_email: FFaker::Internet.safe_email,
-                      leader_phone_number: FFaker::PhoneNumber.short_phone_number,
+                      leader_name:  Faker::Name.name,
+                      leader_email: Faker::Internet.safe_email,
+                      leader_phone_number: Faker::PhoneNumber.phone_number,
                       community_id: nyc_community.id)
   end
 end

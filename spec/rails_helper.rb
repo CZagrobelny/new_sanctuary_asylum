@@ -8,7 +8,7 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'factory_girl_rails'
 require 'shoulda/matchers'
-require 'ffaker'
+require 'faker'
 
 require 'capybara/rspec'
 require 'capybara/rails'
@@ -19,7 +19,7 @@ require 'launchy'
 require 'support/wait_for_ajax'
 require 'support/select_from_chosen'
 
-
+Faker::Config.locale = 'en-US'
 Capybara.javascript_driver = :poltergeist
 Phantomjs.path
 Capybara.register_driver :poltergeist do |app|

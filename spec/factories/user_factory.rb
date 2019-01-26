@@ -1,11 +1,11 @@
 FactoryGirl.define do
   factory :user do
-    first_name { FFaker::Name.first_name }
-    last_name { FFaker::Name.last_name }
-    email { FFaker::Internet.safe_email }
-    phone { FFaker::PhoneNumber.short_phone_number }
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    email { Faker::Internet.safe_email }
+    phone { Faker::PhoneNumber.phone_number }
     volunteer_type { 1 }
-    password { (FFaker::Food.fruit + FFaker::PhoneNumber.area_code.to_s + FFaker::Food.herb_or_spice).delete(' ') }
+    password { (Faker::Food.fruits + Faker::PhoneNumber.area_code.to_s + Faker::Food.spice).delete(' ') }
     password_confirmation { password }
     invitation_accepted_at { Time.now }
     pledge_signed true
@@ -38,7 +38,7 @@ FactoryGirl.define do
   trait :unconfirmed do
     first_name nil
     last_name nil
-    email { FFaker::Internet.safe_email }
+    email { Faker::Internet.safe_email }
     phone nil
     volunteer_type nil
     password nil
