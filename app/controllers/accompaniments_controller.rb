@@ -19,9 +19,7 @@ class AccompanimentsController < ApplicationController
   def update
     accompaniment = Accompaniment.find(params[:id])
     if params['attending'] == 'true'
-      if accompaniment.update(accompaniment_params)
-        flash[:success] = 'RSVP updated successfully.'
-      end
+      flash[:success] = 'RSVP updated successfully.' if accompaniment.update(accompaniment_params)
     elsif accompaniment.destroy
       flash[:success] = 'Your RSVP was deleted.'
     end

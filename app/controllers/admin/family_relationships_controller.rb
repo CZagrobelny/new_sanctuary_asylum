@@ -15,9 +15,7 @@ class Admin::FamilyRelationshipsController < AdminController
 
   def destroy
     @family_relationship ||= FamilyRelationship.find(params[:id])
-    unless @family_relationship.destroy
-      flash[:error] = 'There was an issue removing this family relationship.'
-    end
+    flash[:error] = 'There was an issue removing this family relationship.' unless @family_relationship.destroy
     render_list
   end
 
@@ -27,7 +25,7 @@ class Admin::FamilyRelationshipsController < AdminController
     respond_to do |format|
       format.js do
         render file: 'admin/friends/family_relationships/modal',
-          locals: { friend: friend, family_relationship: @family_relationship }
+               locals: { friend: friend, family_relationship: @family_relationship }
       end
     end
   end
@@ -47,7 +45,7 @@ class Admin::FamilyRelationshipsController < AdminController
   def family_relationship_params
     params.require(:family_relationship).permit(
       :relation_id,
-      :relationship_type,
+      :relationship_type
     ).merge(friend_id: friend.id)
   end
 end

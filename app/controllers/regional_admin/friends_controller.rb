@@ -1,5 +1,5 @@
 class RegionalAdmin::FriendsController < RegionalAdminController
-  before_action :find_friend, only: [:show, :update]
+  before_action :find_friend, only: %i[show update]
 
   def index
     @filterrific = initialize_filterrific(Friend,
@@ -29,7 +29,7 @@ class RegionalAdmin::FriendsController < RegionalAdminController
 
   def user_friend_associations_params
     persisted_lawyer_ids = @friend.remote_clinic_lawyers.map(&:id)
-    lawyer_ids_params = friend_params[:user_ids].map{ |id| id.to_i if id.present? }.compact
+    lawyer_ids_params = friend_params[:user_ids].map { |id| id.to_i if id.present? }.compact
     added_lawyer_ids = lawyer_ids_params - persisted_lawyer_ids
     removed_lawyer_ids = persisted_lawyer_ids - lawyer_ids_params
 

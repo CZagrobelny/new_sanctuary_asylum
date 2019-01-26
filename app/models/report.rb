@@ -42,12 +42,14 @@ class Report
   def start_datetime
     return start_date if start_date
     return nil if start_date_invalid?
+
     Date.new(start_year, start_month, start_day)
   end
 
   def end_datetime
     return end_date if end_date
     return nil if end_date_invalid?
+
     Date.new(end_year, end_month, end_day)
   end
 

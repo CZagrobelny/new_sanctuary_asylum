@@ -1,8 +1,8 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_admin_or_access_to_friend, only: [:show]
-  before_action :require_regional_admin_or_remote_lawyer_with_access_to_friend, only: [:new, :create]
-  before_action :require_review_author, only: [:edit, :update]
+  before_action :require_regional_admin_or_remote_lawyer_with_access_to_friend, only: %i[new create]
+  before_action :require_review_author, only: %i[edit update]
 
   def new
     @review = draft.reviews.by_user(current_user).first
@@ -80,9 +80,7 @@ class ReviewsController < ApplicationController
   end
 
   def require_review_author
-    unless review.user == current_user
-      not_found
-    end
+    not_found unless review.user == current_user
   end
 
   def review_params

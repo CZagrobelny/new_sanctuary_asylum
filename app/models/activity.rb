@@ -43,20 +43,20 @@ class Activity < ApplicationRecord
   }
 
   scope :for_time_confirmed, ->(period_begin, period_end) {
-                                  accompaniment_eligible
-                                  .confirmed.by_dates(period_begin, period_end)
-                                  .order(occur_at: 'asc')
+                               accompaniment_eligible
+                                 .confirmed.by_dates(period_begin, period_end)
+                                 .order(occur_at: 'asc')
                              }
 
   scope :for_time_unconfirmed, ->(period_begin, period_end) {
-                                   accompaniment_eligibile
+                                 accompaniment_eligibile
                                    .confirmed.by_dates(period_begin, period_end)
                                    .order(occur_at: 'desc')
                                }
   def accompaniment_limit_met?
     !!activity_type &&
-    !!activity_type.cap &&
-    volunteer_accompaniments.count >= activity_type.cap
+      !!activity_type.cap &&
+      volunteer_accompaniments.count >= activity_type.cap
   end
 
   def start_time

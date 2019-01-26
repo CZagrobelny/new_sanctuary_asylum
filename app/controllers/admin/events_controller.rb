@@ -36,6 +36,7 @@ class Admin::EventsController < AdminController
   def destroy
     @event = current_community.events.find(params[:id])
     return unless @event.destroy
+
     flash[:success] = 'Event deleted.'
     redirect_to community_admin_events_path(current_community.slug)
   end

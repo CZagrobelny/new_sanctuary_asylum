@@ -15,6 +15,7 @@ gem 'devise_invitable', '~> 1.7.0'
 gem 'devise_security_extension', git: 'https://github.com/phatworx/devise_security_extension.git'
 gem 'faker', require: false
 gem 'filterrific', '~> 5.x'
+gem 'geography_helper'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0', '>= 6.0.1'
@@ -34,7 +35,6 @@ gem 'skylight'
 gem 'textacular', '~> 5.0'
 gem 'turbolinks', '~> 5.x'
 gem 'will_paginate', '~> 3.1.0'
-gem 'geography_helper'
 
 group :assets do
   gem 'coffee-rails', '~> 4.1.0'

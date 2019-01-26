@@ -28,8 +28,8 @@ module AccompanimentHelper
   end
 
   def attending_summary(activity)
-    attending = activity.accompaniment_leader_accompaniments.map{ |accompaniment| accompaniment.user.first_name }
+    attending = activity.accompaniment_leader_accompaniments.map { |accompaniment| accompaniment.user.first_name }
     attending << pluralize(activity.volunteer_accompaniments.count, 'volunteer')
-    "(#{ attending.join(', ') })"
+    "(#{attending.join(', ')})"
   end
 end

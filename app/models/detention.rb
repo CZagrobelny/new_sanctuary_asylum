@@ -7,6 +7,7 @@ class Detention < ApplicationRecord
   def display_case_status
     return unless case_status
     return other_case_status if case_status == 'other'
+
     case_status.titlecase
   end
 end
