@@ -46,13 +46,19 @@ class Activity < ApplicationRecord
                                   accompaniment_eligible
                                   .confirmed.by_dates(period_begin, period_end)
                                   .order(occur_at: 'asc')
-                             }
+
+  scope :for_next_month,  ->(events, month) {
+                            by_event(events)
+                              .by_dates(month.beginning_of_month,
+                                        month.end_of_monght)
+                          }
 
   scope :for_time_unconfirmed, ->(period_begin, period_end) {
                                    accompaniment_eligibile
                                    .confirmed.by_dates(period_begin, period_end)
                                    .order(occur_at: 'desc')
                                }
+
   def accompaniment_limit_met?
     !!activity_type &&
     !!activity_type.cap &&
