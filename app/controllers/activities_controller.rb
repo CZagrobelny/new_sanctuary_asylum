@@ -5,7 +5,8 @@ class ActivitiesController < ApplicationController
 
   def index
     week1, week2 = DatesHelper.two_weeks
-    if listed_activities_are_at_end_of_month(week2) and next_month_has_posted_activities(week2)
+
+    if listed_activities_are_at_end_of_month(week1, week2) and next_month_has_posted_activities(week2)
       flash[:success] = "Accompaniments posted for next month! Click 'Next' in the calendar to view future accompaniments."
     end
     @upcoming_activities = current_region.activities
@@ -15,14 +16,11 @@ class ActivitiesController < ApplicationController
 
   private
 
-  def listed_activities_are_at_end_of_month(week2)
-    week2.include?(week2.end.end_of_month)
+  def listed_activities_are_at_end_of_month(week1, week2)
+    week1.include?(week1.begin.end_of_month) || week2.include?(week2.begin.end_of_month)
   end
 
   def next_month_has_posted_activities(week2)
-    next_month_activities = current_region.activities.for_next_month(Activity::ACCOMPANIMENT_ELIGIBLE_EVENTS,
-                                                                      week2.end.next_month)
-    
-    next_month_activities.any?
+    current_region.activities.for_time_confirmed(week2.begin.beginning_of_month, week2.end).any?
   end
 end
