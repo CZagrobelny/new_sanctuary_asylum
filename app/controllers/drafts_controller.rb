@@ -11,25 +11,23 @@ class DraftsController < ApplicationController
   end
 
   def create
-    begin
-      ActiveRecord::Base.transaction do
-        @application = friend.applications.find_or_initialize_by(category: application_params[:category])
-        @application.save!
-        @draft = application.drafts.new(draft_params.merge(friend: friend))
-        @draft.save!
-      end
-      flash[:success] = 'Application draft saved.'
-      render_document_list
-    rescue StandardError => e
-      @draft ||= application.drafts.new(draft_params.merge(friend: friend))
-      flash.now[:error] = 'Application draft not saved.'
-      render :new
+    ActiveRecord::Base.transaction do
+      @application = friend.applications.find_or_initialize_by(category: application_params[:category])
+      @application.save!
+      @draft = application.drafts.new(draft_params.merge(friend: friend))
+      @draft.save!
     end
+    flash[:success] = 'Application draft saved.'
+    render_document_list
+  rescue StandardError => e
+    @draft ||= application.drafts.new(draft_params.merge(friend: friend))
+    flash.now[:error] = 'Application draft not saved.'
+    render :new
   end
 
   def edit
     if draft.reviews.present?
-      flash[:alert] = "This draft has already been reviewed and can not be edited. Please submit a new draft."
+      flash[:alert] = 'This draft has already been reviewed and can not be edited. Please submit a new draft.'
       render_document_list
     else
       draft
@@ -120,38 +118,30 @@ class DraftsController < ApplicationController
   end
 
   def update_draft_and_application_assignment
-    begin
-      if application.category == application_params[:category]
-        draft.update(draft_params)
-      else
-        ActiveRecord::Base.transaction do
-          old_application = application
-          @application = friend.applications.find_or_initialize_by(category: application_params[:category])
-          application.save!
-          draft.update(draft_params.merge(application_id: application.id))
-          if old_application.drafts.empty?
-            old_application.destroy!
-          end
-        end
+    if application.category == application_params[:category]
+      draft.update(draft_params)
+    else
+      ActiveRecord::Base.transaction do
+        old_application = application
+        @application = friend.applications.find_or_initialize_by(category: application_params[:category])
+        application.save!
+        draft.update(draft_params.merge(application_id: application.id))
+        old_application.destroy! if old_application.drafts.empty?
       end
-      true
-    rescue StandardError => e
-      false
     end
+    true
+  rescue StandardError => e
+    false
   end
 
   def destroy_draft
-    begin
-      ActiveRecord::Base.transaction do
-        draft.destroy!
-        if application.drafts.empty?
-          application.destroy!
-        end
-      end
-      true
-    rescue StandardError => e
-      false
+    ActiveRecord::Base.transaction do
+      draft.destroy!
+      application.destroy! if application.drafts.empty?
     end
+    true
+  rescue StandardError => e
+    false
   end
 
   def application_params
@@ -170,6 +160,7 @@ class DraftsController < ApplicationController
 
   def require_admin_or_access_to_friend
     return if current_user.admin_or_existing_relationship?(params[:friend_id])
+
     not_found
   end
 end

@@ -129,7 +129,8 @@ GEM
     factory_girl_rails (4.6.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
-    ffaker (2.9.0)
+    faker (1.9.1)
+      i18n (>= 0.7)
     ffi (1.9.25)
     filterrific (5.1.0)
     geography_helper (1.0.1)
@@ -378,7 +379,7 @@ DEPENDENCIES
   devise_security_extension!
   dotenv-rails
   factory_girl_rails (~> 4.6.0)
-  ffaker
+  faker
   filterrific (~> 5.x)
   geography_helper
   jbuilder (~> 2.0)

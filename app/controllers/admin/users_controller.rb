@@ -26,6 +26,7 @@ class Admin::UsersController < AdminController
   def destroy
     @user = current_community.users.find(params[:id])
     return unless @user.destroy
+
     flash[:success] = 'User record deleted.'
     redirect_to community_admin_users_path(current_community.slug, query: params[:query])
   end
@@ -47,8 +48,8 @@ class Admin::UsersController < AdminController
 
   def volunteer_type_options
     User.volunteer_types.keys.map do |volunteer_type|
-       [volunteer_type.humanize, volunteer_type]
-     end
+      [volunteer_type.humanize, volunteer_type]
+    end
   end
 
   def search

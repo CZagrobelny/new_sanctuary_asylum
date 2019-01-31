@@ -25,5 +25,4 @@ class Accompaniment < ApplicationRecord
   def volunteer_cap_exceeded
     "can't exceed #{activity.activity_type.cap} volunteer accompaniments."
   end
-
 end

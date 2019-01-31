@@ -4,6 +4,7 @@ class Admin::FriendEventAttendancesController < AdminController
   def create
     friend_id_array = friend_event_attendance_params[:friend_id].reject(&:empty?)
     return unless friend_id_array.present?
+
     friend_id = friend_id_array[0].to_i
     @friend_event_attendance = FriendEventAttendance.new(event_id: event.id,
                                                          friend_id: friend_id)

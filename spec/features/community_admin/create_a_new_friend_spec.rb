@@ -24,8 +24,8 @@ RSpec.describe 'Admin creates a new friend record', type: :feature do
 
   describe 'creating a friend' do
     scenario 'with valid inputs' do
-      fill_in 'First Name', with: FFaker::Name.first_name
-      fill_in 'Last Name', with: FFaker::Name.last_name
+      fill_in 'First Name', with: Faker::Name.first_name
+      fill_in 'Last Name', with: Faker::Name.last_name
       fill_in 'A Number', with: '123456789'
       click_button 'Save'
 
@@ -38,7 +38,7 @@ RSpec.describe 'Admin creates a new friend record', type: :feature do
 
     scenario 'with invalid inputs' do
       fill_in 'First Name', with: ''
-      fill_in 'Last Name', with: FFaker::Name.last_name
+      fill_in 'Last Name', with: Faker::Name.last_name
       fill_in 'A Number', with: '123456789'
       click_button 'Save'
 

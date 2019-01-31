@@ -13,8 +13,8 @@ RSpec.describe 'Admin creates a new lawyer', type: :feature do
     lawyer_count = region.lawyers.count
     visit new_community_admin_lawyer_path(community)
 
-    fill_in 'First Name', with: FFaker::Name.first_name
-    fill_in 'Last Name', with: FFaker::Name.last_name
+    fill_in 'First Name', with: Faker::Name.first_name
+    fill_in 'Last Name', with: Faker::Name.last_name
     click_button 'Save'
 
     expect(region.lawyers.count).to eq (lawyer_count + 1)

@@ -77,10 +77,10 @@ class Friend < ApplicationRecord
   end
 
   pg_search_scope :filter_first_name, against: :first_name,
-                                      using: {tsearch: {:prefix => true}}
+                                      using: { tsearch: { prefix: true } }
 
   pg_search_scope :filter_last_name, against: :last_name,
-                                     using: {tsearch: {:prefix => true}}
+                                     using: { tsearch: { prefix: true } }
 
   scope :filter_a_number, ->(number) {
     where(a_number: number)
@@ -117,26 +117,23 @@ class Friend < ApplicationRecord
   }
 
   scope :filter_application_status, ->(status) {
-    if status == 'all_active'
-      status = %i[in_review changes_requested approved]
-    end
+    status = %i[in_review changes_requested approved] if status == 'all_active'
     joins(:applications)
-    .distinct
-    .where(applications: { status: status })
+      .distinct
+      .where(applications: { status: status })
   }
 
-
-  scope :sorted_by, lambda { |sort_option|
+  scope :sorted_by, ->(sort_option) {
     # extract the sort direction from the param value.
-    direction = (sort_option =~ /desc$/) ? 'desc' : 'asc'
+    direction = sort_option =~ /desc$/ ? 'desc' : 'asc'
     case sort_option.to_s
     when /^created_at_/
       # Simple sort on the created_at column.
-      order("friends.created_at #{ direction }")
+      order("friends.created_at #{direction}")
     when /^border_queue_number/
-      order("friends.border_queue_number #{ direction }")
+      order("friends.border_queue_number #{direction}")
     else
-      raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
+      raise(ArgumentError, "Invalid sort option: #{sort_option.inspect}")
     end
   }
 
@@ -157,8 +154,8 @@ class Friend < ApplicationRecord
   # This method provides select options for the `sorted_by` filter select input.
   def self.options_for_sorted_by
     [
-      ['Newest', 'created_at_desc'],
-      ['Oldest', 'created_at_asc'],
+      %w[Newest created_at_desc],
+      %w[Oldest created_at_asc],
       ['Border Queue Number (Low to High)', 'border_queue_number_asc'],
       ['Border Queue Number (High to Low)', 'border_queue_number_desc']
     ]
@@ -167,10 +164,10 @@ class Friend < ApplicationRecord
   # This method provides select options for the `application_status` filter select input.
   def self.options_for_application_status_filter_by
     [
-      ['All', 'all_active'],
+      %w[All all_active],
       ['In Review', 'in_review'],
       ['Changes Requested', 'changes_requested'],
-      ['Approved', 'approved']
+      %w[Approved approved]
     ]
   end
 

@@ -5,7 +5,7 @@ RSpec.describe 'Admin invites a new user', type: :feature do
   let(:admin) { create(:user, :community_admin, community: community) }
   let(:regional_admin) { create(:user, :regional_admin, community: community) }
   let(:community) { create(:community) }
-  let(:email) { FFaker::Internet.email }
+  let(:email) { Faker::Internet.email }
 
   describe 'admin inviting a new user' do
     before do
@@ -52,8 +52,8 @@ RSpec.describe 'Admin invites a new user', type: :feature do
 
     describe 'with valid information' do
       it 'signs in the user' do
-        fill_in 'First Name', with: FFaker::Name.first_name
-        fill_in 'Last Name', with: FFaker::Name.last_name
+        fill_in 'First Name', with: Faker::Name.first_name
+        fill_in 'Last Name', with: Faker::Name.last_name
         fill_in 'Phone', with: '876 765 4455'
         select 'English Speaking', :from => 'Type'
         fill_in 'Password', with: 'Password1234'

@@ -58,7 +58,7 @@ class User < ApplicationRecord
     basic_search(last_name: name)
   }
 
-  scope :filter_email, -> (email) {
+  scope :filter_email, ->(email) {
     basic_search(email: email)
   }
 
