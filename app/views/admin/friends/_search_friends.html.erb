@@ -1,57 +1,61 @@
 <%= form_for_filterrific @filterrific, html: { id: 'filterrific-no-ajax-auto-submit', class: 'well' }  do |f| %>
   <div class='form-group col-md-3'>
     <%= f.label :filter_first_name, 'First Name' %>
-    <%= f.text_field(:filter_first_name) %>
+    <%= f.text_field(:filter_first_name, class: 'form-control') %>
   </div>
   <div class='form-group col-md-3'>
     <%= f.label :filter_last_name, 'Last Name' %>
-    <%= f.text_field(:filter_last_name) %>
+    <%= f.text_field(:filter_last_name, class: 'form-control') %>
   </div>
   <div class='form-group col-md-3'>
     <%= f.label :filter_a_number, 'A Number' %>
-    <%= f.text_field(:filter_a_number) %>
+    <%= f.text_field(:filter_a_number, class: 'form-control') %>
   </div>
-  <div class='form-group'>
+  <div class='form-group col-md-3'>
     <%= f.label :filter_detained, 'Detained' %>
-    <%= f.check_box(:filter_detained) %>
+    <%= f.check_box(:filter_detained, class: 'checkbox') %>
   </div>
 
-  <div class='form-group'>
+  <div class='form-group form-inline col-md-12'>
     <%= f.label :filter_start_date, 'With their 1 year asylum application deadlines ending between dates:' %>
 
-    <%= f.text_field :filter_asylum_application_deadline_ending_after, class: 'datepicker' %>
-    <%= f.text_field :filter_asylum_application_deadline_ending_before, class: 'datepicker' %>
+    <div class='form-inline'>
+      <%= f.text_field :filter_asylum_application_deadline_ending_after, class: 'datepicker form-control' %>
+      <%= f.text_field :filter_asylum_application_deadline_ending_before, class: 'datepicker form-control' %>
+    </div>
   </div>
 
-  <div class='form-group'>
+  <div class='form-group col-md-12'>
     <%= f.label :filter_created_date, 'Created between dates:' %>
 
-    <%= f.text_field :filter_created_after, class: 'datepicker' %>
-    <%= f.text_field :filter_created_before, class: 'datepicker' %>
+    <div class='form-inline'>
+      <%= f.text_field :filter_created_after, class: 'datepicker form-control' %>
+      <%= f.text_field :filter_created_before, class: 'datepicker form-control' %>
+    </div>
   </div>
 
-  <div class='row'>
+  <div class='row col-md-12'>
     <div class='form-group col-md-5'>
       <%= f.label :filter_border_queue_number, 'Border Queue Number' %>
-      <%= f.text_field(:filter_border_queue_number) %>
+      <%= f.text_field(:filter_border_queue_number, class: 'form-control') %>
     </div>
 
     <div class='form-group col-md-5'>
       <%= f.label :filter_border_crossing_status, 'Border Crossing Status' %>
-      <%= f.select :filter_border_crossing_status, @filterrific.select_options[:filter_border_crossing_status], include_blank: true %>
+      <%= f.select :filter_border_crossing_status, @filterrific.select_options[:filter_border_crossing_status], {include_blank: true}, {class: 'form-control'} %>
     </div>
   </div>
 
-  <div class='row'>
-    <div class='form-group col-md-12'>
+  <div class='row col-md-12'>
+    <div class='form-group col-md-5'>
       <div>
         <%= f.label :sorted_by, 'Sorted by' %>
-        <%= f.select :sorted_by, @filterrific.select_options[:sorted_by], { class: 'form-control' } %>
+        <%= f.select :sorted_by, @filterrific.select_options[:sorted_by], {}, { class: 'form-control' } %>
       </div>
     </div>
   </div>
 
   <div>
-    <%= submit_tag 'Search'%>
+    <%= submit_tag 'Search', class: 'btn btn-primary search-button'%>
   </div>
 <% end %>
