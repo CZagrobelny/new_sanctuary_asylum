@@ -62,6 +62,10 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
 
   config.before(:each) do
+    Faker::UniqueGenerator.clear
+  end
+
+  config.before(:each) do
     Rails.application.routes.default_url_options[:host] = 'test.host'
   end
 

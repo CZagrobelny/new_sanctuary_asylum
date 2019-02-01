@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :region do
-    name { Faker::Company.name.downcase.gsub(/[^a-z]/i, '') }
+    name { Faker::Company.unique.name.downcase.gsub(/[^a-z]/i, '') }
   end
 end
