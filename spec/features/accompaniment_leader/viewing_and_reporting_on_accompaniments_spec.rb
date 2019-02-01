@@ -42,6 +42,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
 
     describe 'with valid info' do
       it 'displays a flash message that my accompaniment leader notes were addded' do
+        fill_in 'Outcome of hearing', with: 'outcome'
         fill_in 'Notes', with: 'Test notes'
         click_button 'Save'
         within '.alert' do
