@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181224212131) do
+ActiveRecord::Schema.define(version: 20190201124403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_trgm"
+
+  create_table "accompaniements", force: :cascade do |t|
+    t.integer "activity_id"
+    t.integer "user_id"
+    t.text    "availability_notes"
+  end
 
   create_table "accompaniment_reports", force: :cascade do |t|
     t.integer  "activity_id", null: false
@@ -65,6 +72,14 @@ ActiveRecord::Schema.define(version: 20181224212131) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.index ["friend_id"], name: "index_applications_on_friend_id", using: :btree
+  end
+
+  create_table "asylum_application_drafts", force: :cascade do |t|
+    t.text     "notes"
+    t.integer  "friend_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "pdf_draft"
   end
 
   create_table "communities", force: :cascade do |t|
@@ -184,10 +199,10 @@ ActiveRecord::Schema.define(version: 20181224212131) do
     t.text     "foia_request_notes"
     t.integer  "community_id"
     t.integer  "region_id"
-    t.string   "state"
     t.string   "sponsor_name"
     t.string   "sponsor_phone_number"
     t.string   "sponsor_relationship"
+    t.string   "state"
     t.string   "border_crossing_status"
     t.integer  "border_queue_number"
     t.string   "city"
@@ -237,6 +252,20 @@ ActiveRecord::Schema.define(version: 20181224212131) do
     t.index ["password_archivable_type", "password_archivable_id"], name: "index_password_archivable", using: :btree
   end
 
+  create_table "parent_child_relationships", force: :cascade do |t|
+    t.integer  "parent_id",  null: false
+    t.integer  "child_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "partner_relationships", force: :cascade do |t|
+    t.integer  "friend_id",  null: false
+    t.integer  "partner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "regions", force: :cascade do |t|
     t.string "name"
   end
@@ -275,12 +304,33 @@ ActiveRecord::Schema.define(version: 20181224212131) do
     t.index ["community_id"], name: "index_sanctuaries_on_community_id", using: :btree
   end
 
+  create_table "sibling_relationships", force: :cascade do |t|
+    t.integer  "friend_id",  null: false
+    t.integer  "sibling_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "sijs_application_drafts", force: :cascade do |t|
     t.text     "notes"
     t.integer  "friend_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "pdf_draft",  null: false
+  end
+
+  create_table "spousal_relationships", force: :cascade do |t|
+    t.integer  "friend_id",  null: false
+    t.integer  "spouse_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_asylum_application_draft_associations", force: :cascade do |t|
+    t.integer  "user_id",                     null: false
+    t.integer  "asylum_application_draft_id", null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "user_draft_associations", force: :cascade do |t|
