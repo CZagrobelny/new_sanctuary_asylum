@@ -168,15 +168,6 @@ Login as a Remote Clinic Lawyer with:
 
 ## How are we building it?
 
-### Gems & Libraries!
-Aiming to keep our list of dependencies short, maintainable, and reliable!
-
-Here are the big ones:
-- Bootstrap: http://getbootstrap.com
-- Chosen: https://github.com/harvesthq/chosen (nice, searchable dropdowns)
-- Will Paginate: https://github.com/mislav/will_paginate
-- Textacular: https://github.com/textacular/textacular
-
 ### Test Coverage!
 Aiming to cover the functionality we build with:
 - model tests
