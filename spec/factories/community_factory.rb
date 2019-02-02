@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :community do
-    name { Faker::Address.city }
+    name { Faker::Address.unique.city }
     slug { name.downcase.gsub(/[^a-z]/i, '') }
     association :region
   end
