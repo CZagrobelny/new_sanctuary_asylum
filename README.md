@@ -187,6 +187,10 @@ Aiming to cover the functionality we build with:
 We have a staging app here with seed data:  https://frozen-sea-20640.herokuapp.com
 The data is refeshed occassionally, but activities/accompaniments are likely to be out of date.
 
+### Performance Monitoring
+We are using Skylight for performance monitoring.
+[![View performance data on Skylight](https://badges.skylight.io/status/jaU6phtJKOvV.svg)](https://oss.skylight.io/app/applications/jaU6phtJKOvV)
+
 ## Contributing
 1. Add a comment on your chosen Github issue to let other contributors know that you have 'claimed' it.
 2. Fork the repo and download a clone of the forked repo: https://guides.github.com/activities/forking/
@@ -208,5 +212,3 @@ We have an amazing group of contributors and organizations working to build out 
 - Individual Contributors: https://github.com/CZagrobelny/new_sanctuary_asylum/graphs/contributors
 - Ruby for Good: https://rubyforgood.org
 - Progressive Hacknight:  http://www.progressivehacknight.org
-
-[![View performance data on Skylight](https://badges.skylight.io/status/jaU6phtJKOvV.svg)](https://oss.skylight.io/app/applications/jaU6phtJKOvV)
