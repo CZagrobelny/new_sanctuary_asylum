@@ -40,6 +40,8 @@
               <strong>Volunteers:  </strong>
               <%= render 'shared/scoped_activity_users_details', activity: activity, scope: 'volunteer' %>
             <% end %>
+            <div class='.text-warning'><em><%= volunteers_needed(activity) %></em></div>
+            <hr></hr>
             <% if activity.accompaniment_reports.present? %>
               <strong>Report Backs:</strong>
               <ol>
@@ -58,7 +60,6 @@
             <% else %>
               <%= link_to 'Add Report Back', new_community_accompaniment_leader_activity_accompaniment_report_path(current_community.slug, activity) %>
             <% end %>
-            <div><em><%= volunteers_needed(activity) %></em></div>
             <%= form_for [current_community, accompaniment] do |f| %>
               <%= f.hidden_field :activity_id, value: activity.id %>
               <%= f.hidden_field :user_id, value: current_user.id %>
