@@ -32,8 +32,10 @@
       <% end %>
       <% if activity.accompaniment_reports.present? %>
         <% activity.accompaniment_reports.each do |report| %>
-          <strong>Accompaniment Leader Notes <%= "by #{report.user.name}" if report.user.present? %>:</strong>
-          <%= report.notes %>
+          <hr></hr>
+          <strong>Report Back by: </strong><%= report.user.name if report.user.present? %>
+          <div><strong>Outcome of hearing: </strong><%= report.outcome_of_hearing %></div>
+          <strong>Notes: </strong><%= report.notes %>
           <br>
         <% end %>
       <% end %>

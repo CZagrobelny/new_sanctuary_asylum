@@ -149,6 +149,7 @@ ActiveRecord::Base.transaction do
   Judge.create!(first_name: 'Elena', last_name: 'Kagan', region_id: ny_region.id)
 
   #ActivityType
+  hearing = ActivityType.create!(name: "Hearing", cap: 0, accompaniment_eligible: false)
   check_in = ActivityType.create!(name: "Check In", cap: 3, accompaniment_eligible: true)
 
   #Activities
@@ -161,11 +162,11 @@ ActiveRecord::Base.transaction do
       notes: Faker::Lorem.paragraph,
       confirmed: true,
       region_id: ny_region.id,
-      activity_type: check_in)
+      activity_type: [hearing, check_in].sample)
   end
 
   ##Accompaniments
-  Activity.all.each do |activity|
+  Activity.where('activity_type_id = ?', check_in.id).each do |activity|
     activity.accompaniments.create!(user_id: User.where(community_id: nyc_community.id).order("RANDOM()").first.id)
   end
 

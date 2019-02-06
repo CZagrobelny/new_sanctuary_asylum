@@ -41,18 +41,22 @@
               <%= render 'shared/scoped_activity_users_details', activity: activity, scope: 'volunteer' %>
             <% end %>
             <% if activity.accompaniment_reports.present? %>
-              <strong>Accompaniment Leader Notes:</strong>
+              <strong>Report Backs:</strong>
               <ol>
                 <% activity.accompaniment_reports.each do |report| %>
-                  <li><strong>Notes by <%= report.user.name if report.user.present? %>:  </strong><%= report.notes %></li>
+                  <hr></hr>
+
+                  <strong>Report Back by: </strong><%= report.user.name if report.user.present? %>
+                  <div><strong>Outcome of hearing: </strong><%= report.outcome_of_hearing %></div>
+                  <strong>Notes: </strong><%= report.notes %>
                 <% end %>
               </ol>
             <% end %>
 
             <% if current_user.accompaniment_report_for(activity).present? %>
-              <%= link_to 'Edit My Accompaniment Leader Notes', edit_community_accompaniment_leader_activity_accompaniment_report_path(current_community.slug, activity, current_user.accompaniment_report_for(activity)) %>
+              <%= link_to 'Edit My Report Back', edit_community_accompaniment_leader_activity_accompaniment_report_path(current_community.slug, activity, current_user.accompaniment_report_for(activity)) %>
             <% else %>
-              <%= link_to 'Add Accompaniment Leader Notes', new_community_accompaniment_leader_activity_accompaniment_report_path(current_community.slug, activity) %>
+              <%= link_to 'Add Report Back', new_community_accompaniment_leader_activity_accompaniment_report_path(current_community.slug, activity) %>
             <% end %>
             <div><em><%= volunteers_needed(activity) %></em></div>
             <%= form_for [current_community, accompaniment] do |f| %>

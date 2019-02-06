@@ -42,7 +42,8 @@ class AccompanimentLeader::AccompanimentReportsController < AccompanimentLeaderC
 
   def accompaniment_report_params
     params.require(:accompaniment_report).permit(
-      :notes
+      :notes,
+      :outcome_of_hearing
     ).merge(user_id: current_user.id)
   end
 end
