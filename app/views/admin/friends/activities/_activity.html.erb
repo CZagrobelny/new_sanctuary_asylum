@@ -44,7 +44,7 @@
           <% if activity.confirmed? %>
             <strong>Confirmed by Admin</strong>
           <% else %>
-            <%= button_to 'Confirm', confirm_community_admin_friend_activity_path(current_community.slug, friend, activity), class: 'btn btn-primary' %>
+            <%= link_to 'Confirm', confirm_community_admin_friend_activity_path(current_community.slug, friend, activity), class: 'btn btn-primary' %>
           <% end %>
         </div>
       <% end %>

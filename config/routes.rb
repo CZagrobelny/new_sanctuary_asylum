@@ -39,13 +39,13 @@ Rails.application.routes.draw do
           get :accompaniments
         end
         member do
-          post :confirm
+          get :confirm
         end
       end
       resources :friends do
         resources :activities, controller: 'friends/activities' do
           member do
-            post :confirm
+            get :confirm
           end
         end
         resources :detentions, controller: 'friends/detentions'
