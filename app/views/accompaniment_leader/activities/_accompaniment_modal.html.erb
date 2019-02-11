@@ -83,6 +83,9 @@
                 </div>
               </div>
             <% end %>
+            <% if current_user.attending?(activity) %>
+              <%= link_to "Add Next Activity for #{activity.friend.name}", new_community_accompaniment_leader_friend_activity_path(friend_id: activity.friend.id) %>
+            <% end %>
           </div>
         </div>
       </div>
