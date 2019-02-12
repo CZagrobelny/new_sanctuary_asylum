@@ -71,6 +71,9 @@ Rails.application.routes.draw do
     end
 
     namespace :accompaniment_leader do
+      resources :friends, only: [] do
+        resources :activities, controller: 'friends/activities', only: [:new, :create]
+      end
       resources :activities, only: [:index] do
         resources :accompaniment_reports, only: [:edit, :new, :create, :update]
       end

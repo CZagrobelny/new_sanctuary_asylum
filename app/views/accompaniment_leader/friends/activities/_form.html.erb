@@ -1,0 +1,64 @@
+<% if @activity.errors.present? %>
+  <%= display_validation_errors(@activity) %>
+<% end %>
+<%= form_for([current_community, :accompaniment_leader, :friend, @activity]) do |f| %>
+  <div class='form-inputs'>
+
+    <div class='row form-group'>
+      <%= f.label :relation_id, 'Friend', class: 'col-md-3 col-xs-12 control-label' %>
+      <div class='col-md-6 col-xs-12'>
+        <%= collection_select(:activity, :friend_id, [@activity.friend], :id, :name, {prompt: true}, {class: 'chzn-select form-control'}) %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :activity_type_id, 'Type', class: 'col-md-3 col-xs-12 control-label' %>
+      <div class='col-md-6 col-xs-12'>
+        <%= collection_select(:activity, :activity_type_id, ActivityType.by_name.accompaniment_eligible, :id, :title_name, prompt: true) %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :location_id, 'Location', class: 'col-md-3 col-xs-12 control-label' %>
+      <div class='col-md-6 col-xs-12'>
+        <%= collection_select(:activity, :location_id, locations_by_name(current_region), :id, :name, {prompt: true}, {class: 'form-control'}) %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :judge_id, 'Judge', class: 'col-md-3 col-xs-12 control-label' %>
+      <div class='col-md-6 col-xs-12'>
+        <%= collection_select(:activity, :judge_id, current_region.judges, :id, :name, {prompt: true}, {class: 'form-control'}) %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :occur_at, 'Date/Time', class: 'col-md-3 col-xs-12 control-label' %>
+      <div class='col-md-6 col-xs-12'>
+        <%= f.date_select :occur_at, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+        <%= f.time_select :occur_at, { ignore_date: true, prompt: true, minute_step: 15 }, {class: 'form-control inline-date-select'} %>
+        <span>ET
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :notes, class: 'col-md-3 col-xs-12 control-label' %>
+      <div class='col-md-6 col-xs-12'>
+        <%= f.text_area :notes, {class: 'form-control', style: 'height: 200px;'} %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :public_notes, class: 'col-md-3 col-xs-12 control-label' %>
+      <div class='col-md-6 col-xs-12'>
+        <%= f.text_area :public_notes, {class: 'form-control', style: 'height: 200px;'} %>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-md-1 col-md-offset-10'>
+        <%= f.submit 'Save', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>
