@@ -27,6 +27,7 @@ gem 'pg', '~> 1.1.3'
 gem 'pg_search'
 gem 'phantomjs'
 gem 'puma'
+gem 'pundit'
 gem 'redis', '~> 3.3.1'
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc

@@ -2,13 +2,12 @@ class FriendsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_access_to_community
   before_action :require_access_to_friend, only: %i[update show]
+  after_action :verify_authorized, only: [:index]
+  after_action :verify_policy_scoped, only: [:index]
 
   def index
-    if current_user.remote_clinic_lawyer?
-      @friends = current_user.remote_clinic_friends.with_active_applications
-    else
-      @friends = current_user.friends.order('first_name asc')
-    end
+    @friends = policy_scope(Friend)
+    authorize @friends
   end
 
   def show

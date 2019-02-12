@@ -198,6 +198,8 @@ GEM
       method_source (~> 0.9.0)
     public_suffix (3.0.2)
     puma (3.12.0)
+    pundit (2.0.1)
+      activesupport (>= 3.0.0)
     rack (2.0.6)
     rack-attack (5.2.0)
       rack
@@ -397,6 +399,7 @@ DEPENDENCIES
   poltergeist (~> 1.11.0)
   pry
   puma
+  pundit
   rack-attack
   rails (~> 5.0.0)
   rails-controller-testing

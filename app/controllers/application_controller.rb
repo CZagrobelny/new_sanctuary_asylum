@@ -1,7 +1,10 @@
 class ApplicationController < ActionController::Base
+  include Pundit
   protect_from_forgery with: :exception, prepend: true
 
   helper_method :current_community, :current_region
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def current_community
     return @current_community if @current_community
@@ -41,5 +44,12 @@ class ApplicationController < ActionController::Base
 
   def require_regional_admin_or_remote_lawyer_with_access_to_friend
     not_found unless current_user.regional_admin? || current_user.existing_remote_relationship?(params[:friend_id])
+  end
+
+  private
+
+  def user_not_authorized
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_to root_path
   end
 end
