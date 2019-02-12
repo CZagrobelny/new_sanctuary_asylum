@@ -2,10 +2,6 @@ class RemoteClinic::FriendsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_access_to_friend, only: [:show]
 
-  def index
-    @friends = current_user.remote_clinic_friends.with_active_applications
-  end
-
   def show
     if !release && !friend.region.border?
       redirect_to new_remote_clinic_friend_release_path(friend)

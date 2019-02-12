@@ -4,7 +4,11 @@ class FriendsController < ApplicationController
   before_action :require_access_to_friend, only: %i[update show]
 
   def index
-    @friends = current_user.friends.order('first_name asc')
+    if current_user.remote_clinic_lawyer?
+      @friends = current_user.remote_clinic_friends.with_active_applications
+    else
+      @friends = current_user.friends.order('first_name asc')
+    end
   end
 
   def show

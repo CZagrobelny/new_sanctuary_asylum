@@ -4,7 +4,7 @@
 <br>
 
 <h2>Your Programs</h2>
-<h3><%= link_to 'Clinic', community_friends_path(current_community.slug) %></h3>
+<h3><%= link_to 'Clinic', friends_path %></h3>
 
 <% if current_community.primary? %>
   <% if current_user.accompaniment_leader? %>

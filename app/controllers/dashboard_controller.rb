@@ -6,7 +6,7 @@ class DashboardController < ApplicationController
     if current_user.admin?
       redirect_to community_admin_path(current_community.slug)
     elsif current_user.remote_clinic_lawyer?
-      redirect_to remote_clinic_friends_path
+      redirect_to friends_path
     end
   end
 end
