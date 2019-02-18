@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190201124403) do
+ActiveRecord::Schema.define(version: 20190218130938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -192,6 +192,7 @@ ActiveRecord::Schema.define(version: 20190201124403) do
     t.string   "border_crossing_status"
     t.integer  "border_queue_number"
     t.string   "city"
+    t.string   "jail_id"
     t.index ["community_id"], name: "index_friends_on_community_id", using: :btree
     t.index ["region_id"], name: "index_friends_on_region_id", using: :btree
   end

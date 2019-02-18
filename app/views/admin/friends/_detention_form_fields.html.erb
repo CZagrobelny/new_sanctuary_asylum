@@ -12,6 +12,13 @@
 
 <div class='form-group'>
   <div class='col-md-12'>
+    <%= f.label :jail_id, 'Jail ID' %>
+    <%= f.text_field :jail_id %>
+  </div>
+</div>
+
+<div class='form-group'>
+  <div class='col-md-12'>
     <%= f.check_box :has_a_lawyer_for_detention %>
     <%= f.label :has_a_lawyer_for_detention, 'Has a Lawyer?' %>
   </div>
