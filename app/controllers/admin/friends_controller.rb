@@ -104,6 +104,7 @@ class Admin::FriendsController < AdminController
       :lawyer_represented_by,
       :lawyer_referred_to,
       :zip_code,
+      :jail_id,
       :criminal_conviction,
       :criminal_conviction_notes,
       :final_order_of_removal,
