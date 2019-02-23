@@ -2,9 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.1-node
-        environment:
-          BUNDLER_VERSION: 2.0.1
+      - image: circleci/ruby:2.6.1-node-browsers
       - image: postgres:9.6
     steps:
       - checkout
@@ -24,8 +22,8 @@ jobs:
           name: Database config
           command: cp config/database.yml.sample config/database.yml
       - run:
-          name: Setup database
-          command: rake db:setup
+          name: Setup Database
+          command: bundle exec rails db:setup
       - run:
           name: Create dot-env file
           command: echo FROM_ADDRESS='test@example.com' > .env
