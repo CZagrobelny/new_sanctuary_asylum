@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'csv'
 
 RSpec.describe EventReport do
-  let!(:event) { FactoryGirl.create(:event) }
+  let!(:event) { FactoryBot.create(:event) }
   let(:start_date) { 1.month.ago }
   let(:end_date) { 1.month.from_now }
   let(:community) { event.community }

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user_region do
     association :region
     association :user

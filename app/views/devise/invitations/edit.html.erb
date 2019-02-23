@@ -1,7 +1,7 @@
 <div class='col-md-offset-3'>
   <h2><%= t 'devise.invitations.edit.header' %></h2>
   <%= form_for resource, as: resource_name, url: user_community_invitation_path(resource.community.slug), html: { method: :put } do |f| %>
-    <%= devise_error_messages! %>
+    <%= render "devise/shared/error_messages", resource: resource %>
     <%= f.hidden_field :invitation_token %>
 
     <div class='form-inputs'>

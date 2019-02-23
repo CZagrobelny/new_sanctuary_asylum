@@ -14,7 +14,7 @@ RSpec.describe Admin::UsersController, type: :controller do
     describe 'GET #index' do
       it 'allows access' do
         get :index, params: { community_slug: community.slug }
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
 
@@ -22,7 +22,7 @@ RSpec.describe Admin::UsersController, type: :controller do
       let(:user) { create :user, :volunteer, community: community }
       it 'allows access' do
         get :edit, params: { community_slug: community.slug, id: user.id }
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
 

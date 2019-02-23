@@ -317,7 +317,7 @@ Devise.setup do |config|
     request = ActionDispatch::Request.new(env)
     user = request.params[opts[:scope]] # opts[:scope] is expected to be :user
     if user.present?
-      email = user["email"] 
+      email = user["email"]
       Rails.logger.info "Forensics Login Failure: email=#{email}, ip=#{request.remote_ip}"
     end
   end
@@ -347,7 +347,7 @@ Devise.setup do |config|
   config.expire_password_after = 3.months
 
   # Need 1 char of A-Z, a-z and 0-9
-  config.password_regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/
+  config.password_complexity = { digit: 1, lower: 1, upper: 1 }
 
   # How many passwords to keep in archive
   config.password_archiving_count = 5

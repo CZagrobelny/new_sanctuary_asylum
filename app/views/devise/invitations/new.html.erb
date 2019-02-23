@@ -2,7 +2,7 @@
   <h2>Send Invitation</h2>
 
   <%= form_for resource, as: resource_name, url: user_community_invitation_path(current_community, resource_name), html: {method: :post} do |f| %>
-    <%= devise_error_messages! %>
+    <%= render "devise/shared/error_messages", resource: resource %>
   <div class='form-inputs'>
     <% resource.class.invite_key_fields.each do |field| -%>
       <div class='form-group field'>

@@ -15,14 +15,14 @@ RSpec.describe Admin::ReportsController, type: :controller do
       describe 'GET #new' do
         it 'allows access' do
           get :new, params: { community_slug: community.slug }
-          expect(response.success?).to eq true
+          expect(response.successful?).to eq true
         end
       end
 
       describe 'POST #create' do
         it 'allows access' do
           post :create, params: { community_slug: community.slug, report: { start_date: 1.week.ago, end_date: Time.now, type: 'event' } }
-          expect(response.success?).to eq true
+          expect(response.successful?).to eq true
         end
       end
     end
