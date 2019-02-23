@@ -2,7 +2,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.1
+      - image: circleci/ruby:2.6.1-node
+        environment:
+          BUNDLER_VERSION: 2.0.1
       - image: postgres:9.6
     steps:
       - checkout
