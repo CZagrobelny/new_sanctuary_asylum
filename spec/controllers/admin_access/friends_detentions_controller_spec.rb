@@ -15,7 +15,7 @@ RSpec.describe Admin::Friends::DetentionsController, type: :controller do
     describe 'GET #new' do
       it 'allows access' do
         get :new, params: { community_slug: community.slug, friend_id: friend.id }, format: 'js', xhr: true
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
 
@@ -32,7 +32,7 @@ RSpec.describe Admin::Friends::DetentionsController, type: :controller do
       let(:detention) { create :detention, friend: friend }
       it 'allows access' do
         get :edit, params: { community_slug: community.slug, friend_id: friend.id, id: detention.id }, format: 'js', xhr: true
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
 

@@ -15,7 +15,7 @@ RSpec.describe Admin::Friends::ActivitiesController, type: :controller do
     describe 'GET #new' do
       it 'allows access' do
         get :new, params: { community_slug: community.slug, friend_id: friend.id }, format: 'js', xhr: true
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
 
@@ -32,7 +32,7 @@ RSpec.describe Admin::Friends::ActivitiesController, type: :controller do
       let(:activity) { create :activity, region: community.region, friend: friend }
       it 'allows access' do
         get :edit, params: { community_slug: community.slug, friend_id: friend.id, id: activity.id }, format: 'js', xhr: true
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
 
@@ -58,7 +58,7 @@ RSpec.describe Admin::Friends::ActivitiesController, type: :controller do
       let!(:activity) { create :activity, region: community.region, friend: friend }
       it 'allows access' do
         post :confirm, params: { community_slug: community.slug, friend_id: friend.id, id: activity.id }, format: 'js', xhr: true
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
   end

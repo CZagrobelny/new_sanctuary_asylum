@@ -17,14 +17,14 @@ RSpec.describe RegionalAdmin::FriendsController, type: :controller do
     describe 'GET #index' do
       it 'allows access' do
         get :index, params: { region_id: region.id }
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
 
     describe 'GET #show' do
       it 'allows access' do
         get :show, params: { region_id: region.id, id: friend.id }
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
 

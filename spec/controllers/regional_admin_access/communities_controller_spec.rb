@@ -15,14 +15,14 @@ RSpec.describe RegionalAdmin::CommunitiesController, type: :controller do
     describe 'GET #index' do
       it 'allows access' do
         get :index, params: { region_id: region.id }
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
 
     describe 'GET #new' do
       it 'allows access' do
         get :new, params: { region_id: region.id }
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
 
@@ -39,7 +39,7 @@ RSpec.describe RegionalAdmin::CommunitiesController, type: :controller do
     describe 'GET #edit' do
       it 'allows access' do
         get :edit, params: { region_id: region.id, id: community.id }
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
 

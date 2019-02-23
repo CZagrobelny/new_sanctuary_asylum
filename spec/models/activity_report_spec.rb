@@ -3,9 +3,9 @@ require 'csv'
 
 RSpec.describe ActivityReport do
   describe '.csv_string' do
-    let(:judge) { FactoryGirl.create(:judge) }
-    let!(:activity) { FactoryGirl.create(:activity, judge: judge) }
-    let!(:accompaniment) { FactoryGirl.create(:accompaniment, activity: activity) }
+    let(:judge) { FactoryBot.create(:judge) }
+    let!(:activity) { FactoryBot.create(:activity, judge: judge) }
+    let!(:accompaniment) { FactoryBot.create(:accompaniment, activity: activity) }
     let(:start_date) { 1.month.ago }
     let(:end_date) { 1.month.from_now }
     let(:region) { activity.region }

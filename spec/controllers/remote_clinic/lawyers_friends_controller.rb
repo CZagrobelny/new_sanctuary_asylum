@@ -13,7 +13,7 @@ RSpec.describe RemoteClinic::Lawyers::FriendsController, type: :controller do
 
       it "renders index page" do
         get :index, params: { user_id: lawyer.id }
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
   end
@@ -37,7 +37,7 @@ RSpec.describe RemoteClinic::Lawyers::FriendsController, type: :controller do
 
       it "renders show page" do
         get :show, params: { user_id: lawyer.id, id: friend.id }
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
   end

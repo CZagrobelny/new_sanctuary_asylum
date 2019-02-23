@@ -16,7 +16,7 @@ RSpec.describe RegionalAdmin::RemoteLawyersController, type: :controller do
 
       it 'returns no lawyers' do
         get :index
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
   end
@@ -26,7 +26,7 @@ RSpec.describe RegionalAdmin::RemoteLawyersController, type: :controller do
 
     it 'returns a successful page' do
       get :edit, params: {id: user.id }
-      expect(response.success?).to eq true
+      expect(response.successful?).to eq true
     end
   end
 

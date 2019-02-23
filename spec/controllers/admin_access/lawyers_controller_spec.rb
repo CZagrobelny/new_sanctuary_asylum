@@ -13,14 +13,14 @@ RSpec.describe Admin::LawyersController, type: :controller do
     describe 'GET #index' do
       it 'allows access' do
         get :index, params: { community_slug: community.slug }
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
 
     describe 'GET #new' do
       it 'allows access' do
         get :new, params: { community_slug: community.slug }
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
 
@@ -37,7 +37,7 @@ RSpec.describe Admin::LawyersController, type: :controller do
       let(:lawyer) { create :lawyer, region: community.region }
       it 'allows access' do
         get :edit, params: { community_slug: community.slug, id: lawyer.id }
-        expect(response.success?).to eq true
+        expect(response.successful?).to eq true
       end
     end
 

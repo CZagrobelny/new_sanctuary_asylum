@@ -6,7 +6,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require 'shoulda/matchers'
 require 'faker'
 
@@ -52,7 +52,7 @@ end
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include Warden::Test::Helpers
   config.include Rails.application.routes.url_helpers
   config.include WaitForAjax, type: :feature
