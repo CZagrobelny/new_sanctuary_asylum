@@ -28,6 +28,7 @@ class User < ApplicationRecord
   has_many :accompaniment_reports, dependent: :destroy
   has_many :reviews
   has_many :releases
+  has_many :access_time_slots, foreign_key: :grantee_id, class_name: 'AccessTimeSlot', dependent: :restrict_with_error
 
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
 

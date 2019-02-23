@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2019_02_23_213034) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "access_time_slot_tables", force: :cascade do |t|
+  create_table "access_time_slots", force: :cascade do |t|
     t.datetime "start_time", null: false
     t.datetime "end_time", null: false
     t.string "use", null: false
