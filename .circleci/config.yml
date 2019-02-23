@@ -29,7 +29,7 @@ jobs:
           command: echo FROM_ADDRESS='test@example.com' > .env
       - run:
           name: Test
-          command: rspec
+          command: bundle exec rspec
       - run:
           name: Audit dependencies
-          command: rake bundle:audit
+          command: bundle exec rake bundle:audit
