@@ -6,6 +6,7 @@ class CreateAccessTimeSlotTable < ActiveRecord::Migration[5.2]
       t.string :use, null: false
       t.integer :grantor_id, null: false
       t.integer :grantee_id, null: false
+      t.references :community, index: true, null: false
       t.timestamps
     end
   end

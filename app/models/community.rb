@@ -4,6 +4,7 @@ class Community < ApplicationRecord
   has_many :friends
   has_many :events
   has_many :sanctuaries
+  has_many :access_time_slots
 
   validates :region_id, :name, :slug, presence: true
   validates_uniqueness_of :slug

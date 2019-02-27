@@ -21,8 +21,10 @@ ActiveRecord::Schema.define(version: 2019_02_23_213034) do
     t.string "use", null: false
     t.integer "grantor_id", null: false
     t.integer "grantee_id", null: false
+    t.bigint "community_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["community_id"], name: "index_access_time_slots_on_community_id"
   end
 
   create_table "accompaniment_reports", id: :serial, force: :cascade do |t|

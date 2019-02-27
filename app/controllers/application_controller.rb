@@ -21,6 +21,12 @@ class ApplicationController < ActionController::Base
     not_found unless current_user.admin?
   end
 
+  def require_admin_or_access_time_slot
+    unless current_user.admin? || current_user.has_active_access_time_slot?
+      not_found
+    end
+  end
+
   def not_found
     raise ActionController::RoutingError, 'Not Found'
   end

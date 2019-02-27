@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
     namespace :admin do
     	resources :users
+      resources :access_time_slots
       resources :activities, except: [:destroy] do
         collection do
           get :accompaniments

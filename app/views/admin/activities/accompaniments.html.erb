@@ -1,6 +1,5 @@
 <%= link_to '+ Add Activity', new_community_admin_activity_path(current_community.slug), class: 'btn btn-primary pull-right', id: "add_activity" %>
 <h1>Accompaniments</h1>
-
 <%= week_calendar events: @activities do |date, activities| %>
   <h5><%= date.day %></h5>
   <dl>
