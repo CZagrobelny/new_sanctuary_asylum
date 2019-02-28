@@ -1,5 +1,4 @@
-<%= link_to "Add a new Access Time Slot", new_community_admin_access_time_slot_path(current_community.slug), class: 'btn btn-primary pull-right' %>
-  </div>
+<%= link_to "Add New", new_community_admin_access_time_slot_path(current_community), class: 'btn btn-primary pull-right' %>
 
 <h1>Access Time Slots</h1>
 
@@ -12,7 +11,7 @@
       </dt>
       <dd>
         <a href="#" data-toggle="modal" data-target="#modal_access_time_slot_<%= access_time_slot.id %>"><%= "#{access_time_slot.grantee.name} (#{access_time_slot.use.humanize})" %></a>
-        <%= render partial: 'edit_modal', locals: { access_time_slot: access_time_slot } %>
+        <%= render partial: 'modal', locals: { access_time_slot: access_time_slot } %>
       </dd>
   <% end %>
   </dl>
@@ -22,5 +21,12 @@
   $(document).ready(function(){
     $("body").removeClass("modal-open");
     $(".in").hide();
+
+    $('.datepicker').change(function() {
+      var dateArray = this.value.split('/')
+      $(this).siblings('.month').val(dateArray[0]);
+      $(this).siblings('.date').val(dateArray[1]);
+      $(this).siblings('.year').val(dateArray[2]);
+    });
   });
 </script>

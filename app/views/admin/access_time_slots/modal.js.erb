@@ -1,0 +1,8 @@
+$('#access_time_slot_<%= access_time_slot.try(:id) %>_form').html("<%= escape_javascript(render partial: 'admin/access_time_slots/form', locals: {access_time_slot: access_time_slot}) %>");
+$( ".datepicker" ).datepicker();
+$('.datepicker').change(function() {
+  var dateArray = this.value.split('/')
+  $(this).siblings('.month').val(dateArray[0]);
+  $(this).siblings('.date').val(dateArray[1]);
+  $(this).siblings('.year').val(dateArray[2]);
+});
