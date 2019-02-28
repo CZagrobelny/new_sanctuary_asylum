@@ -18,13 +18,15 @@ class Admin::AccessTimeSlotsController < AdminController
     end
   end
 
+  def edit
+    access_time_slot
+  end
+
   def update
     if access_time_slot.update(access_time_slots_params)
       redirect_to community_admin_access_time_slots_path
     else
-      respond_to do |format|
-        format.js { render file: 'admin/access_time_slots/modal', locals: { access_time_slot: access_time_slot } }
-      end
+      render :edit
     end
   end
 

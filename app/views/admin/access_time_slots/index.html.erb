@@ -7,26 +7,11 @@
   <dl>
   <% access_time_slots.each do |access_time_slot| %>
       <dt>
-        <%= "#{access_time_slot.start_time.strftime("%I:%M %p")} -- #{access_time_slot.end_time.strftime("%I:%M %p")}" %>
+        <%= "#{access_time_slot.start_time.strftime("%_I:%M %p")} - #{access_time_slot.end_time.strftime("%_I:%M %p")}" %>
       </dt>
       <dd>
-        <a href="#" data-toggle="modal" data-target="#modal_access_time_slot_<%= access_time_slot.id %>"><%= "#{access_time_slot.grantee.name} (#{access_time_slot.use.humanize})" %></a>
-        <%= render partial: 'modal', locals: { access_time_slot: access_time_slot } %>
+        <%= link_to "#{access_time_slot.grantee.name} (#{access_time_slot.use.titlecase})",edit_community_admin_access_time_slot_path(current_community, access_time_slot) %>
       </dd>
   <% end %>
   </dl>
 <% end %>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $("body").removeClass("modal-open");
-    $(".in").hide();
-
-    $('.datepicker').change(function() {
-      var dateArray = this.value.split('/')
-      $(this).siblings('.month').val(dateArray[0]);
-      $(this).siblings('.date').val(dateArray[1]);
-      $(this).siblings('.year').val(dateArray[2]);
-    });
-  });
-</script>

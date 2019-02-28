@@ -2,11 +2,11 @@
   <% if access_time_slot.errors.present? %>
     <%= display_validation_errors(access_time_slot) %>
   <% end %>
-  <%= form_for [current_community, :admin, access_time_slot], remote: access_time_slot.persisted? do |f| %>
+  <%= form_for [current_community, :admin, access_time_slot] do |f| %>
     <div class='form-inputs'>
       <div class='row form-group'>
         <%= f.label :grantee_id, 'User', class: 'col-md-2 control-label' %>
-        <div class='col-md-6'>
+        <div class='col-md-4'>
           <%= collection_select(:access_time_slot, :grantee_id, current_community.users.where(role: [:data_entry]), :id, :name, {selected: access_time_slot.grantee_id, prompt: true}, {class: 'form-control'}) %>
         </div>
       </div>
@@ -14,14 +14,14 @@
 
       <div class='row form-group'>
         <%= f.label :use, 'Use', class: 'col-md-2 col-xs-12 control-label' %>
-        <div class='col-md-6'>
+        <div class='col-md-4'>
           <%= f.select(:use, AccessTimeSlot::USES.map { |use| [use.humanize, use] }, {prompt: true}, class: 'form-control') %>
         </div>
       </div>
 
       <div class='row form-group'>
         <%= f.label :start_time, 'Start', class: 'col-md-2 control-label' %>
-        <div class='col-md-4 date-picker-wrapper'>
+        <div class='col-md-3 date-picker-wrapper'>
           <% start_date = access_time_slot.start_time ? access_time_slot.start_time.to_date : Date.today %>
           <%= text_field_tag :start_date, start_date, class: 'form-control datepicker' %>
           <%= f.hidden_field 'start_time(1i)', value: start_date.strftime('%Y'), class: 'year' %>
@@ -37,7 +37,7 @@
 
       <div class='row form-group'>
         <%= f.label :end_time, 'End', class: 'col-md-2 control-label' %>
-        <div class='col-md-4 date-picker-wrapper'>
+        <div class='col-md-3 date-picker-wrapper'>
           <% end_date = access_time_slot.end_time ? access_time_slot.end_time.to_date : Date.today %>
           <%= text_field_tag :end_date, end_date, class: 'form-control datepicker' %>
           <%= f.hidden_field 'end_time(1i)', value: end_date.strftime('%Y'), class: 'year' %>
@@ -53,9 +53,20 @@
     </div>
 
     <div class='row'>
-      <div class='col-md-1 col-md-offset-10'>
+      <div class='col-md-1 col-md-offset-8'>
         <%= f.submit 'Save', class: 'btn btn-success' %>
       </div>
     </div>
   <% end %>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.datepicker').change(function() {
+      var dateArray = this.value.split('/')
+      $(this).siblings('.month').val(dateArray[0]);
+      $(this).siblings('.date').val(dateArray[1]);
+      $(this).siblings('.year').val(dateArray[2]);
+    });
+  });
+</script>
