@@ -50,6 +50,15 @@
           <span>ET
         </div>
       </div>
+
+      <% if access_time_slot.persisted? %>
+        <div class='row form-group'>
+          <%= f.label :grantor_id, 'Created by', class: 'col-md-2 control-label' %>
+          <div class='col-md-4'>
+            <%= access_time_slot.grantor.try(:name) %>
+          </div>
+        </div>
+      <% end %>
     </div>
 
     <div class='row'>
