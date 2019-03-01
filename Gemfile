@@ -57,6 +57,7 @@ group :development, :test do
   gem 'rubocop'
   gem 'shoulda-matchers', '~> 3.1', require: false
   gem 'simplecov'
+  gem 'timecop'
   gem 'webmock', '~> 2.1', require: false
 end
 
