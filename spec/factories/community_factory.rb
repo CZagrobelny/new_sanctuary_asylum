@@ -6,6 +6,6 @@ FactoryBot.define do
   end
 
   trait :primary do
-    primary true
+    primary { true }
   end
 end

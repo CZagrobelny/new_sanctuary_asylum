@@ -4,6 +4,6 @@ FactoryBot.define do
     association :location
     association :region
     association :activity_type
-    occur_at 1.day.from_now
+    occur_at { 1.day.from_now }
   end
 end

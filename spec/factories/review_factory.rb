@@ -2,6 +2,6 @@ FactoryBot.define do
   factory :review do
     association :draft
     association :user
-    notes 'A new review!'
+    notes { 'A new review!' }
   end
 end
