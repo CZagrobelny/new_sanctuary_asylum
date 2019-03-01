@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_admin
+  before_action :require_admin_or_access_time_slot
   before_action :require_access_to_community
   after_action :log_action
 

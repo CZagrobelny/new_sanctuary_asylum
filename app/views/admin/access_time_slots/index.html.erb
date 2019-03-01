@@ -1,0 +1,17 @@
+<%= link_to "Add New", new_community_admin_access_time_slot_path(current_community), class: 'btn btn-primary pull-right' %>
+
+<h1>Access Time Slots</h1>
+
+<%= month_calendar events: @access_time_slots do |date, access_time_slots| %>
+  <h5><%= date.day %></h5>
+  <dl>
+  <% access_time_slots.each do |access_time_slot| %>
+      <dt>
+        <%= "#{access_time_slot.start_time.strftime("%_I:%M %p")} - #{access_time_slot.end_time.strftime("%_I:%M %p")}" %>
+      </dt>
+      <dd>
+        <%= link_to "#{access_time_slot.grantee.name} (#{access_time_slot.use.titlecase})",edit_community_admin_access_time_slot_path(current_community, access_time_slot) %>
+      </dd>
+  <% end %>
+  </dl>
+<% end %>

@@ -1,0 +1,3 @@
+<h1>Edit Access Time Slot</h1>
+<%= link_to 'Delete', community_admin_access_time_slot_path(current_community, @access_time_slot), method: :delete, class: 'btn btn-sm btn-danger pull-right' %>
+<%= render partial: 'form', locals: { access_time_slot: @access_time_slot } %>

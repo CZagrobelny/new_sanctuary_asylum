@@ -1,15 +1,15 @@
 class User < ApplicationRecord
-  PRIMARY_ROLES = %w[volunteer accompaniment_leader admin].map { |k, _v| [k.humanize.titleize, k] }
-  NON_PRIMARY_ROLES = %w[volunteer admin].map { |k, _v| [k.humanize.titleize, k] }
+  PRIMARY_ROLES = %w[volunteer accompaniment_leader data_entry admin].map { |k, _v| [k.humanize.titleize, k] }
+  NON_PRIMARY_ROLES = %w[volunteer data_entry admin].map { |k, _v| [k.humanize.titleize, k] }
 
   devise :invitable, :database_authenticatable, :lockable,
          :recoverable, :rememberable, :trackable, :secure_validatable,
          :password_expirable, :password_archivable, :timeoutable,
-         invite_for: 1.week
+         :session_limitable, invite_for: 1.week
 
   attr_reader :raw_invitation_token
 
-  enum role: %i[volunteer accompaniment_leader admin]
+  enum role: %i[volunteer accompaniment_leader admin data_entry]
   enum volunteer_type: %i[english_speaking spanish_interpreter lawyer]
 
   validates :first_name, :last_name, :email, :phone, :volunteer_type, :community_id, presence: true
@@ -28,6 +28,8 @@ class User < ApplicationRecord
   has_many :accompaniment_reports, dependent: :destroy
   has_many :reviews
   has_many :releases
+  has_many :access_time_slots, foreign_key: :grantee_id, class_name: 'AccessTimeSlot', dependent: :restrict_with_error
+  has_many :access_time_slots_granted, foreign_key: :grantor_id, class_name: 'AccessTimeSlot', dependent: :restrict_with_error
 
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
 
@@ -61,6 +63,10 @@ class User < ApplicationRecord
   scope :filter_email, ->(email) {
     basic_search(email: email)
   }
+
+  def admin_or_has_active_access_time_slot?
+    admin? || access_time_slots.where('start_time < ? AND end_time > ?', Time.now, Time.now).present?
+  end
 
   def confirmed?
     invitation_accepted_at.present?
@@ -120,6 +126,6 @@ class User < ApplicationRecord
   end
 
   def admin_or_existing_relationship?(friend_id)
-    admin? || existing_relationship?(friend_id)
+    admin_or_has_active_access_time_slot? || existing_relationship?(friend_id)
   end
 end
