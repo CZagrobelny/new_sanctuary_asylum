@@ -76,6 +76,10 @@ class Friend < ApplicationRecord
     users.where(user_friend_associations: { remote: true })
   end
 
+  scope :filter_id, ->(id) {
+    where(id: id)
+  }
+
   pg_search_scope :filter_first_name, against: :first_name,
                                       using: { tsearch: { prefix: true } }
 
@@ -138,7 +142,8 @@ class Friend < ApplicationRecord
   }
 
   filterrific(default_filter_params: {},
-              available_filters: %i[filter_first_name
+              available_filters: %i[filter_id
+                                    filter_first_name
                                     filter_last_name
                                     filter_a_number
                                     filter_detained
