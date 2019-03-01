@@ -61,3 +61,18 @@ input.datepicker.form-control {
   width: auto !important;
   margin-right: 0.5em;
 }
+
+.condensed-filters {
+  .form-control {
+    height: 28px;
+  }
+  .inline-form-group input.form-control {
+    display: inline-block !important;
+    width: auto;
+  }
+  select.form-control {
+    display: inline-block !important;
+    width: auto !important;
+    margin-right: 0.5em;
+  }
+}
