@@ -9,6 +9,9 @@
     <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
     <li><%= link_to 'Edit My Info', edit_community_user_path(current_community.slug, current_user) %></li>
     <li role="separator" class="divider"></li>
+    <% if current_user.admin? %>
+      <li><%= link_to 'Access Time Slots', community_admin_access_time_slots_path(current_community.slug) %></li>
+    <% end %>
     <li><%= link_to 'Events', community_admin_events_path(current_community.slug) %></li>
     <li><%= link_to 'Lawyers', community_admin_lawyers_path(current_community.slug) %></li>
     <li><%= link_to 'Judges', community_admin_judges_path(current_community.slug) %></li>

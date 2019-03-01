@@ -5,7 +5,7 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :lockable,
          :recoverable, :rememberable, :trackable, :secure_validatable,
          :password_expirable, :password_archivable, :timeoutable,
-         invite_for: 1.week
+         :session_limitable, invite_for: 1.week
 
   attr_reader :raw_invitation_token
 
@@ -64,8 +64,8 @@ class User < ApplicationRecord
     basic_search(email: email)
   }
 
-  def has_active_access_time_slot?
-    access_time_slots.where('start_time < ? AND end_time > ?', Time.now, Time.now).present?
+  def admin_or_has_active_access_time_slot?
+    admin? || access_time_slots.where('start_time < ? AND end_time > ?', Time.now, Time.now).present?
   end
 
   def confirmed?
@@ -126,6 +126,6 @@ class User < ApplicationRecord
   end
 
   def admin_or_existing_relationship?(friend_id)
-    admin? || existing_relationship?(friend_id)
+    admin_or_has_active_access_time_slot? || existing_relationship?(friend_id)
   end
 end

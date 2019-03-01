@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin_or_access_time_slot
-    unless current_user.admin? || current_user.has_active_access_time_slot?
+    unless current_user.admin_or_has_active_access_time_slot?
       not_found
     end
   end

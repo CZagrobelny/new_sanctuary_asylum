@@ -4,7 +4,7 @@
       <h1 class='page-header'>Edit User</h1>
 
       <%= render 'form' %>
-      <% if current_user.admin? %>
+      <% if current_user.admin_or_has_active_access_time_slot? %>
         <h4>Has access to Friend records:</h4>
           <%= raw @user.local_clinic_friends.collect { |friend| link_to friend.name, edit_community_admin_friend_path(current_community.slug, friend), target: '_blank' }.join(' | ') %>
       <% end %>
