@@ -1,5 +1,5 @@
 class AccessTimeSlot < ApplicationRecord
-  USES = %w[data_entry clinic_support]
+  USES = %w[data_entry clinic_support anti_detention]
 
   belongs_to :grantee, class_name: 'User'
   belongs_to :grantor, class_name: 'User'
