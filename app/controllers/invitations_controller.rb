@@ -1,6 +1,6 @@
 class InvitationsController < Devise::InvitationsController
   before_action :authenticate_user!
-  before_action :require_admin, only: %i[new create]
+  before_action :require_admin_or_access_time_slot, only: %i[new create]
   before_action :require_access_to_community, only: %i[new create]
   before_action :update_sanitized_params, only: :update
   before_action :allow_devise_params, only: :create

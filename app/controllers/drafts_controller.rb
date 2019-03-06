@@ -2,7 +2,7 @@ class DraftsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_access_to_community, except: [:approve]
   before_action :require_admin_or_access_to_friend, except: [:approve]
-  before_action :require_admin, only: [:destroy]
+  before_action :require_admin_or_access_time_slot, only: [:destroy]
   before_action :require_regional_admin_or_remote_lawyer_with_access_to_friend, only: [:approve]
 
   def new
