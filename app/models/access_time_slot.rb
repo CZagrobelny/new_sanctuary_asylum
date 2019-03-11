@@ -20,6 +20,8 @@ class AccessTimeSlot < ApplicationRecord
   end
 
   def time_range_under_ten_hours
+    return if end_time.blank? || start_time.blank?
+
     if end_time - start_time > 10.hours
       errors.add(:base, "Time range cannot exceed 10 hours.")
     end
