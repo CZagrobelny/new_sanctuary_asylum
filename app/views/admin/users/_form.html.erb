@@ -47,6 +47,15 @@
 
     <div class='form-group'>
       <div class='col-md-6 col-md-offset-2'>
+        <%= f.check_box :pledge_signed, id: 'pledge-check' %>
+        <label>
+          Signed Pledge
+        </label>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <div class='col-md-6 col-md-offset-2'>
         <%= f.check_box :signed_guidelines, id: 'signed-check' %>
         <label>
           Signed Guidelines

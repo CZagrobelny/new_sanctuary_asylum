@@ -64,6 +64,7 @@ class Admin::UsersController < AdminController
       :phone,
       :volunteer_type,
       :role,
+      :pledge_signed,
       :signed_guidelines,
       :attended_training,
       :remote_clinic_lawyer

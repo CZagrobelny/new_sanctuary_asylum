@@ -57,6 +57,7 @@ class RegionalAdmin::RemoteLawyersController < AdminController
       :phone,
       :volunteer_type,
       :role,
+      :pledge_signed,
       :signed_guidelines,
       :remote_clinic_lawyer,
       friend_ids: []
