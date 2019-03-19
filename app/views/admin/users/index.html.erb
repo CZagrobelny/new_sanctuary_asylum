@@ -5,7 +5,7 @@
   <h1><%= link_to "Users", community_admin_users_path(current_community.slug) %></h1>
 </div>
 <%= form_for_filterrific @filterrific, html: { id: 'filterrific-no-ajax-auto-submit', class: 'well well-lg' }  do |f| %>
-
+  <div class="row">
     <div class='form-group col-md-3'>
       <%= f.label :filter_first_name, 'First Name' %>
       <%= f.text_field(:filter_first_name, class: 'form-control') %>
@@ -22,9 +22,9 @@
         <%= f.label :filter_volunteer_type, 'Volunteer Type' %>
         <%= f.select(:filter_volunteer_type, @filterrific.select_options[:filter_volunteer_type], { include_blank: '- Any -' }, { class: 'form-control' }) %>
     </div>
+  </div>
 
-
-   <%= submit_tag 'Search', class: 'btn btn-primary search-button'%>
+  <%= submit_tag 'Search', class: 'btn btn-primary' %>
 </div>
 
 
