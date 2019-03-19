@@ -50,13 +50,17 @@ ActiveRecord::Base.transaction do
   User.create!(first_name: 'Remote Clinic', last_name: 'Lawyer', email: 'remote_clinic_lawyer@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 2, role: 0, pledge_signed: true, remote_clinic_lawyer: true)
 
   #Some additional NYC volunteer users
-  20.times do
+  20.times do |index|
+    Timecop.travel(index.days.ago)
     User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: nyc_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 0, pledge_signed: true)
   end
+  Timecop.return
 
-  10.times do
+  10.times do |index|
+    Timecop.travel(index.days.ago)
     User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: nyc_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 2, role: 0, pledge_signed: true, remote_clinic_lawyer: false)
   end
+  Timecop.return
   ## Long Island Users
 
   #Accompaniment Leader User
@@ -70,12 +74,15 @@ ActiveRecord::Base.transaction do
 
 
   #Some additional Long Island volunteer users
-  30.times do
+  30.times do |index|
+    Timecop.travel(index.days.ago)
     User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: long_island_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 0, pledge_signed: true)
   end
+  Timecop.return
 
   # NYC Friends
-  30.times do
+  30.times do |index|
+    Timecop.travel(index.days.ago)
     Friend.create!(first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
       a_number: rand.to_s[2..10],
@@ -102,9 +109,11 @@ ActiveRecord::Base.transaction do
       user_ids: User.where(community_id: nyc_community.id).order("RANDOM()").limit(5).map(&:id)
       )
   end
+  Timecop.return
 
   # Long Islang Friends
-  30.times do
+  30.times do |index|
+    Timecop.travel(index.days.ago)
     friend = Friend.create!(first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
       a_number: rand.to_s[2..10],
@@ -131,6 +140,7 @@ ActiveRecord::Base.transaction do
       user_ids: User.where(community_id: long_island_community.id).order("RANDOM()").limit(5).map(&:id)
       )
   end
+  Timecop.return
 
   #Lawyers
   Lawyer.create!(first_name: 'Michelle', last_name: 'Obama', region_id: ny_region.id)

@@ -7,7 +7,10 @@ class Admin::UsersController < AdminController
                                           },
                                           persistence_id: false)
 
-    @users = current_community.users.filterrific_find(@filterrific).paginate(page: params[:page])
+    @users = current_community.users
+      .order('created_at DESC')
+      .filterrific_find(@filterrific)
+      .paginate(page: params[:page])
 
     respond_to do |format|
       format.html
