@@ -42,24 +42,6 @@
             <% end %>
             <div class='.text-warning'><em><%= volunteers_needed(activity) %></em></div>
             <hr></hr>
-            <% if activity.accompaniment_reports.present? %>
-              <strong>Report Backs:</strong>
-              <ol>
-                <% activity.accompaniment_reports.each do |report| %>
-                  <hr></hr>
-
-                  <strong>Report Back by: </strong><%= report.user.name if report.user.present? %>
-                  <div><strong>Outcome of hearing: </strong><%= report.outcome_of_hearing %></div>
-                  <strong>Notes: </strong><%= report.notes %>
-                <% end %>
-              </ol>
-            <% end %>
-
-            <% if current_user.accompaniment_report_for(activity).present? %>
-              <%= link_to 'Edit My Report Back', edit_community_accompaniment_leader_activity_accompaniment_report_path(current_community.slug, activity, current_user.accompaniment_report_for(activity)) %>
-            <% else %>
-              <%= link_to 'Add Report Back', new_community_accompaniment_leader_activity_accompaniment_report_path(current_community.slug, activity) %>
-            <% end %>
             <%= form_for [current_community, accompaniment] do |f| %>
               <%= f.hidden_field :activity_id, value: activity.id %>
               <%= f.hidden_field :user_id, value: current_user.id %>
@@ -84,7 +66,12 @@
               </div>
             <% end %>
             <% if current_user.attending?(activity) %>
-              <%= link_to "Add Next Activity for #{activity.friend.name}", new_community_accompaniment_leader_friend_activity_path(friend_id: activity.friend.id) %>
+              <% if current_user.accompaniment_report_for(activity).present? %>
+                <%= link_to 'Edit Report Back', edit_community_accompaniment_leader_activity_accompaniment_report_path(current_community.slug, activity, current_user.accompaniment_report_for(activity)), class: 'btn btn-info' %>
+              <% else %>
+                <%= link_to 'Add Report Back', new_community_accompaniment_leader_activity_accompaniment_report_path(current_community.slug, activity), class: 'btn btn-info' %>
+              <% end %>
+              <%= link_to "Add Activity", new_community_accompaniment_leader_friend_activity_path(friend_id: activity.friend.id), class: 'btn btn-warning' %>
             <% end %>
           </div>
         </div>
