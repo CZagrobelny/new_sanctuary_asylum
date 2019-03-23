@@ -1,0 +1,36 @@
+<h3>Accompaniment History</h3>
+<strong style='color: #b30000;'>Check the 'Documents' tab for older 'Report Backs'</strong>
+<div class='row'>
+  <% friend.activities.order('occur_at desc').each do |activity| %>
+    <div class='col-md-10'>
+      <h4>
+        <%= "#{activity.activity_type.name.titlecase} #{activity.occur_at.strftime("-- %I:%M %p, %A, %B %-d, %Y")}" %>
+      </h4>
+      <% if activity.location.present? %>
+        <strong>Location:  </strong><%= activity.location.name %><br>
+      <% end %>
+      <% if activity.judge.present? %>
+        <strong>Judge:  </strong><%= activity.judge.name %><br>
+      <% end %>
+      <% if activity.notes.present? %>
+        <strong>Notes:  </strong><%= activity.notes %><br>
+      <% end %>
+      <% if activity.public_notes.present? %>
+        <strong>Public Notes:  </strong><%= activity.public_notes %><br>
+      <% end %>
+      <% if activity.accompaniment_leader_accompaniments.present? %>
+        <strong>Accompaniment Leaders:  </strong>
+        <%= render 'shared/scoped_activity_users_details', activity: activity, scope: 'accompaniment_leader' %>
+      <% end %>
+      <% if activity.accompaniment_reports.present? %>
+        <% activity.accompaniment_reports.each do |report| %>
+            <strong>Report Back by: </strong><%= report.user.name if report.user.present? %>
+            <div><strong>Outcome of hearing: </strong><%= report.outcome_of_hearing %></div>
+            <strong>Notes: </strong><%= report.notes %>
+            <br>
+        <% end %>
+      <% end %>
+      <hr></hr>
+    </div>
+  <% end %>
+</div>

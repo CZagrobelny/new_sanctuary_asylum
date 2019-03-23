@@ -1,0 +1,38 @@
+<h1><%=  @friend.name %></h1>
+
+<div class= 'row'>
+  <div class='col-md-10 col-md-offset-1'>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#info" role="tab">Basic</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#accompaniment_history" role="tab">Accompaniment History</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#documents" role="tab">Documents</a>
+      </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content form-inputs">
+      <div class="tab-pane active" id="info" role="tabpanel">
+        <%= render 'friends/info', friend: @friend %>
+      </div>
+      <div class="tab-pane active" id="accompaniment_history" role="tabpanel">
+        <%= render 'accompaniment_history', friend: @friend %>
+      </div>
+      <div class="tab-pane" id="documents" role="tabpanel">
+        <%= render 'friends/drafts', friend: @friend %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $('a[href="<%= @current_tab %>"]').click();
+  });
+</script>
