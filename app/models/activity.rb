@@ -74,6 +74,7 @@ class Activity < ApplicationRecord
 
   def self.remaining_this_week?
     Activity.accompaniment_eligible
+            .confirmed
             .where('occur_at >= ? AND occur_at <= ? ',
                    Time.now,
                    Date.today.end_of_week.end_of_day).present?
