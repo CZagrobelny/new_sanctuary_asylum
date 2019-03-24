@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :application do
-    category "asylum"
+    category { "asylum" }
     association :friend
   end
 end
