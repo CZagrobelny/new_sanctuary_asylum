@@ -42,7 +42,7 @@
       <% if activity.accompaniment_eligible? %>
         <div style='float: right;'>
           <% if activity.confirmed? %>
-            <strong>Confirmed by Admin</strong>
+            <%= link_to 'Unconfirm', unconfirm_community_admin_friend_activity_path(current_community.slug, friend, activity), class: 'btn btn-danger' %>
           <% else %>
             <%= link_to 'Confirm', confirm_community_admin_friend_activity_path(current_community.slug, friend, activity), class: 'btn btn-primary' %>
           <% end %>
