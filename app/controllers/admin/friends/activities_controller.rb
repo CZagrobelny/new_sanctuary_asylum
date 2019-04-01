@@ -38,6 +38,15 @@ class Admin::Friends::ActivitiesController < AdminController
     redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#activities')
   end
 
+  def unconfirm
+    if activity.update(confirmed: false)
+      flash[:success] = 'Accompaniment confirmation removed.'
+    else
+      flash.now[:error] = 'There was an issue unconfirming this accompaniment.'
+    end
+    redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#activities')
+  end
+
   def activity
     @activity ||= friend.activities.find(params[:id])
   end

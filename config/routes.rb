@@ -41,12 +41,14 @@ Rails.application.routes.draw do
         end
         member do
           get :confirm
+          get :unconfirm
         end
       end
       resources :friends do
         resources :activities, controller: 'friends/activities' do
           member do
             get :confirm
+            get :unconfirm
           end
         end
         resources :detentions, controller: 'friends/detentions'

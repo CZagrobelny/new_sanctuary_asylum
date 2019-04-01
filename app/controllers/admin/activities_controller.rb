@@ -55,6 +55,15 @@ class Admin::ActivitiesController < AdminController
     redirect_to accompaniments_community_admin_activities_path
   end
 
+  def unconfirm
+    if activity.update(confirmed: false)
+      flash[:success] = 'Accompaniment confirmation removed.'
+    else
+      flash.now[:error] = 'There was an issue unconfirming this accompaniment.'
+    end
+    redirect_to accompaniments_community_admin_activities_path
+  end
+
   def activity
     @activity ||= current_region.activities.find(params[:id])
   end
