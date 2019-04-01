@@ -7,6 +7,14 @@ class Admin::UsersController < AdminController
                                           },
                                           persistence_id: false)
 
+    @filterrific_role = initialize_filterrific(User,
+                                          params[:filterrific_role],
+                                          select_options: {
+                                            filter_role: role_options
+                                          },
+                                          persistence_id: false)
+
+
     @users = current_community.users
       .order('created_at DESC')
       .filterrific_find(@filterrific)
@@ -52,6 +60,12 @@ class Admin::UsersController < AdminController
   def volunteer_type_options
     User.volunteer_types.keys.map do |volunteer_type|
       [volunteer_type.humanize, volunteer_type]
+    end
+  end
+
+  def role_options
+    User.roles.keys.map do |role_type|
+      [role_type.humanize, role_type]
     end
   end
 

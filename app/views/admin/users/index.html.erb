@@ -20,7 +20,22 @@
     </div>
     <div class='form-group col-md-3'>
         <%= f.label :filter_volunteer_type, 'Volunteer Type' %>
-        <%= f.select(:filter_volunteer_type, @filterrific.select_options[:filter_volunteer_type], { include_blank: '- Any -' }, { class: 'form-control' }) %>
+        <%= f.select(
+          :filter_volunteer_type, 
+          @filterrific.select_options[:filter_volunteer_type], 
+          { include_blank: '- Any -' }, 
+          { class: 'form-control' },
+        ) %>
+    </div>
+      <!-- enum volunteer_type: %i[english_speaking spanish_interpreter lawyer] -->
+    <div class='form-group col-md-3'>
+        <%= f.label :filter_role, 'Role' %>
+        <%= f.select(
+          :filter_role, 
+          @filterrific_role.select_options[:filter_role], 
+          { include_blank: '- Any -' }, 
+          { class: 'form-control' },
+        ) %>
     </div>
   </div>
 
