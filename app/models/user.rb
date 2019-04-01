@@ -41,6 +41,7 @@ class User < ApplicationRecord
       filter_last_name
       filter_email
       filter_volunteer_type
+      filter_role
     ]
   )
 
@@ -50,6 +51,10 @@ class User < ApplicationRecord
 
   scope :filter_volunteer_type, ->(volunteer_type) {
     where(volunteer_type: volunteer_type)
+  }
+
+  scope :filter_role, ->(role) {
+    where(role: role)
   }
 
   scope :filter_first_name, ->(name) {
