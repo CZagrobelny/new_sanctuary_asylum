@@ -13,9 +13,22 @@
   <tbody>
     <% volunteer_attendance.each do |attendance| %>
       <tr>
-        <td><%= attendance.user.name %></td>
         <td>
-          <%= link_to community_admin_event_user_event_attendance_path(current_community.slug, event, attendance), method: :delete, remote: true do %>
+          <%= link_to edit_community_admin_user_path(
+            current_community.slug, 
+            attendance.user,
+            ), id: "edit-user-#{attendance.user.id}" do %>
+            <% "#{attendance.user.name}" %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to community_admin_event_user_event_attendance_path(
+              current_community.slug, 
+              event, 
+              attendance,
+            ), 
+            method: :delete, 
+            remote: true do %>
             <i class="fas fa-times"></i>
           <% end %>
         </td>
