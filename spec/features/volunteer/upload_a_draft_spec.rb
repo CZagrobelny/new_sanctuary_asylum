@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'Remote clinic volunteer uploads a draft', type: :feature, js: true do
-  let(:community) { create(:community) }
+  let(:region) { create(:region) }
+  let(:community) { create(:community, region: region) }
+  let!(:regional_admin) { create(:user, :regional_admin, community: community) }
   let(:volunteer) { create(:user, :volunteer, community: community) }
   let!(:release) { create(:release, friend: friend) }
-  let(:friend) { create(:friend, community: community) }
+  let(:friend) { create(:friend, community: community, region: region) }
   let!(:user_friend_association) { create(:user_friend_association, friend: friend, user: volunteer)}
 
   before do
@@ -34,17 +36,29 @@ RSpec.describe 'Remote clinic volunteer uploads a draft', type: :feature, js: tr
   end
 
   def upload_draft_and_submit
+    # Upload a new document
     click_link 'Documents'
     expect(page).to have_content 'There are no files associated with this user.'
     click_on 'Create Document'
     expect(page).to have_content 'New Document'
     attach_file 'File Upload', Rails.root.join('spec', 'support', 'images', 'nsc_logo.png'), make_visible: true
     select 'Asylum', from: 'application[category]'
-    # TODO
-    # add self to volunteers list
-    # Save; should land back on Documents tab
-    # should see Submit For Review button
-    # click Submit For Review
-    # should see In Review
+
+    # Add self as a volunteer
+    find('#draft_user_ids_chosen').click
+    within('.chosen-results') do
+      find('li', text: volunteer.name).click
+    end
+    within('.chosen-choices') do
+      expect(page).to have_content volunteer.name
+    end
+
+    # Save and submit for review
+    click_on 'Save'
+    expect(page).to have_content 'Application draft saved'
+    click_on 'Submit for Review'
+    within('span.status') do
+      expect(page).to have_content 'In review'
+    end
   end
 end
