@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Remote clinic volunteer uploads a draft', type: :feature, js: true do
   let(:community) { create(:community) }
   let(:volunteer) { create(:user, :volunteer, community: community) }
+  let!(:release) { create(:release, friend: friend) }
   let(:friend) { create(:friend, community: community) }
   let!(:user_friend_association) { create(:user_friend_association, friend: friend, user: volunteer)}
 
@@ -28,15 +29,19 @@ RSpec.describe 'Remote clinic volunteer uploads a draft', type: :feature, js: tr
     scenario 'upload a draft and submit for review; should email the remote clinic lawyer' do
       upload_draft_and_submit
 
-      # TODO: remote clinit lawyer should get an email 'Review needed'
+      # TODO: remote clinic lawyer should get an email 'Review needed'
     end
   end
 
   def upload_draft_and_submit
+    click_link 'Documents'
+    expect(page).to have_content 'There are no files associated with this user.'
+    click_on 'Create Document'
+    expect(page).to have_content 'New Document'
+    attach_file 'File Upload', Rails.root.join('spec', 'support', 'images', 'nsc_logo.png'), make_visible: true
+    select 'Asylum', from: 'application[category]'
     # TODO
-    # Documents tab
-    # Create Document, upload a file
-    # set type (asylum), add self to volunteers list
+    # add self to volunteers list
     # Save; should land back on Documents tab
     # should see Submit For Review button
     # click Submit For Review
