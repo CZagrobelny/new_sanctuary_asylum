@@ -15,9 +15,10 @@
       <tr>
         <td>
           <%= link_to edit_community_admin_user_path(
-            current_community.slug, 
-            attendance.user,
-            ), id: "edit-user-#{attendance.user.id}" do %>
+              current_community.slug, 
+              attendance.user,
+            ), 
+            id: "edit-user-#{attendance.user.id}" do %>
             <% "#{attendance.user.name}" %>
           <% end %>
         </td>
