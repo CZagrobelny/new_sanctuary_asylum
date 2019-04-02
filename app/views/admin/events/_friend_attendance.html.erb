@@ -6,13 +6,19 @@
 <table class='table table-bordered'>
   <thead>
     <tr>
+      <th />
       <th>Name</th>
-      <th></th>
+      <th />
       </tr>
   </thead>
   <tbody>
-    <% friend_attendance.each do |attendance| %>
+    <% friend_attendance.each_with_index do |attendance, index| %>
       <tr>
+        <td class="event_small_col">
+          <div class="event_centered_col">
+            <%=h index + 1 %>
+          </div>
+        </td>
         <td>
           <%= link_to edit_community_admin_friend_path(
             current_community.slug, 
@@ -21,10 +27,12 @@
             <% "#{attendance.friend.name}" %>
           <% end %>    
         </td>
-        <td>
-          <%= link_to community_admin_event_friend_event_attendance_path(current_community.slug, event, attendance), method: :delete, remote: true do %>
-            <i class="fas fa-times"></i>
-          <% end %>
+        <td class="event_small_col">
+          <div class="event_centered_col">
+            <%= link_to community_admin_event_friend_event_attendance_path(current_community.slug, event, attendance), method: :delete, remote: true do %>
+              <i class="fas fa-times"></i>
+            <% end %>
+          </div>
         </td>
       </tr>
     <% end %>
