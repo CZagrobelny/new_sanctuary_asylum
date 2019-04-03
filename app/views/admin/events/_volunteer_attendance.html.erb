@@ -24,7 +24,7 @@
               current_community.slug, 
               attendance.user,
             ), 
-            id: "edit-user-#{attendance.user.id}" do %>
+            target: '_blank', id: "edit-user-#{attendance.user.id}" do %>
             <% "#{attendance.user.name}" %>
           <% end %>
         </td>
