@@ -37,7 +37,9 @@
           <td><%= friend.phone %></td>
           <td><%= friend.created_at.strftime('%m/%d/%y') %></td>
           <% if friend.date_of_entry? %>          
-            <td><%= friend.date_of_entry.strftime('%m/%d/%y') %></td>
+            <td style="<%= "font-weight: bold; color: #199348" if friend.date_of_entry >= 1.year.ago.to_date %>; ">
+              <%= friend.date_of_entry.strftime('%m/%d/%y') %>
+            </td>
           <% else %>
             <td />
           <% end %>
