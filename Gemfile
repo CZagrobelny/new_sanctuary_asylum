@@ -45,6 +45,7 @@ group :development, :test do
   gem 'bundler-audit'
   gem 'byebug'
   gem 'capybara', '~> 2.10', require: false
+  gem 'capybara-email'
   gem 'database_cleaner', '~> 1.5', require: false
   gem 'dotenv-rails'
   gem 'factory_bot_rails', '~> 4.0', require: false

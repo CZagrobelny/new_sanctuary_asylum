@@ -20,7 +20,8 @@ RSpec.describe 'Remote clinic volunteer uploads a draft', type: :feature, js: tr
     scenario 'upload a draft and submit for review; should email the regional admin' do
       upload_draft_and_submit
 
-      # TODO: regional admin should get an email 'Lawyer Assignment Needed'
+      open_email(regional_admin.email)
+      expect(current_email.subject).to eq 'Lawyer assignment needed'
     end
   end
 
@@ -31,7 +32,8 @@ RSpec.describe 'Remote clinic volunteer uploads a draft', type: :feature, js: tr
     scenario 'upload a draft and submit for review; should email the remote clinic lawyer' do
       upload_draft_and_submit
 
-      # TODO: remote clinic lawyer should get an email 'Review needed'
+      open_email(remote_clinic_lawyer.email)
+      expect(current_email.subject).to eq 'Review needed'
     end
   end
 
