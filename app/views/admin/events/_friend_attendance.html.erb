@@ -23,7 +23,7 @@
           <%= link_to edit_community_admin_friend_path(
             current_community.slug, 
             attendance.friend,
-            ), id: "edit-user-#{attendance.friend.id}" do %>
+            ), target: '_blank', id: "edit-user-#{attendance.friend.id}" do %>
             <% "#{attendance.friend.name}" %>
           <% end %>    
         </td>
