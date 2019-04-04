@@ -12,6 +12,7 @@ require 'faker'
 
 require 'capybara/rspec'
 require 'capybara/rails'
+require 'capybara/email/rspec'
 require 'capybara/poltergeist'
 require 'database_cleaner'
 require 'launchy'

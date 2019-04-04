@@ -7,7 +7,7 @@ class Event < ApplicationRecord
   has_many :friends, through: :friend_event_attendances
   validates :date, :location_id, :title, :category, :community_id, presence: true
 
-  CATEGORIES = %w[asylum_workshop asylum_training accompaniment_training social].map { |category| [category.titlecase, category] }
+  CATEGORIES = %w[pro_se_clinic sijs_clinic asylum_workshop asylum_training accompaniment_training social].map { |category| [category.titlecase, category] }
 
   def user_attendances
     user_event_attendances.includes(:user).order('created_at desc')
