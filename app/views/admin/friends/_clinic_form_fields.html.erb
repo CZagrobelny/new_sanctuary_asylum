@@ -1,3 +1,9 @@
+<h3>Cohort</h3>
+<% cohort = @friend.cohorts.first %>
+<% if cohort.present? %>
+  <strong><i class='far fa-calendar-check' style="color: <%= cohort.color %>;"></i> <%= cohort.start_date.strftime("%B %-d, %Y") %></strong>
+<% end %>
+
 <h3>Asylum</h3>
 <div class='row form-group'>
   <%= f.label :asylum_status, 'Status', class: 'col-md-2 control-label' %>

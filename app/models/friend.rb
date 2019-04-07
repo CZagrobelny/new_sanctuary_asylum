@@ -182,6 +182,10 @@ class Friend < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def name_and_clinic_priority
+    "#{name} (TO DO priority)"
+  end
+
   def ethnicity
     other? ? self[:other_ethnicity] : self[:ethnicity]
   end
