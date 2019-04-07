@@ -8,6 +8,7 @@
     <tr>
       <th />
       <th>Name</th>
+      <th>Confirmed</th>
       <th />
       </tr>
   </thead>
@@ -27,6 +28,11 @@
             <% "#{assignment.friend.name}" %>
           <% end %>
         </td>
+        <td>
+          <%= form_for [current_community, :admin, cohort, assignment]  do |f| %>
+            <%= f.select :confirmed, options_for_select([['No', false], ['Yes', true]], assignment.confirmed), {}, { id: "friend_cohort_assignment_confirmed_#{assignment.id}", class: 'confirmation_select' } %>
+          <% end %>
+        </td>
         <td class="event_small_col">
           <div class="event_centered_col">
             <%= link_to community_admin_cohort_friend_cohort_assignment_path(current_community.slug, cohort, assignment), method: :delete, remote: true do %>
@@ -44,6 +50,9 @@
     activateChosen();
     $('#friend_cohort_assignment_friend_id').change(function() {
       $('#new_friend_cohort_assignment').submit();
+    });
+    $('.confirmation_select').change(function() {
+      this.form.submit();
     });
   });
 </script>

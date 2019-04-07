@@ -72,7 +72,7 @@ Rails.application.routes.draw do
         member do
           get :assignment
         end
-        resources :friend_cohort_assignments, only: [:create, :destroy]
+        resources :friend_cohort_assignments, only: [:create, :update, :destroy]
       end
 
       get 'reports/new', to: 'reports#new'

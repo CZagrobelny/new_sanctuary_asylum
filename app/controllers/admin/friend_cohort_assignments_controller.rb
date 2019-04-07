@@ -10,6 +10,12 @@ class Admin::FriendCohortAssignmentsController < AdminController
     render_success if @friend_cohort_assignment.save
   end
 
+  def update
+    @friend_cohort_assignment = FriendCohortAssignment.find(params[:id])
+    @friend_cohort_assignment.update(friend_cohort_assignment_params)
+    redirect_to assignment_community_admin_cohort_path(current_community.slug, cohort)
+  end
+
   def destroy
     @friend_cohort_assignment = FriendCohortAssignment.find(params[:id])
     render_success if @friend_cohort_assignment.destroy
@@ -32,6 +38,7 @@ class Admin::FriendCohortAssignmentsController < AdminController
 
   def friend_cohort_assignment_params
     params.require(:friend_cohort_assignment).permit(
+      :confirmed,
       friend_id: []
     )
   end
