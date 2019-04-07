@@ -9,6 +9,9 @@
       <th />
       <th>Name</th>
       <th>Confirmed</th>
+      <% @events.each do |event| %>
+        <th><%= event.date.strftime("%-m/%-d") %></th>
+      <% end %>
       <th />
       </tr>
   </thead>
@@ -33,6 +36,13 @@
             <%= f.select :confirmed, options_for_select([['No', false], ['Yes', true]], assignment.confirmed), {}, { id: "friend_cohort_assignment_confirmed_#{assignment.id}", class: 'confirmation_select' } %>
           <% end %>
         </td>
+        <% @events.each do |event| %>
+          <td>
+            <% if event.friend_attending?(assignment.friend) %>
+              <i class="confirmed fas fa-user-check"></i>
+            <% end %>
+          </td>
+        <% end %>
         <td class="event_small_col">
           <div class="event_centered_col">
             <%= link_to community_admin_cohort_friend_cohort_assignment_path(current_community.slug, cohort, assignment), method: :delete, remote: true do %>

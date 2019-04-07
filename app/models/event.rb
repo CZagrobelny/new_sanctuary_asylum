@@ -20,4 +20,8 @@ class Event < ApplicationRecord
   def self.between_dates(start_date, end_date)
     where('date > ? AND date < ?', start_date, end_date)
   end
+
+  def friend_attending?(friend)
+    FriendEventAttendance.where(event_id: id, friend_id: friend.id).present?
+  end
 end
