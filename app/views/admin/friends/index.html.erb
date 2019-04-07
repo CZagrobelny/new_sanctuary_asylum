@@ -25,7 +25,13 @@
     <tbody>
       <% @friends.each do |friend| %>
         <tr id="friend-<%=friend.id%>" style="color: <%= friend.detained? ? "red" : "black" %>;"}>
-          <td><%= friend.id %></td>
+          <td>
+            <%= friend.id %>
+            <% if friend.cohorts.present? %>
+              <br>
+              <i class='far fa-calendar-check' style="color: <%= friend.cohorts.first.color %>;"></i>
+            <% end %>
+          </td>
           <td><%= link_to friend.first_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>
           <td><%= link_to friend.last_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>
           <% if current_region.border? %>

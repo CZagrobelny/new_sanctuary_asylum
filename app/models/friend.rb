@@ -48,6 +48,8 @@ class Friend < ApplicationRecord
   has_many :applications
   has_many :friend_event_attendances, dependent: :destroy
   has_many :events, through: :friend_event_attendances
+  has_many :friend_cohort_assignments, dependent: :destroy
+  has_many :cohorts, through: :friend_cohort_assignments
   has_many :family_relationships, dependent: :destroy
   has_many :family_members, through: :family_relationships, source: 'relation'
   has_many :releases, dependent: :destroy

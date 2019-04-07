@@ -9,6 +9,7 @@
     <li role="separator" class="divider"></li>
     <% if current_user.admin? %>
       <li><%= link_to 'Access Time Slots', community_admin_access_time_slots_path(current_community.slug) %></li>
+      <li><%= link_to 'Cohorts', community_admin_cohorts_path(current_community.slug) %></li>
     <% end %>
     <li><%= link_to 'External Lawyers', community_admin_lawyers_path(current_community.slug) %></li>
     <li><%= link_to 'Sanctuaries', community_admin_sanctuaries_path(current_community.slug) %></li>

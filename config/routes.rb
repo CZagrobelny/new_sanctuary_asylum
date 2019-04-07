@@ -64,9 +64,15 @@ Rails.application.routes.draw do
         member do
           get :attendance
         end
-        resources :friend_event_attendances, only: [:create, :destroy]
         resources :user_event_attendances, only: [:create, :destroy]
         resources :friend_event_attendances, only: [:create, :destroy]
+      end
+
+      resources :cohorts do
+        member do
+          get :assignment
+        end
+        resources :friend_cohort_assignments, only: [:create, :destroy]
       end
 
       get 'reports/new', to: 'reports#new'

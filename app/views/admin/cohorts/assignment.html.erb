@@ -1,0 +1,9 @@
+<h1 style="color: <%= @cohort.color %>;"><%= @cohort.start_date.strftime("%B %-d, %Y") %></h1>
+
+<div class='row'>
+  <div class='col-md-7' id='friend-assignment'>
+    <%= render partial: 'friend_assignment', locals: {assigned_friends: @assigned_friends,
+      friend_assignments: @friend_assignments,
+      cohort: @cohort } %>
+  </div>
+</div>
