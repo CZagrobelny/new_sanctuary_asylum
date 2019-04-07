@@ -45,14 +45,7 @@ class Admin::CohortsController < AdminController
     @cohort = current_community.cohorts.find(params[:id])
     @friend_assignments = @cohort.friend_assignments
     @assigned_friends = @cohort.friends
-    start_dates = [@cohort.start_date, @cohort.start_date + 1.week, @cohort.start_date + 2.weeks]
-    @events = []
-    start_dates.each do |start_date|
-      event = Event.where(category: 'pro_se_clinic')
-                        .between_dates(start_date, start_date.end_of_day)
-                        .first
-      @events << event if event
-    end
+    @events = Event.pro_se_clinics_at_dates([@cohort.start_date, @cohort.start_date + 1.week, @cohort.start_date + 2.weeks])
   end
 
   private

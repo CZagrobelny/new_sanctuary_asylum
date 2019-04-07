@@ -24,4 +24,15 @@ class Event < ApplicationRecord
   def friend_attending?(friend)
     FriendEventAttendance.where(event_id: id, friend_id: friend.id).present?
   end
+
+  def self.pro_se_clinics_at_dates(start_dates)
+    events = []
+    start_dates.each do |start_date|
+      event = Event.where(category: 'pro_se_clinic')
+                        .between_dates(start_date, start_date.end_of_day)
+                        .first
+      events << event if event
+    end
+    events
+  end
 end
