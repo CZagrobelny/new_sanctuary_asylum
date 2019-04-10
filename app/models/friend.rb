@@ -165,8 +165,8 @@ class Friend < ApplicationRecord
       %w[Oldest created_at_asc],
       ['Border Queue Number (Low to High)', 'border_queue_number_asc'],
       ['Border Queue Number (High to Low)', 'border_queue_number_desc'],
-      ['Date of Entry (Latest to Earliest)', 'date_of_entry_asc'],
-      ['Date of Entry (Earliest to Latest)', 'date_of_entry_desc']
+      ['Date of Entry (Ascending)', 'date_of_entry_asc'],
+      ['Date of Entry (Descending)', 'date_of_entry_desc']
     ]
   end
 
