@@ -136,6 +136,10 @@ class Friend < ApplicationRecord
       order("friends.created_at #{direction}")
     when /^border_queue_number/
       order("friends.border_queue_number #{direction}")
+    when /^intake_date_/
+      order("friends.intake_date #{direction}")
+    when /^must_be_seen_by_/
+      order("friends.must_be_seen_by #{direction}")
     when /^date_of_entry/
       order("friends.date_of_entry #{direction}")
     else
@@ -165,8 +169,11 @@ class Friend < ApplicationRecord
       %w[Oldest created_at_asc],
       ['Border Queue Number (Low to High)', 'border_queue_number_asc'],
       ['Border Queue Number (High to Low)', 'border_queue_number_desc'],
+      ['Intake Date (Ascending)', 'intake_date_asc'],
+      ['Intake Date (Descending)', 'intake_date_desc'],
+      ['Must Be Seen By (Soonest)', 'must_be_seen_by_asc'],
       ['Date of Entry (Ascending)', 'date_of_entry_asc'],
-      ['Date of Entry (Descending)', 'date_of_entry_desc']
+      ['Date of Entry (Descending)', 'date_of_entry_desc'],
     ]
   end
 
