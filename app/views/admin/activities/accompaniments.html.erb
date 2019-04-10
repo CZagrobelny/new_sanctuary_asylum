@@ -14,7 +14,7 @@
         <%= activity.occur_at.strftime("%I:%M %p") %>
       </dt>
       <dd>
-        <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>" style="color: <%= "red" if activity.friend.status == 'in_detention' %>;">
+        <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>" class="<%= "friend_in_detention" if activity.friend.status == 'in_detention' %>">
           <%= "#{activity.activity_type.name.titlecase} for #{activity.friend.name}" %>  
         </a>
         <span>(<%= "#{activity.volunteer_accompaniments.count}" %>)</span>
