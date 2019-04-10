@@ -3,7 +3,10 @@ class Admin::FriendsController < AdminController
     @filterrific = initialize_filterrific(Friend,
                                           params[:filterrific],
                                           default_filter_params: { sorted_by: 'created_at_desc' },
-                                          select_options: { sorted_by: Friend.options_for_sorted_by, filter_border_crossing_status: Friend::BORDER_CROSSING_STATUSES },
+                                          select_options: { 
+                                            sorted_by: Friend.options_for_sorted_by, 
+                                            filter_border_crossing_status: Friend::BORDER_CROSSING_STATUSES,
+                                            filter_clinic_wait_list_priority: Friend.clinic_wait_list_priorities.map { |key, value| [key.humanize, key] }},
                                           persistence_id: false)
 
     @friends = current_community.friends.filterrific_find(@filterrific).paginate(page: params[:page])
@@ -123,6 +126,7 @@ class Admin::FriendsController < AdminController
       :intake_notes,
       :must_be_seen_by,
       :intake_date,
+      :clinic_wait_list_priority,
       language_ids: [],
       user_ids: []
     ).merge(community_id: current_community.id, region_id: current_region.id)

@@ -3,6 +3,7 @@ class Friend < ApplicationRecord
 
   enum ethnicity: %i[white black hispanic asian south_asian caribbean indigenous other]
   enum gender: %i[male female awesome]
+  enum clinic_wait_list_priority: %i[priority needs_attention can_wait]
 
   STATUSES = %w[in_deportation_proceedings
                 not_in_deportation_proceedings
@@ -116,6 +117,10 @@ class Friend < ApplicationRecord
     where('created_at <= ?', string_to_end_of_date(date))
   }
 
+  scope :filter_clinic_wait_list_priority, ->(priority) {
+    where(clinic_wait_list_priority: priority)
+  }
+
   scope :filter_border_crossing_status, ->(status) {
     where(border_crossing_status: status)
   }
@@ -142,6 +147,8 @@ class Friend < ApplicationRecord
       where('must_be_seen_by IS NOT NULL').order("friends.must_be_seen_by #{direction}")
     when /^date_of_entry/
       where('date_of_entry IS NOT NULL').order("friends.date_of_entry #{direction}")
+    when /^clinic_wait_list_priority_/
+      where('clinic_wait_list_priority IS NOT NULL').order("friends.clinic_wait_list_priority #{direction}")
     else
       raise(ArgumentError, "Invalid sort option: #{sort_option.inspect}")
     end
@@ -157,6 +164,7 @@ class Friend < ApplicationRecord
                                     filter_asylum_application_deadline_ending_before
                                     filter_created_after
                                     filter_created_before
+                                    filter_clinic_wait_list_priority
                                     filter_border_queue_number
                                     filter_border_crossing_status
                                     filter_application_status
@@ -174,6 +182,8 @@ class Friend < ApplicationRecord
       ['Must Be Seen By (Soonest)', 'must_be_seen_by_asc'],
       ['Date of Entry (Ascending)', 'date_of_entry_asc'],
       ['Date of Entry (Descending)', 'date_of_entry_desc'],
+      ['Clinic Wait List Priority (Highest)', 'clinic_wait_list_priority_asc'],
+      ['Clinic Wait List Priority (Lowest)', 'clinic_wait_list_priority_desc'] 
     ]
   end
 
