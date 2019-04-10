@@ -1,16 +1,16 @@
 <div class='form_fields_section'>
   <h3>Intake</h3>
   <div class='row form-group'>
-    <%= f.label :must_be_seen_by, 'Must Be Seen By Date', class: 'col-md-2 control-label' %>
-    <div class='col-md-6'>
-      <%= f.date_select :must_be_seen_by, { start_year: 2019, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
-    </div>
-  </div>
-
-  <div class='row form-group'>
     <%= f.label :intake_date, 'Intake Date', class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
-      <%= f.date_select :intake_date, { start_year: 2018, end_year: 2019, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+      <%= f.text_field :intake_date, class: 'datepicker' %>
+    </div>
+  </div>
+  
+  <div class='row form-group'>
+    <%= f.label :must_be_seen_by, 'Must Be Seen By Date', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.text_field :must_be_seen_by, class: 'datepicker' %>
     </div>
   </div>
 
