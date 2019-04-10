@@ -24,7 +24,9 @@
     </thead>
     <tbody>
       <% @friends.each do |friend| %>
-        <tr id="friend-<%=friend.id%>" style="color: <%= friend.detained? ? "red" : "black" %>;"}>
+        <tr 
+          id="friend-<%=friend.id%>" 
+          class="<%= "friend_in_detention" if friend.detained? %>">
           <td><%= friend.id %></td>
           <td><%= link_to friend.first_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>
           <td><%= link_to friend.last_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>

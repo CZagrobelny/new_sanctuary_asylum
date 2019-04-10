@@ -1,96 +1,128 @@
-<h3>Asylum</h3>
-<div class='row form-group'>
-  <%= f.label :asylum_status, 'Status', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= f.select :asylum_status, options_for_select(Friend::ASYLUM_STATUSES, @friend.asylum_status), {include_blank: true}, {class: 'form-control'} %>
+<div class='form_fields_section'>
+  <h3>Intake</h3>
+  <div class='row form-group'>
+    <%= f.label :intake_date, 'Intake Date', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.text_field :intake_date, class: 'datepicker form-control' %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :must_be_seen_by, 'Must Be Seen By Date', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.text_field :must_be_seen_by, class: 'datepicker form-control' %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :intake_notes, 'Intake Notes', class: 'col-md-2 control-label' %>
+    <div class='col-md-10'>
+      <%= f.text_area :intake_notes, class: 'form-control', style: 'height: 200px;' %>
+    </div>
   </div>
 </div>
 
-<div class='row form-group'>
-  <%= f.label :date_asylum_application_submitted, 'Date Submitted', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= f.date_select :date_asylum_application_submitted, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+<div class='form_fields_section'>
+  <h3>Asylum</h3>
+  <div class='row form-group'>
+    <%= f.label :asylum_status, 'Status', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.select :asylum_status, options_for_select(Friend::ASYLUM_STATUSES, @friend.asylum_status), {include_blank: true}, {class: 'form-control'} %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :date_asylum_application_submitted, 'Date Submitted', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.date_select :date_asylum_application_submitted, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :asylum_notes, 'Notes', class: 'col-md-2 control-label' %>
+    <div class='col-md-10'>
+      <%= f.text_area :asylum_notes, class: 'form-control', style: 'height: 200px;' %>
+    </div>
   </div>
 </div>
 
-<div class='row form-group'>
-  <%= f.label :asylum_notes, 'Notes', class: 'col-md-2 control-label' %>
-  <div class='col-md-10'>
-    <%= f.text_area :asylum_notes, class: 'form-control', style: 'height: 200px;' %>
+<div class='form_fields_section'>
+  <h3>SIJS</h3>
+
+  <div class='row form-group'>
+    <%= f.label :sijs_status, 'Status', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.select :sijs_status, options_for_select(Friend::SIJS_STATUSES, @friend.sijs_status), {include_blank: true}, {class: 'form-control'} %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :sijs_lawyer, 'SIJS Lawyer', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= collection_select(:friend, :sijs_lawyer, current_region.lawyers.order('organization asc'), :id, :name_and_organization, {include_blank: true}, {class: 'form-control chzn-select'}) %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :date_sijs_submitted, 'Date Submitted', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.date_select :date_sijs_submitted, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :sijs_notes, 'Notes', class: 'col-md-2 control-label' %>
+    <div class='col-md-10'>
+      <%= f.text_area :sijs_notes, class: 'form-control', style: 'height: 200px;' %>
+    </div>
   </div>
 </div>
 
-<h3>SIJS</h3>
+<div class='form_fields_section'>
+  <h3>Work Authorization</h3>
+  <div class='row form-group'>
+    <%= f.label :work_authorization_status, 'Status', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.select :work_authorization_status, options_for_select(Friend::WORK_AUTHORIZATION_STATUSES, @friend.work_authorization_status), {include_blank: true}, {class: 'form-control'} %>
+    </div>
+  </div>
 
-<div class='row form-group'>
-  <%= f.label :sijs_status, 'Status', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= f.select :sijs_status, options_for_select(Friend::SIJS_STATUSES, @friend.sijs_status), {include_blank: true}, {class: 'form-control'} %>
+  <div class='row form-group'>
+    <%= f.label :date_eligible_to_apply_for_work_authorization, 'Date Eligible to Apply', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.date_select :date_eligible_to_apply_for_work_authorization, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :date_work_authorization_submitted, 'Date Submitted', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.date_select :date_work_authorization_submitted, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :work_authorization_notes, 'Notes', class: 'col-md-2 control-label' %>
+    <div class='col-md-10'>
+      <%= f.text_area :work_authorization_notes, class: 'form-control', style: 'height: 200px;' %>
+    </div>
   </div>
 </div>
 
-<div class='row form-group'>
-  <%= f.label :sijs_lawyer, 'SIJS Lawyer', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= collection_select(:friend, :sijs_lawyer, current_region.lawyers.order('organization asc'), :id, :name_and_organization, {include_blank: true}, {class: 'form-control chzn-select'}) %>
+<div class='form_fields_section'>
+  <h3>FOIA Request</h3>
+  <div class='row form-group'>
+    <%= f.label :date_foia_request_submitted, 'Date Submitted', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.date_select :date_foia_request_submitted, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+    </div>
   </div>
-</div>
 
-<div class='row form-group'>
-  <%= f.label :date_sijs_submitted, 'Date Submitted', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= f.date_select :date_sijs_submitted, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
-  </div>
-</div>
-
-<div class='row form-group'>
-  <%= f.label :sijs_notes, 'Notes', class: 'col-md-2 control-label' %>
-  <div class='col-md-10'>
-    <%= f.text_area :sijs_notes, class: 'form-control', style: 'height: 200px;' %>
-  </div>
-</div>
-
-<h3>Work Authorization</h3>
-<div class='row form-group'>
-  <%= f.label :work_authorization_status, 'Status', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= f.select :work_authorization_status, options_for_select(Friend::WORK_AUTHORIZATION_STATUSES, @friend.work_authorization_status), {include_blank: true}, {class: 'form-control'} %>
-  </div>
-</div>
-
-<div class='row form-group'>
-  <%= f.label :date_eligible_to_apply_for_work_authorization, 'Date Eligible to Apply', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= f.date_select :date_eligible_to_apply_for_work_authorization, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
-  </div>
-</div>
-
-<div class='row form-group'>
-  <%= f.label :date_work_authorization_submitted, 'Date Submitted', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= f.date_select :date_work_authorization_submitted, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
-  </div>
-</div>
-
-<div class='row form-group'>
-  <%= f.label :work_authorization_notes, 'Notes', class: 'col-md-2 control-label' %>
-  <div class='col-md-10'>
-    <%= f.text_area :work_authorization_notes, class: 'form-control', style: 'height: 200px;' %>
-  </div>
-</div>
-
-<h3>FOIA Request</h3>
-<div class='row form-group'>
-  <%= f.label :date_foia_request_submitted, 'Date Submitted', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= f.date_select :date_foia_request_submitted, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
-  </div>
-</div>
-
-<div class='row form-group'>
-  <%= f.label :foia_request_notes, 'Notes', class: 'col-md-2 control-label' %>
-  <div class='col-md-10'>
-    <%= f.text_area :foia_request_notes, class: 'form-control', style: 'height: 200px;' %>
+  <div class='row form-group'>
+    <%= f.label :foia_request_notes, 'Notes', class: 'col-md-2 control-label' %>
+    <div class='col-md-10'>
+      <%= f.text_area :foia_request_notes, class: 'form-control', style: 'height: 200px;' %>
+    </div>
   </div>
 </div>
 <br>
