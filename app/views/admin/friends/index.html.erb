@@ -19,7 +19,6 @@
         <% end %>
         <th>Phone Number</th>
         <th>Created</th>
-        <th>Entered</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -38,13 +37,6 @@
           <% end %>
           <td><%= friend.phone %></td>
           <td><%= friend.created_at.strftime('%m/%d/%y') %></td>
-          <% if friend.date_of_entry? %>          
-            <td style="<%= "font-weight: bold; color: #199348" if friend.date_of_entry >= 1.year.ago.to_date %>; ">
-              <%= friend.date_of_entry.strftime('%m/%d/%y') %>
-            </td>
-          <% else %>
-            <td />
-          <% end %>
           <td>
             <div class='btn-group'>
               <%= link_to(edit_community_admin_friend_path(current_community.slug, friend), id: "edit-friend-#{friend.id}", class: 'btn btn-default') do %>
