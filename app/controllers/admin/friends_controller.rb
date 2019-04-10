@@ -120,6 +120,7 @@ class Admin::FriendsController < AdminController
       :sponsor_name,
       :sponsor_phone_number,
       :sponsor_relationship,
+      :intake_notes,
       language_ids: [],
       user_ids: []
     ).merge(community_id: current_community.id, region_id: current_region.id)
