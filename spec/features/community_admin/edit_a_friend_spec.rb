@@ -81,7 +81,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
             sleep 1
             select activity_type_name, from: 'Type'
             expect(page).to have_select('Type', selected: activity_type_name)
-            select location.name, from: 'Location'
+            select_from_chosen(location.name, from: { id: 'activity_location_id' })
             select_date_and_time(Time.now.beginning_of_hour, from: 'activity_occur_at')
             within '#new_activity' do
               click_button 'Save'

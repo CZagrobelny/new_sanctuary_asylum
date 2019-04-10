@@ -140,6 +140,8 @@ class Friend < ApplicationRecord
       order("friends.intake_date #{direction}")
     when /^must_be_seen_by_/
       order("friends.must_be_seen_by #{direction}")
+    when /^date_of_entry/
+      order("friends.date_of_entry #{direction}")
     else
       raise(ArgumentError, "Invalid sort option: #{sort_option.inspect}")
     end
@@ -167,9 +169,11 @@ class Friend < ApplicationRecord
       %w[Oldest created_at_asc],
       ['Border Queue Number (Low to High)', 'border_queue_number_asc'],
       ['Border Queue Number (High to Low)', 'border_queue_number_desc'],
-      ['Intake Date (Earliest to Latest)', 'intake_date_asc'],
-      ['Intake Date (Latest to Earliest)', 'intake_date_desc'],
+      ['Intake Date (Ascending)', 'intake_date_asc'],
+      ['Intake Date (Descending)', 'intake_date_desc'],
       ['Must Be Seen By (Soonest)', 'must_be_seen_by_asc']
+      ['Date of Entry (Ascending)', 'date_of_entry_asc'],
+      ['Date of Entry (Descending)', 'date_of_entry_desc']
     ]
   end
 
