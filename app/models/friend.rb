@@ -171,9 +171,9 @@ class Friend < ApplicationRecord
       ['Border Queue Number (High to Low)', 'border_queue_number_desc'],
       ['Intake Date (Ascending)', 'intake_date_asc'],
       ['Intake Date (Descending)', 'intake_date_desc'],
-      ['Must Be Seen By (Soonest)', 'must_be_seen_by_asc']
+      ['Must Be Seen By (Soonest)', 'must_be_seen_by_asc'],
       ['Date of Entry (Ascending)', 'date_of_entry_asc'],
-      ['Date of Entry (Descending)', 'date_of_entry_desc']
+      ['Date of Entry (Descending)', 'date_of_entry_desc'],
     ]
   end
 
