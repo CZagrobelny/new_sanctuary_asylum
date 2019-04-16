@@ -227,6 +227,17 @@ class Friend < ApplicationRecord
     date.to_str.to_date.end_of_day
   end
 
+  def clinic_wait_list_class
+    case self.clinic_wait_list_priority
+    when "priority"
+      return "clinic_waitlist_pri_high"
+    when "needs_attention"
+      return "clinic_waitlist_pri_med"
+    when "can_wait"
+      return "clinic_waitlist_pri_low"
+    end
+  end
+
   private
 
   def a_number_available?
