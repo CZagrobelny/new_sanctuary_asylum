@@ -1,5 +1,10 @@
 class Admin::FriendsController < AdminController
   def index
+    filter_clinic_wait_list_priorities = params.dig('filterrific', 'filter_clinic_wait_list_priority')
+    if filter_clinic_wait_list_priorities.present?
+      params['filterrific']['filter_clinic_wait_list_priority'] = filter_clinic_wait_list_priorities.reject!(&:empty?)
+    end
+    
     @filterrific = initialize_filterrific(Friend,
                                           params[:filterrific],
                                           default_filter_params: { sorted_by: 'created_at_desc' },
