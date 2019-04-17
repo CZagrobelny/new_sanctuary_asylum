@@ -1,9 +1,17 @@
 class Admin::FriendsController < AdminController
   def index
+    filter_clinic_wait_list_priorities = params.dig('filterrific', 'filter_clinic_wait_list_priority')
+    if filter_clinic_wait_list_priorities.present?
+      params['filterrific']['filter_clinic_wait_list_priority'] = filter_clinic_wait_list_priorities.reject!(&:empty?)
+    end
+    
     @filterrific = initialize_filterrific(Friend,
                                           params[:filterrific],
                                           default_filter_params: { sorted_by: 'created_at_desc' },
-                                          select_options: { sorted_by: Friend.options_for_sorted_by, filter_border_crossing_status: Friend::BORDER_CROSSING_STATUSES },
+                                          select_options: { 
+                                            sorted_by: Friend.options_for_sorted_by, 
+                                            filter_border_crossing_status: Friend::BORDER_CROSSING_STATUSES,
+                                            filter_clinic_wait_list_priority: Friend.clinic_wait_list_priorities.map { |key, value| [key.humanize, key] }},
                                           persistence_id: false)
 
     @friends = current_community.friends.filterrific_find(@filterrific).paginate(page: params[:page])
@@ -120,6 +128,10 @@ class Admin::FriendsController < AdminController
       :sponsor_name,
       :sponsor_phone_number,
       :sponsor_relationship,
+      :intake_notes,
+      :must_be_seen_by,
+      :intake_date,
+      :clinic_wait_list_priority,
       language_ids: [],
       user_ids: []
     ).merge(community_id: current_community.id, region_id: current_region.id)

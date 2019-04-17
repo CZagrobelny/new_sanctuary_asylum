@@ -24,11 +24,16 @@
     </thead>
     <tbody>
       <% @friends.each do |friend| %>
-        <tr id="friend-<%=friend.id%>" style="color: <%= friend.detained? ? "red" : "black" %>;"}>
+        <tr id="friend-<%=friend.id%>" class="<%= "friend_in_detention" if friend.detained? %>">
           <td>
             <%= friend.id %>
+            <br>
+            <% if friend.clinic_wait_list_priority %>
+              <span class="friend_id_clinic_waitlist <%= friend.clinic_wait_list_class %>">
+                <i class="fas fa-flag"></i>
+              </span>
+            <% end %>
             <% if friend.cohorts.present? %>
-              <br>
               <i class='far fa-calendar-check' style="color: <%= friend.cohorts.first.color %>;"></i>
             <% end %>
           </td>

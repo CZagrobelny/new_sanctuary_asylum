@@ -3,6 +3,7 @@ class Friend < ApplicationRecord
 
   enum ethnicity: %i[white black hispanic asian south_asian caribbean indigenous other]
   enum gender: %i[male female awesome]
+  enum clinic_wait_list_priority: %i[priority needs_attention can_wait]
 
   STATUSES = %w[in_deportation_proceedings
                 not_in_deportation_proceedings
@@ -118,6 +119,10 @@ class Friend < ApplicationRecord
     where('created_at <= ?', string_to_end_of_date(date))
   }
 
+  scope :filter_clinic_wait_list_priority, lambda { |priorities|
+    where(clinic_wait_list_priority: [*priorities])
+  }
+
   scope :filter_border_crossing_status, ->(status) {
     where(border_crossing_status: status)
   }
@@ -137,7 +142,15 @@ class Friend < ApplicationRecord
       # Simple sort on the created_at column.
       order("friends.created_at #{direction}")
     when /^border_queue_number/
-      order("friends.border_queue_number #{direction}")
+      where('border_queue_number IS NOT NULL').order("friends.border_queue_number #{direction}")
+    when /^intake_date_/
+      where('intake_date IS NOT NULL').order("friends.intake_date #{direction}")
+    when /^must_be_seen_by_/
+      where('must_be_seen_by IS NOT NULL').order("friends.must_be_seen_by #{direction}")
+    when /^date_of_entry/
+      where('date_of_entry IS NOT NULL').order("friends.date_of_entry #{direction}")
+    when /^clinic_wait_list_priority_/
+      where('clinic_wait_list_priority IS NOT NULL').order("friends.clinic_wait_list_priority #{direction}")
     else
       raise(ArgumentError, "Invalid sort option: #{sort_option.inspect}")
     end
@@ -153,6 +166,7 @@ class Friend < ApplicationRecord
                                     filter_asylum_application_deadline_ending_before
                                     filter_created_after
                                     filter_created_before
+                                    filter_clinic_wait_list_priority
                                     filter_border_queue_number
                                     filter_border_crossing_status
                                     filter_application_status
@@ -164,7 +178,14 @@ class Friend < ApplicationRecord
       %w[Newest created_at_desc],
       %w[Oldest created_at_asc],
       ['Border Queue Number (Low to High)', 'border_queue_number_asc'],
-      ['Border Queue Number (High to Low)', 'border_queue_number_desc']
+      ['Border Queue Number (High to Low)', 'border_queue_number_desc'],
+      ['Intake Date (Ascending)', 'intake_date_asc'],
+      ['Intake Date (Descending)', 'intake_date_desc'],
+      ['Must Be Seen By (Soonest)', 'must_be_seen_by_asc'],
+      ['Date of Entry (Ascending)', 'date_of_entry_asc'],
+      ['Date of Entry (Descending)', 'date_of_entry_desc'],
+      ['Clinic Wait List Priority (Highest)', 'clinic_wait_list_priority_asc'],
+      ['Clinic Wait List Priority (Lowest)', 'clinic_wait_list_priority_desc'] 
     ]
   end
 
@@ -210,6 +231,17 @@ class Friend < ApplicationRecord
 
   def self.string_to_end_of_date(date)
     date.to_str.to_date.end_of_day
+  end
+
+  def clinic_wait_list_class
+    case self.clinic_wait_list_priority
+    when "priority"
+      return "clinic_waitlist_pri_high"
+    when "needs_attention"
+      return "clinic_waitlist_pri_med"
+    when "can_wait"
+      return "clinic_waitlist_pri_low"
+    end
   end
 
   private

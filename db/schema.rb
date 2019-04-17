@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_07_163326) do
+ActiveRecord::Schema.define(version: 2019_04_10_233452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -222,6 +222,10 @@ ActiveRecord::Schema.define(version: 2019_04_07_163326) do
     t.integer "border_queue_number"
     t.string "city"
     t.string "jail_id"
+    t.text "intake_notes"
+    t.datetime "intake_date"
+    t.datetime "must_be_seen_by"
+    t.integer "clinic_wait_list_priority"
     t.index ["community_id"], name: "index_friends_on_community_id"
     t.index ["region_id"], name: "index_friends_on_region_id"
   end

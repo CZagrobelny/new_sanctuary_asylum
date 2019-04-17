@@ -31,14 +31,25 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class='form-group col-md-12'>
+  <div class='row'>
+    <div class='form-group col-md-12 inline-form-group'>
       <%= f.label :filter_created_date, 'Created between dates:' %>
-
       <%= f.text_field :filter_created_after, class: 'datepicker form-control' %>
       <%= f.text_field :filter_created_before, class: 'datepicker form-control' %>
     </div>
   </div>
+
+  <div class='row'>
+    <div class='form-group inline-form-group'>
+      <div class='col-md-2'>
+        <%= f.label :filter_clinic_wait_list_priority, 'Wait List Priority(s):' %>
+      </div>
+      <div class='col-md-5'>
+        <%= f.select :filter_clinic_wait_list_priority, @filterrific.select_options[:filter_clinic_wait_list_priority], { include_blank: true }, multiple: true, class: 'chzn-select form-control-lg' %>
+      </div>
+    </div>
+  </div>
+  <br>
 
   <div class='row'>
     <div class='form-group col-md-5 inline-form-group'>
