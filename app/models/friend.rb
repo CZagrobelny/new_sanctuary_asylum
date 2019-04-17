@@ -185,7 +185,7 @@ class Friend < ApplicationRecord
       ['Date of Entry (Ascending)', 'date_of_entry_asc'],
       ['Date of Entry (Descending)', 'date_of_entry_desc'],
       ['Clinic Wait List Priority (Highest)', 'clinic_wait_list_priority_asc'],
-      ['Clinic Wait List Priority (Lowest)', 'clinic_wait_list_priority_desc'] 
+      ['Clinic Wait List Priority (Lowest)', 'clinic_wait_list_priority_desc']
     ]
   end
 
@@ -204,7 +204,7 @@ class Friend < ApplicationRecord
   end
 
   def name_and_clinic_priority
-    "#{name} (TO DO priority)"
+    "#{name} (#{clinic_wait_list_priority.titlecase})"
   end
 
   def ethnicity

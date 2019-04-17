@@ -36,6 +36,8 @@
   <% cohort = @friend.cohorts.first %>
   <% if cohort.present? %>
     <strong><i class='far fa-calendar-check' style="color: <%= cohort.color %>;"></i> <%= cohort.start_date.strftime("%B %-d, %Y") %></strong>
+  <% else %>
+    <strong>Not yet assigned.</strong>
   <% end %>
 </div>
 
