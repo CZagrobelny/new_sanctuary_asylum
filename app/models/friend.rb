@@ -117,8 +117,8 @@ class Friend < ApplicationRecord
     where('created_at <= ?', string_to_end_of_date(date))
   }
 
-  scope :filter_clinic_wait_list_priority, ->(priority) {
-    where(clinic_wait_list_priority: priority)
+  scope :filter_clinic_wait_list_priority, lambda { |priorities|
+    where(clinic_wait_list_priority: [*priorities])
   }
 
   scope :filter_border_crossing_status, ->(status) {
