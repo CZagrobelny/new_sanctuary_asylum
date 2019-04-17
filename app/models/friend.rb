@@ -49,6 +49,8 @@ class Friend < ApplicationRecord
   has_many :applications
   has_many :friend_event_attendances, dependent: :destroy
   has_many :events, through: :friend_event_attendances
+  has_many :friend_cohort_assignments, dependent: :destroy
+  has_many :cohorts, through: :friend_cohort_assignments
   has_many :family_relationships, dependent: :destroy
   has_many :family_members, through: :family_relationships, source: 'relation'
   has_many :releases, dependent: :destroy
@@ -183,7 +185,7 @@ class Friend < ApplicationRecord
       ['Date of Entry (Ascending)', 'date_of_entry_asc'],
       ['Date of Entry (Descending)', 'date_of_entry_desc'],
       ['Clinic Wait List Priority (Highest)', 'clinic_wait_list_priority_asc'],
-      ['Clinic Wait List Priority (Lowest)', 'clinic_wait_list_priority_desc'] 
+      ['Clinic Wait List Priority (Lowest)', 'clinic_wait_list_priority_desc']
     ]
   end
 
@@ -199,6 +201,10 @@ class Friend < ApplicationRecord
 
   def name
     "#{first_name} #{last_name}"
+  end
+
+  def name_and_clinic_priority
+    "#{name} (#{clinic_wait_list_priority.titlecase})"
   end
 
   def ethnicity

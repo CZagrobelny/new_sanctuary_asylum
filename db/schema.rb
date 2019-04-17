@@ -80,6 +80,15 @@ ActiveRecord::Schema.define(version: 2019_04_10_233452) do
     t.index ["friend_id"], name: "index_applications_on_friend_id"
   end
 
+  create_table "cohorts", force: :cascade do |t|
+    t.datetime "start_date", null: false
+    t.string "color", null: false
+    t.bigint "community_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["community_id"], name: "index_cohorts_on_community_id"
+  end
+
   create_table "communities", id: :serial, force: :cascade do |t|
     t.integer "region_id"
     t.string "name"
@@ -134,6 +143,14 @@ ActiveRecord::Schema.define(version: 2019_04_10_233452) do
     t.datetime "updated_at", null: false
     t.index ["friend_id"], name: "index_family_relationships_on_friend_id"
     t.index ["relation_id"], name: "index_family_relationships_on_relation_id"
+  end
+
+  create_table "friend_cohort_assignments", force: :cascade do |t|
+    t.integer "friend_id", null: false
+    t.integer "cohort_id", null: false
+    t.boolean "confirmed", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "friend_event_attendances", id: :serial, force: :cascade do |t|

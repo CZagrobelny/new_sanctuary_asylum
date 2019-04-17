@@ -3,12 +3,11 @@
   <div class='row form-group'>
     <%= f.label :clinic_wait_list_priority, 'Clinic Wait List Priority', class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
-      <%= f.select :clinic_wait_list_priority, 
-      options_for_select(Friend.clinic_wait_list_priorities.map { |key, value| [key.humanize, key] }, @friend.clinic_wait_list_priority), 
+      <%= f.select :clinic_wait_list_priority,
+      options_for_select(Friend.clinic_wait_list_priorities.map { |key, value| [key.humanize, key] }, @friend.clinic_wait_list_priority),
       {include_blank: true}, {class: 'form-control'} %>
     </div>
-  </div>    
-
+  </div>
 
   <div class='row form-group'>
     <%= f.label :intake_date, 'Intake Date', class: 'col-md-2 control-label' %>
@@ -30,6 +29,16 @@
       <%= f.text_area :intake_notes, class: 'form-control', style: 'height: 200px;' %>
     </div>
   </div>
+</div>
+
+<div class='form_fields_section'>
+  <h3>Cohort</h3>
+  <% cohort = @friend.cohorts.first %>
+  <% if cohort.present? %>
+    <strong><i class='far fa-calendar-check' style="color: <%= cohort.color %>;"></i> <%= cohort.start_date.strftime("%B %-d, %Y") %></strong>
+  <% else %>
+    <strong>Not yet assigned.</strong>
+  <% end %>
 </div>
 
 <div class='form_fields_section'>

@@ -1,0 +1,26 @@
+<%= form_for([current_community, :admin, @cohort]) do |f| %>
+
+  <%= display_validation_errors(@cohort) %>
+
+  <div class='form-inputs'>
+    <div class='row form-group'>
+      <%= f.label :date, 'Date', class: 'col-md-2 control-label required' %>
+      <div class='col-md-4'>
+        <%= f.text_field :start_date, class: 'datepicker form-control' %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :color, 'Color', class: 'col-md-2 control-label required' %>
+      <div class='col-md-4'>
+        <%= f.select :color, Cohort::COLORS, {prompt: true}, class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-md-1 col-md-offset-7'>
+      <%= f.submit 'Save', class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>
