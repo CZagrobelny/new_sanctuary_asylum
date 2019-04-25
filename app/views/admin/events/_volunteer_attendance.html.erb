@@ -21,21 +21,21 @@
         </td>
         <td>
           <%= link_to edit_community_admin_user_path(
-              current_community.slug, 
+              current_community.slug,
               attendance.user,
-            ), 
+            ),
             target: '_blank', id: "edit-user-#{attendance.user.id}" do %>
-            <% "#{attendance.user.name}" %>
+            <% "#{attendance.user.last_name}, #{attendance.user.first_name}" %>
           <% end %>
         </td>
         <td class="event_small_col">
           <div class="event_centered_col">
             <%= link_to community_admin_event_user_event_attendance_path(
-                current_community.slug, 
-                event, 
+                current_community.slug,
+                event,
                 attendance,
-              ), 
-              method: :delete, 
+              ),
+              method: :delete,
               remote: true do %>
               <i class="fas fa-times"></i>
             <% end %>

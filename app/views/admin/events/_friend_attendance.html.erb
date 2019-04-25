@@ -21,11 +21,11 @@
         </td>
         <td>
           <%= link_to edit_community_admin_friend_path(
-            current_community.slug, 
+            current_community.slug,
             attendance.friend,
             ), target: '_blank', id: "edit-user-#{attendance.friend.id}" do %>
-            <% "#{attendance.friend.name}" %>
-          <% end %>    
+            <% "#{attendance.friend.last_name}, #{attendance.friend.first_name}" %>
+          <% end %>
         </td>
         <td class="event_small_col">
           <div class="event_centered_col">
