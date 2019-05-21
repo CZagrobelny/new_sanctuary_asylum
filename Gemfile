@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+# Make sure to bump .ruby-version when updating this
 ruby '2.6.2'
 
 gem 'rails', '~> 5.2.2.x'
