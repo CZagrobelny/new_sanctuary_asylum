@@ -1,0 +1,68 @@
+<h3>Friends Assigned</h3>
+<%= form_for [current_community, :admin, cohort, FriendCohortAssignment.new], remote: true do |f| %>
+  <%= f.select(:friend_id, options_from_collection_for_select(current_community.friends.where('clinic_wait_list_priority IS NOT NULL'), 'id', 'name_and_clinic_priority', disabled: FriendCohortAssignment.all.map(&:friend_id)), {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+<% end %>
+<br>
+<table class='table table-bordered'>
+  <thead>
+    <tr>
+      <th />
+      <th>Name</th>
+      <th>Confirmed</th>
+      <% @events.each do |event| %>
+        <th><%= event.date.strftime("%-m/%-d") %></th>
+      <% end %>
+      <th />
+      </tr>
+  </thead>
+  <tbody>
+    <% friend_assignments.each_with_index do |assignment, index| %>
+      <tr>
+        <td class="event_small_col">
+          <div class="event_centered_col">
+            <%=h index + 1 %>
+          </div>
+        </td>
+        <td>
+          <%= link_to edit_community_admin_friend_path(
+            current_community.slug,
+            assignment.friend,
+            ), target: '_blank', id: "edit-user-#{assignment.friend.id}" do %>
+            <% "#{assignment.friend.name}" %>
+          <% end %>
+        </td>
+        <td>
+          <%= form_for [current_community, :admin, cohort, assignment]  do |f| %>
+            <%= f.select :confirmed, options_for_select([['No', false], ['Yes', true]], assignment.confirmed), {}, { id: "friend_cohort_assignment_confirmed_#{assignment.id}", class: 'confirmation_select' } %>
+          <% end %>
+        </td>
+        <% @events.each do |event| %>
+          <td>
+            <% if event.friend_attending?(assignment.friend) %>
+              <i class="confirmed fas fa-user-check"></i>
+            <% end %>
+          </td>
+        <% end %>
+        <td class="event_small_col">
+          <div class="event_centered_col">
+            <%= link_to community_admin_cohort_friend_cohort_assignment_path(current_community.slug, cohort, assignment), method: :delete, remote: true do %>
+              <i class="fas fa-times"></i>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+  $(document).ready(function(){
+    activateChosen();
+    $('#friend_cohort_assignment_friend_id').change(function() {
+      $('#new_friend_cohort_assignment').submit();
+    });
+    $('.confirmation_select').change(function() {
+      this.form.submit();
+    });
+  });
+</script>

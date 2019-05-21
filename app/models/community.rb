@@ -3,6 +3,7 @@ class Community < ApplicationRecord
   has_many :users
   has_many :friends
   has_many :events
+  has_many :cohorts
   has_many :sanctuaries
   has_many :access_time_slots
 
