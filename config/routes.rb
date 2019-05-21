@@ -74,9 +74,6 @@ Rails.application.routes.draw do
         end
         resources :friend_cohort_assignments, only: [:create, :update, :destroy]
       end
-
-      get 'reports/new', to: 'reports#new'
-      post 'reports/create', to: 'reports#create'
     end
 
     namespace :accompaniment_leader do
