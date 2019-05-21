@@ -16,6 +16,8 @@ class Admin::FriendEventAttendancesController < AdminController
     render_success if @friend_event_attendance.destroy
   end
 
+  private
+
   def event
     Event.find(params[:event_id])
   end
