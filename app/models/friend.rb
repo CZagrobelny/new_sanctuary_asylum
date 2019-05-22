@@ -10,7 +10,9 @@ class Friend < ApplicationRecord
                 asylum_reciepient
                 asylum_application_denied
                 legal_permanent_resident
-                in_detention green_card_holder].map do |status|
+                in_detention
+                deported
+              ].map do |status|
     [status.titlecase,
      status]
   end
