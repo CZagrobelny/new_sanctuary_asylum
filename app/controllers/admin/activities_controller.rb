@@ -64,11 +64,11 @@ class Admin::ActivitiesController < AdminController
     redirect_to accompaniments_community_admin_activities_path
   end
 
+  private
+
   def activity
     @activity ||= current_region.activities.find(params[:id])
   end
-
-  private
 
   def activity_params
     params.require(:activity).permit(

@@ -29,6 +29,8 @@ class Admin::Friends::DetentionsController < AdminController
     render_success if detention.destroy
   end
 
+  private
+
   def detention
     @detention ||= Detention.find(params[:id])
   end
@@ -36,8 +38,6 @@ class Admin::Friends::DetentionsController < AdminController
   def friend
     @friend ||= current_community.friends.find(params[:friend_id])
   end
-
-  private
 
   def detention_params
     params.require(:detention).permit(

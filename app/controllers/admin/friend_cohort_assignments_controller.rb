@@ -1,5 +1,4 @@
 class Admin::FriendCohortAssignmentsController < AdminController
-
   def create
     friend_id_array = friend_cohort_assignment_params[:friend_id].reject(&:empty?)
     return unless friend_id_array.present?
@@ -20,6 +19,8 @@ class Admin::FriendCohortAssignmentsController < AdminController
     @friend_cohort_assignment = FriendCohortAssignment.find(params[:id])
     render_success if @friend_cohort_assignment.destroy
   end
+
+  private
 
   def cohort
     Cohort.find(params[:cohort_id])

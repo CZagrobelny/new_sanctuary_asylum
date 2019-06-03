@@ -30,14 +30,6 @@ class AccompanimentLeader::AccompanimentReportsController < AccompanimentLeaderC
     end
   end
 
-  def activity
-    @activity ||= current_region.activities.find(params[:activity_id])
-  end
-
-  def accompaniment_report
-    @accompaniment_report ||= AccompanimentReport.find(params[:id])
-  end
-
   private
 
   def accompaniment_report_params
@@ -45,5 +37,13 @@ class AccompanimentLeader::AccompanimentReportsController < AccompanimentLeaderC
       :notes,
       :outcome_of_hearing
     ).merge(user_id: current_user.id)
+  end
+
+  def activity
+    @activity ||= current_region.activities.find(params[:activity_id])
+  end
+
+  def accompaniment_report
+    @accompaniment_report ||= AccompanimentReport.find(params[:id])
   end
 end

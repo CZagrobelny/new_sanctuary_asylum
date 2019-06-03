@@ -47,6 +47,8 @@ class Admin::Friends::ActivitiesController < AdminController
     redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#activities')
   end
 
+  private
+
   def activity
     @activity ||= friend.activities.find(params[:id])
   end
@@ -54,8 +56,6 @@ class Admin::Friends::ActivitiesController < AdminController
   def friend
     @friend ||= current_community.friends.find(params[:friend_id])
   end
-
-  private
 
   def activity_params
     params.require(:activity).permit(

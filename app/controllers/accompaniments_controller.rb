@@ -13,7 +13,7 @@ class AccompanimentsController < ApplicationController
         flash[:error] = accompaniment.errors.full_messages.to_sentence
       end
     end
-    render_activities
+    redirect_activities
   end
 
   def update
@@ -23,7 +23,13 @@ class AccompanimentsController < ApplicationController
     elsif accompaniment.destroy
       flash[:success] = 'Your RSVP was deleted.'
     end
-    render_activities
+    redirect_activities
+  end
+
+  private
+
+  def require_accompaniment_owner
+    not_found unless current_user.id.to_s == accompaniment_params[:user_id]
   end
 
   def accompaniment_params
@@ -34,17 +40,11 @@ class AccompanimentsController < ApplicationController
     )
   end
 
-  def render_activities
+  def redirect_activities
     if current_user.accompaniment_leader?
       redirect_to community_accompaniment_leader_activities_path(current_community.slug)
     else
       redirect_to community_activities_path(current_community.slug)
     end
-  end
-
-  private
-
-  def require_accompaniment_owner
-    not_found unless current_user.id.to_s == accompaniment_params[:user_id]
   end
 end
