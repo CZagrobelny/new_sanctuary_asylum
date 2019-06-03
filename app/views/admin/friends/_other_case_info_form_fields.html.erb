@@ -1,76 +1,81 @@
-<h3>Lawyer</h3>
+<div class='form_fields_section'>
+  <h3>Lawyer</h3>
 
-<div class='row form-group'>
-  <%= f.label :lawyer_referred_to,'Referred to', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= collection_select(:friend, :lawyer_referred_to, current_region.lawyers.order('organization asc'), :id, :name_and_organization, {include_blank: true}, {class: 'form-control chzn-select'}) %>
+  <div class='row form-group'>
+    <%= f.label :lawyer_referred_to,'Referred to', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= collection_select(:friend, :lawyer_referred_to, current_region.lawyers.order('organization asc'), :id, :name_and_organization, {include_blank: true}, {class: 'form-control chzn-select'}) %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :lawyer_represented_by,'Represented by', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= collection_select(:friend, :lawyer_represented_by, current_region.lawyers.order('organization asc'), :id, :name_and_organization, {include_blank: true}, {class: 'form-control chzn-select'}) %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :lawyer_notes, 'Notes', class: 'col-md-2 control-label' %>
+    <div class='col-md-10'>
+      <%= f.text_area :lawyer_notes, class: 'form-control', style: 'height: 200px;' %>
+    </div>
   </div>
 </div>
 
-<div class='row form-group'>
-  <%= f.label :lawyer_represented_by,'Represented by', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= collection_select(:friend, :lawyer_represented_by, current_region.lawyers.order('organization asc'), :id, :name_and_organization, {include_blank: true}, {class: 'form-control chzn-select'}) %>
+<div class='form_fields_section'>
+  <h3>Bond</h3>
+
+  <div class='row form-group'>
+    <div class='col-md-12'>
+      <%= f.check_box :bonded_out_by_nsc %>
+      <%= f.label :bonded_out_by_nsc, 'Bonded Out by NSC' %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :bond_amount, 'Bond Amount', class: 'col-md-2 control-label' %>
+    <div class='col-md-2'>
+      <%= f.number_field :bond_amount, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :date_bonded_out, 'Bonded Out', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.date_select :date_bonded_out, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :bonded_out_by, 'Bonded Out By', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= collection_select(:friend, :bonded_out_by, current_community.sanctuaries, :id, :name, {prompt: true}, {class: 'chzn-select form-control'}) %>
+    </div>
   </div>
 </div>
 
-<div class='row form-group'>
-  <%= f.label :lawyer_notes, 'Notes', class: 'col-md-2 control-label' %>
-  <div class='col-md-10'>
-    <%= f.text_area :lawyer_notes, class: 'form-control', style: 'height: 200px;' %>
+<div class='form_fields_section'>
+  <h3>Potential Sponsor</h3>
+
+  <div class='row form-group'>
+    <%= f.label :sponsor_name, 'Sponsor Name', class: 'col-md-2 control-label' %>
+    <div class='col-md-4'>
+      <%= f.text_field :sponsor_name, class: 'form-control' %>
+    </div>
   </div>
-</div>
 
-<h3>Bond</h3>
-
-<div class='row form-group'>
-  <div class='col-md-12'>
-    <%= f.check_box :bonded_out_by_nsc %>
-    <%= f.label :bonded_out_by_nsc, 'Bonded Out by NSC' %>
+  <div class='row form-group'>
+    <%= f.label :sponsor_phone_number, 'Sponsor Phone Number', class: 'col-md-2 control-label' %>
+    <div class='col-md-4'>
+      <%= f.text_field :sponsor_phone_number, class: 'form-control' %>
+    </div>
   </div>
-</div>
 
-<div class='row form-group'>
-  <%= f.label :bond_amount, 'Bond Amount', class: 'col-md-2 control-label' %>
-  <div class='col-md-2'>
-    <%= f.number_field :bond_amount, class: 'form-control' %>
-  </div>
-</div>
-
-<div class='row form-group'>
-  <%= f.label :date_bonded_out, 'Bonded Out', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= f.date_select :date_bonded_out, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
-  </div>
-</div>
-
-<div class='row form-group'>
-  <%= f.label :bonded_out_by, 'Bonded Out By', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= collection_select(:friend, :bonded_out_by, current_community.sanctuaries, :id, :name, {prompt: true}, {class: 'chzn-select form-control'}) %>
-  </div>
-</div>
-
-
-<h3>Potential Sponsor</h3>
-
-<div class='row form-group'>
-  <%= f.label :sponsor_name, 'Sponsor Name', class: 'col-md-2 control-label' %>
-  <div class='col-md-4'>
-    <%= f.text_field :sponsor_name, class: 'form-control' %>
-  </div>
-</div>
-
-<div class='row form-group'>
-  <%= f.label :sponsor_phone_number, 'Sponsor Phone Number', class: 'col-md-2 control-label' %>
-  <div class='col-md-4'>
-    <%= f.text_field :sponsor_phone_number, class: 'form-control' %>
-  </div>
-</div>
-
-<div class='row form-group'>
-  <%= f.label :sponsor_relationship, 'Sponsor Relationship', class: 'col-md-2 control-label' %>
-  <div class='col-md-4'>
-    <%= f.text_field :sponsor_relationship, class: 'form-control' %>
+  <div class='row form-group'>
+    <%= f.label :sponsor_relationship, 'Sponsor Relationship', class: 'col-md-2 control-label' %>
+    <div class='col-md-4'>
+      <%= f.text_field :sponsor_relationship, class: 'form-control' %>
+    </div>
   </div>
 </div>
