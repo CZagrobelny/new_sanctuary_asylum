@@ -23,8 +23,8 @@ Rails.application.routes.draw do
     resources :friends, only: [:index, :show, :update] do
       resources :drafts do
         member do
-          get :submit_for_review
-          get :approve
+          patch :submit_for_review
+          patch :approve
         end
         resources :reviews, except: [:index, :destroy]
       end
@@ -41,15 +41,15 @@ Rails.application.routes.draw do
           get :accompaniments
         end
         member do
-          get :confirm
-          get :unconfirm
+          patch :confirm
+          patch :unconfirm
         end
       end
       resources :friends, except: [:show] do
         resources :activities, controller: 'friends/activities', except: [:index, :show] do
           member do
-            get :confirm
-            get :unconfirm
+          patch :confirm
+          patch :unconfirm
           end
         end
         resources :detentions, controller: 'friends/detentions', except: [:index, :show]
@@ -94,7 +94,7 @@ Rails.application.routes.draw do
       resources :communities, except: [:show, :destroy]
       resources :friends, only: [:index, :show, :update] do
         resources :applications, only: [] do
-          get :close
+          patch :close
         end
       end
     end
