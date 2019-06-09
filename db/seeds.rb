@@ -1,4 +1,5 @@
 require 'faker'
+require 'timecop'
 
 ActiveRecord::Base.transaction do
   puts "Seeding database"
