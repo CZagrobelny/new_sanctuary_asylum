@@ -191,6 +191,9 @@ We are using Skylight for performance monitoring.
 6. Make a pull request and tag CZagrobelny to review.
 7. CZagrobelny will leave feedback and merge into master upon approval of the pull request.
 
+It can be really helpful to get notifications when new issues are opened! Here is how you subscribe to notifications:
+<img width="1159" alt="how to get notifications" src="https://user-images.githubusercontent.com/3056607/59544168-df7df000-8edd-11e9-9699-6dc26a1c8cf0.png">
+
 ## Code of Conduct
 [Here](CODE_OF_CONDUCT.md)
 
