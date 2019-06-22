@@ -55,8 +55,8 @@ ActiveRecord::Schema.define(version: 2019_04_10_233452) do
     t.datetime "updated_at", null: false
     t.integer "region_id"
     t.boolean "confirmed"
-    t.integer "activity_type_id"
     t.text "public_notes"
+    t.integer "activity_type_id"
     t.index ["activity_type_id"], name: "index_activities_on_activity_type_id"
     t.index ["region_id"], name: "index_activities_on_region_id"
   end
@@ -214,10 +214,10 @@ ActiveRecord::Schema.define(version: 2019_04_10_233452) do
     t.text "foia_request_notes"
     t.integer "community_id"
     t.integer "region_id"
+    t.string "state"
     t.string "sponsor_name"
     t.string "sponsor_phone_number"
     t.string "sponsor_relationship"
-    t.string "state"
     t.string "border_crossing_status"
     t.integer "border_queue_number"
     t.string "city"
