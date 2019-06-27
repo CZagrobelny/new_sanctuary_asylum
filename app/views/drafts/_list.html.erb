@@ -1,5 +1,1 @@
-<% if friend.releases.any? || current_community.primary? || current_region.border? %>
-  <%= render 'drafts/friend_released', friend: friend %>
-<% else %>
-  <%= render 'drafts/friend_needs_release', friend: friend %>
-<% end %>
+<%= render 'drafts/friend_released', friend: friend %>
