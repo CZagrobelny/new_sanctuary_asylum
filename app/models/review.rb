@@ -15,4 +15,15 @@ class Review < ApplicationRecord
   def authored_by?(user)
     !self.user.nil? && self.user == user
   end
+
+  def save_and_note_changes_requested
+    transaction do
+      save!
+      draft.update!(status: :changes_requested)
+      draft.application.update!(status: :changes_requested)
+    end
+    true
+  rescue
+    false
+  end
 end

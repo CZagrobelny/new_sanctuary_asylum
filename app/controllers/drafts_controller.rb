@@ -62,9 +62,7 @@ class DraftsController < ApplicationController
   end
 
   def submit_for_review
-    draft.status = :in_review
-    application.status = :in_review
-    if draft.save && application.save
+    if draft.update_status(:in_review)
       notify_lawyer(draft)
       flash[:success] = 'Draft submitted for review.'
     else
@@ -74,9 +72,7 @@ class DraftsController < ApplicationController
   end
 
   def approve
-    draft.status = :approved
-    application.status = :approved
-    if draft.save && application.save
+    if draft.update_status(:approved)
       if friend.users.where(user_friend_associations: { remote: false }).present?
         ReviewMailer.application_approved_email(application).deliver_now
       end
