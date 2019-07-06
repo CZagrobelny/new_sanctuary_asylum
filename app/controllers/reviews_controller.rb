@@ -17,9 +17,7 @@ class ReviewsController < ApplicationController
 
   def create
     @review = draft.reviews.new(review_params.merge(user: current_user))
-    if review.save
-      draft.update(status: :changes_requested)
-      draft.application.update(status: :changes_requested)
+    if review.save_and_note_changes_requested
       if friend.users.where(user_friend_associations: { remote: false }).present?
         ReviewMailer.changes_requested_email(review).deliver_now
       end
