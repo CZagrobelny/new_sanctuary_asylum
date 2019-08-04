@@ -7,7 +7,7 @@
       <div class='row form-group'>
         <%= f.label :grantee_id, 'User', class: 'col-md-2 control-label' %>
         <div class='col-md-4'>
-          <%= collection_select(:access_time_slot, :grantee_id, current_community.users.where(role: [:data_entry]), :id, :name, {selected: access_time_slot.grantee_id, prompt: true}, {class: 'form-control'}) %>
+          <%= collection_select(:access_time_slot, :grantee_id, current_community.users.where(role: [:data_entry]), :id, :name, {selected: access_time_slot.grantee_id, prompt: true}, {class: 'chzn-select form-control'}) %>
         </div>
       </div>
       <%= f.hidden_field :grantor_id, value: current_user.id %>
