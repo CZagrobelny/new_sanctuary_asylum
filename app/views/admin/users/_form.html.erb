@@ -38,12 +38,14 @@
       </div>
     </div>
 
-    <div class='form-group'>
-      <%= f.label :role, class: 'col-md-2 control-label required' %>
-      <div class='col-md-6'>
-        <%= f.select :role, current_community.primary? ? User::PRIMARY_ROLES : User::NON_PRIMARY_ROLES, {}, {class: 'form-control input-md'} %>
+    <% if current_user.admin? %> 
+      <div class='form-group'>
+        <%= f.label :role, class: 'col-md-2 control-label required' %>
+        <div class='col-md-6'>
+          <%= f.select :role, current_community.primary? ? User::PRIMARY_ROLES : User::NON_PRIMARY_ROLES, {}, {class: 'form-control input-md'} %>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <div class='form-group'>
       <div class='col-md-6 col-md-offset-2'>
