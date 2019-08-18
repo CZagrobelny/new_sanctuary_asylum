@@ -50,7 +50,8 @@ class Admin::UsersController < AdminController
 
   def update
     @user = current_community.users.find(params[:id])
-    if @user.update(user_params)
+
+    if @user.update(current_user.admin? ? user_params : user_params_excluding_role)
       redirect_to community_admin_users_path(current_community.slug)
     else
       render 'edit'
@@ -83,6 +84,20 @@ class Admin::UsersController < AdminController
       :phone,
       :volunteer_type,
       :role,
+      :pledge_signed,
+      :signed_guidelines,
+      :attended_training,
+      :remote_clinic_lawyer
+    )
+  end
+
+  def user_params_excluding_role
+    params.require(:user).permit(
+      :first_name,
+      :last_name,
+      :email,
+      :phone,
+      :volunteer_type,
       :pledge_signed,
       :signed_guidelines,
       :attended_training,
