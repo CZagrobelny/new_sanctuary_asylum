@@ -1,4 +1,4 @@
-<p>Welcome New Sanctuary Coalition!</p>
+<p>Welcome New Sanctuary Coalition (<%= @resource.community.name.upcase %>) Volunteer!</p>
 
 <p>Please follow this link to accept your invitation to the New Sanctuary Coalition software: <%= link_to accept_user_community_invitation_url(@resource.community.slug, invitation_token: @token), accept_user_community_invitation_url(@resource.community.slug, invitation_token: @token) %></p>
 
