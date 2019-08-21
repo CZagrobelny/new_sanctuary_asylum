@@ -26,7 +26,7 @@ FROM_ADDRESS='test@example.com'
 
 For local development, create a `.env` file in the root directory of the application and put the environment variable in there. There is a `.env.example` file.
 
-### Using Docker to Run the Application
+### Using Docker to Run the Application (optional)
 
 Docker is a way for you to run this application on your machine without changing any of your local settings or installing anything new (besides Docker itself).
 
