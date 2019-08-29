@@ -46,6 +46,7 @@ class Admin::UsersController < AdminController
 
   def edit
     @user = current_community.users.find(params[:id])
+    @accompaniments = @user.accompaniments
   end
 
   def update
