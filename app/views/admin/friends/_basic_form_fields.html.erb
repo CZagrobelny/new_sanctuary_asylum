@@ -47,6 +47,13 @@
 </div>
 
 <div class='row form-group'>
+  <%= f.label :eoir_case_status, class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.select :eoir_case_status, options_for_select(Friend::EOIR_CASE_STATUSES.map { |status_array| status_array[0] }, @friend.eoir_case_status), {include_blank: true}, {class: 'form-control'} %>
+  </div>
+</div>
+
+<div class='row form-group'>
   <%= f.label :gender, class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
     <%= f.select :gender, options_for_select(Friend.genders.map { |key, value| [key.humanize, key] }, @friend.gender), {include_blank: true}, {class: 'form-control'} %>
