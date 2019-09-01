@@ -17,7 +17,7 @@
             '0' + activity.occur_at.month.to_s 
             : 
             activity.occur_at.month %>/<%= activity.occur_at.day %>/<%= activity.occur_at.year %> 
-          -- <%= activity.activity_type.name %> 
+          -- <%= activity.activity_type.name.titlecase %> 
           for 
           <%= link_to activity.friend.name, edit_community_admin_friend_path(current_community.slug, activity.friend) %>
         </li>
