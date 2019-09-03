@@ -6,6 +6,7 @@
 <p><strong>A Number:  </strong><%= friend.a_number %></p>
 <p><strong>Phone:  </strong><%= friend.phone %></p>
 <p><strong>Email:  </strong><%= friend.email %></p>
+<p><strong>EOIR Case Status: </strong><%= friend.eoir_case_status %>
 <p><strong>Gender:  </strong><%= friend.gender.try(:humanize) %></p>
 <p><strong>Ethnicity:  </strong><%= friend.ethnicity.try(:humanize) %></p>
 <p><strong>Languages:  </strong><%= friend.languages.pluck(:name).to_sentence %></p>
