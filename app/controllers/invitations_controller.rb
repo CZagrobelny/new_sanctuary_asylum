@@ -30,16 +30,18 @@ class InvitationsController < Devise::InvitationsController
   end
 
   def update_sanitized_params
-    devise_parameter_sanitizer.permit(:accept_invitation,
-                                      keys: %i[first_name
-                                               last_name
-                                               phone
-                                               password
-                                               password_confirmation
-                                               remote_clinic_lawyer
-                                               invitation_token
-                                               volunteer_type
-                                               pledge_signed])
+    devise_parameter_sanitizer.permit(:accept_invitation) do |user|
+      user.permit(:first_name,
+                  :last_name,
+                  :phone,
+                  :password,
+                  :password_confirmation,
+                  :remote_clinic_lawyer,
+                  :invitation_token,
+                  :volunteer_type,
+                  :pledge_signed,
+                  language_ids: [])
+    end
   end
 
   def allow_devise_params

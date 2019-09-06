@@ -4,7 +4,8 @@
     <li>
       <%= current_user.volunteer? ? accompaniment.user.first_name : accompaniment.user.name %>,
       <i>
-        <%= accompaniment_user_details(accompaniment).join(', ') %>
+        <% details = accompaniment_user_details(accompaniment) %>
+        <%= details[0..1].join(', ') + ', Languages: ' + details[2..details.length].join(', ')%>
       </i>
     </li>
   <% end %>

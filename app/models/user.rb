@@ -17,19 +17,24 @@ class User < ApplicationRecord
   validates_inclusion_of :pledge_signed, in: [true]
 
   belongs_to :community
-  has_many :user_regions
-  has_many :regions, through: :user_regions
-  has_many :user_friend_associations, dependent: :destroy
-  has_many :friends, through: :user_friend_associations
-  has_many :user_draft_associations, dependent: :destroy
-  has_many :drafts, through: :user_draft_associations
-  has_many :accompaniments, dependent: :destroy
-  has_many :user_event_attendances, dependent: :destroy
-  has_many :accompaniment_reports, dependent: :destroy
-  has_many :reviews
-  has_many :releases
   has_many :access_time_slots, foreign_key: :grantee_id, class_name: 'AccessTimeSlot', dependent: :restrict_with_error
   has_many :access_time_slots_granted, foreign_key: :grantor_id, class_name: 'AccessTimeSlot', dependent: :restrict_with_error
+  has_many :accompaniments, dependent: :destroy
+  has_many :accompaniment_reports, dependent: :destroy
+  has_many :user_draft_associations, dependent: :destroy
+  has_many :drafts, through: :user_draft_associations
+  has_many :user_friend_associations, dependent: :destroy
+  has_many :friends, through: :user_friend_associations
+  has_many :volunteer_languages, dependent: :destroy
+  has_many :languages, through: :volunteer_languages
+  has_many :user_regions
+  has_many :regions, through: :user_regions
+  has_many :releases
+  has_many :reviews
+  has_many :user_event_attendances, dependent: :destroy
+
+ 
+
 
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
 

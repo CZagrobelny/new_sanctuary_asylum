@@ -88,7 +88,8 @@ class Admin::UsersController < AdminController
       :pledge_signed,
       :signed_guidelines,
       :attended_training,
-      :remote_clinic_lawyer
+      :remote_clinic_lawyer,
+      language_ids: [],
     )
   end
 
