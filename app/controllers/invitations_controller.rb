@@ -38,7 +38,6 @@ class InvitationsController < Devise::InvitationsController
                   :password_confirmation,
                   :remote_clinic_lawyer,
                   :invitation_token,
-                  :volunteer_type,
                   :pledge_signed,
                   language_ids: [])
     end
