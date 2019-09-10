@@ -27,13 +27,6 @@
       </div>
 
       <div class='row form-group'>
-        <%= f.label :volunteer_type, 'Type', class: 'col-md-2 control-label required' %>
-        <div class='col-md-6'>
-          <%= f.select :volunteer_type, User.volunteer_types.map {|k, v| [k.humanize.titleize, k]}, {prompt: "Select"}, { class: 'form-control input-md'} %>
-        </div>
-      </div>
-
-      <div class='row form-group'>
         <%= fields_for(@user.languages.build) do |fl| %>
           <%= fl.label :languages,'Languages', class: 'col-md-2 control-label' %>
           <div class='col-md-6'>
