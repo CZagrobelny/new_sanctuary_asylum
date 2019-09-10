@@ -12,7 +12,7 @@ class User < ApplicationRecord
   enum role: %i[volunteer accompaniment_leader admin data_entry]
   enum volunteer_type: %i[english_speaking spanish_interpreter lawyer]
 
-  validates :first_name, :last_name, :email, :phone, :volunteer_type, :community_id, presence: true
+  validates :first_name, :last_name, :email, :phone, :community_id, presence: true
   validates :email, uniqueness: true
   validates_inclusion_of :pledge_signed, in: [true]
 
