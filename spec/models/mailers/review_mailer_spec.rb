@@ -4,9 +4,8 @@ RSpec.describe ReviewMailer, type: :mailer do
 
   describe 'review_needed_email(draft)' do
     let(:draft) { create :draft, status: :in_review }
-    let(:user) { create :user, volunteer_type: "lawyer" }
-    let(:non_remote_clinic_user) { create :user, volunteer_type: "spanish_interpreter",
-                                          role: "volunteer" }
+    let(:user) { create :user }
+    let(:non_remote_clinic_user) { create :user, role: "volunteer" }
 
 
     subject(:mail) { ReviewMailer.review_needed_email(draft)}
@@ -41,10 +40,8 @@ RSpec.describe ReviewMailer, type: :mailer do
 
   describe 'lawyer_assignment_needed_email(draft)' do
     let(:draft) { create :draft, status: :in_review }
-    let(:admin_user) { create :user, volunteer_type: "spanish_interpreter",
-                                     role: "admin" }
-    let(:non_admin_user) { create :user, volunteer_type: "spanish_interpreter",
-                                         role: "volunteer" }
+    let(:admin_user) { create :user, role: "admin" }
+    let(:non_admin_user) { create :user, role: "volunteer" }
 
     subject(:mail) { ReviewMailer.lawyer_assignment_needed_email(draft)}
 
@@ -83,7 +80,7 @@ RSpec.describe ReviewMailer, type: :mailer do
     let(:draft) { create :draft, status: :changes_requested, friend: friend }
     let(:review) { create :review, draft: draft }
     let(:friend) { create :friend, community: community, region: region }
-    let!(:volunteer) { create :user, volunteer_type: 'english_speaking', community: community }
+    let!(:volunteer) { create :user, community: community }
     let!(:community_admin) { create :user, :community_admin, community: community }
     let!(:regional_admin) { create :user, :regional_admin, community: community }
 
@@ -119,7 +116,7 @@ RSpec.describe ReviewMailer, type: :mailer do
     let(:region) { community.region }
     let(:application) { create :application, friend: friend }
     let(:friend) { create :friend, community: community, region: region }
-    let!(:volunteer) { create :user, volunteer_type: 'english_speaking', community: community }
+    let!(:volunteer) { create :user, community: community }
     let!(:community_admin) { create :user, :community_admin, community: community }
     let!(:regional_admin) { create :user, :regional_admin, community: community }
 

@@ -10,7 +10,6 @@ class User < ApplicationRecord
   attr_reader :raw_invitation_token
 
   enum role: %i[volunteer accompaniment_leader admin data_entry]
-  enum volunteer_type: %i[english_speaking spanish_interpreter lawyer]
 
   validates :first_name, :last_name, :email, :phone, :community_id, presence: true
   validates :email, uniqueness: true
@@ -33,7 +32,7 @@ class User < ApplicationRecord
   has_many :reviews
   has_many :user_event_attendances, dependent: :destroy
 
- 
+
 
 
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
@@ -45,7 +44,6 @@ class User < ApplicationRecord
       filter_first_name
       filter_last_name
       filter_email
-      filter_volunteer_type
       filter_role
     ]
   )
@@ -53,10 +51,6 @@ class User < ApplicationRecord
   def remote_clinic_friends
     friends.where(user_friend_associations: { remote: true })
   end
-
-  scope :filter_volunteer_type, ->(volunteer_type) {
-    where(volunteer_type: volunteer_type)
-  }
 
   scope :filter_role, ->(role) {
     where(role: role)

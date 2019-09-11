@@ -2,9 +2,6 @@ class Admin::UsersController < AdminController
   def index
     @filterrific = initialize_filterrific(User,
                                           params[:filterrific],
-                                          select_options: {
-                                            filter_volunteer_type: volunteer_type_options
-                                          },
                                           persistence_id: false)
 
     @filterrific_role = initialize_filterrific(User,
@@ -61,12 +58,6 @@ class Admin::UsersController < AdminController
 
   private
 
-  def volunteer_type_options
-    User.volunteer_types.keys.map do |volunteer_type|
-      [volunteer_type.humanize, volunteer_type]
-    end
-  end
-
   def role_options
     User.roles.keys.map do |role_type|
       [role_type.humanize, role_type]
@@ -83,7 +74,6 @@ class Admin::UsersController < AdminController
       :last_name,
       :email,
       :phone,
-      :volunteer_type,
       :role,
       :pledge_signed,
       :signed_guidelines,
@@ -99,17 +89,15 @@ class Admin::UsersController < AdminController
       :last_name,
       :email,
       :phone,
-      :volunteer_type,
       :pledge_signed,
       :signed_guidelines,
       :attended_training,
-      :remote_clinic_lawyer
+      :remote_clinic_lawyer,
+      language_ids: [],
     )
   end
 
   def user_index_scope
-    scope = current_community.users
-    scope = scope.for_volunteer_type(params[:volunteer_type]) if params[:volunteer_type].present?
-    scope
+    current_community.users
   end
 end
