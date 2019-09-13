@@ -11,7 +11,7 @@ gem 'brakeman'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-aws'
 gem 'chosen-rails'
-gem 'devise', '~> 4.6'
+gem 'devise', '~> 4.7'
 gem 'devise_invitable', '~> 1.7'
 gem 'devise-security'
 gem 'faker', require: false
