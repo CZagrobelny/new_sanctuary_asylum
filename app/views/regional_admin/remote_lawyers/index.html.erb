@@ -8,8 +8,7 @@
         <th>Last Name</th>
         <th>Email</th>
         <th>Phone Number</th>
-        <th>Type</th>
-        <th>Admin?</th>
+        <th>Role</th>
         <th>Created</th>
         <th>Actions</th>
       </tr>
@@ -22,8 +21,7 @@
           <td><%= lawyer.last_name %></td>
           <td><%= lawyer.email %></td>
           <td><%= lawyer.phone %></td>
-          <td><%= lawyer.volunteer_type.try(:titleize) %></td>
-          <td><%= lawyer.admin? ? 'YES' : 'NO' %></td>
+          <td><%= lawyer.role.try(:titlecase) %></td>
           <td><%= lawyer.created_at.strftime('%m/%d/%y') %></td>
 
           <td>

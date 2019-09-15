@@ -11,8 +11,7 @@
         <th>Last Name</th>
         <th>Email</th>
         <th>Phone Number</th>
-        <th>Volunteer Type</th>
-        <th>Admin?</th>
+        <th>Role</th>
         <th>Created At</th>
         <th>Actions</th>
       </tr>
@@ -25,8 +24,7 @@
           <td><%= user.last_name %></td>
           <td><%= user.email %></td>
           <td><%= user.phone %></td>
-          <td><%= user.volunteer_type.try(:titleize) %></td>
-          <td><%= user.admin? ? 'YES' : 'NO' %></td>
+          <td><%= user.role.try(:titlecase) %></td>
           <td><%= user.created_at.strftime('%m/%d/%y') %></td>
           <td>
             <div class='btn-group'>
