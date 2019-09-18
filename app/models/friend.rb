@@ -142,6 +142,14 @@ class Friend < ApplicationRecord
       .where(applications: { status: status })
   }
 
+  pg_search_scope :filter_phone_number, against: :phone, using: { 
+    tsearch: { prefix: true } 
+  }
+
+  pg_search_scope :filter_notes, against: :notes, using: { 
+    tsearch: { dictionary: "english" }
+  }
+
   scope :sorted_by, ->(sort_option) {
     # extract the sort direction from the param value.
     direction = sort_option =~ /desc$/ ? 'desc' : 'asc'
@@ -178,6 +186,8 @@ class Friend < ApplicationRecord
                                     filter_border_queue_number
                                     filter_border_crossing_status
                                     filter_application_status
+                                    filter_phone_number
+                                    filter_notes
                                     sorted_by])
 
   # This method provides select options for the `sorted_by` filter select input.
