@@ -4,12 +4,12 @@ class Admin::FriendsController < AdminController
     if filter_clinic_wait_list_priorities.present?
       params['filterrific']['filter_clinic_wait_list_priority'] = filter_clinic_wait_list_priorities.reject!(&:empty?)
     end
-    
+
     @filterrific = initialize_filterrific(Friend,
                                           params[:filterrific],
                                           default_filter_params: { sorted_by: 'created_at_desc' },
-                                          select_options: { 
-                                            sorted_by: Friend.options_for_sorted_by, 
+                                          select_options: {
+                                            sorted_by: Friend.options_for_sorted_by,
                                             filter_border_crossing_status: Friend::BORDER_CROSSING_STATUSES,
                                             filter_clinic_wait_list_priority: Friend.clinic_wait_list_priorities.map { |key, value| [key.humanize, key] }},
                                           persistence_id: false)
@@ -49,15 +49,6 @@ class Admin::FriendsController < AdminController
     end
   end
 
-  def update_and_render_drafts
-    if friend.update(friend_params)
-      redirect_to community_friend_drafts_path(current_community, friend)
-    else
-      flash.now[:error] = 'Please fill in all required friend fields before managing documents.'
-      render :edit
-    end
-  end
-
   def destroy
     if friend.destroy
       flash[:success] = 'Friend record destroyed.'
@@ -67,16 +58,11 @@ class Admin::FriendsController < AdminController
     redirect_to community_admin_friends_path(current_community, query: params[:query])
   end
 
+  private
+
   def friend
     @friend ||= current_community.friends.find(params[:id])
   end
-
-  def current_tab
-    # TODO: See if params[:tab] is ever an empty string, otherwise can remove the presence
-    params[:tab].presence || '#basic'
-  end
-
-  private
 
   def friend_params
     params.require(:friend).permit(
@@ -84,6 +70,7 @@ class Admin::FriendsController < AdminController
       :last_name,
       :middle_name,
       :email,
+      :eoir_case_status,
       :phone,
       :a_number,
       :no_a_number,
@@ -135,5 +122,19 @@ class Admin::FriendsController < AdminController
       language_ids: [],
       user_ids: []
     ).merge(community_id: current_community.id, region_id: current_region.id)
+  end
+
+  def update_and_render_drafts
+    if friend.update(friend_params)
+      redirect_to community_friend_drafts_path(current_community, friend)
+    else
+      flash.now[:error] = 'Please fill in all required friend fields before managing documents.'
+      render :edit
+    end
+  end
+
+  def current_tab
+    # TODO: See if params[:tab] is ever an empty string, otherwise can remove the presence
+    params[:tab].presence || '#basic'
   end
 end

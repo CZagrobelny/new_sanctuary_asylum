@@ -1,3 +1,8 @@
+<br>
+<div class='col-md-2 col-md-offset-10'>
+  <%= f.submit 'Manage Documents', name: 'manage_drafts', class: 'btn btn-primary' %>
+</div>
+<br>
 <% if @friend.grouped_drafts.empty? %>
   <h3> There are no files associated with this user.</h3>
 <% else %>
@@ -29,7 +34,3 @@
     <% end %>
   <% end %>
 <% end %>
-<br>
-<div class='col-md-2 col-md-offset-10'>
-  <%= f.submit 'Manage Documents', name: 'manage_drafts', class: 'btn btn-primary' %>
-</div>

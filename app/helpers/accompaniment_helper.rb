@@ -1,9 +1,14 @@
 module AccompanimentHelper
   def accompaniment_user_details(accompaniment)
     user = accompaniment.user
+    languages = user.languages.map { |language| language.name.titleize }
     [user.phone, user.email].tap do |details|
-      details << user.volunteer_type.humanize.titleize if user.volunteer?
-      details << accompaniment.availability_notes if accompaniment.availability_notes.present?
+      if languages.present?
+        details << "Languages: #{languages.join(', ')}"
+      end
+      if accompaniment.availability_notes.present?
+        details << "Notes: #{accompaniment.availability_notes}"
+      end
     end
   end
 

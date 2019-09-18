@@ -4,7 +4,6 @@ FactoryBot.define do
     last_name { Faker::Name.last_name }
     email { Faker::Internet.unique.safe_email }
     phone { Faker::PhoneNumber.phone_number }
-    volunteer_type { 1 }
     password { (Faker::Food.fruits + Faker::PhoneNumber.area_code.to_s + Faker::Food.spice).delete(' ') }
     password_confirmation { password }
     invitation_accepted_at { Time.now }
@@ -40,7 +39,6 @@ FactoryBot.define do
     last_name { nil }
     email { Faker::Internet.unique.safe_email }
     phone { nil }
-    volunteer_type { nil }
     password { nil }
     password_confirmation { nil }
     invitation_accepted_at { nil }

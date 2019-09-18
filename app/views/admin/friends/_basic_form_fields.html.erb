@@ -100,7 +100,8 @@
 <div class='row form-group'>
   <%= f.label :state, 'State', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= f.select :state, us_states_options(), {}, { class: 'form-control' } %>
+    <%= f.select :state, us_states_options(), {}, { class: 'form-control chzn-select' } %>
+
   </div>
 </div>
 
@@ -115,6 +116,13 @@
   <%= f.label :status, class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
     <%= f.select :status, options_for_select(Friend::STATUSES, @friend.status), {include_blank: true}, {class: 'form-control'} %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <%= f.label :eoir_case_status, "EOIR Case Status", class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.select :eoir_case_status, options_for_select(Friend::EOIR_CASE_STATUSES.map { |status_array| status_array[0] }, @friend.eoir_case_status), {include_blank: true}, {class: 'form-control'} %>
   </div>
 </div>
 

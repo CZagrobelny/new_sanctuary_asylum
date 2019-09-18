@@ -27,7 +27,7 @@ class RegionalAdmin::RemoteLawyersController < AdminController
   private
 
   def user_friend_associations_params
-    persisted_friend_ids = @remote_lawyer.remote_clinic_friends.map(&:id)
+    persisted_friend_ids = @remote_lawyer.remote_clinic_friends.pluck(:id)
     friend_ids = remote_lawyer_params[:friend_ids]
     friend_ids_params = friend_ids ? friend_ids.map { |id| id.to_i if id.present? }.compact : []
     added_friend_ids = friend_ids_params - persisted_friend_ids
@@ -55,12 +55,12 @@ class RegionalAdmin::RemoteLawyersController < AdminController
       :last_name,
       :email,
       :phone,
-      :volunteer_type,
       :role,
       :pledge_signed,
       :signed_guidelines,
       :remote_clinic_lawyer,
-      friend_ids: []
+      friend_ids: [],
+      language_ids: []
     )
   end
 end

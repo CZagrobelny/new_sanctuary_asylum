@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, skip: :invitations,
-    controllers: { password_expired: 'devise_overrides/password_expired' }
+    controllers: { password_expired: 'devise_overrides/password_expired',
+    sessions: 'devise_overrides/sessions' }
   devise_scope :user do
     authenticated do
       root to: 'dashboard#index', as: :root
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :communities, param: :slug, only: [] do
     devise_for :users, only: [:invitations], controllers: { invitations: "invitations" }
+
     get 'admin', to: 'admin/friends#index'
     get 'dashboard', to: 'dashboard#index'
 
@@ -22,37 +24,37 @@ Rails.application.routes.draw do
     resources :friends, only: [:index, :show, :update] do
       resources :drafts do
         member do
-          get :submit_for_review
-          get :approve
+          patch :submit_for_review
+          patch :approve
         end
-        resources :reviews, only: [:new, :show, :create, :edit, :update]
+        resources :reviews, except: [:index, :destroy]
       end
       resources :releases, only: [:new, :create]
     end
-    resources :accompaniments
+    resources :accompaniments, only: [:create, :update]
     resources :activities, only: [:index]
 
     namespace :admin do
-    	resources :users
+    	resources :users, except: [:new, :create, :show]
       resources :access_time_slots, except: [:show]
       resources :activities, except: [:destroy] do
         collection do
           get :accompaniments
         end
         member do
-          get :confirm
-          get :unconfirm
+          patch :confirm
+          patch :unconfirm
         end
       end
-      resources :friends do
-        resources :activities, controller: 'friends/activities' do
+      resources :friends, except: [:show] do
+        resources :activities, controller: 'friends/activities', except: [:index, :show] do
           member do
-            get :confirm
-            get :unconfirm
+          patch :confirm
+          patch :unconfirm
           end
         end
-        resources :detentions, controller: 'friends/detentions'
-        resources :family_relationships
+        resources :detentions, controller: 'friends/detentions', except: [:index, :show]
+        resources :family_relationships, only: [:new, :create, :destroy]
       end
 
       resources :judges, except: [:show, :destroy]
@@ -60,7 +62,7 @@ Rails.application.routes.draw do
       resources :sanctuaries, except: [:show, :destroy]
       resources :lawyers, except: [:show, :destroy]
 
-      resources :events do
+      resources :events, except: [:show] do
         member do
           get :attendance
         end
@@ -68,15 +70,12 @@ Rails.application.routes.draw do
         resources :friend_event_attendances, only: [:create, :destroy]
       end
 
-      resources :cohorts do
+      resources :cohorts, except: [:show] do
         member do
           get :assignment
         end
         resources :friend_cohort_assignments, only: [:create, :update, :destroy]
       end
-
-      get 'reports/new', to: 'reports#new'
-      post 'reports/create', to: 'reports#create'
     end
 
     namespace :accompaniment_leader do
@@ -84,22 +83,23 @@ Rails.application.routes.draw do
         resources :activities, controller: 'friends/activities', only: [:new, :create]
       end
       resources :activities, only: [:index] do
-        resources :accompaniment_reports, only: [:edit, :new, :create, :update]
+        resources :accompaniment_reports, except: [:index, :show, :destroy]
       end
     end
   end
 
   namespace :regional_admin do
     devise_for :users, only: [:invitations], controllers: { invitations: "invitations" }
+
     resources :regions, only: [] do
-      resources :communities, only: [:index, :new, :create, :edit, :update]
+      resources :communities, except: [:show, :destroy]
       resources :friends, only: [:index, :show, :update] do
         resources :applications, only: [] do
-          get :close
+          patch :close
         end
       end
     end
-    resources :remote_lawyers, only: [:index, :destroy, :edit, :update]
+    resources :remote_lawyers, except: [:new, :create, :show]
   end
 
   namespace :remote_clinic do

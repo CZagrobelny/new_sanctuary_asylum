@@ -10,7 +10,9 @@ class Friend < ApplicationRecord
                 asylum_reciepient
                 asylum_application_denied
                 legal_permanent_resident
-                in_detention green_card_holder].map do |status|
+                in_detention
+                deported
+              ].map do |status|
     [status.titlecase,
      status]
   end
@@ -32,6 +34,12 @@ class Friend < ApplicationRecord
                      submitted
                      approved
                      denied].map { |status| [status.titlecase, status] }
+
+  EOIR_CASE_STATUSES = %w[case_pending
+                          immigration_judge_ordered_removal
+                          prior_voluntary_departure 
+                          appeal pending 
+                          motion_to_reopen_submitted].map { |status| [status.titlecase, status] }
 
   BORDER_CROSSING_STATUSES = %w[ready_to_cross detained_while_crossing successfully_crossed].map { |status| [status.titlecase, status] }
 

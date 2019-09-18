@@ -1,5 +1,6 @@
 class Admin::UserEventAttendancesController < AdminController
   before_action :require_primary_community
+
   def create
     user_id_array = user_event_attendance_params[:user_id].reject(&:empty?)
     return unless user_id_array.present?
@@ -14,6 +15,8 @@ class Admin::UserEventAttendancesController < AdminController
     @user_event_attendance = UserEventAttendance.find(params[:id])
     render_success if @user_event_attendance.destroy
   end
+
+  private
 
   def event
     Event.find(params[:event_id])

@@ -1,7 +1,7 @@
 <h2>Friends with Active Applications</h2>
 
 <div id='friends-with-active-applications'>
-  <% @friends.map do |friend| %>
+  <% @friends.each do |friend| %>
     <% friendship = current_user.relationship(friend) %>
     <div class='row'>
       <div class='col-md-6'>
