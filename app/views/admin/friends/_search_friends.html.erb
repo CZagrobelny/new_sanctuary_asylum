@@ -28,6 +28,13 @@
     </div>
   </div>
 
+  <div class='row'>
+    <div class='form-group col-md-3 inline-form-group'>
+      <%= f.label :filter_notes, 'Notes' %>
+      <%= f.text_field(:filter_notes, class: 'form-control') %>
+    </div>
+  </div>
+
   <div class="row">
     <div class='form-group col-md-12'>
       <%= f.label :filter_start_date, '1 year asylum application deadline ending between dates:' %>
@@ -66,13 +73,6 @@
     <div class='form-group col-md-5 inline-form-group'>
       <%= f.label :filter_border_crossing_status, 'Border Crossing Status' %>
       <%= f.select :filter_border_crossing_status, @filterrific.select_options[:filter_border_crossing_status], { include_blank: true }, class: 'form-control' %>
-    </div>
-  </div>
-
-  <div class='row'>
-    <div class='form-group col-md-3 inline-form-group'>
-      <%= f.label :filter_notes, 'Notes' %>
-      <%= f.text_field(:filter_notes, class: 'form-control') %>
     </div>
   </div>
 
