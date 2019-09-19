@@ -1,5 +1,39 @@
 # New Sanctuary Coalition
 
+<!-- Tocer[start]: Auto-generated, don't remove. -->
+
+## Table of Contents
+
+  - [What are we building?](#what-are-we-building)
+  - [Getting setup](#getting-setup)
+    - [System Dependencies](#system-dependencies)
+    - [Environment Variables](#environment-variables)
+    - [Using Docker to Run the Application (optional)](#using-docker-to-run-the-application-optional)
+    - [Ruby Dependencies](#ruby-dependencies)
+    - [Database installation](#database-installation)
+      - [1. Mac OS](#1-mac-os)
+      - [2. All non-Mac OS](#2-all-non-mac-os)
+    - [Database setup](#database-setup)
+  - [Running the test suite](#running-the-test-suite)
+  - [Running the App Locally](#running-the-app-locally)
+  - [User Roles](#user-roles)
+      - [Regional Admin (has access to all communities within their regions)](#regional-admin-has-access-to-all-communities-within-their-regions)
+      - [Community Admin Role (has access to everything scoped to their Community)](#community-admin-role-has-access-to-everything-scoped-to-their-community)
+      - [Community Volunteer Role (has limited access to their community)](#community-volunteer-role-has-limited-access-to-their-community)
+      - [Community Accompaniment Leader Role (only applicable to Primary communities)](#community-accompaniment-leader-role-only-applicable-to-primary-communities)
+      - [Remote Clinic Lawyer Role](#remote-clinic-lawyer-role)
+  - [How are we building it?](#how-are-we-building-it)
+    - [Test Coverage!](#test-coverage)
+    - [Staging App](#staging-app)
+    - [Performance Monitoring](#performance-monitoring)
+  - [Maintenance](#maintenance)
+  - [Contributing](#contributing)
+  - [Code of Conduct](#code-of-conduct)
+  - [Questions?](#questions)
+  - [Contributors](#contributors)
+
+<!-- Tocer[finish]: Auto-generated, don't remove. -->
+
 ## What are we building?
 
 The New Sanctuary Coalition is a network of congregations, organizations, and individuals standing publicly in solidarity with families and communities resisting detention and deportation. This internal database software facilitates NSC's core programs and allows them to operate at increasing scale.
