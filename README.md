@@ -182,6 +182,14 @@ The data is refeshed occassionally, but activities/accompaniments are likely to 
 We are using Skylight for performance monitoring.
 [![View performance data on Skylight](https://badges.skylight.io/status/jaU6phtJKOvV.svg)](https://oss.skylight.io/app/applications/jaU6phtJKOvV)
 
+## Maintenance
+
+When making changes to the README of this project, make sure to run the following:
+
+    rake toc
+
+This will ensure the Table of Contents for this project is properly updated.
+
 ## Contributing
 1. Add a comment on your chosen Github issue to let other contributors know that you have 'claimed' it.
 2. Fork the repo and download a clone of the forked repo: https://guides.github.com/activities/forking/
