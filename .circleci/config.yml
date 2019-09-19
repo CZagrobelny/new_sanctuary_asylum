@@ -11,7 +11,7 @@ jobs:
           command: sudo apt-get update --quiet && sudo apt-get install --assume-yes nodejs
       - run:
           name: Install bundler
-          command: gem install bundler --version 2.0.1
+          command: gem install bundler --version 2.0.2
       - run:
           name: Install gems
           command: bundle install
