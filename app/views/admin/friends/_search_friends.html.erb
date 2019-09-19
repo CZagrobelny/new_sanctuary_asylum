@@ -22,13 +22,13 @@
         <%= f.check_box(:filter_detained) %>
       </div>
     </div>
-    <div class='form-group col-md-2'>
-      <%= f.label :filter_phone_number, 'Phone Number' %>
-      <%= f.text_field(:filter_phone_number, class: 'form-control') %>
-    </div>
   </div>
 
   <div class='row'>
+    <div class='form-group col-md-4 inline-form-group'>
+      <%= f.label :filter_phone_number, 'Phone Number' %>
+      <%= f.text_field(:filter_phone_number, class: 'form-control') %>
+    </div>
     <div class='form-group col-md-3 inline-form-group'>
       <%= f.label :filter_notes, 'Notes' %>
       <%= f.text_field(:filter_notes, class: 'form-control') %>
