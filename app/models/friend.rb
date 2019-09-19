@@ -142,8 +142,25 @@ class Friend < ApplicationRecord
       .where(applications: { status: status })
   }
 
-  pg_search_scope :filter_phone_number, against: :phone, using: { 
-    tsearch: { prefix: true } 
+  scope :filter_phone_number, ->(phone) {
+    return nil if phone.blank? 
+
+    # cast to string (if query just "123", would get integer)
+    # lowercase & normalize . () - + and space out
+    number_chunks = phone.to_s.downcase.split(/[\s+\-\(\)\.\+]/)
+    
+    # make this a wildcard search by surrounding with %
+    number_chunks = number_chunks.map { |chunk|
+      "%" + chunk + "%"
+    }
+
+    # search for each chunk separately
+    where(
+      number_chunks.map { |_term|
+        "(LOWER(friends.phone) LIKE ?)"
+      }.join(" AND "),
+      *number_chunks.flatten,
+    )
   }
 
   pg_search_scope :filter_notes, against: :notes, using: { 
