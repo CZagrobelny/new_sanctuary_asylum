@@ -73,5 +73,7 @@ group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-watcher-listen', '~> 2.0'
+  gem 'tocer', '~> 9.1'
   gem 'web-console', '~> 3.0'
 end
+
