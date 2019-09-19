@@ -1,9 +1,17 @@
-<br>
-<% if friend.activities.present? %>
-  <% friend.activities.order('occur_at desc').each do |activity| %>
+<h3>Activities</h3>
+<% if friend.activities.non_accompaniment_eligible.present? %>
+  <% friend.activities.non_accompaniment_eligible.order('occur_at desc').each do |activity| %>
     <%= render partial: 'admin/friends/activities/activity', locals: { friend: friend, activity: activity } %>
   <% end %>
 <% end %>
+
+<h3>Accompaniments</h3>
+<% if friend.activities.accompaniment_eligible.present? %>
+  <% friend.activities.accompaniment_eligible.order('occur_at desc').each do |activity| %>
+    <%= render partial: 'admin/friends/activities/activity', locals: { friend: friend, activity: activity } %>
+  <% end %>
+<% end %>
+
 
 <script>
   $(document).ready(function () {

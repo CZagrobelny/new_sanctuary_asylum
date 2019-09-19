@@ -1,4 +1,4 @@
-<%= link_to '+ Add Activity', new_community_admin_activity_path(current_community.slug), class: 'btn btn-primary pull-right', id: "add_activity" %>
+<%= link_to 'Add Activity/Accompaniment', new_community_admin_activity_path(current_community.slug), class: 'btn btn-primary pull-right', id: "add_activity" %>
 <h1>Accompaniments</h1>
 <%= week_calendar events: @activities do |date, activities| %>
   <h5><%= date.day %></h5>
@@ -15,7 +15,7 @@
       </dt>
       <dd>
         <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>" class="<%= "friend_in_detention" if activity.friend.status == 'in_detention' %>">
-          <%= "#{activity.activity_type.name.titlecase} for #{activity.friend.name}" %>  
+          <%= "#{activity.activity_type.name.titlecase} for #{activity.friend.name}" %>
         </a>
         <span>(<%= "#{activity.volunteer_accompaniments.count}" %>)</span>
         <div id="modal_activity_<%= activity.id %>" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
