@@ -189,7 +189,7 @@ We are using Skylight for performance monitoring.
 4. Complete feature with tests!
 5. Check CircleCI to make sure tests are passing.
 6. Make a pull request and tag CZagrobelny to review.
-7. CZagrobelny will leave feedback and merge into master upon approval of the pull request.
+7. CZagrobelny will QA and leave feedback (usually within a few days of when the PR is opened) and merge into master upon approval of the pull request.
 
 It can be really helpful to get notifications when new issues are opened! Here is how you subscribe to notifications:
 <img width="1159" alt="how to get notifications" src="https://user-images.githubusercontent.com/3056607/59544168-df7df000-8edd-11e9-9699-6dc26a1c8cf0.png">

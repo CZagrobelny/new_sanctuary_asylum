@@ -78,7 +78,7 @@
               <% else %>
                 <%= link_to 'Add Report Back', new_community_accompaniment_leader_activity_accompaniment_report_path(current_community.slug, activity), class: 'btn btn-info' %>
               <% end %>
-              <%= link_to "Add Activity", new_community_accompaniment_leader_friend_activity_path(friend_id: activity.friend.id), class: 'btn btn-warning' %>
+              <%= link_to "Add Accompaniment", new_community_accompaniment_leader_friend_activity_path(friend_id: activity.friend.id), class: 'btn btn-warning' %>
             <% end %>
           </div>
         </div>

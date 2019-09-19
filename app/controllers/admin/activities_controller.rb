@@ -24,24 +24,24 @@ class Admin::ActivitiesController < AdminController
   def create
     @activity = current_region.activities.new(activity_params)
     if activity.save
-      flash[:success] = 'Activity saved.'
+      flash[:success] = 'Activity/Accompaniment saved.'
       redirect_to community_admin_activities_path(current_community.slug)
     else
-      flash.now[:error] = 'Activity not saved.'
+      flash.now[:error] = 'Activity/Accompaniment not saved.'
       render :new
     end
   end
 
   def update
     if activity.update(activity_params)
-      flash[:success] = 'Activity saved.'
+      flash[:success] = 'Activity/Accompaniment saved.'
       if activity.accompaniment_eligible?
         redirect_to accompaniments_community_admin_activities_path(current_community.slug)
       else
         redirect_to community_admin_activities_path(current_community.slug)
       end
     else
-      flash.now[:error] = 'Activity not saved.'
+      flash.now[:error] = 'Activity/Accompaniment not saved.'
       render :edit
     end
   end

@@ -1,7 +1,6 @@
 <div class='pull-right'>
-  <%= link_to 'Add Activity', new_community_admin_friend_activity_path(current_community.slug, @friend), remote: true, class: 'btn btn-primary', data: {toggle: 'modal', target: '#activity_modal'} %>
+  <%= link_to 'Add Activity/Accompaniment', new_community_admin_friend_activity_path(current_community.slug, @friend), remote: true, class: 'btn btn-primary', data: {toggle: 'modal', target: '#activity_modal'} %>
 </div>
-<h3>Activities</h3>
 
 <div id='activity-list' >
   <%= render partial: 'admin/friends/activities/list', locals: { friend: @friend} %>
