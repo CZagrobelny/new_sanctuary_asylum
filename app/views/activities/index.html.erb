@@ -24,6 +24,7 @@
           <%= render partial: 'accompaniment_modal', locals: { activity: activity, accompaniment: Accompaniment.find_or_build(activity, current_user) } %>
         </dd>
       </div>
+      <% end %>
   <% end %>
   </dl>
 <% end %>
