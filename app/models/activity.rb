@@ -4,10 +4,13 @@ class Activity < ApplicationRecord
   belongs_to :judge
   belongs_to :location
   belongs_to :activity_type
+  belongs_to :combined_accompaniment_activity_parent, class_name: 'Activity', optional: true
+  has_many :combined_accompaniment_activity_children, class_name: 'Activity', foreign_key: 'combined_accompaniment_activity_parent'
   has_many :accompaniments, -> { order(created_at: :asc) }, dependent: :destroy
   has_many :users, through: :accompaniments
   has_many :accompaniment_reports, dependent: :destroy
 
+  validate :accompaniment_activity_combination_max_depth_of_one
   validates :activity_type_id, :occur_at, :friend_id, :region_id, presence: true
 
   scope :accompaniment_eligible, -> {
@@ -42,8 +45,13 @@ class Activity < ApplicationRecord
     end
   }
 
+  scope :exclude_accompaniment_combination_children, -> {
+    where(combined_accompaniment_activity_parent: nil)
+  }
+
   scope :for_time_confirmed, ->(period_begin, period_end) {
                                accompaniment_eligible
+                                 .exclude_accompaniment_combination_children
                                  .confirmed.by_dates(period_begin, period_end)
                                  .order(occur_at: 'asc')
                              }
@@ -86,5 +94,16 @@ class Activity < ApplicationRecord
 
   def accompaniment_eligible?
     activity_type.accompaniment_eligible
+  end
+
+  private
+
+  def accompaniment_activity_combination_max_depth_of_one
+    return unless combined_accompaniment_activity_parent?
+    if combined_accompaniment_activity_parent.combined_accompaniment_activity_parent? || combined_accompaniment_activity_children?
+      errors.add(:combined_accompaniment_activity_parent, 'Activity combinations cannot be daisy-chained. There ' \
+                                                          'should be a single parent activity for a group of combined activities.')
+      false
+    end
   end
 end

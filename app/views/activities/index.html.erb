@@ -12,8 +12,9 @@
           <%= activity.occur_at.strftime("%I:%M %p") %>
         </dt>
         <dd>
-          <% location = activity.location.present? ? "at #{activity.location.name}" : '' %>
-          <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>"><%= "#{activity.activity_type.name.titlecase} for #{activity.friend.first_name} #{location}" %></a>
+          <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>">
+          <%= calendar_activity_title(activity) %>
+          </a>
           <span>
             <% if activity.accompaniment_limit_met? %>
               (full)
@@ -24,7 +25,6 @@
           <%= render partial: 'accompaniment_modal', locals: { activity: activity, accompaniment: Accompaniment.find_or_build(activity, current_user) } %>
         </dd>
       </div>
-      <% end %>
   <% end %>
   </dl>
 <% end %>

@@ -21,12 +21,11 @@
 
 class Accompaniment < ApplicationRecord
   belongs_to :user
-  belongs_to :activity, optional: true
-  belongs_to :carpool, optional: true
+  belongs_to :activity
 
-  validate :belongs_to_activity_or_carpool
   validates :user_id, presence: true
   validate :volunteer_cap_not_exceeded
+  validate :not_associated_with_combined_accompaniment_child
 
   def self.find_or_build(activity, user)
     if user.attending?(activity)
@@ -49,7 +48,10 @@ class Accompaniment < ApplicationRecord
     "can't exceed #{activity.activity_type.cap} volunteer accompaniments."
   end
 
-  def belongs_to_activity_or_carpool
-    activity_id.present? ^ carpool_id.present?
+  def not_associated_with_combined_accompaniment_child
+    if activity.combined_accompaniment_activity_parent?
+      errors.add(:combined_accompaniment_activity_parent, "can't associated accompaniment with a combined activity child")
+      false
+    end
   end
 end

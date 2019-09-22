@@ -32,4 +32,9 @@ module AccompanimentHelper
     attending << pluralize(activity.volunteer_accompaniments.count, 'volunteer')
     "(#{attending.join(', ')})"
   end
+
+  def calendar_activity_title(activity)
+    title = "#{activity.activity_type.name.titlecase} for #{activity.friend.first_name}"
+    title << "at #{activity.location.name}" if activity.location.present?
+  end
 end
