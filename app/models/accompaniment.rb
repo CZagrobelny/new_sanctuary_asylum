@@ -50,7 +50,7 @@ class Accompaniment < ApplicationRecord
 
   def not_associated_with_combined_accompaniment_child
     if activity.combined_accompaniment_activity_parent?
-      errors.add(:combined_accompaniment_activity_parent, "can't associated accompaniment with a combined activity child")
+      errors.add(:combined_accompaniment_activity_parent, "can't be associated accompaniment with a combined activity child")
       false
     end
   end
