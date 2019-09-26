@@ -43,9 +43,10 @@ NSC's programs include:
 - Pro-se Clinic: a weekly clinic where undocumented people work with trained volunteers and lawyers to prepare documents (asylum applications, juvenile visas, etc.) to fight their immigration case.
 - Anti-Detention Program: works with detained immigrants across the US and their families to fight for their release.
 
-New Sanctuary Coalition: http://www.newsanctuarynyc.org/
-A talk about how this software supports NSC's work, presented at Strange Loop (2019): https://www.youtube.com/watch?v=5htAAL0cc_w
-5by5 Ruby on Rails Podcast episode about this project: https://5by5.tv/rubyonrails/284 
+**Learn More**
+- About New Sanctuary Coalition: http://www.newsanctuarynyc.org/
+- About how this project supports NSC's work (Strange Loop, 2019): https://www.youtube.com/watch?v=5htAAL0cc_w
+- About this project (5by5 Ruby on Rails Podcast): https://5by5.tv/rubyonrails/284 
 
 ## Getting setup
 
