@@ -80,6 +80,18 @@ class Activity < ApplicationRecord
     end
   end
 
+  def accompaniment_leader_accompaniments
+    accompaniments.select do |accompaniment|
+      accompaniment.user.role == 'accompaniment_leader'
+    end
+  end
+
+  def volunteer_accompaniments
+    accompaniments.select do |accompaniment|
+      %w[volunteer data_entry].include? accompaniment.user.role
+    end
+  end
+
   def self.remaining_this_week?
     Activity.accompaniment_eligible
             .confirmed

@@ -120,6 +120,13 @@
 </div>
 
 <div class='row form-group'>
+  <%= f.label :eoir_case_status, "EOIR Case Status", class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.select :eoir_case_status, options_for_select(Friend::EOIR_CASE_STATUSES.map { |status_array| status_array[0] }, @friend.eoir_case_status), {include_blank: true}, {class: 'form-control'} %>
+  </div>
+</div>
+
+<div class='row form-group'>
   <%= f.label :date_of_entry, 'Date of Entry', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
     <%= f.date_select :date_of_entry, { start_year: Date.current.year, end_year: 1930, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>

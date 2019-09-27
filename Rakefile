@@ -4,3 +4,11 @@
 require File.expand_path('config/application', __dir__)
 
 Rails.application.load_tasks
+
+if Rails.env.development?
+  begin
+    require "tocer/rake/setup"
+  rescue LoadError => error
+    puts error.message
+  end
+end

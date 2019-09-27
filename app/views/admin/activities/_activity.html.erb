@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class="confirm">
-    <%= link_to "Edit Activity", edit_community_admin_activity_path(current_community.slug, activity), class: "btn btn-primary pull-left accomp-edit" %>
+    <%= link_to "Edit Activity/Accompaniment", edit_community_admin_activity_path(current_community.slug, activity), class: "btn btn-primary pull-left accomp-edit" %>
     <% if activity.accompaniment_eligible? %>
       <% if activity.confirmed? %>
         <%= link_to 'Unconfirm', unconfirm_community_admin_activity_path(current_community.slug, activity), method: :patch, class: 'btn btn-danger pull-left' %>

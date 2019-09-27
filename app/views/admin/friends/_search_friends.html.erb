@@ -16,11 +16,22 @@
       <%= f.label :filter_id, 'ID' %>
       <%= f.text_field(:filter_id, class: 'form-control') %>
     </div>
-    <div class='form-group'>
+    <div class='form-group col-md-1'>
       <%= f.label :filter_detained, 'Detained' %>
       <div>
         <%= f.check_box(:filter_detained) %>
       </div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='form-group col-md-4 inline-form-group'>
+      <%= f.label :filter_phone_number, 'Phone Number' %>
+      <%= f.text_field(:filter_phone_number, class: 'form-control') %>
+    </div>
+    <div class='form-group col-md-3 inline-form-group'>
+      <%= f.label :filter_notes, 'Notes' %>
+      <%= f.text_field(:filter_notes, class: 'form-control') %>
     </div>
   </div>
 

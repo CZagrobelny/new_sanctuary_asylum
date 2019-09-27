@@ -70,6 +70,7 @@ class Admin::FriendsController < AdminController
       :last_name,
       :middle_name,
       :email,
+      :eoir_case_status,
       :phone,
       :a_number,
       :no_a_number,

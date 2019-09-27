@@ -33,51 +33,54 @@ ActiveRecord::Base.transaction do
                                   primary: true)
 
   # NY Regional admin
-  ny_regional_admin = User.create!(first_name: 'NY Regional', last_name: 'Admin', email: 'ny_regional_admin@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 2, pledge_signed: true)
+  ny_regional_admin = User.create!(first_name: 'NY Regional', last_name: 'Admin', email: 'ny_regional_admin@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 2, pledge_signed: true)
   ny_regional_admin.user_regions.create!(region_id: ny_region.id)
 
   ## NYC Users
 
   #Accompaniment Leader User
-  User.create!(first_name: 'NYC Accompaniment', last_name: 'Leader', email: 'nyc_accompaniment_leader@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 1, pledge_signed: true)
+  User.create!(first_name: 'NYC Accompaniment', last_name: 'Leader', email: 'nyc_accompaniment_leader@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 1, pledge_signed: true)
 
   #Volunteer User
-  User.create!(first_name: 'NYC Community', last_name: 'Volunteer', email: 'nyc_volunteer@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 0, pledge_signed: true)
+  User.create!(first_name: 'NYC Community', last_name: 'Volunteer', email: 'nyc_volunteer@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true)
+
+  #Data Entry User
+  User.create!(first_name: 'NYC Data', last_name: 'Entry', email: 'nyc_data_entry@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 3, pledge_signed: true)
 
   #Admin User
-  User.create!(first_name: 'NYC Community', last_name: 'Admin', email: 'nyc_admin@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 2, pledge_signed: true)
+  User.create!(first_name: 'NYC Community', last_name: 'Admin', email: 'nyc_admin@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 2, pledge_signed: true)
 
   #Remote Clinic Lawyer
-  User.create!(first_name: 'Remote Clinic', last_name: 'Lawyer', email: 'remote_clinic_lawyer@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 2, role: 0, pledge_signed: true, remote_clinic_lawyer: true)
+  User.create!(first_name: 'Remote Clinic', last_name: 'Lawyer', email: 'remote_clinic_lawyer@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true, remote_clinic_lawyer: true)
 
   #Some additional NYC volunteer users
   20.times do |index|
     Timecop.travel(index.days.ago)
-    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: nyc_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 0, pledge_signed: true)
+    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: nyc_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true)
   end
   Timecop.return
 
   10.times do |index|
     Timecop.travel(index.days.ago)
-    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: nyc_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 2, role: 0, pledge_signed: true, remote_clinic_lawyer: false)
+    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: nyc_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true, remote_clinic_lawyer: false)
   end
   Timecop.return
   ## Long Island Users
 
   #Accompaniment Leader User
-  User.create!(first_name: 'LI Accompaniment', last_name: 'Leader', email: 'li_accompaniment_leader@example.com', community_id: long_island_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 1, pledge_signed: true)
+  User.create!(first_name: 'LI Accompaniment', last_name: 'Leader', email: 'li_accompaniment_leader@example.com', community_id: long_island_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 1, pledge_signed: true)
 
   #Volunteer User
-  User.create!(first_name: 'LI Community', last_name: 'Volunteer', email: 'li_volunteer@example.com', community_id: long_island_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 0, pledge_signed: true)
+  User.create!(first_name: 'LI Community', last_name: 'Volunteer', email: 'li_volunteer@example.com', community_id: long_island_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true)
 
   #Admin User
-  User.create!(first_name: 'LI Community', last_name: 'Admin', email: 'li_admin@example.com', community_id: long_island_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 2, pledge_signed: true)
+  User.create!(first_name: 'LI Community', last_name: 'Admin', email: 'li_admin@example.com', community_id: long_island_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 2, pledge_signed: true)
 
 
   #Some additional Long Island volunteer users
   30.times do |index|
     Timecop.travel(index.days.ago)
-    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: long_island_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, volunteer_type: 1, role: 0, pledge_signed: true)
+    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: long_island_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true)
   end
   Timecop.return
 

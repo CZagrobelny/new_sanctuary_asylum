@@ -35,6 +35,12 @@ class Friend < ApplicationRecord
                      approved
                      denied].map { |status| [status.titlecase, status] }
 
+  EOIR_CASE_STATUSES = %w[case_pending
+                          immigration_judge_ordered_removal
+                          prior_voluntary_departure 
+                          appeal pending 
+                          motion_to_reopen_submitted].map { |status| [status.titlecase, status] }
+
   BORDER_CROSSING_STATUSES = %w[ready_to_cross detained_while_crossing successfully_crossed].map { |status| [status.titlecase, status] }
 
   ASYLUM_APPLICATION_DEADLINE = 1.year
@@ -136,6 +142,31 @@ class Friend < ApplicationRecord
       .where(applications: { status: status })
   }
 
+  scope :filter_phone_number, ->(phone) {
+    return nil if phone.blank? 
+
+    # cast to string (if query just "123", would get integer)
+    # lowercase & normalize . () - + and space out
+    number_chunks = phone.to_s.downcase.split(/[\s+\-\(\)\.\+]/)
+    
+    # make this a wildcard search by surrounding with %
+    number_chunks = number_chunks.map { |chunk|
+      "%" + chunk + "%"
+    }
+
+    # search for each chunk separately
+    where(
+      number_chunks.map { |_term|
+        "(LOWER(friends.phone) LIKE ?)"
+      }.join(" AND "),
+      *number_chunks.flatten,
+    )
+  }
+
+  pg_search_scope :filter_notes, against: :notes, using: { 
+    tsearch: { dictionary: "english" }
+  }
+
   scope :sorted_by, ->(sort_option) {
     # extract the sort direction from the param value.
     direction = sort_option =~ /desc$/ ? 'desc' : 'asc'
@@ -172,6 +203,8 @@ class Friend < ApplicationRecord
                                     filter_border_queue_number
                                     filter_border_crossing_status
                                     filter_application_status
+                                    filter_phone_number
+                                    filter_notes
                                     sorted_by])
 
   # This method provides select options for the `sorted_by` filter select input.

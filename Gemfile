@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
-# Make sure to bump .ruby-version when updating this
-ruby '2.6.2'
+ruby File.read('.ruby-version').strip
 
 gem 'rails', '~> 5.2.2.x'
 
@@ -11,7 +10,7 @@ gem 'brakeman'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-aws'
 gem 'chosen-rails'
-gem 'devise', '~> 4.6'
+gem 'devise', '~> 4.7'
 gem 'devise_invitable', '~> 1.7'
 gem 'devise-security'
 gem 'faker', require: false
@@ -74,5 +73,7 @@ group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-watcher-listen', '~> 2.0'
+  gem 'tocer', '~> 9.1'
   gem 'web-console', '~> 3.0'
 end
+
