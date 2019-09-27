@@ -25,7 +25,7 @@ class Accompaniment < ApplicationRecord
 
   validates :user_id, presence: true
   validate :volunteer_cap_not_exceeded
-  validate :not_associated_with_combined_accompaniment_child
+  validate :not_associated_with_combined_child
 
   def self.find_or_build(activity, user)
     if user.attending?(activity)
@@ -48,9 +48,9 @@ class Accompaniment < ApplicationRecord
     "can't exceed #{activity.activity_type.cap} volunteer accompaniments."
   end
 
-  def not_associated_with_combined_accompaniment_child
-    if activity.combined_accompaniment_activity_parent?
-      errors.add(:combined_accompaniment_activity_parent, "can't be associated accompaniment with a combined activity child")
+  def not_associated_with_combined_child
+    if activity&.combined_activity_parent
+      errors.add(:combined_activity_parent, "can't be associated accompaniment with a combined activity child")
       false
     end
   end

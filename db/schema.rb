@@ -57,9 +57,9 @@ ActiveRecord::Schema.define(version: 2019_09_22_130502) do
     t.boolean "confirmed"
     t.text "public_notes"
     t.integer "activity_type_id"
-    t.bigint "combined_accompaniment_activity_parent_id"
+    t.bigint "combined_activity_parent_id"
     t.index ["activity_type_id"], name: "index_activities_on_activity_type_id"
-    t.index ["combined_accompaniment_activity_parent_id"], name: "index_activities_on_combined_accompaniment_activity_parent_id"
+    t.index ["combined_activity_parent_id"], name: "index_activities_on_combined_activity_parent_id"
     t.index ["region_id"], name: "index_activities_on_region_id"
   end
 
@@ -409,7 +409,7 @@ ActiveRecord::Schema.define(version: 2019_09_22_130502) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
-  add_foreign_key "activities", "activities", column: "combined_accompaniment_activity_parent_id"
+  add_foreign_key "activities", "activities", column: "combined_activity_parent_id"
   add_foreign_key "activities", "activity_types"
   add_foreign_key "activities", "regions"
   add_foreign_key "communities", "regions"

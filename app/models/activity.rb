@@ -99,8 +99,8 @@ class Activity < ApplicationRecord
   private
 
   def accompaniment_activity_combination_max_depth_of_one
-    return unless combined_activity_parent?
-    if combined_activity_parent.combined_activity_parent? || combined_activity_children?
+    return unless combined_activity_parent
+    if combined_activity_parent.combined_activity_parent || combined_activity_children
       errors.add(:combined_activity_parent, 'Activity combinations cannot be daisy-chained. There ' \
                                                           'should be a single parent activity for a group of combined activities.')
       false
