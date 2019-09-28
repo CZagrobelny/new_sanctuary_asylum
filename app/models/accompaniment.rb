@@ -2,7 +2,7 @@ class Accompaniment < ApplicationRecord
   belongs_to :user
   belongs_to :activity
 
-  validates :user_id, presence: true
+  validates :activity_id, :user_id, presence: true
   validate :volunteer_cap_not_exceeded
   validate :not_associated_with_combined_child
 
