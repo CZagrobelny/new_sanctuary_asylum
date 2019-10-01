@@ -74,7 +74,6 @@ class Admin::FriendsController < AdminController
       :date_of_birth,
       :status,
       :date_of_entry,
-      :border_queue_number,
       :notes,
       :asylum_status,
       :asylum_notes,

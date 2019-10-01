@@ -98,10 +98,6 @@ class Friend < ApplicationRecord
     where(a_number: number)
   }
 
-  scope :filter_border_queue_number, ->(number) {
-    where(border_queue_number: number)
-  }
-
   scope :filter_detained, ->(detained) {
     where(status: 'in_detention') if detained == 1
   }
@@ -163,8 +159,6 @@ class Friend < ApplicationRecord
     when /^created_at_/
       # Simple sort on the created_at column.
       order("friends.created_at #{direction}")
-    when /^border_queue_number/
-      where('border_queue_number IS NOT NULL').order("friends.border_queue_number #{direction}")
     when /^intake_date_/
       where('intake_date IS NOT NULL').order("friends.intake_date #{direction}")
     when /^must_be_seen_by_/
@@ -186,7 +180,6 @@ class Friend < ApplicationRecord
                                     filter_asylum_application_deadline_ending_before
                                     filter_created_after
                                     filter_created_before
-                                    filter_border_queue_number
                                     filter_application_status
                                     filter_phone_number
                                     filter_notes
@@ -197,8 +190,6 @@ class Friend < ApplicationRecord
     [
       %w[Newest created_at_desc],
       %w[Oldest created_at_asc],
-      ['Border Queue Number (Low to High)', 'border_queue_number_asc'],
-      ['Border Queue Number (High to Low)', 'border_queue_number_desc'],
       ['Intake Date (Ascending)', 'intake_date_asc'],
       ['Intake Date (Descending)', 'intake_date_desc'],
       ['Must Be Seen By (Soonest)', 'must_be_seen_by_asc'],

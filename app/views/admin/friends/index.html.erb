@@ -34,11 +34,7 @@
           </td>
           <td><%= link_to friend.first_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>
           <td><%= link_to friend.last_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>
-          <% if current_region.border? %>
-            <td><%= friend.border_queue_number %></td>
-          <% else %>
-            <td><%= friend.a_number %></td>
-          <% end %>
+          <td><%= friend.a_number %></td>
           <td><%= friend.phone %></td>
           <td><%= friend.created_at.strftime('%m/%d/%y') %></td>
           <td>
