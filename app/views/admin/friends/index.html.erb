@@ -31,11 +31,6 @@
             <% if friend.cohorts.present? %>
               <i class='far fa-calendar-check' style="color: <%= friend.cohorts.first.color %>;"></i>
             <% end %>
-            <% if friend.clinic_wait_list_priority %>
-              <span class="friend_id_clinic_waitlist <%= friend.clinic_wait_list_class %>">
-                <i class='fas fa-flag' style='font-size:14px;'></i>
-              </span>
-            <% end %>
           </td>
           <td><%= link_to friend.first_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>
           <td><%= link_to friend.last_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>

@@ -1,13 +1,5 @@
 <div class='form_fields_section'>
   <h3>Intake</h3>
-  <div class='row form-group'>
-    <%= f.label :clinic_wait_list_priority, 'Clinic Wait List Priority', class: 'col-md-2 control-label' %>
-    <div class='col-md-6'>
-      <%= f.select :clinic_wait_list_priority,
-      options_for_select(Friend.clinic_wait_list_priorities.map { |key, value| [key.humanize, key] }, @friend.clinic_wait_list_priority),
-      {include_blank: true}, {class: 'form-control'} %>
-    </div>
-  </div>
 
   <div class='row form-group'>
     <%= f.label :intake_date, 'Intake Date', class: 'col-md-2 control-label' %>
