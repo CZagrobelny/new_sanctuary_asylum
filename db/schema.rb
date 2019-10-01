@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_01_230832) do
+ActiveRecord::Schema.define(version: 2019_10_01_232100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -218,7 +218,6 @@ ActiveRecord::Schema.define(version: 2019_10_01_230832) do
     t.string "sponsor_name"
     t.string "sponsor_phone_number"
     t.string "sponsor_relationship"
-    t.string "border_crossing_status"
     t.integer "border_queue_number"
     t.string "city"
     t.string "jail_id"

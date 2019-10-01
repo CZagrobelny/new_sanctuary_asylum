@@ -5,7 +5,6 @@ class Admin::FriendsController < AdminController
                                           default_filter_params: { sorted_by: 'created_at_desc' },
                                           select_options: {
                                             sorted_by: Friend.options_for_sorted_by,
-                                            filter_border_crossing_status: Friend::BORDER_CROSSING_STATUSES,
                                           },
                                           persistence_id: false)
 
@@ -75,7 +74,6 @@ class Admin::FriendsController < AdminController
       :date_of_birth,
       :status,
       :date_of_entry,
-      :border_crossing_status,
       :border_queue_number,
       :notes,
       :asylum_status,

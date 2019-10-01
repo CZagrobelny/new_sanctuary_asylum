@@ -40,8 +40,6 @@ class Friend < ApplicationRecord
                           appeal pending
                           motion_to_reopen_submitted].map { |status| [status.titlecase, status] }
 
-  BORDER_CROSSING_STATUSES = %w[ready_to_cross detained_while_crossing successfully_crossed].map { |status| [status.titlecase, status] }
-
   ASYLUM_APPLICATION_DEADLINE = 1.year
 
   belongs_to :community
@@ -126,10 +124,6 @@ class Friend < ApplicationRecord
     where('created_at <= ?', string_to_end_of_date(date))
   }
 
-  scope :filter_border_crossing_status, ->(status) {
-    where(border_crossing_status: status)
-  }
-
   scope :filter_application_status, ->(status) {
     status = %i[in_review changes_requested approved] if status == 'all_active'
     joins(:applications)
@@ -193,7 +187,6 @@ class Friend < ApplicationRecord
                                     filter_created_after
                                     filter_created_before
                                     filter_border_queue_number
-                                    filter_border_crossing_status
                                     filter_application_status
                                     filter_phone_number
                                     filter_notes

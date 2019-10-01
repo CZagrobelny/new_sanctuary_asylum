@@ -58,11 +58,6 @@
       <%= f.label :filter_border_queue_number, 'Border Queue Number' %>
       <%= f.text_field(:filter_border_queue_number, class: 'form-control') %>
     </div>
-
-    <div class='form-group col-md-5 inline-form-group'>
-      <%= f.label :filter_border_crossing_status, 'Border Crossing Status' %>
-      <%= f.select :filter_border_crossing_status, @filterrific.select_options[:filter_border_crossing_status], { include_blank: true }, class: 'form-control' %>
-    </div>
   </div>
 
   <div class='row'>

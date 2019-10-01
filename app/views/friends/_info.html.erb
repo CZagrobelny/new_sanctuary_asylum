@@ -18,7 +18,6 @@
 <p><strong>Status:  </strong><%= friend.status.try(:humanize) %></p>
 <p><strong>Date of Entry:  </strong><%= friend.date_of_entry.strftime('%m/%d/%y') if friend.date_of_entry.present? %></p>
 <p><strong>Border Queue Number:  </strong><%= friend.border_queue_number %></p>
-<p><strong>Border Crossing Status:  </strong><%= friend.border_crossing_status.try(:titlecase) %></p>
 <p><strong>Notes:  </strong><%= friend.notes %></p>
 
 <h3>Family</h3>
