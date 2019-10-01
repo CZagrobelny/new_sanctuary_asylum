@@ -37,8 +37,8 @@ class Friend < ApplicationRecord
 
   EOIR_CASE_STATUSES = %w[case_pending
                           immigration_judge_ordered_removal
-                          prior_voluntary_departure 
-                          appeal pending 
+                          prior_voluntary_departure
+                          appeal pending
                           motion_to_reopen_submitted].map { |status| [status.titlecase, status] }
 
   BORDER_CROSSING_STATUSES = %w[ready_to_cross detained_while_crossing successfully_crossed].map { |status| [status.titlecase, status] }
@@ -143,12 +143,12 @@ class Friend < ApplicationRecord
   }
 
   scope :filter_phone_number, ->(phone) {
-    return nil if phone.blank? 
+    return nil if phone.blank?
 
     # cast to string (if query just "123", would get integer)
     # lowercase & normalize . () - + and space out
     number_chunks = phone.to_s.downcase.split(/[\s+\-\(\)\.\+]/)
-    
+
     # make this a wildcard search by surrounding with %
     number_chunks = number_chunks.map { |chunk|
       "%" + chunk + "%"
@@ -163,7 +163,7 @@ class Friend < ApplicationRecord
     )
   }
 
-  pg_search_scope :filter_notes, against: :notes, using: { 
+  pg_search_scope :filter_notes, against: :notes, using: {
     tsearch: { dictionary: "english" }
   }
 
@@ -238,8 +238,8 @@ class Friend < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-  def name_and_clinic_priority
-    "#{name} (#{clinic_wait_list_priority.titlecase})"
+  def name_and_id
+    "#{name} (#{id})"
   end
 
   def ethnicity
