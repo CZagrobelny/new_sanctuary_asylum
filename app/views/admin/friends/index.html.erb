@@ -12,12 +12,9 @@
         <th>ID</th>
         <th>First Name</th>
         <th>Last Name</th>
-        <% if current_region.border? %>
-          <th>Border Queue Number</th>
-        <% else %>
-          <th>A#</th>
-        <% end %>
+        <th>A#</th>
         <th>Phone Number</th>
+        <th>Date of Entry</th>
         <th>Created</th>
         <th>Actions</th>
       </tr>
@@ -36,6 +33,7 @@
           <td><%= link_to friend.last_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>
           <td><%= friend.a_number %></td>
           <td><%= friend.phone %></td>
+          <td><%= friend.date_of_entry.try(:strftime, '%m/%d/%y') %></td>
           <td><%= friend.created_at.strftime('%m/%d/%y') %></td>
           <td>
             <div class='btn-group'>
