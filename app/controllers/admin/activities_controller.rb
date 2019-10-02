@@ -25,7 +25,7 @@ class Admin::ActivitiesController < AdminController
     @activity = current_region.activities.new(activity_params)
     if activity.save
       flash[:success] = 'Activity/Accompaniment saved.'
-      redirect_to community_admin_activities_path(current_community.slug)
+      redirect_to community_admin_activities_path(current_community.slug, start_date: start_date)
     else
       flash.now[:error] = 'Activity/Accompaniment not saved.'
       render :new
@@ -36,9 +36,9 @@ class Admin::ActivitiesController < AdminController
     if activity.update(activity_params)
       flash[:success] = 'Activity/Accompaniment saved.'
       if activity.accompaniment_eligible?
-        redirect_to accompaniments_community_admin_activities_path(current_community.slug)
+        redirect_to accompaniments_community_admin_activities_path(current_community.slug, start_date: start_date)
       else
-        redirect_to community_admin_activities_path(current_community.slug)
+        redirect_to community_admin_activities_path(current_community.slug, start_date: start_date)
       end
     else
       flash.now[:error] = 'Activity/Accompaniment not saved.'
@@ -52,7 +52,7 @@ class Admin::ActivitiesController < AdminController
     else
       flash.now[:error] = 'There was an issue confirming this accompaniment.'
     end
-    redirect_to accompaniments_community_admin_activities_path
+    redirect_to accompaniments_community_admin_activities_path(start_date: start_date)
   end
 
   def unconfirm
@@ -61,13 +61,21 @@ class Admin::ActivitiesController < AdminController
     else
       flash.now[:error] = 'There was an issue unconfirming this accompaniment.'
     end
-    redirect_to accompaniments_community_admin_activities_path
+    redirect_to accompaniments_community_admin_activities_path(start_date: start_date)
   end
 
   private
 
   def activity
     @activity ||= current_region.activities.find(params[:id])
+  end
+
+  def start_date
+    @start_date ||= if activity.accompaniment_eligible?
+      activity.occur_at.beginning_of_week.to_date
+    else
+      activity.occur_at.beginning_of_month.to_date
+    end
   end
 
   def activity_params
