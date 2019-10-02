@@ -73,6 +73,11 @@
               </div>
             <% end %>
             <% if current_user.attending?(activity) %>
+              <hr></hr>
+              <p>
+                <strong>Volunteer Emails:  </strong>
+                <%= activity.volunteer_accompaniments.map{ |accompaniment| accompaniment.user.email }.join(', ') %>
+              </p>
               <% if current_user.accompaniment_report_for(activity).present? %>
                 <%= link_to 'Edit Report Back', edit_community_accompaniment_leader_activity_accompaniment_report_path(current_community.slug, activity, current_user.accompaniment_report_for(activity)), class: 'btn btn-info' %>
               <% else %>
