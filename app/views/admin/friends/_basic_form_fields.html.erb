@@ -134,20 +134,6 @@
 </div>
 
 <div class='row form-group'>
-  <%= f.label :border_queue_number, 'Border Queue Number', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= f.text_field :border_queue_number, class: 'form-control' %>
-  </div>
-</div>
-
-<div class='row form-group'>
-  <%= f.label :border_crossing_status, 'Border Crossing Status', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= f.select :border_crossing_status, options_for_select(Friend::BORDER_CROSSING_STATUSES, @friend.border_crossing_status), {include_blank: true}, {class: 'form-control'} %>
-  </div>
-</div>
-
-<div class='row form-group'>
   <%= f.label :notes, class: 'col-md-2 control-label' %>
   <div class='col-md-10'>
     <%= f.text_area :notes, class: 'form-control', style: 'height: 200px;' %>

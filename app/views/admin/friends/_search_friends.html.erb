@@ -53,30 +53,6 @@
   </div>
 
   <div class='row'>
-    <div class='form-group inline-form-group'>
-      <div class='col-md-2'>
-        <%= f.label :filter_clinic_wait_list_priority, 'Wait List Priority(s):' %>
-      </div>
-      <div class='col-md-5'>
-        <%= f.select :filter_clinic_wait_list_priority, @filterrific.select_options[:filter_clinic_wait_list_priority], { include_blank: true }, multiple: true, class: 'chzn-select form-control-lg' %>
-      </div>
-    </div>
-  </div>
-  <br>
-
-  <div class='row'>
-    <div class='form-group col-md-5 inline-form-group'>
-      <%= f.label :filter_border_queue_number, 'Border Queue Number' %>
-      <%= f.text_field(:filter_border_queue_number, class: 'form-control') %>
-    </div>
-
-    <div class='form-group col-md-5 inline-form-group'>
-      <%= f.label :filter_border_crossing_status, 'Border Crossing Status' %>
-      <%= f.select :filter_border_crossing_status, @filterrific.select_options[:filter_border_crossing_status], { include_blank: true }, class: 'form-control' %>
-    </div>
-  </div>
-
-  <div class='row'>
     <div class='form-group col-md-12 inline-form-group'>
       <div>
         <%= f.label :sorted_by, 'Sorted by' %>
