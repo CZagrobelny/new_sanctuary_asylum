@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_01_232925) do
+ActiveRecord::Schema.define(version: 2019_10_05_142654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -224,6 +224,9 @@ ActiveRecord::Schema.define(version: 2019_10_01_232925) do
     t.datetime "intake_date"
     t.datetime "must_be_seen_by"
     t.string "eoir_case_status"
+    t.boolean "digitized", default: false
+    t.datetime "digitized_at"
+    t.integer "digitized_by"
     t.index ["community_id"], name: "index_friends_on_community_id"
     t.index ["region_id"], name: "index_friends_on_region_id"
   end

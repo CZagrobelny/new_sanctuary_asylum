@@ -34,7 +34,7 @@ class Admin::FriendsController < AdminController
   def update
     if params['manage_drafts'].present?
       update_and_render_drafts
-    elsif friend.update(friend_params)
+    elsif friend.update(friend_params) && update_digitized_fields
       flash[:success] = 'Friend record saved.'
       redirect_to edit_community_admin_friend_path(current_community, @friend, tab: current_tab)
     else
@@ -110,6 +110,9 @@ class Admin::FriendsController < AdminController
       :intake_notes,
       :must_be_seen_by,
       :intake_date,
+      :digitized,
+      :digitized_at,
+      :digitized_by,
       language_ids: [],
       user_ids: []
     ).merge(community_id: current_community.id, region_id: current_region.id)
@@ -121,6 +124,15 @@ class Admin::FriendsController < AdminController
     else
       flash.now[:error] = 'Please fill in all required friend fields before managing documents.'
       render :edit
+    end
+  end
+
+  def update_digitized_fields
+    return true unless friend.saved_change_to_attribute?('digitized')
+    if friend.digitized
+      friend.update(digitized_at: Time.now, digitized_by: current_user.id)
+    else
+      friend.update(digitized_at: nil, digitized_by: nil)
     end
   end
 
