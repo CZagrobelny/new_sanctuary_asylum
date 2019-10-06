@@ -27,9 +27,9 @@ class UsersController < ApplicationController
       :last_name,
       :email,
       :phone,
-      :volunteer_type,
       :pledge_signed,
-      :remote_clinic_lawyer
+      :remote_clinic_lawyer,
+      language_ids: [],
     )
   end
 

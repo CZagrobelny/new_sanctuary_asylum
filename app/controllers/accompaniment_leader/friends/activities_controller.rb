@@ -6,10 +6,10 @@ class AccompanimentLeader::Friends::ActivitiesController < AccompanimentLeaderCo
   def create
     @activity = friend.activities.build(activity_params)
     if @activity.save
-      flash[:success] = "Activity added for #{friend.name}"
+      flash[:success] = "Accompaniment added for #{friend.name}"
       redirect_to community_accompaniment_leader_activities_path
     else
-      flash.now[:error] = "There was an issue adding an activity for #{friend.name}"
+      flash.now[:error] = "There was an issue adding an accompaniment for #{friend.name}"
       render :new
     end
   end
@@ -24,7 +24,6 @@ class AccompanimentLeader::Friends::ActivitiesController < AccompanimentLeaderCo
       :judge_id,
       :occur_at,
       :notes,
-      :public_notes
     ).merge(region_id: current_region.id)
   end
 

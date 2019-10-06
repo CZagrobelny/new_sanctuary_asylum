@@ -18,15 +18,7 @@
       <%= f.label :filter_email, 'Email' %>
       <%= f.text_field(:filter_email, class: 'form-control') %>
     </div>
-    <div class='form-group col-md-3'>
-        <%= f.label :filter_volunteer_type, 'Volunteer Type' %>
-        <%= f.select(
-          :filter_volunteer_type, 
-          @filterrific.select_options[:filter_volunteer_type], 
-          { include_blank: '- Any -' }, 
-          { class: 'form-control' },
-        ) %>
-    </div>
+
     <div class='form-group col-md-3'>
         <%= f.label :filter_role, 'Role' %>
         <%= f.select(

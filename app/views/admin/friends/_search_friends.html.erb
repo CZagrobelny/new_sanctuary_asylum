@@ -16,11 +16,22 @@
       <%= f.label :filter_id, 'ID' %>
       <%= f.text_field(:filter_id, class: 'form-control') %>
     </div>
-    <div class='form-group'>
+    <div class='form-group col-md-1'>
       <%= f.label :filter_detained, 'Detained' %>
       <div>
         <%= f.check_box(:filter_detained) %>
       </div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='form-group col-md-4 inline-form-group'>
+      <%= f.label :filter_phone_number, 'Phone Number' %>
+      <%= f.text_field(:filter_phone_number, class: 'form-control') %>
+    </div>
+    <div class='form-group col-md-3 inline-form-group'>
+      <%= f.label :filter_notes, 'Notes' %>
+      <%= f.text_field(:filter_notes, class: 'form-control') %>
     </div>
   </div>
 
@@ -38,30 +49,6 @@
       <%= f.label :filter_created_date, 'Created between dates:' %>
       <%= f.text_field :filter_created_after, class: 'datepicker form-control' %>
       <%= f.text_field :filter_created_before, class: 'datepicker form-control' %>
-    </div>
-  </div>
-
-  <div class='row'>
-    <div class='form-group inline-form-group'>
-      <div class='col-md-2'>
-        <%= f.label :filter_clinic_wait_list_priority, 'Wait List Priority(s):' %>
-      </div>
-      <div class='col-md-5'>
-        <%= f.select :filter_clinic_wait_list_priority, @filterrific.select_options[:filter_clinic_wait_list_priority], { include_blank: true }, multiple: true, class: 'chzn-select form-control-lg' %>
-      </div>
-    </div>
-  </div>
-  <br>
-
-  <div class='row'>
-    <div class='form-group col-md-5 inline-form-group'>
-      <%= f.label :filter_border_queue_number, 'Border Queue Number' %>
-      <%= f.text_field(:filter_border_queue_number, class: 'form-control') %>
-    </div>
-
-    <div class='form-group col-md-5 inline-form-group'>
-      <%= f.label :filter_border_crossing_status, 'Border Crossing Status' %>
-      <%= f.select :filter_border_crossing_status, @filterrific.select_options[:filter_border_crossing_status], { include_blank: true }, class: 'form-control' %>
     </div>
   </div>
 

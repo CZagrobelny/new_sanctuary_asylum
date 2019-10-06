@@ -1,8 +1,16 @@
 <br>
-<div class='col-md-2 col-md-offset-10'>
-  <%= f.submit 'Manage Documents', name: 'manage_drafts', class: 'btn btn-primary' %>
+<div class='row'>
+  <div class='col-md-8'>
+    <%= f.check_box :digitized %>
+    <%= f.label :digitized %>
+    <% if @friend.digitized_by && @friend.digitized_at %>
+      <span>(by <%= User.find(@friend.digitized_by).try(:name) %> on <%= @friend.digitized_at.strftime("%B %-d, %Y") %>)</span>
+    <% end %>
+  </div>
+  <div class='col-md-2'>
+    <%= f.submit 'Manage Documents', name: 'manage_drafts', class: 'btn btn-primary' %>
+  </div>
 </div>
-<br>
 <% if @friend.grouped_drafts.empty? %>
   <h3> There are no files associated with this user.</h3>
 <% else %>

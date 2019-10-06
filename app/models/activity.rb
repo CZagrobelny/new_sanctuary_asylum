@@ -64,11 +64,15 @@ class Activity < ApplicationRecord
     occur_at
   end
 
-  User.roles.each do |role, _index|
-    define_method "#{role}_accompaniments" do
-      accompaniments.select do |accompaniment|
-        accompaniment.user.role == role
-      end
+  def accompaniment_leader_accompaniments
+    accompaniments.select do |accompaniment|
+      accompaniment.user.role == 'accompaniment_leader'
+    end
+  end
+
+  def volunteer_accompaniments
+    accompaniments.select do |accompaniment|
+      %w[volunteer data_entry].include? accompaniment.user.role
     end
   end
 

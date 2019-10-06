@@ -7,7 +7,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
     let(:community_admin) { create(:user, :community_admin, community: community) }
     let(:friend) { create(:friend, community: community) }
     let!(:location) { create(:location, region: community.region) }
-    let!(:activity_type_name) { create(:activity_type).name.titlecase }
+    let!(:activity_type) { create(:activity_type) }
     let!(:application) { create(:application, friend: friend) }
     let!(:draft) { create(:draft, friend: friend, application: application) }
 
@@ -76,11 +76,11 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
 
         describe 'with valid information' do
           it 'displays the new activity' do
-            expect(page).to have_link 'Add Activity'
-            click_link 'Add Activity'
+            expect(page).to have_link 'Add Activity/Accompaniment'
+            click_link 'Add Activity/Accompaniment'
             sleep 1
-            select activity_type_name, from: 'Type'
-            expect(page).to have_select('Type', selected: activity_type_name)
+            select activity_type.display_name_with_accompaniment_eligibility, from: 'Type'
+            expect(page).to have_select('Type', selected: activity_type.display_name_with_accompaniment_eligibility)
             select_from_chosen(location.name, from: { id: 'activity_location_id' })
             select_date_and_time(Time.now.beginning_of_hour, from: 'activity_occur_at')
             within '#new_activity' do
@@ -88,7 +88,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
             end
             wait_for_ajax
             within '#activity-list' do
-              expect(page).to have_content(activity_type_name)
+              expect(page).to have_content(activity_type.display_name)
               expect(page).to have_content(location.name)
             end
           end
@@ -96,8 +96,8 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
 
         describe 'with incomplete information' do
           it 'displays validation errors' do
-            expect(page).to have_link 'Add Activity'
-            click_link 'Add Activity'
+            expect(page).to have_link 'Add Activity/Accompaniment'
+            click_link 'Add Activity/Accompaniment'
             sleep 1
             within '#new_activity' do
               click_button 'Save'

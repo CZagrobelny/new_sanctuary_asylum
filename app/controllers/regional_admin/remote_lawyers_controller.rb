@@ -55,12 +55,12 @@ class RegionalAdmin::RemoteLawyersController < AdminController
       :last_name,
       :email,
       :phone,
-      :volunteer_type,
       :role,
       :pledge_signed,
       :signed_guidelines,
       :remote_clinic_lawyer,
-      friend_ids: []
+      friend_ids: [],
+      language_ids: []
     )
   end
 end

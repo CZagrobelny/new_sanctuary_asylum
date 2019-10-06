@@ -5,7 +5,7 @@ RSpec.describe Notification do
   describe '.draft_for_review(draft: draft)' do
     context 'the friend has a lawyer' do
       let(:draft) { create :draft, status: :in_review }
-      let(:user) { create :user, volunteer_type: "lawyer" }
+      let(:user) { create :user }
 
 
       context 'the friend has a remote lawyer' do

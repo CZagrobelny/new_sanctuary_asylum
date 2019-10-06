@@ -31,13 +31,14 @@
       </div>
     </div>
 
-    <div class='row form-group'>
-      <%= f.label :volunteer_type, 'Type', class: 'col-md-2 control-label required' %>
-      <div class='col-md-6'>
-        <%= f.select :volunteer_type, User.volunteer_types.map {|k, v| [k.humanize.titleize, k]}, {prompt: "Select"}, { class: 'form-control input-md'} %>
-      </div>
+   <div class='row form-group'>
+      <%= fields_for(@user.languages.build) do |fl| %>
+        <%= fl.label :languages,'Languages', class: 'col-md-2 control-label' %>
+        <div class='col-md-6'>
+          <%= collection_select(:user, :language_ids, Language.all, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+        </div>
+      <% end %>
     </div>
-  </div>
 
   <div class='row'>
     <div class='col-md-1 col-md-offset-7'>
