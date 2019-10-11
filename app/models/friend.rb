@@ -48,6 +48,7 @@ class Friend < ApplicationRecord
   has_many :languages, through: :friend_languages
   has_many :activities, dependent: :restrict_with_error
   has_many :detentions, dependent: :destroy
+  has_many :ankle_monitors, dependent: :destroy
   has_many :user_friend_associations, dependent: :destroy
   has_many :users, through: :user_friend_associations
   has_many :drafts, dependent: :restrict_with_error

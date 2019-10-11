@@ -40,6 +40,10 @@ $(document).on('turbolinks:load', function () {
   $('.open_detention_modal').click(function() {
     $('#detention_modal').modal('show');
   });
+
+  $('.open_ankle_monitor_modal').click(function() {
+    $('#ankle_monitor_modal').modal('show');
+  });
 });
 
 function activateChosen() {

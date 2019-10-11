@@ -8,10 +8,14 @@
   <%= render partial: 'admin/friends/detentions/list', locals: { friend: @friend } %>
 </div>
 
-<%# <h3>Ankle Monitor History</h3> %>
-<%# <div id='ankle-monitor-list' > %>
-<%#   <%= render partial: 'admin/friends/ankle_monitors/list', locals: { friend: @friend } %1> %>
-<%# </div> %>
+<div class='pull-right'>
+  <%= link_to 'Add Ankle Monitor', new_community_admin_friend_ankle_monitor_path(current_community.slug, @friend), remote: true, class: 'btn btn-primary', data: { toggle: 'modal', target: '#ankle_monitor_modal' } %>
+</div>
+
+<h3>Ankle Monitor History</h3>
+<div id='ankle_monitor-list' >
+  <%= render partial: 'admin/friends/ankle_monitors/list', locals: { friend: @friend } %>
+</div>
 
 <h3>General Information</h3>
 
