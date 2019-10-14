@@ -1,0 +1,12 @@
+<div class='row' style='margin-left:5px;'>
+  <strong>
+    <%= link_to 'Remove', community_admin_friend_ankle_monitor_path(current_community.slug, friend, ankle_monitor), method: :delete, remote: true, class: 'delete' %>
+  </strong><br>
+  <strong>Date Applied:  </strong><%= ankle_monitor.date_applied.strftime('%m/%d/%Y') if ankle_monitor.date_applied.present? %><br>
+  <strong>Date Removed:  </strong><%= ankle_monitor.date_removed.strftime('%m/%d/%Y') if ankle_monitor.date_removed.present? %><br>
+  <% if ankle_monitor.bi_smart_link? %><strong> BI SmartLINK technology enabled.</strong><br><% end %>
+  <strong>Notes:  </strong><%=  ankle_monitor.notes if ankle_monitor.notes.present? %><br>
+  <strong><%= link_to "Edit", edit_community_admin_friend_ankle_monitor_path(current_community.slug, friend, ankle_monitor), remote: true, class: 'open_ankle_monitor_modal' %></strong>
+</div>
+<br>
+<br>

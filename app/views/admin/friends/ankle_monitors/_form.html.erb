@@ -1,0 +1,47 @@
+<% if ankle_monitor.errors.present? %>
+  <%= display_validation_errors(ankle_monitor) %>
+<% end %>
+<%= form_for([current_community, :admin, friend, ankle_monitor], controller: 'friends/ankle_monitors', remote: true) do |f| %>
+  <div class='form-inputs'>
+
+    <div class='row form-group'>
+      <%= f.label :date_applied, 'Date Applied', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.date_select :date_applied, { start_year: Date.current.year, end_year: 1990, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :date_removed, 'Date Removed', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.date_select :date_removed, { start_year: Date.current.year, end_year: 1990, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :bi_smart_link, 'BI smartLINK enabled?', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.check_box :bi_smart_link %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :notes, class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.text_area :notes, {class: 'form-control', style: 'height: 200px;'} %>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-md-1 col-md-offset-10'>
+        <%= f.submit 'Save', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $(document).ready(function(){
+    activateChosen();
+  });
+</script>
