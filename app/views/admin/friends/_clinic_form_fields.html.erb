@@ -16,6 +16,13 @@
   </div>
 
   <div class='row form-group'>
+    <div class='col-md-12'>
+      <%= f.check_box :invited_to_speak_to_a_lawyer %>
+      <%= f.label :invited_to_speak_to_a_lawyer, 'Invited to speak to a lawyer' %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
     <%= f.label :intake_notes, 'Intake Notes', class: 'col-md-2 control-label' %>
     <div class='col-md-10'>
       <%= f.text_area :intake_notes, class: 'form-control', style: 'height: 200px;' %>
