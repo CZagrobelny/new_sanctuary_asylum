@@ -109,6 +109,7 @@ class Admin::FriendsController < AdminController
       :sponsor_relationship,
       :intake_notes,
       :must_be_seen_by,
+      :invited_to_speak_to_a_lawyer,
       :intake_date,
       :digitized,
       :digitized_at,

@@ -103,6 +103,10 @@ class Friend < ApplicationRecord
     where(status: 'in_detention') if detained == 1
   }
 
+  scope :filter_invited_to_speak_to_a_lawyer, ->(invited_to_speak_to_a_lawyer) {
+    where(invited_to_speak_to_a_lawyer: true)
+  }
+
   scope :filter_asylum_application_deadline_ending_after, ->(date) {
     # if the date - 1.year is smaller than the date_of_entry
     where('date_of_entry >= ?', string_to_beginning_of_date(date) - ASYLUM_APPLICATION_DEADLINE)
@@ -177,6 +181,7 @@ class Friend < ApplicationRecord
                                     filter_last_name
                                     filter_a_number
                                     filter_detained
+                                    filter_invited_to_speak_to_a_lawyer
                                     filter_asylum_application_deadline_ending_after
                                     filter_asylum_application_deadline_ending_before
                                     filter_created_after
