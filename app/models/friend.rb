@@ -104,7 +104,7 @@ class Friend < ApplicationRecord
   }
 
   scope :filter_invited_to_speak_to_a_lawyer, ->(invited_to_speak_to_a_lawyer) {
-    where(invited_to_speak_to_a_lawyer: true)
+    where(invited_to_speak_to_a_lawyer: true) if invited_to_speak_to_a_lawyer == 1
   }
 
   scope :filter_asylum_application_deadline_ending_after, ->(date) {
