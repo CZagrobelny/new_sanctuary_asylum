@@ -213,7 +213,7 @@ class Friend < ApplicationRecord
   # This method provides select options for the `activity_type` filter select input
   def self.options_for_activity_type
     ActivityType.all.map do |type|
-      [type.name, type.id]
+      [type.name.humanize, type.id]
     end
   end
 
