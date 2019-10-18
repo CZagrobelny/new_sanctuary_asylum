@@ -175,6 +175,21 @@ class Friend < ApplicationRecord
     end
   }
 
+  scope :activity_type, ->(activity_type_ids) {
+    joins(:activities)
+      .where(activities: { activity_type_id: activity_type_ids })
+  }
+
+  scope :filter_activity_start_date, ->(time) {
+    joins(:activities)
+      .where('activities.occur_at >= ?', Date.strptime(time, '%m/%d/%Y').beginning_of_day)
+  }
+
+  scope :filter_activity_end_date, ->(time) {
+    joins(:activities)
+      .where('activities.occur_at <= ?', Date.strptime(time, '%m/%d/%Y').end_of_day)
+  }
+
   filterrific(default_filter_params: {},
               available_filters: %i[filter_id
                                     filter_first_name
@@ -189,7 +204,18 @@ class Friend < ApplicationRecord
                                     filter_application_status
                                     filter_phone_number
                                     filter_notes
-                                    sorted_by])
+                                    filter_activity_start_date
+                                    filter_activity_end_date
+                                    sorted_by
+                                    activity_type
+                                  ])
+
+  # This method provides select options for the `activity_type` filter select input
+  def self.options_for_activity_type
+    ActivityType.all.map do |type|
+      [type.name, type.id]
+    end
+  end
 
   # This method provides select options for the `sorted_by` filter select input.
   def self.options_for_sorted_by
