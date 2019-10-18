@@ -1,10 +1,14 @@
 class Admin::FriendsController < AdminController
   def index
+    if params[:filterrific] && params[:filterrific][:activity_type]
+      params[:filterrific][:activity_type].reject!(&:blank?)
+    end
     @filterrific = initialize_filterrific(Friend,
                                           params[:filterrific],
                                           default_filter_params: { sorted_by: 'created_at_desc' },
                                           select_options: {
                                             sorted_by: Friend.options_for_sorted_by,
+                                            activity_type: Friend.options_for_activity_type,
                                           },
                                           persistence_id: false)
 

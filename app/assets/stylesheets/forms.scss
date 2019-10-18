@@ -74,5 +74,17 @@ input.datepicker.form-control {
     display: inline-block !important;
     width: auto !important;
     margin-right: 0.5em;
+
+    &.chzn-select {
+      display: none !important;
+    }
   }
+}
+
+// Manual tweaking for spacing on some inline labels
+label[for=filterrific_filter_activity_start_date] {
+  margin-left: 0.25em;
+}
+label[for=filterrific_filter_activity_end_date] {
+  margin-right: 0.25em;
 }
