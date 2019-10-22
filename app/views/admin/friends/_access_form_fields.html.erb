@@ -8,3 +8,5 @@
     </div>
   <% end %>
 </div>
+
+<p><strong>Volunteer emails: </strong><%= @friend.users.map(&:email).join(', ') %></p>
