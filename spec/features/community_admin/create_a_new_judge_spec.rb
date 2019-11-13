@@ -10,15 +10,20 @@ RSpec.describe 'Admin creates a new judge', type: :feature do
   end
 
   scenario 'creating a new judge' do
-    judge_count = region.judges.count
     visit new_community_admin_judge_path(community)
 
     fill_in 'First Name', with: Faker::Name.first_name
     fill_in 'Last Name', with: Faker::Name.last_name
-    click_button 'Save'
 
-    expect(region.judges.count).to eq (judge_count + 1)
+    expect { click_button 'Save' }.to change { region.judges.count }.from(0).to(1)
     expect(current_path).to eq community_admin_judges_path(community)
   end
 
+  scenario 'hiding a judge' do
+    create(:judge, region: region)
+
+    visit community_admin_judges_path(community)
+
+    expect { click_on 'Hide' }.to change { region.judges.count }.from(1).to(0)
+  end
 end
