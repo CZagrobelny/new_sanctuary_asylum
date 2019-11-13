@@ -21,8 +21,8 @@ COPY Gemfile.lock /sanctuary/
 WORKDIR /sanctuary
 
 # Bundle install
-RUN gem install bundler && bundle install
 COPY . /sanctuary
+RUN gem install bundler && bundle install
 RUN rm -rf /sanctuary/tmp/pids/server.pid
 
 EXPOSE 5000
