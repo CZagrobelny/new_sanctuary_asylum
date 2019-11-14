@@ -32,6 +32,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'simple_calendar', '~> 2.0'
 gem 'textacular', '~> 5.0'
+gem 'timecop' #used for seed data on staging
 gem 'turbolinks', '~> 5.x'
 gem 'will_paginate', '~> 3.1'
 
@@ -58,7 +59,6 @@ group :development, :test do
   gem 'rubocop'
   gem 'shoulda-matchers', '~> 3.1', require: false
   gem 'simplecov'
-  gem 'timecop'
   gem 'webmock', '~> 2.1', require: false
 end
 
