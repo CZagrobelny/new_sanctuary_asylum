@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_06_143158) do
+ActiveRecord::Schema.define(version: 2019_11_15_171634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,6 +178,16 @@ ActiveRecord::Schema.define(version: 2019_11_06_143158) do
     t.datetime "updated_at", null: false
     t.index ["friend_id"], name: "index_friend_languages_on_friend_id"
     t.index ["language_id"], name: "index_friend_languages_on_language_id"
+  end
+
+  create_table "friend_notes", force: :cascade do |t|
+    t.bigint "friend_id"
+    t.bigint "user_id"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["friend_id"], name: "index_friend_notes_on_friend_id"
+    t.index ["user_id"], name: "index_friend_notes_on_user_id"
   end
 
   create_table "friends", id: :serial, force: :cascade do |t|
@@ -434,6 +444,8 @@ ActiveRecord::Schema.define(version: 2019_11_06_143158) do
   add_foreign_key "activities", "regions"
   add_foreign_key "communities", "regions"
   add_foreign_key "events", "communities"
+  add_foreign_key "friend_notes", "friends"
+  add_foreign_key "friend_notes", "users"
   add_foreign_key "friends", "communities"
   add_foreign_key "friends", "regions"
   add_foreign_key "judges", "regions"

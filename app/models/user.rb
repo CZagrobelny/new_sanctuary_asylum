@@ -31,6 +31,7 @@ class User < ApplicationRecord
   has_many :releases
   has_many :reviews
   has_many :user_event_attendances, dependent: :destroy
+  has_many :friend_notes, dependent: :restrict_with_error
 
 
 
