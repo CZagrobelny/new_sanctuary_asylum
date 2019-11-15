@@ -85,9 +85,6 @@ class Friend < ApplicationRecord
     users.where(user_friend_associations: { remote: true })
   end
 
-  scope :filter_id, ->(id) {
-    where(id: id)
-  }
 
   pg_search_scope :filter_first_name, against: :first_name,
                                       using: { tsearch: { prefix: true } }
@@ -190,12 +187,20 @@ class Friend < ApplicationRecord
       .where('activities.occur_at <= ?', Date.strptime(time, '%m/%d/%Y').end_of_day)
   }
 
+  scope :filter_activity_tbd_or_control_date, ->(occur_at_tbd) {
+    joins(:activities)
+      .distinct
+      .where('activities.occur_at_tbd = true or activities.control_date is not null')
+  }
+
+
   filterrific(default_filter_params: {},
               available_filters: %i[filter_id
                                     filter_first_name
                                     filter_last_name
                                     filter_a_number
                                     filter_detained
+                                    filter_activity_tbd_or_control_date
                                     filter_invited_to_speak_to_a_lawyer
                                     filter_asylum_application_deadline_ending_after
                                     filter_asylum_application_deadline_ending_before

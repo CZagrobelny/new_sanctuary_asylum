@@ -23,7 +23,9 @@ class AccompanimentLeader::Friends::ActivitiesController < AccompanimentLeaderCo
       :friend_id,
       :judge_id,
       :occur_at,
-      :notes,
+      :control_date,
+      :occur_at_tbd,
+      :notes
     ).merge(region_id: current_region.id)
   end
 
