@@ -1,3 +1,6 @@
 <%= current_community.name %>
 
-<%= line_chart @activities_with_count, xtitle: "Date", ytitle: "Activites" %>
+<%= line_chart @activities_with_count, xtitle: "Date", ytitle: "Activites", title: "Friends Accompanied" %>
+
+<%= line_chart @accompaniments_with_count, xtitle: "Date", ytitle: "Accompaniments" %>
+
