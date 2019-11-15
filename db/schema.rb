@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_06_143158) do
+ActiveRecord::Schema.define(version: 2019_11_15_162511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(version: 2019_11_06_143158) do
     t.boolean "confirmed"
     t.text "public_notes"
     t.integer "activity_type_id"
+    t.boolean "occur_at_tbd"
+    t.datetime "control_date"
     t.index ["activity_type_id"], name: "index_activities_on_activity_type_id"
     t.index ["region_id"], name: "index_activities_on_region_id"
   end
