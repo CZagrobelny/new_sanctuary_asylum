@@ -8,7 +8,8 @@ class Activity < ApplicationRecord
   has_many :users, through: :accompaniments
   has_many :accompaniment_reports, dependent: :destroy
 
-  validates :activity_type_id, :occur_at, :friend_id, :region_id, presence: true
+  validates :activity_type_id, :friend_id, :region_id, presence: true
+  validate :occur_at_OR_control_date_OR_tbd
 
   scope :accompaniment_eligible, -> {
     joins(:activity_type).where(activity_types: { accompaniment_eligible: true })
@@ -91,4 +92,12 @@ class Activity < ApplicationRecord
   def accompaniment_eligible?
     activity_type.accompaniment_eligible
   end
+
+  private
+  def occur_at_OR_control_date_OR_tbd
+    if !occur_at and !control_date and !occur_at_tbd
+      errors.add(:base, "Activity needs either an occur at date, a control date, or TBD set to true")
+    end
+  end
+
 end
