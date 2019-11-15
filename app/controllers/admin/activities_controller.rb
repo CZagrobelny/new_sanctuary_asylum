@@ -85,6 +85,8 @@ class Admin::ActivitiesController < AdminController
       :friend_id,
       :judge_id,
       :occur_at,
+      :control_date,
+      :occur_at_tbd,
       :notes,
       :public_notes
     )
