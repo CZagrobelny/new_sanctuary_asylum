@@ -192,6 +192,16 @@ ActiveRecord::Schema.define(version: 2019_12_25_210239) do
     t.index ["social_work_referral_category_id"], name: "index_fswrc_on_swrc_id"
   end
 
+  create_table "friend_notes", force: :cascade do |t|
+    t.bigint "friend_id"
+    t.bigint "user_id"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["friend_id"], name: "index_friend_notes_on_friend_id"
+    t.index ["user_id"], name: "index_friend_notes_on_user_id"
+  end
+
   create_table "friends", id: :serial, force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -444,6 +454,8 @@ ActiveRecord::Schema.define(version: 2019_12_25_210239) do
   add_foreign_key "activities", "regions"
   add_foreign_key "communities", "regions"
   add_foreign_key "events", "communities"
+  add_foreign_key "friend_notes", "friends"
+  add_foreign_key "friend_notes", "users"
   add_foreign_key "friends", "communities"
   add_foreign_key "friends", "regions"
   add_foreign_key "judges", "regions"
