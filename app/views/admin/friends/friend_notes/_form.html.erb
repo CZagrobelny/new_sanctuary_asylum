@@ -1,0 +1,26 @@
+<% if friend_note.errors.present? %>
+  <%= display_validation_errors(friend_note) %>
+<% end %>
+<%= form_for([current_community, :admin, friend, friend_note], controller: 'friends/friend_note', remote: true) do |f| %>
+  <div class='form-inputs'>
+
+    <div class='row form-group'>
+      <%= f.label :note, 'Note', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.text_area :note, {class: 'form-control', style: 'height: 200px;'} %>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-md-1 col-md-offset-10'>
+        <%= f.submit 'Save', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $(document).ready(function(){
+    activateChosen();
+  });
+</script>

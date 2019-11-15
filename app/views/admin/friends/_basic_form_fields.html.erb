@@ -146,3 +146,13 @@
     <%= f.text_area :notes, class: 'form-control', style: 'height: 200px;' %>
   </div>
 </div>
+
+<h3>Notes</h3>
+
+<div class='pull-right'>
+  <%= link_to 'Add Note', new_community_admin_friend_friend_note_path(current_community.slug, @friend), remote: true, class: 'btn btn-primary', data: { toggle: 'modal', target: '#friend_note_modal' } %>
+</div>
+
+<div id='friend-notes-list'>
+  <%= render partial: 'admin/friends/friend_notes/list', locals: { friend: @friend } %>
+</div>

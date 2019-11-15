@@ -1,0 +1,13 @@
+<% if @friend.friend_notes.present? %>
+  <% @friend.friend_notes.order('updated_at desc').each do |friend_note| %>
+    <%= render partial: 'admin/friends/friend_notes/friend_note', locals: { friend: @friend, friend_note: friend_note } %>
+  <% end %>
+<% end %>
+
+<script>
+  $(document).ready(function () {
+    $('.open_friend_note_modal').click(function() {
+      $('#friend_note_modal').modal('show');
+    });
+  });
+</script>
