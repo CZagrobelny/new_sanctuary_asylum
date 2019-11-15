@@ -17,3 +17,5 @@
 //= require chosen-jquery
 //= require bootstrap
 //= require_tree .
+//= require chartkick
+//= require Chart.bundle
