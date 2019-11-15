@@ -182,11 +182,11 @@ ActiveRecord::Schema.define(version: 2019_11_15_170804) do
 
   create_table "friend_social_work_referral_categories", force: :cascade do |t|
     t.bigint "friend_id", null: false
-    t.bigint "social_work_referral_categories_id", null: false
+    t.bigint "social_work_referral_category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["friend_id"], name: "index_friend_social_work_referral_categories_on_friend_id"
-    t.index ["social_work_referral_categories_id"], name: "index_fswrc_on_swrc_id"
+    t.index ["social_work_referral_category_id"], name: "index_fswrc_on_swrc_id"
   end
 
   create_table "friends", id: :serial, force: :cascade do |t|

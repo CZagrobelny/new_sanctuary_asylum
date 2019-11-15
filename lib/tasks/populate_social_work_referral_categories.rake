@@ -1,4 +1,14 @@
-SOCIAL_WORK_REFERRAL_CATEGORIES = ['Shelter/housing', 'Health Care Services' ,'Mental Health Services', 'Advocacy Services', 'Psychiatric Evaluation for Immigration Case', 'ESL', 'Nutrition Services', 'Public Benefits', 'IDNYC']
+SOCIAL_WORK_REFERRAL_CATEGORIES = [
+    'Advocacy Services',
+    'ESL',
+    'Health Care Services',
+    'IDNYC',
+    'Mental Health Services',
+    'Nutrition Services',
+    'Psychiatric Evaluation for Immigration Case',
+    'Public Benefits',
+    'Shelter/housing'
+]
 
 desc 'Populate social work referral categories table'
 task populate_social_work_referral_categories: :environment do
