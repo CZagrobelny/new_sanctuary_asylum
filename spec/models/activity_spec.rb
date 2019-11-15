@@ -41,5 +41,23 @@ RSpec.describe Activity, type: :model do
       end
     end
 
+    context 'when saving with occur at, control_date, and tbd' do
+      let(:activity) { build :activity, control_date: Time.now, occur_at_tbd: true }
+      it 'clears out the control_date and occur_at_tbd' do
+        activity.save
+        expect(activity.control_date).to eq nil
+        expect(activity.occur_at_tbd).to eq false
+      end
+    end
+
+    context 'when saving without occur at, with control_date, and actbd' do
+      time = Time.now
+      let(:activity) { build :activity, occur_at: nil, control_date: time, occur_at_tbd: true }
+      it 'clears out the control_date and occur_at_tbd' do
+        activity.save
+        expect(activity.control_date).to eq time
+        expect(activity.occur_at_tbd).to eq false
+      end
+    end
   end
 end

@@ -71,10 +71,15 @@ class Admin::ActivitiesController < AdminController
   end
 
   def start_date
-    @start_date ||= if activity.accompaniment_eligible?
-      activity.occur_at.beginning_of_week.to_date
+    date ||= if activity.occur_at?
+      activity.occur_at
     else
-      activity.occur_at.beginning_of_month.to_date
+      Time.now
+    end
+    @start_date ||= if activity.accompaniment_eligible?
+      date.beginning_of_week.to_date
+    else
+      date.beginning_of_month.to_date
     end
   end
 

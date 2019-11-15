@@ -2,7 +2,7 @@
   <div class='col-md-9'>
     <strong>
       <%= link_to "#{activity.activity_type.name.titlecase}", edit_community_admin_friend_activity_path(current_community.slug, friend, activity), remote: true, class: 'open_activity_modal' %>
-      <%= activity.occur_at.strftime("-- %I:%M %p, %A, %B %-d, %Y") %>
+      <%= activity.occur_at_str %>
     </strong><br>
     <% if activity.location.present? %>
       <strong>Location:  </strong><%= activity.location.name %><br>

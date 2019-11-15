@@ -10,6 +10,7 @@ class Activity < ApplicationRecord
 
   validates :activity_type_id, :friend_id, :region_id, presence: true
   validate :occur_at_OR_control_date_OR_tbd
+  before_validation :ensure_occur_at_or_control_date_tbd
 
   scope :accompaniment_eligible, -> {
     joins(:activity_type).where(activity_types: { accompaniment_eligible: true })
@@ -93,7 +94,26 @@ class Activity < ApplicationRecord
     activity_type.accompaniment_eligible
   end
 
+  def occur_at_str
+    if occur_at.present? 
+      occur_at.strftime("-- %I:%M %p, %A, %B %-d, %Y")
+    elsif control_date.present?
+      control_date.try()
+    else
+      'Date TBD'
+    end
+  end
+
   private
+  def ensure_occur_at_or_control_date_tbd
+    if occur_at.present?
+      self.control_date = nil
+      self.occur_at_tbd = false
+    elsif control_date.present?
+      self.occur_at_tbd = false
+    end
+  end
+
   def occur_at_OR_control_date_OR_tbd
     if !occur_at and !control_date and !occur_at_tbd
       errors.add(:base, "Activity needs either an occur at date, a control date, or TBD set to true")
