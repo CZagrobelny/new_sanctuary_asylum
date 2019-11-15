@@ -44,6 +44,7 @@ class User < ApplicationRecord
       filter_first_name
       filter_last_name
       filter_email
+      filter_phone_number
       filter_role
     ]
   )
@@ -83,7 +84,7 @@ class User < ApplicationRecord
     # search for each chunk separately
     where(
       number_chunks.map { |_term|
-        "(LOWER(user.phone) LIKE ?)"
+        "(LOWER(users.phone) LIKE ?)"
       }.join(" AND "),
       *number_chunks.flatten,
     )
