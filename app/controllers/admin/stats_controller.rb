@@ -11,27 +11,19 @@ class Admin::StatsController < AdminController
     end
 
     @accompaniments_with_count = []
-
-    accompaniments = []
-    activities = Activity.where(friend_id: current_community.friends).order('occur_at asc')
-    activities.each do |a|
-      accompaniments.push(a.accompaniments)
-    end
-
-    parsed_accompaniments = []
-    accompaniments.each do |a|
-      a.each do |b|
-        parsed_accompaniments.push(b)
+    confirmed_activities_by_week.each do |activity|
+      accompaniments = []
+      activity[1].each do |a|
+        a.accompaniments.each do |acc|
+          accompaniments.push(acc)
+        end
       end
+      @accompaniments_with_count.push([Date.commercial(2019,activity[0].to_i),accompaniments.count])
     end
 
-    grouped_parsed_accompaniments = parsed_accompaniments.group_by do |a|
-      a.created_at.strftime('%V')
-    end
-
-    accompaniments_count_by_week = grouped_parsed_accompaniments.map{ |week, accompaniments| [Date.commercial(2019,week.to_i), accompaniments.count] }
-    accompaniments_count_by_week.each do |accompaniment|
-      @accompaniments_with_count.push([accompaniment[0],accompaniment[1]])
-    end
+    @data = [
+      { name: 'Friends Accompanied', data: @activities_with_count},
+      { name: 'Volunteer Accompaniments', data: @accompaniments_with_count}
+    ]
   end
 end

@@ -1,6 +1,7 @@
-<%= current_community.name %>
+<h1><%= current_community.name %></h1>
 
-<%= line_chart @activities_with_count, xtitle: "Date", ytitle: "Activites", title: "Friends Accompanied" %>
+<% mapped_data =  @data.map {|a|
+{name: a[:name], data: a[:data]}
+} %>
 
-<%= line_chart @accompaniments_with_count, xtitle: "Date", ytitle: "Accompaniments" %>
-
+<%= line_chart mapped_data, xtitle:"Date" %>
