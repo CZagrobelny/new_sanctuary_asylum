@@ -44,6 +44,10 @@ $(document).on('turbolinks:load', function () {
   $('.open_ankle_monitor_modal').click(function() {
     $('#ankle_monitor_modal').modal('show');
   });
+
+  $('.open_friend_note_modal').click(function() {
+    $('#friend_note_modal').modal('show');
+  });
 });
 
 function activateChosen() {

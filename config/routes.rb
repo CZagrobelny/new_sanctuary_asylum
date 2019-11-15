@@ -54,6 +54,7 @@ Rails.application.routes.draw do
           end
         end
         resources :detentions, controller: 'friends/detentions', except: [:index, :show]
+        resources :friend_notes, controller: 'friends/friend_notes', except: [:index, :show]
 
         resources :ankle_monitors, controller: 'friends/ankle_monitors', except: [:index, :show]
         resources :family_relationships, only: [:new, :create, :destroy]
