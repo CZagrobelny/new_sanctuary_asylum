@@ -11,7 +11,7 @@
         <% if activity.accompaniment_leader_accompaniments.present? %>
           <i class="fa fa-user event-info-icon" aria-hidden="true" title="Accompaniment leader attending"></i>
         <% end %>
-        <%= activity.occur_at_st %>
+        <%= activity.occur_at_str %>
       </dt>
       <dd>
         <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>" class="<%= "friend_in_detention" if activity.friend.status == 'in_detention' %>">
