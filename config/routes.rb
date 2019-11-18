@@ -61,7 +61,7 @@ Rails.application.routes.draw do
 
       resources :judges, except: [:show, :destroy] do
         member do
-          patch :hide
+          patch :toggle
         end
       end
       resources :locations, except: [:show, :destroy]

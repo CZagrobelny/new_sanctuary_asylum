@@ -3,10 +3,16 @@ class Judge < ApplicationRecord
   belongs_to :region
   has_many :activities
 
-  default_scope { active }
-
   scope :active, -> { where(hidden: false) }
   scope :hidden, -> { where(hidden: true) }
+
+  def active?
+    hidden == false
+  end
+
+  def hidden?
+    hidden == true
+  end
 
   def name
     "#{first_name} #{last_name}"

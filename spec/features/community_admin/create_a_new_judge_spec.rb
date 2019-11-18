@@ -24,6 +24,7 @@ RSpec.describe 'Admin creates a new judge', type: :feature do
 
     visit community_admin_judges_path(community)
 
-    expect { click_on 'Hide' }.to change { region.judges.count }.from(1).to(0)
+    expect { click_on 'Hide' }.to change { region.judges.active.count }.from(1).to(0)
+    expect { click_on 'Show' }.to change { region.judges.active.count }.from(0).to(1)
   end
 end
