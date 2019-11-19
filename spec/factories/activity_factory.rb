@@ -3,6 +3,7 @@ FactoryBot.define do
     association :friend
     association :location
     association :region
+    association :judge
     association :activity_type
     occur_at { 1.day.from_now }
     last_edited_by { nil }

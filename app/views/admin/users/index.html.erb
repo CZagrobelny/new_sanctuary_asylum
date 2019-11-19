@@ -28,6 +28,11 @@
           { class: 'form-control' },
         ) %>
     </div>
+
+    <div class='form-group col-md-3'>
+      <%= f.label :filter_phone_number, 'Phone Number' %>
+      <%= f.text_field(:filter_phone_number, class: 'form-control') %>
+    </div>
   </div>
 
   <%= submit_tag 'Search', class: 'btn btn-primary' %>

@@ -24,4 +24,14 @@ RSpec.describe 'Friend management', type: :feature do
       expect(current_path).to eq edit_community_admin_friend_path(community, friend)
     end
   end
+
+  scenario 'viewing activity for a friend shows hidden judge' do
+    judge = create(:judge, region: community.region, hidden: true)
+    create(:activity, judge: judge, friend: friend)
+
+    visit community_admin_friends_path(community)
+    click_link "edit-friend-#{friend.id}"
+    click_link 'Activities/Accompaniments'
+    expect(page).to have_content("Judge: #{judge.name}")
+  end
 end

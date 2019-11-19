@@ -44,6 +44,7 @@ class User < ApplicationRecord
       filter_first_name
       filter_last_name
       filter_email
+      filter_phone_number
       filter_role
     ]
   )
@@ -66,6 +67,27 @@ class User < ApplicationRecord
 
   scope :filter_email, ->(email) {
     basic_search(email: email)
+  }
+
+  scope :filter_phone_number, ->(phone) {
+    return nil if phone.blank?
+
+    # cast to string (if query just "123", would get integer)
+    # lowercase & normalize . () - + and space out
+    number_chunks = phone.to_s.downcase.split(/[\s+\-\(\)\.\+]/)
+
+    # make this a wildcard search by surrounding with %
+    number_chunks = number_chunks.map { |chunk|
+      "%" + chunk + "%"
+    }
+
+    # search for each chunk separately
+    where(
+      number_chunks.map { |_term|
+        "(LOWER(users.phone) LIKE ?)"
+      }.join(" AND "),
+      *number_chunks.flatten,
+    )
   }
 
   def admin_or_has_active_access_time_slot?

@@ -12,12 +12,24 @@
         <thead>
           <tr>
             <th>Name</th>
+            <th>Actions</th>
             </tr>
         </thead>
         <tbody>
           <% @judges.each do |judge| %>
             <tr>
-              <td><%= link_to "#{judge.last_name}, #{judge.first_name}", edit_community_admin_judge_path(current_community.slug, judge) %></td>
+              <td><%= link_to "#{judge.last_name}, #{judge.first_name}", edit_community_admin_judge_path(current_community.slug, judge), class: judge.hidden? ? 'text-muted' : '' %></td>
+              <td>
+                <div class='btn-group'>
+                  <%= link_to(toggle_community_admin_judge_path(current_community.slug, judge), method: :patch, class: 'btn btn-default') do %>
+                    <% if judge.active? %>
+                      <i class="fa fa-eye-slash"></i> Hide
+                    <% else %>
+                      <i class="fa fa-eye"></i> Show
+                    <% end %>
+                  <% end %>
+                </div>
+              </td>
             </tr>
           <% end %>
         </tbody>
