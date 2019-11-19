@@ -59,7 +59,11 @@ Rails.application.routes.draw do
         resources :family_relationships, only: [:new, :create, :destroy]
       end
 
-      resources :judges, except: [:show, :destroy]
+      resources :judges, except: [:show, :destroy] do
+        member do
+          patch :toggle
+        end
+      end
       resources :locations, except: [:show, :destroy]
       resources :sanctuaries, except: [:show, :destroy]
       resources :lawyers, except: [:show, :destroy]

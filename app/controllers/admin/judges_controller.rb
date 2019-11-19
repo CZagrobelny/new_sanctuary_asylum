@@ -1,6 +1,6 @@
 class Admin::JudgesController < AdminController
   before_action :require_primary_community
-  before_action :set_judge, only: %i[edit update]
+  before_action :set_judge, only: %i[edit update toggle]
 
   def index
     @judges = current_region.judges.order('last_name asc').paginate(page: params[:page])
@@ -32,6 +32,15 @@ class Admin::JudgesController < AdminController
     end
   end
 
+  def toggle
+    if @judge.update(hidden: !@judge.hidden)
+      redirect_to community_admin_judges_path(current_community.slug)
+    else
+      flash.now[:error] = 'Something went wrong :('
+      render 'edit'
+    end
+  end
+
   private
 
   def set_judge
@@ -39,6 +48,6 @@ class Admin::JudgesController < AdminController
   end
 
   def judge_params
-    params.require(:judge).permit(:first_name, :last_name)
+    params.require(:judge).permit(:first_name, :last_name, :hidden)
   end
 end
