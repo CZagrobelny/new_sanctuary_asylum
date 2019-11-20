@@ -16,7 +16,8 @@ class Admin::StatsController < AdminController
     @data = [
       { name: 'Friends Accompanied', data: activities_with_count},
       { name: 'Volunteer Accompaniments', data: accompaniments_with_count}
-    ].tap { |x| pp x }
+    ]
+    @xmin = 1.year.ago
 
   end
 
