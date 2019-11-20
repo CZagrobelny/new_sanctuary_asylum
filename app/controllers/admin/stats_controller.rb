@@ -1,21 +1,16 @@
 class Admin::StatsController < AdminController
-
   def index
-    activities_with_count = []
-    activities_count_by_week = confirmed_activities_by_week.map{ |week, activities| [Date.commercial(2019,week.to_i), activities.count] }
-    activities_count_by_week.each do |activity|
-      activities_with_count.push([activity[0],activity[1]])
+    activities_with_count = confirmed_activities_by_week.map do |week, activities|
+      [Date.commercial(*week), activities.count]
     end
 
     accompaniments_with_count = []
-    confirmed_activities_by_week.each do |activity|
-      accompaniments = []
-      activity[1].each do |a|
-        a.accompaniments.each do |acc|
-          accompaniments.push(acc)
-        end
+    confirmed_activities_by_week.each do |week, activities|
+      accompaniment_count = 0
+      activities.each do |a|
+        accompaniment_count += a.accompaniments.size
       end
-      accompaniments_with_count.push([Date.commercial(2019,activity[0].to_i),accompaniments.count])
+      accompaniments_with_count.push([Date.commercial(*week), accompaniment_count])
     end
 
     @data = [
@@ -25,10 +20,15 @@ class Admin::StatsController < AdminController
   end
 
   private
-    def confirmed_activities_by_week
-      activities = Activity.confirmed.where(friend_id: current_community.friends).order('occur_at asc').group_by do |a|
-        a.occur_at.strftime('%V')
+
+  def confirmed_activities_by_week
+    Activity.confirmed
+      .includes(:accompaniments)
+      .where(friend_id: current_community.friends)
+      .where('occur_at > ?', 1.year.ago)
+      .order('occur_at asc')
+      .group_by do |a, b|
+        a.occur_at.strftime('%Y %V').split.map(&:to_i)
       end
-      activities
-    end
+  end
 end
