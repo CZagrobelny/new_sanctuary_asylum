@@ -111,10 +111,10 @@ class Activity < ApplicationRecord
   private
   def ensure_occur_at_or_control_date_tbd
     if occur_at.present?
-      control_date = nil
-      occur_at_tbd = false
+      self.control_date = nil
+      self.occur_at_tbd = false
     elsif control_date.present?
-      occur_at_tbd = false
+      self.occur_at_tbd = false
     end
   end
 
