@@ -82,6 +82,8 @@ Rails.application.routes.draw do
         end
         resources :friend_cohort_assignments, only: [:create, :update, :destroy]
       end
+
+      resources :stats
     end
 
     namespace :accompaniment_leader do

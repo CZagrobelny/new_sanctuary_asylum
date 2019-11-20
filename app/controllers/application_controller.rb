@@ -5,16 +5,22 @@ class ApplicationController < ActionController::Base
 
   def current_community
     return @current_community if @current_community
-    return Community.find_by_slug(params[:community_slug]) if params[:community_slug]
 
-    Community.find(current_user.community_id)
+    if params[:community_slug]
+      return @current_community = Community.find_by_slug(params[:community_slug])
+    end
+
+    @current_community = Community.find(current_user.community_id)
   end
 
   def current_region
     return @current_region if @current_region
-    return Region.find(params[:region_id]) if params[:region_id]
 
-    current_community.region
+    if params[:region_id]
+      return @current_region = Region.find(params[:region_id])
+    end
+
+    @current_region = current_community.region
   end
 
   def require_admin
