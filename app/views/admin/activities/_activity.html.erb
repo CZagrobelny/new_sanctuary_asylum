@@ -41,7 +41,7 @@
       <% end %>
       <% if activity.last_edited_by_user %>
         <strong>Last Edited By:</strong>
-        <%= "#{activity.last_edited_by_user.first_name} #{activity.last_edited_by_user.last_name}" %>
+        <%= activity.last_edited_by_user.name %>
         <br>
       <% end %>
     </div>
