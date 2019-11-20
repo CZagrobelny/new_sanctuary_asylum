@@ -39,8 +39,10 @@
           <br>
         <% end %>
       <% end %>
-      <% if current_user.id.present? %>
-        <strong>Last Edited By:  </strong><%= "#{current_user.first_name} #{current_user.last_name}" %><br>
+      <% if activity.last_edited_by_user %>
+        <strong>Last Edited By:</strong>
+        <%= "#{activity.last_edited_by_user.first_name} #{activity.last_edited_by_user.last_name}" %>
+        <br>
       <% end %>
     </div>
   </div>

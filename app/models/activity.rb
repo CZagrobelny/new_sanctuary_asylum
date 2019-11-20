@@ -64,6 +64,10 @@ class Activity < ApplicationRecord
     occur_at
   end
 
+  def last_edited_by_user
+    User.find(last_edited_by) if last_edited_by
+  end
+
   def accompaniment_leader_accompaniments
     accompaniments.select do |accompaniment|
       accompaniment.user.role == 'accompaniment_leader'
