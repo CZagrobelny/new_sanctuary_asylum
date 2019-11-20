@@ -99,12 +99,12 @@ class Activity < ApplicationRecord
   end
 
   def occur_at_str
-    if occur_at.present? 
+    if occur_at.present?
       occur_at.strftime("-- %I:%M %p, %A, %B %-d, %Y")
     elsif control_date.present?
-      "(Control Date: #{control_date})"
+      "-- Control Date: #{control_date.try(:strftime, "%B %-d, %Y")}"
     else
-      'Date TBD'
+      '-- Date TBD'
     end
   end
 

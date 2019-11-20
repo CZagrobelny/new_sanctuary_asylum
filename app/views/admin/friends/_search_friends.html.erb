@@ -13,37 +13,31 @@
       <%= f.text_field(:filter_a_number, class: 'form-control') %>
     </div>
     <div class='form-group col-md-2'>
+      <%= f.label :filter_phone_number, 'Phone Number' %>
+      <%= f.text_field(:filter_phone_number, class: 'form-control') %>
+    </div>
+    <div class='form-group col-md-2'>
       <%= f.label :filter_id, 'ID' %>
       <%= f.text_field(:filter_id, class: 'form-control') %>
-    </div>
-    <div class='form-group col-md-1'>
-      <%= f.label :filter_detained, 'Detained' %>
-      <div>
-        <%= f.check_box(:filter_detained) %>
-      </div>
-    </div>
-    <div class='form-group col-md-2'>
-      <%= f.label :filter_activity_tbd_or_control_date, 'Control Date or Occur at TBD'%>
-      <div class='col-md-6 col-xs-12'>
-        <%= f.check_box(:filter_activity_tbd_or_control_date) %>
-      </div>
-    </div>
-    <div class='form-group col-md-2'>
-      <%= f.label :filter_invited_to_speak_to_a_lawyer, 'Return for lawyer' %>
-      <div>
-        <%= f.check_box(:filter_invited_to_speak_to_a_lawyer) %>
-      </div>
     </div>
   </div>
 
   <div class='row'>
-    <div class='form-group col-md-4 inline-form-group'>
-      <%= f.label :filter_phone_number, 'Phone Number' %>
-      <%= f.text_field(:filter_phone_number, class: 'form-control') %>
-    </div>
     <div class='form-group col-md-3 inline-form-group'>
       <%= f.label :filter_notes, 'Notes' %>
       <%= f.text_field(:filter_notes, class: 'form-control') %>
+    </div>
+    <div class='form-group col-md-2 inline-form-group'>
+      <%= f.label :filter_detained, 'Detained' %>
+      <%= f.check_box(:filter_detained) %>
+    </div>
+    <div class='form-group col-md-3 inline-form-group'>
+      <%= f.label :filter_activity_tbd_or_control_date, 'Activity Control Date or TBD'%>
+      <%= f.check_box(:filter_activity_tbd_or_control_date) %>
+    </div>
+    <div class='form-group col-md-3 inline-form-group'>
+      <%= f.label :filter_invited_to_speak_to_a_lawyer, 'Return for lawyer' %>
+      <%= f.check_box(:filter_invited_to_speak_to_a_lawyer) %>
     </div>
   </div>
 

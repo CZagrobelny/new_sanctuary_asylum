@@ -11,7 +11,7 @@
         <% if activity.accompaniment_leader_accompaniments.present? %>
           <i class="fa fa-user event-info-icon" aria-hidden="true" title="Accompaniment leader attending"></i>
         <% end %>
-        <%= activity.occur_at_str %>
+        <%= activity.occur_at.strftime("%I:%M %p") %>
       </dt>
       <dd>
         <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>" class="<%= "friend_in_detention" if activity.friend.status == 'in_detention' %>">
@@ -22,7 +22,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title"><span><%= activity.occur_at_str %></span>
+                <h4 class="modal-title"><span><%= activity.occur_at.strftime("%I:%M %p") %></span>
                   <%= activity.activity_type.name.titlecase %>
                   for
                   <%= link_to activity.friend.name, edit_community_admin_friend_path(current_community.slug, activity.friend) %>

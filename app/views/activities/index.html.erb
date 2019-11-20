@@ -9,7 +9,7 @@
           <% if current_user.attending?(activity) %>
             <i class="confirmed fas fa-user-check"></i>
           <% end %>
-          <%= activity.occur_at_str %>
+          <%= activity.occur_at.strftime("%I:%M %p") %>
         </dt>
         <dd>
           <% location = activity.location.present? ? "at #{activity.location.name}" : '' %>

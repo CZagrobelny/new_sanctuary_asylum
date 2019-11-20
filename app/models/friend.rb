@@ -97,9 +97,9 @@ class Friend < ApplicationRecord
   scope :filter_a_number, ->(number) {
     where(a_number: number)
   }
-  
-  scope :filter_id, ->(id) {	
-    where(id: id)	
+
+  scope :filter_id, ->(id) {
+    where(id: id)
   }
 
   scope :filter_detained, ->(detained) {
@@ -194,9 +194,11 @@ class Friend < ApplicationRecord
   }
 
   scope :filter_activity_tbd_or_control_date, ->(occur_at_tbd) {
-    joins(:activities)
-      .distinct
-      .where('activities.occur_at_tbd = true or activities.control_date is not null')
+    if occur_at_tbd == 1
+      joins(:activities)
+        .distinct
+        .where('activities.occur_at_tbd = true or activities.control_date is not null')
+    end
   }
 
 
