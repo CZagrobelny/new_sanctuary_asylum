@@ -16,7 +16,8 @@ class Admin::StatsController < AdminController
     @data = [
       { name: 'Friends Accompanied', data: activities_with_count},
       { name: 'Volunteer Accompaniments', data: accompaniments_with_count}
-    ]
+    ].tap { |x| pp x }
+
   end
 
   private
@@ -26,6 +27,7 @@ class Admin::StatsController < AdminController
       .includes(:accompaniments)
       .where(friend_id: current_community.friends)
       .where('occur_at > ?', 1.year.ago)
+      .where('occur_at < ?', 1.week.from_now)
       .order('occur_at asc')
       .group_by do |a, b|
         a.occur_at.strftime('%Y %V').split.map(&:to_i)

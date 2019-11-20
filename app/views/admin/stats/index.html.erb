@@ -1,7 +1,3 @@
 <h1><%= current_community.name %></h1>
 
-<% mapped_data =  @data.map {|a|
-{name: a[:name], data: a[:data]}
-} %>
-
-<%= line_chart mapped_data, xtitle:"Date" %>
+<%= line_chart @data, xtitle:"Date" %>
