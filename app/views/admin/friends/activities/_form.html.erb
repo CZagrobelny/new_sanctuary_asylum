@@ -35,6 +35,23 @@
     </div>
 
     <div class='row form-group'>
+      <%= f.label :control_date, 'Control Date', class: 'col-md-3 col-xs-12 control-label' %>
+      <div class='col-md-6 col-xs-12'>
+        <%= f.date_select :control_date, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+        <%= f.time_select :control_date, { ignore_date: true, prompt: true, minute_step: 15 }, {class: 'form-control inline-date-select'} %>
+        <span>ET
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :occur_at_tbd, 'Occur at TBD', class: 'col-md-3 col-xs-12 control-label' %>
+      <div class='col-md-6 col-xs-12'>
+        <%= f.check_box :occur_at_tbd %> <br />
+      </div>
+    </div>
+
+
+    <div class='row form-group'>
       <%= f.label :notes, class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
         <%= f.text_area :notes, {class: 'form-control', style: 'height: 200px;'} %>
