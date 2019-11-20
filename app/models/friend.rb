@@ -97,6 +97,10 @@ class Friend < ApplicationRecord
   scope :filter_a_number, ->(number) {
     where(a_number: number)
   }
+  
+  scope :filter_id, ->(id) {	
+    where(id: id)	
+  }
 
   scope :filter_detained, ->(detained) {
     where(status: 'in_detention') if detained == 1
