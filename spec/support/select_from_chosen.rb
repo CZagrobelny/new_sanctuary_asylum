@@ -5,6 +5,11 @@ module Select
     page.execute_script("$('##{field_id}').val('#{option_value}')")
   end
 
+  def get_from_chosen(options)
+    field_id = options[:from][:id]
+    page.evaluate_script("$('##{field_id}').val()")
+  end
+
   def select_from_multi_chosen(item_text, options)
     field_id = options[:from][:id]
     within "##{field_id}_chosen" do

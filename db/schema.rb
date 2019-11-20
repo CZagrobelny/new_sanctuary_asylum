@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_13_210459) do
+ActiveRecord::Schema.define(version: 2019_11_15_170804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -180,6 +180,15 @@ ActiveRecord::Schema.define(version: 2019_11_13_210459) do
     t.index ["language_id"], name: "index_friend_languages_on_language_id"
   end
 
+  create_table "friend_social_work_referral_categories", force: :cascade do |t|
+    t.bigint "friend_id", null: false
+    t.bigint "social_work_referral_category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["friend_id"], name: "index_friend_social_work_referral_categories_on_friend_id"
+    t.index ["social_work_referral_category_id"], name: "index_fswrc_on_swrc_id"
+  end
+
   create_table "friends", id: :serial, force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -240,6 +249,7 @@ ActiveRecord::Schema.define(version: 2019_11_13_210459) do
     t.integer "digitized_by"
     t.boolean "invited_to_speak_to_a_lawyer"
     t.boolean "releases_signed"
+    t.text "social_work_referral_notes"
     t.index ["community_id"], name: "index_friends_on_community_id"
     t.index ["region_id"], name: "index_friends_on_region_id"
   end
@@ -331,6 +341,12 @@ ActiveRecord::Schema.define(version: 2019_11_13_210459) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "pdf_draft", null: false
+  end
+
+  create_table "social_work_referral_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_draft_associations", id: :serial, force: :cascade do |t|
