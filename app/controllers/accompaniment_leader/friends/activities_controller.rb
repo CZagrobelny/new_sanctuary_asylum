@@ -26,7 +26,7 @@ class AccompanimentLeader::Friends::ActivitiesController < AccompanimentLeaderCo
       :control_date,
       :occur_at_tbd,
       :notes
-    ).merge(region_id: current_region.id)
+    ).merge(region_id: current_region.id, last_edited_by: current_user.id)
   end
 
   def friend

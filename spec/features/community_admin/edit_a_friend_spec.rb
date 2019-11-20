@@ -143,17 +143,6 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
       end
     end
 
-    describe 'editing "Other Case Info"' do
-      it 'displays the "Other Case Info" tab' do
-        within '.nav-tabs' do
-          click_link 'Other Case Info'
-        end
-        within '.tab-content' do
-          expect(page).to have_content 'Lawyer'
-        end
-      end
-    end
-
     describe 'editing "Documents"' do
       before  { click_link 'Documents' }
 

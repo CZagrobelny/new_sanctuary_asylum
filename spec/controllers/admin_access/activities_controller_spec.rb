@@ -39,6 +39,7 @@ RSpec.describe Admin::ActivitiesController, type: :controller do
           activity_count = Activity.count
           post :create, params: { community_slug: community.slug, activity: activity.attributes }
           expect(Activity.count).to eq activity_count + 1
+          expect(Activity.last.last_edited_by).to eq community_admin.id
         end
       end
 
@@ -51,11 +52,12 @@ RSpec.describe Admin::ActivitiesController, type: :controller do
       end
 
       describe 'PUT #update' do
-        let!(:activity) { create :activity, region: community.region }
+        let!(:activity) { create :activity, region: community.region, last_edited_by: community_admin.id }
         it 'allows access' do
           activity.notes = 'test test test'
           put :update, params: { community_slug: community.slug, id: activity.id, activity: activity.attributes }
           expect(activity.notes).to eq 'test test test'
+          expect(activity.last_edited_by).to eq community_admin.id
         end
       end
     end

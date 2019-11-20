@@ -28,7 +28,7 @@
     <div class='row form-group'>
       <%= f.label :judge_id, 'Judge', class: 'col-md-3 col-xs-12 control-label' %>
       <div class='col-md-6 col-xs-12'>
-        <%= collection_select(:activity, :judge_id, current_region.judges, :id, :name, {prompt: true}, {class: 'chzn-select form-control'}) %>
+        <%= collection_select(:activity, :judge_id, current_region.judges.active, :id, :name, {prompt: true}, {class: 'chzn-select form-control'}) %>
       </div>
     </div>
 

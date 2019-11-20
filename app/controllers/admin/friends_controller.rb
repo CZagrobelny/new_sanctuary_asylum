@@ -119,7 +119,9 @@ class Admin::FriendsController < AdminController
       :digitized_at,
       :digitized_by,
       :releases_signed,
+      :social_work_referral_notes,
       language_ids: [],
+      social_work_referral_category_ids: [],
       user_ids: []
     ).merge(community_id: current_community.id, region_id: current_region.id)
   end

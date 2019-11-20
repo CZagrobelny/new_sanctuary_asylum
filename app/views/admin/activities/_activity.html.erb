@@ -39,6 +39,11 @@
           <br>
         <% end %>
       <% end %>
+      <% if activity.last_edited_by_user %>
+        <strong>Last Edited By:</strong>
+        <%= activity.last_edited_by_user.name %>
+        <br>
+      <% end %>
     </div>
   </div>
   <div class="confirm">

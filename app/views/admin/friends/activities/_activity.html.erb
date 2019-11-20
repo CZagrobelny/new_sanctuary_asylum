@@ -33,6 +33,11 @@
           <br>
       <% end %>
     <% end %>
+    <% if activity.last_edited_by_user %>
+      <strong>Last Edited By:</strong>
+      <%= activity.last_edited_by_user.name %>
+      <br>
+    <% end %>
     <strong>
       <%= link_to 'Remove', community_admin_friend_activity_path(current_community.slug, friend, activity), method: :delete, data: { confirm: 'Are you sure you want to remove this activity?' }, remote: true, style: 'color: #b30000 !important; font-style: italic;' %>
     </strong>
