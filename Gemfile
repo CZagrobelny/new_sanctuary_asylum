@@ -35,6 +35,7 @@ gem 'textacular', '~> 5.0'
 gem 'timecop' #used for seed data on staging
 gem 'turbolinks', '~> 5.x'
 gem 'will_paginate', '~> 3.1'
+gem "chartkick"
 
 group :assets do
   gem 'coffee-rails'
