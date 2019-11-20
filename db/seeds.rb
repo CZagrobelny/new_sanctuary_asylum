@@ -4,9 +4,10 @@ require 'timecop'
 ActiveRecord::Base.transaction do
   puts "Seeding database"
 
-  # Populate Countries and Languages
+  # Populate Countries, Languages, and Social work referral categories
   Rake::Task['populate_countries'].invoke
   Rake::Task['populate_languages'].invoke
+  Rake::Task['populate_social_work_referral_categories'].invoke
 
   # NY Region
   ny_region = Region.create!(name: 'ny')
