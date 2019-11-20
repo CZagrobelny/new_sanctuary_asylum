@@ -16,6 +16,13 @@
         <%= f.text_field :last_name, class: 'form-control' %>
       </div>
     </div>
+
+    <div class='row form-group'>
+      <%= f.label :hidden, 'Hidden', class: 'col-md-2 control-label required' %>
+      <div class='col-md-6'>
+        <%= f.check_box :hidden %>
+      </div>
+    </div>
   </div>
 
   <div class='row'>

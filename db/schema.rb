@@ -260,6 +260,7 @@ ActiveRecord::Schema.define(version: 2019_11_15_170804) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "region_id"
+    t.boolean "hidden", default: false
     t.index ["region_id"], name: "index_judges_on_region_id"
   end
 
