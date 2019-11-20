@@ -87,6 +87,6 @@ class Admin::ActivitiesController < AdminController
       :occur_at,
       :notes,
       :public_notes
-    )
+    ).merge(last_edited_by: current_user.id)
   end
 end

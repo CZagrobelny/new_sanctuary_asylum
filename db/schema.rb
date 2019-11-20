@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2019_11_15_170804) do
     t.boolean "confirmed"
     t.text "public_notes"
     t.integer "activity_type_id"
+    t.integer "last_edited_by"
     t.index ["activity_type_id"], name: "index_activities_on_activity_type_id"
     t.index ["region_id"], name: "index_activities_on_region_id"
   end
