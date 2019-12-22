@@ -26,7 +26,7 @@ gem 'non-stupid-digest-assets'
 gem 'pg', '~> 1.1'
 gem 'pg_search'
 gem 'phantomjs'
-gem 'puma'
+gem 'puma', '~> 3.x'
 gem 'redis', '~> 3.3'
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
