@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby File.read('.ruby-version').strip
 
-gem 'rails', '~> 5.2.2.x'
+gem 'rails', '~> 5.2.x'
 
 gem 'airbrake', '~> 6.2'
 gem 'american_date'
