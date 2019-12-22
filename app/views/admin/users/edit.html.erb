@@ -10,16 +10,16 @@
       <% end %>
       <h4>Accompaniments</h4>
       <ul>
-      <%@accompaniments.each do |accompaniment|%>
+      <% @accompaniments.each do |accompaniment| %>
         <% activity = accompaniment.activity %>
         <% next unless activity.occur_at.present? %>
         <li>
-          <%= activity.occur_at.month < 10 ?  
-            '0' + activity.occur_at.month.to_s 
-            : 
-            activity.occur_at.month %>/<%= activity.occur_at.day %>/<%= activity.occur_at.year %> 
-          -- <%= activity.activity_type.name.titlecase %> 
-          for 
+          <%= activity.occur_at.month < 10 ?
+            '0' + activity.occur_at.month.to_s
+            :
+            activity.occur_at.month %>/<%= activity.occur_at.day %>/<%= activity.occur_at.year %>
+          -- <%= activity.activity_type.name.titlecase %>
+          for
           <%= link_to activity.friend.name, edit_community_admin_friend_path(current_community.slug, activity.friend) %>
         </li>
       <% end %>
