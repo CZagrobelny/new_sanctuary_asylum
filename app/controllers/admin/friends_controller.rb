@@ -12,7 +12,9 @@ class Admin::FriendsController < AdminController
                                           },
                                           persistence_id: false)
 
-    @friends = current_community.friends.filterrific_find(@filterrific).paginate(page: params[:page])
+    @friends = current_community.friends
+      .filterrific_find(@filterrific)
+      .paginate(page: params[:page])
   end
 
   def new
@@ -77,6 +79,7 @@ class Admin::FriendsController < AdminController
       :gender,
       :date_of_birth,
       :status,
+      :famu_docket,
       :date_of_entry,
       :notes,
       :asylum_status,

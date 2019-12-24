@@ -127,6 +127,13 @@
 </div>
 
 <div class='row form-group'>
+  <div class='col-md-offset-2 col-md-6'>
+    <%= f.check_box :famu_docket %>
+    <%= f.label :famu_docket, 'FAMU docket' %>
+  </div>
+</div>
+
+<div class='row form-group'>
   <%= f.label :date_of_entry, 'Date of Entry', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
     <%= f.date_select :date_of_entry, { start_year: Date.current.year, end_year: 1930, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_15_170804) do
+ActiveRecord::Schema.define(version: 2019_12_24_161722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,9 +57,9 @@ ActiveRecord::Schema.define(version: 2019_11_15_170804) do
     t.boolean "confirmed"
     t.text "public_notes"
     t.integer "activity_type_id"
+    t.integer "last_edited_by"
     t.boolean "occur_at_tbd"
     t.datetime "control_date"
-    t.integer "last_edited_by"
     t.index ["activity_type_id"], name: "index_activities_on_activity_type_id"
     t.index ["region_id"], name: "index_activities_on_region_id"
   end
@@ -253,6 +253,7 @@ ActiveRecord::Schema.define(version: 2019_11_15_170804) do
     t.boolean "invited_to_speak_to_a_lawyer"
     t.boolean "releases_signed"
     t.text "social_work_referral_notes"
+    t.boolean "famu_docket", default: false
     t.index ["community_id"], name: "index_friends_on_community_id"
     t.index ["region_id"], name: "index_friends_on_region_id"
   end
