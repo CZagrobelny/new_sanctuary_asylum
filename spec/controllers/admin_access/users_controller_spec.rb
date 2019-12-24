@@ -29,9 +29,10 @@ RSpec.describe Admin::UsersController, type: :controller do
     describe 'PUT #update' do
       let!(:user) { create :user, community: community }
       it 'allows access' do
-        user.first_name = 'new name'
-        put :update, params: { community_slug: community.slug, id: user.id, user: user.attributes }
-        expect(user.first_name).to eq 'new name'
+        user_attributes = user.attributes
+        user_attributes['first_name'] = 'new name'
+        put :update, params: { community_slug: community.slug, id: user.id, user: user_attributes }
+        expect(user.reload.first_name).to eq 'new name'
       end
     end
 

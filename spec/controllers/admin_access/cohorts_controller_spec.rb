@@ -51,9 +51,10 @@ RSpec.describe Admin::CohortsController, type: :controller do
 
     describe 'PUT #update' do
       it 'allows access' do
-        cohort.color = 'new color'
-        put :update, params: { community_slug: community.slug, id: cohort.id, cohort: cohort.attributes }
-        expect(cohort.color).to eq 'new color'
+        cohort_attributes = cohort.attributes
+        cohort_attributes['color'] = 'new color'
+        put :update, params: { community_slug: community.slug, id: cohort.id, cohort: cohort_attributes }
+        expect(cohort.reload.color).to eq 'new color'
       end
     end
   end

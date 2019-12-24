@@ -44,9 +44,10 @@ RSpec.describe Admin::LawyersController, type: :controller do
     describe 'PUT #update' do
       let!(:lawyer) { create :lawyer, region: community.region }
       it 'allows access' do
-        lawyer.first_name = 'new name'
-        put :update, params: { community_slug: community.slug, id: lawyer.id, lawyer: lawyer.attributes }
-        expect(lawyer.first_name).to eq 'new name'
+        lawyer_attributes = lawyer.attributes
+        lawyer_attributes['first_name'] = 'new name'
+        put :update, params: { community_slug: community.slug, id: lawyer.id, lawyer: lawyer_attributes }
+        expect(lawyer.reload.first_name).to eq 'new name'
       end
     end
   end

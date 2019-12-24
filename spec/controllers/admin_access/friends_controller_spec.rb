@@ -45,9 +45,10 @@ RSpec.describe Admin::FriendsController, type: :controller do
     describe 'PUT #update' do
       let!(:friend) { create :friend, community: community }
       it 'allows access' do
-        friend.first_name = 'new name'
-        put :update, params: { community_slug: community.slug, id: friend.id, friend: friend.attributes }
-        expect(friend.first_name).to eq 'new name'
+        friend_attributes = friend.attributes
+        friend_attributes['first_name'] = 'new name'
+        put :update, params: { community_slug: community.slug, id: friend.id, friend: friend_attributes }
+        expect(friend.reload.first_name).to eq 'new name'
       end
     end
 

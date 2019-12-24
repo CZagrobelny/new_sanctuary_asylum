@@ -39,9 +39,10 @@ RSpec.describe Admin::Friends::AnkleMonitorsController, type: :controller do
     describe 'PUT #update' do
       let!(:ankle_monitor) { create :ankle_monitor, friend: friend }
       it 'allows access' do
-        ankle_monitor.bi_smart_link = true
-        put :update, params: { community_slug: community.slug, friend_id: friend.id, id: ankle_monitor.id, ankle_monitor: ankle_monitor.attributes }, format: 'js', xhr: true
-        expect(ankle_monitor.bi_smart_link).to eq true
+        ankle_monitor_attributes = ankle_monitor.attributes
+        ankle_monitor_attributes['bi_smart_link'] = true
+        put :update, params: { community_slug: community.slug, friend_id: friend.id, id: ankle_monitor.id, ankle_monitor: ankle_monitor_attributes }, format: 'js', xhr: true
+        expect(ankle_monitor.reload.bi_smart_link).to eq true
       end
     end
 

@@ -45,9 +45,10 @@ RSpec.describe Admin::EventsController, type: :controller do
       describe 'PUT #update' do
         let!(:event) { create :event, community: community }
         it 'allows access' do
-          event.title = 'new name'
-          put :update, params: { community_slug: community.slug, id: event.id, event: event.attributes }
-          expect(event.title).to eq 'new name'
+          event_attributes = event.attributes
+          event_attributes['title'] = 'new name'
+          put :update, params: { community_slug: community.slug, id: event.id, event: event_attributes }
+          expect(event.reload.title).to eq 'new name'
         end
       end
 

@@ -13,8 +13,8 @@ RSpec.describe AccompanimentsController, type: :controller do
 
     context 'when the community is primary' do
       let(:community) { create :community, :primary }
+      let!(:accompaniment) { create :accompaniment, activity: activity, user: volunteer }
       describe 'PUT #update' do
-        let!(:accompaniment) { create :accompaniment, activity: activity, user: volunteer }
         it 'allows access' do
           accompaniment.availability_notes = 'new availability_notes'
           put :update, params: { community_slug: community.slug, id: accompaniment.id, accompaniment: accompaniment.attributes }
