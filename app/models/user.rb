@@ -89,8 +89,8 @@ class User < ApplicationRecord
     )
   }
 
-  def admin_or_has_active_access_time_slot?
-    admin? || access_time_slots.where('start_time < ? AND end_time > ?', Time.now, Time.now).present?
+  def has_active_access_time_slot?
+    access_time_slots.where('start_time < ? AND end_time > ?', Time.now, Time.now).present?
   end
 
   def confirmed?
@@ -116,6 +116,10 @@ class User < ApplicationRecord
   def can_access_community?(community)
     if regional_admin?
       regions.include?(community.region)
+    elsif remote_clinic_lawyer?
+      user_friend_associations.remote.map { |association|
+        association.friend.community
+      }.include?(community)
     else
       self.community == community
     end
@@ -151,6 +155,6 @@ class User < ApplicationRecord
   end
 
   def admin_or_existing_relationship?(friend_id)
-    admin_or_has_active_access_time_slot? || existing_relationship?(friend_id)
+    admin? || has_active_access_time_slot? || existing_relationship?(friend_id)
   end
 end

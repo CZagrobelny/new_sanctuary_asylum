@@ -38,7 +38,7 @@
         <%= render partial: 'drafts/draft_status', locals: { current_community: current_community, friend: friend, draft: draft } %>
 
         <div class='col-md-1'>
-          <% if current_user.admin_or_has_active_access_time_slot? %>
+          <% if current_user.admin? || current_user.has_active_access_time_slot? %>
             <%= link_to 'Delete', community_friend_draft_path(current_community.slug, friend, draft), method: :delete, confirm: true, class: 'delete' %><br>
           <% end %>
         </div>

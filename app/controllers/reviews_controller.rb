@@ -1,8 +1,9 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
+  before_action :require_access_to_community
   before_action :require_admin_or_access_to_friend, only: [:show]
-  before_action :require_regional_admin_or_remote_lawyer_with_access_to_friend, only: %i[new create]
-  before_action :require_review_author, only: %i[edit update]
+  before_action :require_admin_or_remote_lawyer, only: [:new, :create]
+  before_action :require_review_author, only: [:edit, :update]
 
   def new
     @review = draft.reviews.by_user(current_user).first
@@ -68,6 +69,7 @@ class ReviewsController < ApplicationController
   end
 
   def render_friend_page
+    #TODO only have it go to the regional_admin path if they are regional admin AND originated from regional admin path
     if current_user.regional_admin?
       redirect_to regional_admin_region_friend_path(friend.region, friend)
     elsif current_user.remote_clinic_lawyer?
