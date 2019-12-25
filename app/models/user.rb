@@ -28,7 +28,6 @@ class User < ApplicationRecord
   has_many :languages, through: :volunteer_languages
   has_many :user_regions
   has_many :regions, through: :user_regions
-  has_many :releases
   has_many :reviews
   has_many :user_event_attendances, dependent: :destroy
 

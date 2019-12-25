@@ -29,7 +29,6 @@ Rails.application.routes.draw do
         end
         resources :reviews, except: [:index, :destroy]
       end
-      resources :releases, only: [:new, :create]
     end
     resources :accompaniments, only: [:create, :update]
     resources :activities, only: [:index]
@@ -111,9 +110,7 @@ Rails.application.routes.draw do
   end
 
   namespace :remote_clinic do
-    resources :friends, only: [:index, :show] do
-      resources :releases, only: [:new, :create, :destroy]
-    end
+    resources :friends, only: [:index, :show]
   end
 
 	match '/404', to: 'errors#not_found', via: :all

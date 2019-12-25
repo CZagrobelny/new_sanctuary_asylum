@@ -1,12 +1,5 @@
 <h1><%= @friend.name %></h1>
 
-<% if @release.present? %>
-  <p>
-    <%= link_to "Release #{@release.created_at.to_date}", @release.release_form_url %>
-    <%= link_to 'Delete', remote_clinic_friend_release_path(@friend, @release), method: :delete, class: 'btn btn-sm btn-danger', style: 'margin-left: 1em' %>
-  </p>
-<% end %>
-
 <% @friend.grouped_drafts.each do |group| %>
   <h2 style='display: inline;'>
     <%= group[:name].titlecase %>

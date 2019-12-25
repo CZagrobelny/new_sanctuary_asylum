@@ -5,7 +5,6 @@ RSpec.describe 'Remote clinic volunteer uploads a draft', type: :feature, js: tr
   let(:community) { create(:community, region: region) }
   let!(:regional_admin) { create(:user, :regional_admin, community: community) }
   let(:volunteer) { create(:user, :volunteer, community: community) }
-  let!(:release) { create(:release, friend: friend) }
   let(:friend) { create(:friend, community: community, region: region) }
   let!(:user_friend_association) { create(:user_friend_association, friend: friend, user: volunteer)}
 

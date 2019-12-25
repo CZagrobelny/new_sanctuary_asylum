@@ -59,7 +59,6 @@ class Friend < ApplicationRecord
   has_many :cohorts, through: :friend_cohort_assignments
   has_many :family_relationships, dependent: :destroy
   has_many :family_members, through: :family_relationships, source: 'relation'
-  has_many :releases, dependent: :destroy
   has_many :friend_social_work_referral_categories, dependent: :destroy
   has_many :social_work_referral_categories, through: :friend_social_work_referral_categories
 

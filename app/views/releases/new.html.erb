@@ -1,9 +1,0 @@
-<% unless current_user.admin_or_has_active_access_time_slot? %>
-  <div class='row'>
-    <%= link_to 'Back to Friend Record', community_friend_path(current_community.slug, @friend, tab: '#documents') %>
-  </div>
-<% end %>
-
-<h2>Limited Scope of Liability</h2>
-
-<%= render 'form' %>
