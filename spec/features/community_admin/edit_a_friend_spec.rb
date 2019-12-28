@@ -26,14 +26,6 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
     end
 
     describe 'editing "Family" information' do
-      before { click_link 'Family' }
-
-      it 'displays the "Family" tab' do
-        within '.tab-content' do
-          expect(page).to have_content 'Family'
-        end
-      end
-
       describe 'adding a new family relationship with valid information' do
         it 'displays the new family member' do
           family_member = Friend.last
@@ -61,6 +53,29 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
               click_button 'Add'
               expect(page).to have_content("Relationship type can't be blank")
             end
+          end
+        end
+      end
+    end
+
+    describe 'editing "Note" information' do
+      describe 'adding a new Note' do
+        before do
+          within '.nav-tabs' do
+            click_link 'Notes'
+          end
+        end
+
+        it 'displays the new note' do
+          expect(page).to have_link 'Add Note'
+          click_link 'Add Note'
+          sleep 1
+          fill_in 'Note', with: 'a test note'
+          within '#friend-note-form' do
+            click_button 'Save'
+          end
+          within '#friend-notes-list' do
+            expect(page).to have_content('a test note')
           end
         end
       end

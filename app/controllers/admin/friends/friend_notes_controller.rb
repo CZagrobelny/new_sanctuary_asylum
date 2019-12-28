@@ -3,7 +3,7 @@ class Admin::Friends::FriendNotesController < AdminController
     @friend_note = friend.friend_notes.new
     render_modal
   end
-  
+
   def create
     @friend_note = friend.friend_notes.build(friend_note_params)
     if @friend_note.save
@@ -17,22 +17,33 @@ class Admin::Friends::FriendNotesController < AdminController
     render_modal
   end
 
+  def update
+    if friend_note.update(friend_note_params)
+      render_success
+    else
+      render_modal
+    end
+  end
+
+  def destroy
+    render_success if friend_note.destroy
+  end
+
   private
 
   def friend_note
-    @friend_note ||= FriendNote.find(params[:id])
+    @friend_note ||= friend.friend_notes.find(params[:id])
   end
 
   def friend
     @friend ||= current_community.friends.find(params[:friend_id])
   end
 
-  def detention_params
-    params.require(:detention).permit(
+  def friend_note_params
+    params.require(:friend_note).permit(
       :friend_id,
-      :user_id,
       :note
-    )
+    ).merge(user_id: current_user.id)
   end
 
   def render_modal
