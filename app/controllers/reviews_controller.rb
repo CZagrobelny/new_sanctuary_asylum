@@ -69,8 +69,7 @@ class ReviewsController < ApplicationController
   end
 
   def render_friend_page
-    #TODO only have it go to the regional_admin path if they are regional admin AND originated from regional admin path
-    if current_user.regional_admin?
+    if current_user.regional_admin? && params[:remote_clinic].present?
       redirect_to regional_admin_region_friend_path(friend.region, friend)
     elsif current_user.remote_clinic_lawyer?
       redirect_to remote_clinic_friend_path(friend)
