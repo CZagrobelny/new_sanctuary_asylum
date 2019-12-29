@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin_or_access_time_slot
-    unless current_user.admin_or_has_active_access_time_slot?
+    unless current_user.admin? || current_user.has_active_access_time_slot?
       not_found
     end
   end
@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
     not_found unless current_community.primary?
   end
 
-  def require_regional_admin_or_remote_lawyer_with_access_to_friend
-    not_found unless current_user.regional_admin? || current_user.existing_remote_relationship?(params[:friend_id])
+  def require_admin_or_remote_lawyer
+    not_found unless current_user.admin? || current_user.existing_remote_relationship?(params[:friend_id])
   end
 end

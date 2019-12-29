@@ -20,7 +20,7 @@ class ReviewMailer < ApplicationMailer
     friend = review.draft.friend
     emails = friend.users.where(user_friend_associations: { remote: false }).pluck(:email)
     @link_url = community_friend_draft_review_url(friend.community.slug, friend, review.draft, review)
-    mail(to: emails, subject: "Changes requested on #{friend.first_name}'s application")
+    mail(to: emails, subject: "New review on #{friend.first_name}'s application")
   end
 
   def application_approved_email(application)

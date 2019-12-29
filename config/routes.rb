@@ -27,7 +27,7 @@ Rails.application.routes.draw do
           patch :submit_for_review
           patch :approve
         end
-        resources :reviews, except: [:index, :destroy]
+        resources :reviews, except: [:index]
       end
     end
     resources :accompaniments, only: [:create, :update]
