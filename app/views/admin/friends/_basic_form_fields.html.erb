@@ -140,9 +140,17 @@
   </div>
 </div>
 
-<div class='row form-group'>
-  <%= f.label :notes, class: 'col-md-2 control-label' %>
-  <div class='col-md-10'>
-    <%= f.text_area :notes, class: 'form-control', style: 'height: 200px;' %>
+<h3>Family</h3>
+
+<% if @friend.persisted? %>
+  <div id='family-list' >
+    <%= render partial: 'admin/friends/family_relationships/list', locals: { friend: @friend } %>
   </div>
-</div>
+
+  </br>
+  <%= link_to 'Add Family Member', new_community_admin_friend_family_relationship_path(current_community.slug, @friend), remote: true, class: 'btn btn-primary', data: { toggle: 'modal', target: '#add_family_relationship_modal' } %>
+<% else %>
+  <p>
+    <strong>Once you 'Save' this new Friend record, you can return to this section to add Family members.</strong>
+  </p>
+<% end %>

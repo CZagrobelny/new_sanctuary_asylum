@@ -1,7 +1,7 @@
 <br>
-<% if @friend.detentions.present? %>
-  <% @friend.detentions.order('date_detained desc').each do |detention| %>
-    <%= render partial: 'admin/friends/detentions/detention', locals: { friend: @friend, detention: detention } %>
+<% if friend.detentions.present? %>
+  <% friend.detentions.order('date_detained desc').each do |detention| %>
+    <%= render partial: 'admin/friends/detentions/detention', locals: { friend: friend, detention: detention } %>
   <% end %>
 <% end %>
 

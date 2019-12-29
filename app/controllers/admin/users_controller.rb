@@ -36,7 +36,7 @@ class Admin::UsersController < AdminController
     if @user.destroy
       flash[:success] = 'User record deleted.'
     else
-      flash[:error] = 'There was an issue deleting the user.'
+      flash[:error] = 'This user cannot be deleted. To revoke access, change their permissions to "volunteer".'
     end
     redirect_to community_admin_users_path(current_community.slug, query: params[:query])
   end

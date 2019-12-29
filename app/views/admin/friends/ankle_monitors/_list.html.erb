@@ -1,7 +1,7 @@
 <br>
-<% if @friend.ankle_monitors.present? %>
-  <% @friend.ankle_monitors.order('date_removed desc').each do |ankle_monitor| %>
-    <%= render partial: 'admin/friends/ankle_monitors/ankle_monitor', locals: { friend: @friend, ankle_monitor: ankle_monitor } %>
+<% if friend.ankle_monitors.present? %>
+  <% friend.ankle_monitors.order('date_removed desc').each do |ankle_monitor| %>
+    <%= render partial: 'admin/friends/ankle_monitors/ankle_monitor', locals: { friend: friend, ankle_monitor: ankle_monitor } %>
   <% end %>
 <% end %>
 
