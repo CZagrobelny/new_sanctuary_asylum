@@ -156,9 +156,11 @@ class Friend < ApplicationRecord
     )
   }
 
-  pg_search_scope :filter_notes, against: :notes, using: {
-    tsearch: { dictionary: "english" }
-  }
+  pg_search_scope :filter_notes,
+    associated_against: { friend_notes: :note },
+    using: {
+      tsearch: { dictionary: "english" }
+    }
 
   scope :sorted_by, ->(sort_option) {
     # extract the sort direction from the param value.
