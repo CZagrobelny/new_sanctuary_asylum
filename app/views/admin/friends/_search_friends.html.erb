@@ -35,9 +35,13 @@
       <%= f.label :filter_activity_tbd_or_control_date, 'Activity Control Date or TBD'%>
       <%= f.check_box(:filter_activity_tbd_or_control_date) %>
     </div>
-    <div class='form-group col-md-3 inline-form-group'>
+    <div class='form-group col-md-2 inline-form-group'>
       <%= f.label :filter_invited_to_speak_to_a_lawyer, 'Return for lawyer' %>
       <%= f.check_box(:filter_invited_to_speak_to_a_lawyer) %>
+    </div>
+    <div class='form-group col-md-2 inline-form-group'>
+      <%= f.label :filter_famu_docket, 'FAMU docket' %>
+      <%= f.check_box(:filter_famu_docket) %>
     </div>
   </div>
 
