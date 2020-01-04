@@ -1,10 +1,14 @@
-<div class='row' style='margin-left:5px;'>
-  <strong>
-    <%= link_to 'Remove', community_admin_friend_friend_note_path(current_community.slug, friend, friend_note), method: :delete, remote: true, class: 'delete' %>
-  </strong>
-  <%= friend_note.note if friend_note.note.present? %><br>
-  <strong>Created:  </strong><%=  friend_note.created_at.strftime("%B %-d, %Y") %><br>
-  <strong>Last Edited:  </strong><%= "#{friend_note.updated_at.strftime("%B %-d, %Y")} (#{friend_note.user.name})" %><br>
-  <strong><%= link_to "Edit", edit_community_admin_friend_friend_note_path(current_community.slug, friend, friend_note), remote: true, class: 'open_friend_note_modal' %></strong>
+<div class='row'>
+  <div class='col-md-11'>
+    <%= friend_note.note if friend_note.note.present? %><br><br>
+    <strong>Created:  </strong><%=  friend_note.created_at.strftime("%B %-d, %Y") %><br>
+    <strong>Last Edited:  </strong><%= "#{friend_note.updated_at.strftime("%B %-d, %Y")} (#{friend_note.user.name})" %><br>
+    <strong><%= link_to "Edit", edit_community_admin_friend_friend_note_path(current_community.slug, friend, friend_note), remote: true, class: 'open_friend_note_modal' %></strong>
+  </div>
+  <div class='col-md-1'>
+    <strong>
+      <%= link_to 'Remove', community_admin_friend_friend_note_path(current_community.slug, friend, friend_note), method: :delete, remote: true, class: 'delete' %>
+    </strong>
+  </div>
 </div>
-<br>
+<hr></hr>

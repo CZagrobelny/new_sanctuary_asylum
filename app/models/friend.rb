@@ -61,7 +61,7 @@ class Friend < ApplicationRecord
   has_many :family_members, through: :family_relationships, source: 'relation'
   has_many :friend_social_work_referral_categories, dependent: :destroy
   has_many :social_work_referral_categories, through: :friend_social_work_referral_categories
-  has_many :friend_notes
+  has_many :friend_notes, dependent: :destroy
 
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
 
