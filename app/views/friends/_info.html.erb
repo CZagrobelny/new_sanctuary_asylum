@@ -39,7 +39,6 @@
       <strong>What:  </strong><%= activity.activity_type.name.titlecase %><br>
       <strong>When:  </strong><%= activity.occur_at_str %><br>
       <strong>Where:  </strong><%= activity.location.name  if activity.location.present? %><br>
-      <strong>Volunteers:  </strong><%= activity.users.pluck(:first_name).to_sentence %>
     </p>
   <% end %>
 <% end %>

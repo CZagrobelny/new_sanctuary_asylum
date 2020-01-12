@@ -19,7 +19,7 @@
               <strong>Accompaniment Leaders:  </strong>
               <%= render 'shared/scoped_activity_users_details', activity: activity, scope: 'accompaniment_leader' %>
             <% end %>
-            <strong>Volunteers:  </strong><%= activity.users.volunteer.pluck(:first_name).to_sentence %>
+            <strong>Volunteers:  </strong><%= activity.users.where(role: %w[volunteer data_entry]).pluck(:first_name).to_sentence %>
             <div><em><%= volunteers_needed(activity) %></em></div>
             <% if current_user.attending?(activity) || !activity.accompaniment_limit_met? %>
               <%= form_for [current_community, accompaniment] do |f| %>

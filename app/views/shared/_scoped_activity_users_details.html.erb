@@ -1,6 +1,10 @@
 <ol>
   <% activity.accompaniments.each do |accompaniment| %>
-    <% next unless accompaniment.user.send("#{scope}?") %>
+    <% if scope == 'volunteer' %>
+      <% next unless %w[volunteer data_entry].include?(accompaniment.user.role) %>
+    <% else %>
+      <% next unless accompaniment.user.send("#{scope}?") %>
+    <% end %>
     <li>
       <%= current_user.volunteer? ? accompaniment.user.first_name : accompaniment.user.name %>,
       <i>
