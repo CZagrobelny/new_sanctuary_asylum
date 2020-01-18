@@ -57,8 +57,15 @@
   </div>
 
   <div class="row">
-    <div class='form-group col-md-12'>
-      <%= f.label :filter_start_date, '1 year asylum application deadline ending between dates:' %>
+    <div class='form-group col-md-6'>
+      <%= f.label :filter_must_be_seen_by, 'Must be seen by:' %>
+
+      <%= f.text_field :filter_must_be_seen_by_after, class: 'datepicker form-control' %>
+      <%= f.text_field :filter_must_be_seen_by_before, class: 'datepicker form-control' %>
+    </div>
+
+    <div class='form-group col-md-6'>
+      <%= f.label :filter_start_date, '1-year deadline:' %>
 
       <%= f.text_field :filter_asylum_application_deadline_ending_after, class: 'datepicker form-control' %>
       <%= f.text_field :filter_asylum_application_deadline_ending_before, class: 'datepicker form-control' %>

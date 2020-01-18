@@ -114,6 +114,14 @@ class Friend < ApplicationRecord
     where(famu_docket: true) if famu_docket == 1
   }
 
+  scope :filter_must_be_seen_by_after, ->(date) {
+    where('must_be_seen_by >= ?', string_to_beginning_of_date(date))
+  }
+
+  scope :filter_must_be_seen_by_before, ->(date) {
+    where('must_be_seen_by <= ?', string_to_end_of_date(date))
+  }
+
   scope :filter_asylum_application_deadline_ending_after, ->(date) {
     # if the date - 1.year is smaller than the date_of_entry
     where('date_of_entry >= ?', string_to_beginning_of_date(date) - ASYLUM_APPLICATION_DEADLINE)
@@ -217,6 +225,8 @@ class Friend < ApplicationRecord
                                     filter_activity_tbd_or_control_date
                                     filter_invited_to_speak_to_a_lawyer
                                     filter_famu_docket
+                                    filter_must_be_seen_by_after
+                                    filter_must_be_seen_by_before
                                     filter_asylum_application_deadline_ending_after
                                     filter_asylum_application_deadline_ending_before
                                     filter_created_after
