@@ -134,6 +134,20 @@
 </div>
 
 <div class='row form-group'>
+  <div class='col-md-offset-2 col-md-6'>
+    <%= f.check_box :no_record_in_eoir %>
+    <%= f.label :no_record_in_eoir, 'No Record in EOIR' %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <div class='col-md-offset-2 col-md-6'>
+    <%= f.check_box :order_of_supervision %>
+    <%= f.label :order_of_supervision, 'Has Order of Supervision' %>
+  </div>
+</div>
+
+<div class='row form-group'>
   <%= f.label :date_of_entry, 'Date of Entry', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
     <%= f.date_select :date_of_entry, { start_year: Date.current.year, end_year: 1930, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
