@@ -27,6 +27,7 @@ RSpec.describe 'Admin creates a new friend record', type: :feature do
       fill_in 'First Name', with: Faker::Name.first_name
       fill_in 'Last Name', with: Faker::Name.last_name
       fill_in 'A Number', with: '123456789'
+      select 'Female', from: 'Gender'
       click_button 'Save'
 
       within '.alert' do
@@ -40,6 +41,7 @@ RSpec.describe 'Admin creates a new friend record', type: :feature do
       fill_in 'First Name', with: ''
       fill_in 'Last Name', with: Faker::Name.last_name
       fill_in 'A Number', with: '123456789'
+      select 'Female', from: 'Gender'
       click_button 'Save'
 
       within '.alert' do
