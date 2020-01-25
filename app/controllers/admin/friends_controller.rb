@@ -9,6 +9,7 @@ class Admin::FriendsController < AdminController
                                           select_options: {
                                             sorted_by: Friend.options_for_sorted_by,
                                             activity_type: Friend.options_for_activity_type,
+                                            country_of_origin: Friend.options_for_country_of_origin,
                                           },
                                           persistence_id: false)
 

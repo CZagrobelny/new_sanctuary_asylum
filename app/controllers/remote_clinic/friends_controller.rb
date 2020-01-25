@@ -7,7 +7,7 @@ class RemoteClinic::FriendsController < ApplicationController
   end
 
   def show
-    render
+    friend
   end
 
   private

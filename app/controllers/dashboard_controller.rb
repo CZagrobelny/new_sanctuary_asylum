@@ -1,6 +1,5 @@
 class DashboardController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_access_to_community
 
   def index
     if current_user.admin? || current_user.has_active_access_time_slot?

@@ -62,6 +62,7 @@ class Friend < ApplicationRecord
   has_many :friend_social_work_referral_categories, dependent: :destroy
   has_many :social_work_referral_categories, through: :friend_social_work_referral_categories
   has_many :friend_notes, dependent: :destroy
+  has_one :country
 
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
 
@@ -224,6 +225,12 @@ class Friend < ApplicationRecord
     end
   }
 
+  scope :country_of_origin, ->(country_ids) {
+    unless country_ids.reject! { |id| id.try(:strip) == '' || id.nil? }.empty?
+      where(country_id: country_ids)
+    end
+  }
+
 
   filterrific(default_filter_params: {},
               available_filters: %i[filter_id
@@ -249,12 +256,20 @@ class Friend < ApplicationRecord
                                     activity_type
                                     filter_no_record_in_eoir
                                     filter_order_of_supervision
+                                    country_of_origin
                                   ])
 
   # This method provides select options for the `activity_type` filter select input
   def self.options_for_activity_type
     ActivityType.all.map do |type|
       [type.name.humanize, type.id]
+    end
+  end
+
+  # This method provides select options for the `country_of_origin` filter select input
+  def self.options_for_country_of_origin
+    Country.all.map do |type|
+      [type.name.titlecase, type.id]
     end
   end
 
