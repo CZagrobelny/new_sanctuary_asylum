@@ -33,7 +33,7 @@
           <% end %>
         </td>
         <td>
-          <%= assignment.friend.date_of_entry.try(:strftime, '%m/%d') %>
+          <%= assignment.friend.date_of_entry.try(:strftime, '%m/%d/%y') %>
         </td>
         <td>
           <%= form_for [current_community, :admin, cohort, assignment]  do |f| %>
