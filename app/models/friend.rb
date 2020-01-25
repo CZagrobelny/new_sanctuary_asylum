@@ -115,6 +115,14 @@ class Friend < ApplicationRecord
     where(famu_docket: true) if famu_docket == 1
   }
 
+  scope :filter_no_record_in_eoir, ->(no_record_in_eoir) {
+    where(no_record_in_eoir: true) if no_record_in_eoir == 1
+  }
+
+  scope :filter_order_of_supervision, ->(order_of_supervision) {
+    where(order_of_supervision: true) if order_of_supervision == 1
+  }
+
   scope :filter_must_be_seen_by_after, ->(date) {
     where('must_be_seen_by >= ?', string_to_beginning_of_date(date))
   }
@@ -239,6 +247,8 @@ class Friend < ApplicationRecord
                                     filter_activity_end_date
                                     sorted_by
                                     activity_type
+                                    filter_no_record_in_eoir
+                                    filter_order_of_supervision
                                   ])
 
   # This method provides select options for the `activity_type` filter select input
