@@ -52,6 +52,7 @@ class Admin::UsersController < AdminController
     if @user.update(current_user.admin? ? user_params : user_params_excluding_role)
       redirect_to community_admin_users_path(current_community.slug)
     else
+      @accompaniments = @user.accompaniments.includes(:activity).order("activities.occur_at")
       render 'edit'
     end
   end
