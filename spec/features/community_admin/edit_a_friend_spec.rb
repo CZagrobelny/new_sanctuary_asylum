@@ -131,6 +131,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
         end
         within '.tab-content' do
           expect(page).to have_content 'Asylum'
+          expect(page).to have_content 'Clinic Plan'
         end
       end
     end

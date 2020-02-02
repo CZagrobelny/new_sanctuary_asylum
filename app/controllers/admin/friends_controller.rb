@@ -126,6 +126,7 @@ class Admin::FriendsController < AdminController
       :social_work_referral_notes,
       :no_record_in_eoir,
       :order_of_supervision,
+      :clinic_plan,
       language_ids: [],
       social_work_referral_category_ids: [],
       user_ids: []

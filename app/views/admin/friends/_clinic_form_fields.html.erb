@@ -45,6 +45,13 @@
   <% else %>
     <strong>Not yet assigned.</strong>
   <% end %>
+
+  <div class='row form-group'>
+    <%= f.label :clinic_plan, 'Clinic Plan', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.select :clinic_plan, options_for_select(Friend::CLINIC_PLANS, @friend.clinic_plan), {include_blank: true}, {class: 'form-control'} %>
+    </div>
+  </div>
 </div>
 
 <div class='form_fields_section'>

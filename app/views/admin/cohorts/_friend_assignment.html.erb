@@ -9,6 +9,7 @@
       <th />
       <th>Name</th>
       <th>Date of Entry</th>
+      <th>Clinic Plan</th>
       <th>Confirmed</th>
       <% @events.each do |event| %>
         <th><%= event.date.strftime("%-m/%-d") %></th>
@@ -34,6 +35,9 @@
         </td>
         <td>
           <%= assignment.friend.date_of_entry.try(:strftime, '%m/%d/%y') %>
+        </td>
+        <td>
+          <%= assignment.friend.clinic_plan&.titlecase %>
         </td>
         <td>
           <%= form_for [current_community, :admin, cohort, assignment]  do |f| %>

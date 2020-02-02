@@ -40,6 +40,16 @@ class Friend < ApplicationRecord
                           appeal pending
                           motion_to_reopen_submitted].map { |status| [status.titlecase, status] }
 
+  CLINIC_PLANS = %w[i589
+                    individual_hearing
+                    motion_to_reopen
+                    appeal
+                    osup_rfi
+                    consultation
+                    foia
+                    change_of_venue
+                    work_permit].map{ |plan| [plan.titlecase, plan] }
+
   ASYLUM_APPLICATION_DEADLINE = 1.year
 
   belongs_to :community
@@ -72,6 +82,7 @@ class Friend < ApplicationRecord
   validates :a_number, length: { minimum: 8, maximum: 9 }, if: :a_number_available?
   validates_uniqueness_of :a_number, if: :a_number_available?
   validates :gender, presence: true, on: :create
+  validates :clinic_plan, inclusion: {in: CLINIC_PLANS.map(&:last)}, allow_blank: true
 
   scope :detained, -> { where(status: 'in_detention') }
 
