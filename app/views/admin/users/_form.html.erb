@@ -1,4 +1,4 @@
-<%= form_for([current_community, :admin, @user], html: { class: 'form-horizontal' }) do |f| %>
+<%= form_for([current_community, :admin, @user], html: { autocomplete: "off", class: 'form-horizontal' }) do |f| %>
 
   <%= display_validation_errors(@user) %>
 
