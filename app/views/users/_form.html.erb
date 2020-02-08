@@ -20,7 +20,7 @@
     <div class='row form-group'>
       <%= f.label :email, class: 'col-md-2 control-label required' %>
       <div class='col-md-6'>
-        <%= f.text_field :email, autocomplete: 'off', class: 'form-control' %>
+        <%= f.text_field :email, autocomplete: 'new', class: 'form-control' %>
       </div>
     </div>
 
@@ -45,7 +45,7 @@
       <p>Passwords are required to be at least 8 characters long AND contain at least one of EACH of the following: an uppercase letter, a lowercase letter, a number.  They also cannot be a password that you used previously.</p>
       <%= f.label :password, class: 'col-md-2 control-label' %>
       <div class='col-md-6'>
-        <%= f.password_field :password, autocomplete: 'off', class: 'form-control', placeholder: 'Set a NEW password' %>
+        <%= f.password_field :password, autocomplete: 'new', class: 'form-control', placeholder: 'Set a NEW password' %>
       </div>
     </div>
     <p><strong>Password Last Reset At:</strong> <%= @user.password_changed_at.try(:strftime, '%-I:%M %p, %B %-d, %Y') %></p>
