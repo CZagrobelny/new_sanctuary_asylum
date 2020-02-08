@@ -4,11 +4,17 @@
       <h1 class='page-header'>Edit User</h1>
 
       <%= render 'form' %>
-      <% if current_user.admin? || current_user.has_active_access_time_slot? %>
-        <h4>Has access to Friend records:</h4>
-          <%= raw @user.local_clinic_friends.collect { |friend| link_to friend.name, edit_community_admin_friend_path(current_community.slug, friend), target: '_blank' }.join(' | ') %>
-      <% end %>
-      <h4>Accompaniments</h4>
+
+      <h3>Account Info</h3>
+      <p><strong>Invitation Sent:</strong> <%= @user.invitation_sent_at.try(:strftime, '%-I:%M %p, %B %-d, %Y') %></p>
+      <p><strong>Invitation Accepted:</strong> <%= @user.invitation_accepted_at.try(:strftime, '%-I:%M %p, %B %-d, %Y') %></p>
+      <p><strong>Password Reset:</strong> <%= @user.password_changed_at.try(:strftime, '%-I:%M %p, %B %-d, %Y') %></p>
+      <p><strong>Account Locked:</strong> <%= @user.access_locked? ? "Yes, at #{ @user.locked_at.strftime('%-I:%M %p, %B %-d, %Y') }" : 'No' %></p>
+
+      <h3>Has access to Friend records:</h3>
+      <%= raw @user.local_clinic_friends.collect { |friend| link_to friend.name, edit_community_admin_friend_path(current_community.slug, friend), target: '_blank' }.join(' | ') %>
+
+      <h3>Accompaniments</h3>
       <ul>
       <% @accompaniments.each do |accompaniment| %>
         <% activity = accompaniment.activity %>

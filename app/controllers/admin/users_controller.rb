@@ -48,13 +48,20 @@ class Admin::UsersController < AdminController
 
   def update
     @user = current_community.users.find(params[:id])
-
-    if @user.update(current_user.admin? ? user_params : user_params_excluding_role)
-      redirect_to community_admin_users_path(current_community.slug)
-    else
-      @accompaniments = @user.accompaniments.includes(:activity).order("activities.occur_at")
-      render 'edit'
+    ActiveRecord::Base.transaction do
+      @user.update!(current_user.admin? ? user_params : user_params_excluding_role)
+      if password_params.present?
+        unless @user.reset_password(password_params[:password], password_params[:password])
+          @user.errors.delete(:password)
+          @user.errors.add(:password, 'does not meet minimum password requirements (see below).')
+          raise
+        end
+      end
     end
+    redirect_to community_admin_users_path(current_community.slug)
+  rescue
+    @accompaniments = @user.accompaniments.includes(:activity).order("activities.occur_at")
+    render 'edit'
   end
 
   private
@@ -96,6 +103,14 @@ class Admin::UsersController < AdminController
       :remote_clinic_lawyer,
       language_ids: [],
     )
+  end
+
+  def password_params
+    password_params = params.require(:user).permit(:password)
+
+    password_params.each { |key, value|
+      password_params[key] = value.strip.empty? ? nil : value.strip
+    }.compact
   end
 
   def user_index_scope
