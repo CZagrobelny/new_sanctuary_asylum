@@ -64,6 +64,16 @@ class Admin::UsersController < AdminController
     render 'edit'
   end
 
+  def unlock
+    @user = current_community.users.find(params[:id])
+    if @user.unlock_access!
+      flash[:success] = 'User account unlocked!'
+    else
+      flash[:error] = 'There was an issue unlocking the user account.'
+    end
+    redirect_to edit_community_admin_user_path(current_community.slug, @user)
+  end
+
   private
 
   def role_options
