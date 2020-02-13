@@ -4,21 +4,35 @@
       <h1 class='page-header'>Edit User</h1>
 
       <%= render 'form' %>
-      <% if current_user.admin_or_has_active_access_time_slot? %>
-        <h4>Has access to Friend records:</h4>
-          <%= raw @user.local_clinic_friends.collect { |friend| link_to friend.name, edit_community_admin_friend_path(current_community.slug, friend), target: '_blank' }.join(' | ') %>
-      <% end %>
-      <h4>Accompaniments</h4>
+
+      <h3>Account Info</h3>
+      <p><strong>Invitation Sent:</strong> <%= @user.invitation_sent_at.try(:strftime, '%-I:%M %p, %B %-d, %Y') %></p>
+      <p><strong>Invitation Accepted:</strong> <%= @user.invitation_accepted_at.try(:strftime, '%-I:%M %p, %B %-d, %Y') %></p>
+      <p><strong>Password Reset:</strong> <%= @user.password_changed_at.try(:strftime, '%-I:%M %p, %B %-d, %Y') %></p>
+      <p><strong>Account Locked: </strong>
+        <% if @user.access_locked? %>
+          <%= "Yes, at #{ @user.locked_at.strftime('%-I:%M %p, %B %-d, %Y') }" %>
+          <%= button_to 'Unlock Account', unlock_community_admin_user_path(current_community.slug, @user), method: :patch, class: 'btn btn-success' %>
+        <% else %>
+          No
+        <% end %>
+      </p>
+
+      <h3>Has access to Friend records:</h3>
+      <%= raw @user.local_clinic_friends.collect { |friend| link_to friend.name, edit_community_admin_friend_path(current_community.slug, friend), target: '_blank' }.join(' | ') %>
+
+      <h3>Accompaniments</h3>
       <ul>
-      <%@accompaniments.each do |accompaniment|%>
+      <% @accompaniments.each do |accompaniment| %>
         <% activity = accompaniment.activity %>
+        <% next unless activity.occur_at.present? %>
         <li>
-          <%= activity.occur_at.month < 10 ? 
-            '0' + activity.occur_at.month.to_s 
-            : 
-            activity.occur_at.month %>/<%= activity.occur_at.day %>/<%= activity.occur_at.year %> 
-          -- <%= activity.activity_type.name.titlecase %> 
-          for 
+          <%= activity.occur_at.month < 10 ?
+            '0' + activity.occur_at.month.to_s
+            :
+            activity.occur_at.month %>/<%= activity.occur_at.day %>/<%= activity.occur_at.year %>
+          -- <%= activity.activity_type.name.titlecase %>
+          for
           <%= link_to activity.friend.name, edit_community_admin_friend_path(current_community.slug, activity.friend) %>
         </li>
       <% end %>

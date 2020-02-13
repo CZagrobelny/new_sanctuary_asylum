@@ -13,20 +13,68 @@
       <%= f.text_field(:filter_a_number, class: 'form-control') %>
     </div>
     <div class='form-group col-md-2'>
+      <%= f.label :filter_phone_number, 'Phone Number' %>
+      <%= f.text_field(:filter_phone_number, class: 'form-control') %>
+    </div>
+    <div class='form-group col-md-2'>
       <%= f.label :filter_id, 'ID' %>
       <%= f.text_field(:filter_id, class: 'form-control') %>
     </div>
-    <div class='form-group'>
-      <%= f.label :filter_detained, 'Detained' %>
-      <div>
-        <%= f.check_box(:filter_detained) %>
-      </div>
+    <div class='form-group col-md-2'>
+      <%= f.label :filter_notes, 'Notes' %>
+      <%= f.text_field(:filter_notes, class: 'form-control') %>
     </div>
+  </div>
+
+  <div class='row'>
+    <div class='form-group col-md-2 inline-form-group'>
+      <%= f.label :filter_detained, 'Detained' %>
+      <%= f.check_box(:filter_detained) %>
+    </div>
+    <div class='form-group col-md-2 inline-form-group'>
+      <%= f.label :filter_activity_tbd_or_control_date, 'Control Date/TBD'%>
+      <%= f.check_box(:filter_activity_tbd_or_control_date) %>
+    </div>
+    <div class='form-group col-md-2 inline-form-group'>
+      <%= f.label :filter_invited_to_speak_to_a_lawyer, 'Return for lawyer' %>
+      <%= f.check_box(:filter_invited_to_speak_to_a_lawyer) %>
+    </div>
+    <div class='form-group col-md-2 inline-form-group'>
+      <%= f.label :filter_famu_docket, 'FAMU docket' %>
+      <%= f.check_box(:filter_famu_docket) %>
+    </div>
+    <div class='form-group col-md-2 inline-form-group'>
+      <%= f.label :filter_no_record_in_eoir, 'No Record in EOIR' %>
+      <%= f.check_box(:filter_no_record_in_eoir) %>
+    </div>
+    <div class='form-group col-md-2 inline-form-group'>
+      <%= f.label :filter_order_of_supervision, 'OSUP' %>
+      <%= f.check_box(:filter_order_of_supervision) %>
+    </div>
+
   </div>
 
   <div class="row">
     <div class='form-group col-md-12'>
-      <%= f.label :filter_start_date, '1 year asylum application deadline ending between dates:' %>
+      <%= f.label :activity_type, 'Activity type' %>
+      <%= f.select :activity_type, @filterrific.select_options[:activity_type], { include_blank: true }, multiple: true, class: 'chzn-select form-control' %>
+      <%= f.label :filter_activity_start_date, 'between' %>
+      <%= f.text_field :filter_activity_start_date, class: 'datepicker form-control' %>
+      <%= f.label :filter_activity_end_date, 'and' %>
+      <%= f.text_field :filter_activity_end_date, class: 'datepicker form-control' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class='form-group col-md-6'>
+      <%= f.label :filter_must_be_seen_by, 'Must be seen by:' %>
+
+      <%= f.text_field :filter_must_be_seen_by_after, class: 'datepicker form-control' %>
+      <%= f.text_field :filter_must_be_seen_by_before, class: 'datepicker form-control' %>
+    </div>
+
+    <div class='form-group col-md-6'>
+      <%= f.label :filter_start_date, '1 year deadline:' %>
 
       <%= f.text_field :filter_asylum_application_deadline_ending_after, class: 'datepicker form-control' %>
       <%= f.text_field :filter_asylum_application_deadline_ending_before, class: 'datepicker form-control' %>
@@ -34,34 +82,15 @@
   </div>
 
   <div class='row'>
-    <div class='form-group col-md-12 inline-form-group'>
-      <%= f.label :filter_created_date, 'Created between dates:' %>
+    <div class='form-group col-md-6 inline-form-group'>
+      <%= f.label :filter_created_date, 'Created:' %>
       <%= f.text_field :filter_created_after, class: 'datepicker form-control' %>
       <%= f.text_field :filter_created_before, class: 'datepicker form-control' %>
     </div>
-  </div>
 
-  <div class='row'>
-    <div class='form-group inline-form-group'>
-      <div class='col-md-2'>
-        <%= f.label :filter_clinic_wait_list_priority, 'Wait List Priority(s):' %>
-      </div>
-      <div class='col-md-5'>
-        <%= f.select :filter_clinic_wait_list_priority, @filterrific.select_options[:filter_clinic_wait_list_priority], { include_blank: true }, multiple: true, class: 'chzn-select form-control-lg' %>
-      </div>
-    </div>
-  </div>
-  <br>
-
-  <div class='row'>
-    <div class='form-group col-md-5 inline-form-group'>
-      <%= f.label :filter_border_queue_number, 'Border Queue Number' %>
-      <%= f.text_field(:filter_border_queue_number, class: 'form-control') %>
-    </div>
-
-    <div class='form-group col-md-5 inline-form-group'>
-      <%= f.label :filter_border_crossing_status, 'Border Crossing Status' %>
-      <%= f.select :filter_border_crossing_status, @filterrific.select_options[:filter_border_crossing_status], { include_blank: true }, class: 'form-control' %>
+    <div class='form-group col-md-6'>
+      <%= f.label :country_of_origin, 'Country of origin:' %>
+      <%= f.select :country_of_origin, @filterrific.select_options[:country_of_origin], { include_blank: true }, multiple: true, class: 'chzn-select form-control' %>
     </div>
   </div>
 

@@ -5,16 +5,22 @@ class ApplicationController < ActionController::Base
 
   def current_community
     return @current_community if @current_community
-    return Community.find_by_slug(params[:community_slug]) if params[:community_slug]
 
-    Community.find(current_user.community_id)
+    if params[:community_slug]
+      return @current_community = Community.find_by_slug(params[:community_slug])
+    end
+
+    @current_community = Community.find(current_user.community_id)
   end
 
   def current_region
     return @current_region if @current_region
-    return Region.find(params[:region_id]) if params[:region_id]
 
-    current_community.region
+    if params[:region_id]
+      return @current_region = Region.find(params[:region_id])
+    end
+
+    @current_region = current_community.region
   end
 
   def require_admin
@@ -22,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin_or_access_time_slot
-    unless current_user.admin_or_has_active_access_time_slot?
+    unless current_user.admin? || current_user.has_active_access_time_slot?
       not_found
     end
   end
@@ -45,7 +51,7 @@ class ApplicationController < ActionController::Base
     not_found unless current_community.primary?
   end
 
-  def require_regional_admin_or_remote_lawyer_with_access_to_friend
-    not_found unless current_user.regional_admin? || current_user.existing_remote_relationship?(params[:friend_id])
+  def require_admin_or_remote_lawyer
+    not_found unless current_user.admin? || current_user.existing_remote_relationship?(params[:friend_id])
   end
 end

@@ -12,12 +12,9 @@
         <th>ID</th>
         <th>First Name</th>
         <th>Last Name</th>
-        <% if current_region.border? %>
-          <th>Border Queue Number</th>
-        <% else %>
-          <th>A#</th>
-        <% end %>
+        <th>A#</th>
         <th>Phone Number</th>
+        <th>Date of Entry</th>
         <th>Created</th>
         <th>Actions</th>
       </tr>
@@ -31,20 +28,12 @@
             <% if friend.cohorts.present? %>
               <i class='far fa-calendar-check' style="color: <%= friend.cohorts.first.color %>;"></i>
             <% end %>
-            <% if friend.clinic_wait_list_priority %>
-              <span class="friend_id_clinic_waitlist <%= friend.clinic_wait_list_class %>">
-                <i class='fas fa-flag' style='font-size:14px;'></i>
-              </span>
-            <% end %>
           </td>
           <td><%= link_to friend.first_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>
           <td><%= link_to friend.last_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>
-          <% if current_region.border? %>
-            <td><%= friend.border_queue_number %></td>
-          <% else %>
-            <td><%= friend.a_number %></td>
-          <% end %>
+          <td><%= friend.a_number %></td>
           <td><%= friend.phone %></td>
+          <td><%= friend.date_of_entry.try(:strftime, '%m/%d/%y') %></td>
           <td><%= friend.created_at.strftime('%m/%d/%y') %></td>
           <td>
             <div class='btn-group'>
@@ -64,7 +53,7 @@
     </tbody>
   </table>
   <div class='pull-right'>
-    <%= will_paginate @users %>
+    <%= will_paginate @friends %>
   </div>
 <% else %>
   <h3>No search results matched your criteria.</h3>

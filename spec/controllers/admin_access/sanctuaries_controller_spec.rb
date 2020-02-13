@@ -45,9 +45,10 @@ RSpec.describe Admin::SanctuariesController, type: :controller do
       describe 'PUT #update' do
         let!(:sanctuary) { create :sanctuary, community: community }
         it 'allows access' do
-          sanctuary.name = 'new name'
-          put :update, params: { community_slug: community.slug, id: sanctuary.id, sanctuary: sanctuary.attributes }
-          expect(sanctuary.name).to eq 'new name'
+          sanctuary_attributes = sanctuary.attributes
+          sanctuary_attributes['name'] = 'new name'
+          put :update, params: { community_slug: community.slug, id: sanctuary.id, sanctuary: sanctuary_attributes }
+          expect(sanctuary.reload.name).to eq 'new name'
         end
       end
     end
@@ -88,9 +89,10 @@ RSpec.describe Admin::SanctuariesController, type: :controller do
       describe 'PUT #update' do
         let!(:sanctuary) { create :sanctuary, community: community }
         it 'allows access' do
-          sanctuary.name = 'new name'
-          put :update, params: { community_slug: community.slug, id: sanctuary.id, sanctuary: sanctuary.attributes }
-          expect(sanctuary.name).to eq 'new name'
+          sanctuary_attributes = sanctuary.attributes
+          sanctuary_attributes['name'] = 'new name'
+          put :update, params: { community_slug: community.slug, id: sanctuary.id, sanctuary: sanctuary_attributes }
+          expect(sanctuary.reload.name).to eq 'new name'
         end
       end
     end

@@ -1,15 +1,52 @@
 # New Sanctuary Coalition
 
+<!-- Tocer[start]: Auto-generated, don't remove. -->
+
+## Table of Contents
+
+  - [What are we building?](#what-are-we-building)
+  - [Getting setup](#getting-setup)
+    - [System Dependencies](#system-dependencies)
+    - [Environment Variables](#environment-variables)
+    - [Using Docker to Run the Application (optional)](#using-docker-to-run-the-application-optional)
+    - [Ruby Dependencies](#ruby-dependencies)
+    - [Database installation](#database-installation)
+      - [1. Mac OS](#1-mac-os)
+      - [2. All non-Mac OS](#2-all-non-mac-os)
+    - [Database setup](#database-setup)
+  - [Running the test suite](#running-the-test-suite)
+  - [Running the App Locally](#running-the-app-locally)
+  - [User Roles](#user-roles)
+      - [Regional Admin (has access to all communities within their regions)](#regional-admin-has-access-to-all-communities-within-their-regions)
+      - [Community Admin Role (has access to everything scoped to their Community)](#community-admin-role-has-access-to-everything-scoped-to-their-community)
+      - [Community Volunteer Role (has limited access to their community)](#community-volunteer-role-has-limited-access-to-their-community)
+      - [Community Accompaniment Leader Role (only applicable to Primary communities)](#community-accompaniment-leader-role-only-applicable-to-primary-communities)
+      - [Remote Clinic Lawyer Role](#remote-clinic-lawyer-role)
+  - [How are we building it?](#how-are-we-building-it)
+    - [Test Coverage!](#test-coverage)
+    - [Staging App](#staging-app)
+    - [Performance Monitoring](#performance-monitoring)
+  - [Maintenance](#maintenance)
+  - [Contributing](#contributing)
+  - [Code of Conduct](#code-of-conduct)
+  - [Questions?](#questions)
+  - [Contributors](#contributors)
+
+<!-- Tocer[finish]: Auto-generated, don't remove. -->
+
 ## What are we building?
 
 The New Sanctuary Coalition is a network of congregations, organizations, and individuals standing publicly in solidarity with families and communities resisting detention and deportation. This internal database software facilitates NSC's core programs and allows them to operate at increasing scale.
 
-NSC's programs include:
+**NSC's programs include:**
 - Accompaniment Program: pairs undocumented people with a group of trained volunteers to accompany them to their immigration hearings and check-ins with ICE.
 - Pro-se Clinic: a weekly clinic where undocumented people work with trained volunteers and lawyers to prepare documents (asylum applications, juvenile visas, etc.) to fight their immigration case.
 - Anti-Detention Program: works with detained immigrants across the US and their families to fight for their release.
 
-More information:  http://www.newsanctuarynyc.org/
+**Learn More**
+- About New Sanctuary Coalition: http://www.newsanctuarynyc.org/
+- About how this project supports NSC's work (Strange Loop, 2019): https://www.youtube.com/watch?v=5htAAL0cc_w
+- About this project (5by5 Ruby on Rails Podcast): https://5by5.tv/rubyonrails/284 
 
 ## Getting setup
 
@@ -182,6 +219,14 @@ The data is refeshed occassionally, but activities/accompaniments are likely to 
 We are using Skylight for performance monitoring.
 [![View performance data on Skylight](https://badges.skylight.io/status/jaU6phtJKOvV.svg)](https://oss.skylight.io/app/applications/jaU6phtJKOvV)
 
+## Maintenance
+
+When making changes to the README of this project, make sure to run the following:
+
+    rake toc
+
+This will ensure the Table of Contents for this project is properly updated.
+
 ## Contributing
 1. Add a comment on your chosen Github issue to let other contributors know that you have 'claimed' it.
 2. Fork the repo and download a clone of the forked repo: https://guides.github.com/activities/forking/
@@ -189,7 +234,7 @@ We are using Skylight for performance monitoring.
 4. Complete feature with tests!
 5. Check CircleCI to make sure tests are passing.
 6. Make a pull request and tag CZagrobelny to review.
-7. CZagrobelny will leave feedback and merge into master upon approval of the pull request.
+7. CZagrobelny will QA and leave feedback (usually within a few days of when the PR is opened) and merge into master upon approval of the pull request.
 
 It can be really helpful to get notifications when new issues are opened! Here is how you subscribe to notifications:
 <img width="1159" alt="how to get notifications" src="https://user-images.githubusercontent.com/3056607/59544168-df7df000-8edd-11e9-9699-6dc26a1c8cf0.png">

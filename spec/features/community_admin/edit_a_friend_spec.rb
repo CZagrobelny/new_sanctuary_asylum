@@ -7,7 +7,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
     let(:community_admin) { create(:user, :community_admin, community: community) }
     let(:friend) { create(:friend, community: community) }
     let!(:location) { create(:location, region: community.region) }
-    let!(:activity_type_name) { create(:activity_type).name.titlecase }
+    let!(:activity_type) { create(:activity_type) }
     let!(:application) { create(:application, friend: friend) }
     let!(:draft) { create(:draft, friend: friend, application: application) }
 
@@ -26,14 +26,6 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
     end
 
     describe 'editing "Family" information' do
-      before { click_link 'Family' }
-
-      it 'displays the "Family" tab' do
-        within '.tab-content' do
-          expect(page).to have_content 'Family'
-        end
-      end
-
       describe 'adding a new family relationship with valid information' do
         it 'displays the new family member' do
           family_member = Friend.last
@@ -66,6 +58,29 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
       end
     end
 
+    describe 'editing "Note" information' do
+      describe 'adding a new Note' do
+        before do
+          within '.nav-tabs' do
+            click_link 'Notes'
+          end
+        end
+
+        it 'displays the new note' do
+          expect(page).to have_link 'Add Note'
+          click_link 'Add Note'
+          sleep 1
+          fill_in 'Note', with: 'a test note'
+          within '#friend-note-form' do
+            click_button 'Save'
+          end
+          within '#friend-notes-list' do
+            expect(page).to have_content('a test note')
+          end
+        end
+      end
+    end
+
     describe 'editing "Activity" information' do
       describe 'adding a new activity' do
         before do
@@ -76,11 +91,11 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
 
         describe 'with valid information' do
           it 'displays the new activity' do
-            expect(page).to have_link 'Add Activity'
-            click_link 'Add Activity'
+            expect(page).to have_link 'Add Activity/Accompaniment'
+            click_link 'Add Activity/Accompaniment'
             sleep 1
-            select activity_type_name, from: 'Type'
-            expect(page).to have_select('Type', selected: activity_type_name)
+            select activity_type.display_name_with_accompaniment_eligibility, from: 'Type'
+            expect(page).to have_select('Type', selected: activity_type.display_name_with_accompaniment_eligibility)
             select_from_chosen(location.name, from: { id: 'activity_location_id' })
             select_date_and_time(Time.now.beginning_of_hour, from: 'activity_occur_at')
             within '#new_activity' do
@@ -88,7 +103,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
             end
             wait_for_ajax
             within '#activity-list' do
-              expect(page).to have_content(activity_type_name)
+              expect(page).to have_content(activity_type.display_name)
               expect(page).to have_content(location.name)
             end
           end
@@ -96,8 +111,8 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
 
         describe 'with incomplete information' do
           it 'displays validation errors' do
-            expect(page).to have_link 'Add Activity'
-            click_link 'Add Activity'
+            expect(page).to have_link 'Add Activity/Accompaniment'
+            click_link 'Add Activity/Accompaniment'
             sleep 1
             within '#new_activity' do
               click_button 'Save'
@@ -116,6 +131,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
         end
         within '.tab-content' do
           expect(page).to have_content 'Asylum'
+          expect(page).to have_content 'Clinic Plan'
         end
       end
     end
@@ -139,17 +155,6 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
           within '#detention-list' do
             expect(page).to have_content('Immigration Court')
           end
-        end
-      end
-    end
-
-    describe 'editing "Other Case Info"' do
-      it 'displays the "Other Case Info" tab' do
-        within '.nav-tabs' do
-          click_link 'Other Case Info'
-        end
-        within '.tab-content' do
-          expect(page).to have_content 'Lawyer'
         end
       end
     end

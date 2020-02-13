@@ -1,3 +1,13 @@
+<div class='row'>
+  <% if current_user.regional_admin? && params[:remote_clinic].present? %>
+    <%= link_to "Return to #{@friend.name}'s record", regional_admin_region_friend_path(@friend.region, @friend) %>
+  <% elsif current_user.remote_clinic_lawyer? %>
+    <%= link_to "Return to #{@friend.name}'s record", remote_clinic_friend_path(@friend) %>
+  <% else %>
+    <%= link_to "Return to #{@friend.name}'s record", edit_community_admin_friend_path(current_community.slug, @friend, tab: '#documents') %>
+  <% end %>
+</div>
+
 <h3>Review For: <%= @draft.friend.name %></h3>
 <div class='review-metadata'>
   <strong>Application: </strong><%= @draft.application.category.titleize %>
@@ -9,7 +19,6 @@
 <%= display_validation_errors(@review) %>
 <%= form_for([current_community, @friend, @draft, @review]) do |f| %>
   <div class='form-inputs'>
-
     <div class='row form-group'>
       <%= f.label :notes, class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
@@ -22,6 +31,6 @@
         <%= f.submit 'Save', :class => 'btn btn-primary' %>
       </div>
     </div>
-
   </div>
+  <%= hidden_field_tag :remote_clinic, params[:remote_clinic] %>
 <% end %>

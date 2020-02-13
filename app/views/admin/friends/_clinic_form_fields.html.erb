@@ -1,13 +1,5 @@
 <div class='form_fields_section'>
   <h3>Intake</h3>
-  <div class='row form-group'>
-    <%= f.label :clinic_wait_list_priority, 'Clinic Wait List Priority', class: 'col-md-2 control-label' %>
-    <div class='col-md-6'>
-      <%= f.select :clinic_wait_list_priority,
-      options_for_select(Friend.clinic_wait_list_priorities.map { |key, value| [key.humanize, key] }, @friend.clinic_wait_list_priority),
-      {include_blank: true}, {class: 'form-control'} %>
-    </div>
-  </div>
 
   <div class='row form-group'>
     <%= f.label :intake_date, 'Intake Date', class: 'col-md-2 control-label' %>
@@ -24,7 +16,21 @@
   </div>
 
   <div class='row form-group'>
-    <%= f.label :intake_notes, 'Intake Notes', class: 'col-md-2 control-label' %>
+    <div class='col-md-12'>
+      <%= f.check_box :invited_to_speak_to_a_lawyer %>
+      <%= f.label :invited_to_speak_to_a_lawyer, 'Invited to speak to a lawyer' %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <div class='col-md-12'>
+      <%= f.check_box :releases_signed %>
+      <%= f.label :releases_signed, 'Releases signed and uploaded' %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :intake_notes, 'Intake Notes (Team TO DO)', class: 'col-md-2 control-label' %>
     <div class='col-md-10'>
       <%= f.text_area :intake_notes, class: 'form-control', style: 'height: 200px;' %>
     </div>
@@ -39,6 +45,13 @@
   <% else %>
     <strong>Not yet assigned.</strong>
   <% end %>
+
+  <div class='row form-group'>
+    <%= f.label :clinic_plan, 'Clinic Plan', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= f.select :clinic_plan, options_for_select(Friend::CLINIC_PLANS, @friend.clinic_plan), {include_blank: true}, {class: 'form-control'} %>
+    </div>
+  </div>
 </div>
 
 <div class='form_fields_section'>

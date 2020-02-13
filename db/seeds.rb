@@ -4,9 +4,10 @@ require 'timecop'
 ActiveRecord::Base.transaction do
   puts "Seeding database"
 
-  # Populate Countries and Languages
+  # Populate Countries, Languages, and Social work referral categories
   Rake::Task['populate_countries'].invoke
   Rake::Task['populate_languages'].invoke
+  Rake::Task['populate_social_work_referral_categories'].invoke
 
   # NY Region
   ny_region = Region.create!(name: 'ny')
@@ -43,6 +44,9 @@ ActiveRecord::Base.transaction do
 
   #Volunteer User
   User.create!(first_name: 'NYC Community', last_name: 'Volunteer', email: 'nyc_volunteer@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true)
+
+  #Data Entry User
+  User.create!(first_name: 'NYC Data', last_name: 'Entry', email: 'nyc_data_entry@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 3, pledge_signed: true)
 
   #Admin User
   User.create!(first_name: 'NYC Community', last_name: 'Admin', email: 'nyc_admin@example.com', community_id: nyc_community.id, phone: '888 888 8888', password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 2, pledge_signed: true)

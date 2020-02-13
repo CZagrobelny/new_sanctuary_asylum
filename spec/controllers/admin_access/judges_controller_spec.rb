@@ -45,9 +45,10 @@ RSpec.describe Admin::JudgesController, type: :controller do
       describe 'PUT #update' do
         let!(:judge) { create :judge, region: community.region }
         it 'allows access' do
-          judge.first_name = 'new name'
-          put :update, params: { community_slug: community.slug, id: judge.id, judge: judge.attributes }
-          expect(judge.first_name).to eq 'new name'
+          judge_attributes = judge.attributes
+          judge_attributes['first_name'] = 'new name'
+          put :update, params: { community_slug: community.slug, id: judge.id, judge: judge_attributes }
+          expect(judge.reload.first_name).to eq 'new name'
         end
       end
     end

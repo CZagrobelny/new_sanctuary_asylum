@@ -1,4 +1,4 @@
-<%= form_for [current_community, @user] do |f| %>
+<%= form_for [current_community, @user], html: { autocomplete: "off" } do |f| %>
 
   <%= display_validation_errors(@user) %>
 
@@ -20,7 +20,7 @@
     <div class='row form-group'>
       <%= f.label :email, class: 'col-md-2 control-label required' %>
       <div class='col-md-6'>
-        <%= f.text_field :email, class: 'form-control' %>
+        <%= f.text_field :email, autocomplete: 'new', class: 'form-control' %>
       </div>
     </div>
 
@@ -31,14 +31,25 @@
       </div>
     </div>
 
-   <div class='row form-group'>
+    <div class='row form-group'>
       <%= fields_for(@user.languages.build) do |fl| %>
         <%= fl.label :languages,'Languages', class: 'col-md-2 control-label' %>
         <div class='col-md-6'>
-          <%= collection_select(:user, :language_ids, Language.all, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+          <%= collection_select(:user, :language_ids, Language.all, :id, :name, {}, { multiple: true, prompt: true, class: 'chzn-select form-control' }) %>
         </div>
       <% end %>
     </div>
+
+    <div class='row form-group'>
+      <p><strong>ONLY</strong> fill in the password field if you want to <strong>CHANGE</strong> your password. If you leave this field blank, your password will stay the same.</p>
+      <p>Passwords are required to be at least 8 characters long AND contain at least one of EACH of the following: an uppercase letter, a lowercase letter, a number.  They also cannot be a password that you used previously.</p>
+      <%= f.label :password, class: 'col-md-2 control-label' %>
+      <div class='col-md-6'>
+        <%= f.password_field :password, autocomplete: 'new', class: 'form-control', placeholder: 'Set a NEW password' %>
+      </div>
+    </div>
+    <p><strong>Password Last Reset At:</strong> <%= @user.password_changed_at.try(:strftime, '%-I:%M %p, %B %-d, %Y') %></p>
+  </div>
 
   <div class='row'>
     <div class='col-md-1 col-md-offset-7'>

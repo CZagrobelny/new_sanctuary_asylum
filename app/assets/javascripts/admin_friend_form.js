@@ -40,17 +40,32 @@ $(document).on('turbolinks:load', function () {
   $('.open_detention_modal').click(function() {
     $('#detention_modal').modal('show');
   });
+
+  $('.open_ankle_monitor_modal').click(function() {
+    $('#ankle_monitor_modal').modal('show');
+  });
+
+  $('.open_friend_note_modal').click(function() {
+    $('#friend_note_modal').modal('show');
+  });
 });
 
 function activateChosen() {
   var all_chosen_selects = $('.chzn-select');
   for (var i=0; i<all_chosen_selects.length;i++) {
     var chosen_select = all_chosen_selects[i];
-    $(chosen_select).chosen({
+    var attributes = {
       allow_single_deselect: true,
       no_results_text: 'No results matched',
-      width: '100%'
-    });
+    };
+    if (chosen_select.id == 'filterrific_activity_type') {
+      attributes['width'] = '33%'
+    } else if (chosen_select.id == 'filterrific_country_of_origin') {
+      attributes['width'] = '66%'
+    } else {
+      attributes['width'] = '100%'
+    }
+    $(chosen_select).chosen(attributes);
 
     // remove duplicated chosen-containers
     if ($(chosen_select).next().next().hasClass('chosen-container')) {

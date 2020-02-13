@@ -39,9 +39,10 @@ RSpec.describe Admin::Friends::DetentionsController, type: :controller do
     describe 'PUT #update' do
       let!(:detention) { create :detention, friend: friend }
       it 'allows access' do
-        detention.case_status = 'circuit_court'
-        put :update, params: { community_slug: community.slug, friend_id: friend.id, id: detention.id, detention: detention.attributes }, format: 'js', xhr: true
-        expect(detention.case_status).to eq 'circuit_court'
+        detention_attributes = detention.attributes
+        detention_attributes['case_status'] = 'circuit_court'
+        put :update, params: { community_slug: community.slug, friend_id: friend.id, id: detention.id, detention: detention_attributes }, format: 'js', xhr: true
+        expect(detention.reload.case_status).to eq 'circuit_court'
       end
     end
 

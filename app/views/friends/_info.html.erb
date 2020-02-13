@@ -1,5 +1,10 @@
+<h3>Team TO DO</h3>
+<p><%= friend.intake_notes %></p>
+
 <h3>Basic</h3>
 
+<p><strong>ID: </strong><%= friend.id %></p>
+<p><strong>Record Digitized:  </strong><%= friend.digitized ? 'Yes' : 'No' %></p>
 <p><strong>First Name:  </strong><%= friend.first_name %></p>
 <p><strong>Middle Name:  </strong><%= friend.middle_name %></p>
 <p><strong>Last Name:  </strong><%= friend.last_name %></p>
@@ -17,9 +22,6 @@
 <p><strong>Date of Birth:  </strong><%= friend.date_of_birth.strftime('%m/%d/%y') if friend.date_of_birth.present? %></p>
 <p><strong>Status:  </strong><%= friend.status.try(:humanize) %></p>
 <p><strong>Date of Entry:  </strong><%= friend.date_of_entry.strftime('%m/%d/%y') if friend.date_of_entry.present? %></p>
-<p><strong>Border Queue Number:  </strong><%= friend.border_queue_number %></p>
-<p><strong>Border Crossing Status:  </strong><%= friend.border_crossing_status.try(:titlecase) %></p>
-<p><strong>Notes:  </strong><%= friend.notes %></p>
 
 <h3>Family</h3>
 
@@ -35,9 +37,8 @@
   <% friend.activities.order('occur_at desc').each do |activity| %>
     <p>
       <strong>What:  </strong><%= activity.activity_type.name.titlecase %><br>
-      <strong>When:  </strong><%= activity.occur_at.strftime("%I:%M %p, %A, %B %-d, %Y") %><br>
+      <strong>When:  </strong><%= activity.occur_at_str %><br>
       <strong>Where:  </strong><%= activity.location.name  if activity.location.present? %><br>
-      <strong>Volunteers:  </strong><%= activity.users.pluck(:first_name).to_sentence %>
     </p>
   <% end %>
 <% end %>

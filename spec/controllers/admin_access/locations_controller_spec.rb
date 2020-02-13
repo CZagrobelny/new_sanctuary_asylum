@@ -45,9 +45,10 @@ RSpec.describe Admin::LocationsController, type: :controller do
       describe 'PUT #update' do
         let!(:location) { create :location, region: community.region }
         it 'allows access' do
-          location.name = 'new name'
-          put :update, params: { community_slug: community.slug, id: location.id, location: location.attributes }
-          expect(location.name).to eq 'new name'
+          location_attributes = location.attributes
+          location_attributes['name'] = 'new name'
+          put :update, params: { community_slug: community.slug, id: location.id, location: location_attributes }
+          expect(location.reload.name).to eq 'new name'
         end
       end
     end

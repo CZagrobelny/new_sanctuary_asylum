@@ -7,11 +7,7 @@ class RemoteClinic::FriendsController < ApplicationController
   end
 
   def show
-    if !release && !friend.region.border?
-      redirect_to new_remote_clinic_friend_release_path(friend)
-    else
-      render
-    end
+    friend
   end
 
   private
@@ -22,9 +18,5 @@ class RemoteClinic::FriendsController < ApplicationController
 
   def friend
     @friend ||= Friend.find_by_id(params[:id])
-  end
-
-  def release
-    @release ||= current_user.releases.find_by(friend: friend)
   end
 end

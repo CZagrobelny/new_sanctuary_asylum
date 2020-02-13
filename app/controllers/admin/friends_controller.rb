@@ -1,20 +1,21 @@
 class Admin::FriendsController < AdminController
   def index
-    filter_clinic_wait_list_priorities = params.dig('filterrific', 'filter_clinic_wait_list_priority')
-    if filter_clinic_wait_list_priorities.present?
-      params['filterrific']['filter_clinic_wait_list_priority'] = filter_clinic_wait_list_priorities.reject!(&:empty?)
+    if params[:filterrific] && params[:filterrific][:activity_type]
+      params[:filterrific][:activity_type].reject!(&:blank?)
     end
-
     @filterrific = initialize_filterrific(Friend,
                                           params[:filterrific],
                                           default_filter_params: { sorted_by: 'created_at_desc' },
                                           select_options: {
                                             sorted_by: Friend.options_for_sorted_by,
-                                            filter_border_crossing_status: Friend::BORDER_CROSSING_STATUSES,
-                                            filter_clinic_wait_list_priority: Friend.clinic_wait_list_priorities.map { |key, value| [key.humanize, key] }},
+                                            activity_type: Friend.options_for_activity_type,
+                                            country_of_origin: Friend.options_for_country_of_origin,
+                                          },
                                           persistence_id: false)
 
-    @friends = current_community.friends.filterrific_find(@filterrific).paginate(page: params[:page])
+    @friends = current_community.friends
+      .filterrific_find(@filterrific)
+      .paginate(page: params[:page])
   end
 
   def new
@@ -40,7 +41,7 @@ class Admin::FriendsController < AdminController
   def update
     if params['manage_drafts'].present?
       update_and_render_drafts
-    elsif friend.update(friend_params)
+    elsif friend.update(friend_params) && update_digitized_fields
       flash[:success] = 'Friend record saved.'
       redirect_to edit_community_admin_friend_path(current_community, @friend, tab: current_tab)
     else
@@ -79,9 +80,8 @@ class Admin::FriendsController < AdminController
       :gender,
       :date_of_birth,
       :status,
+      :famu_docket,
       :date_of_entry,
-      :border_crossing_status,
-      :border_queue_number,
       :notes,
       :asylum_status,
       :asylum_notes,
@@ -117,9 +117,18 @@ class Admin::FriendsController < AdminController
       :sponsor_relationship,
       :intake_notes,
       :must_be_seen_by,
+      :invited_to_speak_to_a_lawyer,
       :intake_date,
-      :clinic_wait_list_priority,
+      :digitized,
+      :digitized_at,
+      :digitized_by,
+      :releases_signed,
+      :social_work_referral_notes,
+      :no_record_in_eoir,
+      :order_of_supervision,
+      :clinic_plan,
       language_ids: [],
+      social_work_referral_category_ids: [],
       user_ids: []
     ).merge(community_id: current_community.id, region_id: current_region.id)
   end
@@ -130,6 +139,15 @@ class Admin::FriendsController < AdminController
     else
       flash.now[:error] = 'Please fill in all required friend fields before managing documents.'
       render :edit
+    end
+  end
+
+  def update_digitized_fields
+    return true unless friend.saved_change_to_attribute?('digitized')
+    if friend.digitized
+      friend.update(digitized_at: Time.now, digitized_by: current_user.id)
+    else
+      friend.update(digitized_at: nil, digitized_by: nil)
     end
   end
 

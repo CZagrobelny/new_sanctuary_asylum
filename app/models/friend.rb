@@ -3,7 +3,6 @@ class Friend < ApplicationRecord
 
   enum ethnicity: %i[white black hispanic asian south_asian caribbean indigenous other]
   enum gender: %i[male female awesome]
-  enum clinic_wait_list_priority: %i[priority needs_attention can_wait]
 
   STATUSES = %w[in_deportation_proceedings
                 not_in_deportation_proceedings
@@ -37,11 +36,19 @@ class Friend < ApplicationRecord
 
   EOIR_CASE_STATUSES = %w[case_pending
                           immigration_judge_ordered_removal
-                          prior_voluntary_departure 
-                          appeal pending 
+                          prior_voluntary_departure
+                          appeal pending
                           motion_to_reopen_submitted].map { |status| [status.titlecase, status] }
 
-  BORDER_CROSSING_STATUSES = %w[ready_to_cross detained_while_crossing successfully_crossed].map { |status| [status.titlecase, status] }
+  CLINIC_PLANS = %w[i589
+                    individual_hearing
+                    motion_to_reopen
+                    appeal
+                    osup_rfi
+                    consultation
+                    foia
+                    change_of_venue
+                    work_permit].map{ |plan| [plan.titlecase, plan] }
 
   ASYLUM_APPLICATION_DEADLINE = 1.year
 
@@ -51,6 +58,7 @@ class Friend < ApplicationRecord
   has_many :languages, through: :friend_languages
   has_many :activities, dependent: :restrict_with_error
   has_many :detentions, dependent: :destroy
+  has_many :ankle_monitors, dependent: :destroy
   has_many :user_friend_associations, dependent: :destroy
   has_many :users, through: :user_friend_associations
   has_many :drafts, dependent: :restrict_with_error
@@ -61,7 +69,10 @@ class Friend < ApplicationRecord
   has_many :cohorts, through: :friend_cohort_assignments
   has_many :family_relationships, dependent: :destroy
   has_many :family_members, through: :family_relationships, source: 'relation'
-  has_many :releases, dependent: :destroy
+  has_many :friend_social_work_referral_categories, dependent: :destroy
+  has_many :social_work_referral_categories, through: :friend_social_work_referral_categories
+  has_many :friend_notes, dependent: :destroy
+  has_one :country
 
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
 
@@ -70,6 +81,8 @@ class Friend < ApplicationRecord
   validates :a_number, presence: { if: :a_number_available? }, numericality: { if: :a_number_available? }
   validates :a_number, length: { minimum: 8, maximum: 9 }, if: :a_number_available?
   validates_uniqueness_of :a_number, if: :a_number_available?
+  validates :gender, presence: true, on: :create
+  validates :clinic_plan, inclusion: {in: CLINIC_PLANS.map(&:last)}, allow_blank: true
 
   scope :detained, -> { where(status: 'in_detention') }
 
@@ -87,9 +100,6 @@ class Friend < ApplicationRecord
     users.where(user_friend_associations: { remote: true })
   end
 
-  scope :filter_id, ->(id) {
-    where(id: id)
-  }
 
   pg_search_scope :filter_first_name, against: :first_name,
                                       using: { tsearch: { prefix: true } }
@@ -101,12 +111,36 @@ class Friend < ApplicationRecord
     where(a_number: number)
   }
 
-  scope :filter_border_queue_number, ->(number) {
-    where(border_queue_number: number)
+  scope :filter_id, ->(id) {
+    where(id: id)
   }
 
   scope :filter_detained, ->(detained) {
     where(status: 'in_detention') if detained == 1
+  }
+
+  scope :filter_invited_to_speak_to_a_lawyer, ->(invited_to_speak_to_a_lawyer) {
+    where(invited_to_speak_to_a_lawyer: true) if invited_to_speak_to_a_lawyer == 1
+  }
+
+  scope :filter_famu_docket, ->(famu_docket) {
+    where(famu_docket: true) if famu_docket == 1
+  }
+
+  scope :filter_no_record_in_eoir, ->(no_record_in_eoir) {
+    where(no_record_in_eoir: true) if no_record_in_eoir == 1
+  }
+
+  scope :filter_order_of_supervision, ->(order_of_supervision) {
+    where(order_of_supervision: true) if order_of_supervision == 1
+  }
+
+  scope :filter_must_be_seen_by_after, ->(date) {
+    where('must_be_seen_by >= ?', string_to_beginning_of_date(date))
+  }
+
+  scope :filter_must_be_seen_by_before, ->(date) {
+    where('must_be_seen_by <= ?', string_to_end_of_date(date))
   }
 
   scope :filter_asylum_application_deadline_ending_after, ->(date) {
@@ -127,20 +161,39 @@ class Friend < ApplicationRecord
     where('created_at <= ?', string_to_end_of_date(date))
   }
 
-  scope :filter_clinic_wait_list_priority, lambda { |priorities|
-    where(clinic_wait_list_priority: [*priorities])
-  }
-
-  scope :filter_border_crossing_status, ->(status) {
-    where(border_crossing_status: status)
-  }
-
   scope :filter_application_status, ->(status) {
     status = %i[in_review changes_requested approved] if status == 'all_active'
     joins(:applications)
       .distinct
       .where(applications: { status: status })
   }
+
+  scope :filter_phone_number, ->(phone) {
+    return nil if phone.blank?
+
+    # cast to string (if query just "123", would get integer)
+    # lowercase & normalize . () - + and space out
+    number_chunks = phone.to_s.downcase.split(/[\s+\-\(\)\.\+]/)
+
+    # make this a wildcard search by surrounding with %
+    number_chunks = number_chunks.map { |chunk|
+      "%" + chunk + "%"
+    }
+
+    # search for each chunk separately
+    where(
+      number_chunks.map { |_term|
+        "(LOWER(friends.phone) LIKE ?)"
+      }.join(" AND "),
+      *number_chunks.flatten,
+    )
+  }
+
+  pg_search_scope :filter_notes,
+    associated_against: { friend_notes: :note },
+    using: {
+      tsearch: { dictionary: "english" }
+    }
 
   scope :sorted_by, ->(sort_option) {
     # extract the sort direction from the param value.
@@ -149,20 +202,46 @@ class Friend < ApplicationRecord
     when /^created_at_/
       # Simple sort on the created_at column.
       order("friends.created_at #{direction}")
-    when /^border_queue_number/
-      where('border_queue_number IS NOT NULL').order("friends.border_queue_number #{direction}")
     when /^intake_date_/
       where('intake_date IS NOT NULL').order("friends.intake_date #{direction}")
     when /^must_be_seen_by_/
       where('must_be_seen_by IS NOT NULL').order("friends.must_be_seen_by #{direction}")
     when /^date_of_entry/
       where('date_of_entry IS NOT NULL').order("friends.date_of_entry #{direction}")
-    when /^clinic_wait_list_priority_/
-      where('clinic_wait_list_priority IS NOT NULL').order("friends.clinic_wait_list_priority #{direction}")
     else
       raise(ArgumentError, "Invalid sort option: #{sort_option.inspect}")
     end
   }
+
+  scope :activity_type, ->(activity_type_ids) {
+    joins(:activities)
+      .where(activities: { activity_type_id: activity_type_ids })
+  }
+
+  scope :filter_activity_start_date, ->(time) {
+    joins(:activities)
+      .where('activities.occur_at >= ?', Date.strptime(time, '%m/%d/%Y').beginning_of_day)
+  }
+
+  scope :filter_activity_end_date, ->(time) {
+    joins(:activities)
+      .where('activities.occur_at <= ?', Date.strptime(time, '%m/%d/%Y').end_of_day)
+  }
+
+  scope :filter_activity_tbd_or_control_date, ->(occur_at_tbd) {
+    if occur_at_tbd == 1
+      joins(:activities)
+        .distinct
+        .where('activities.occur_at_tbd = true or activities.control_date is not null')
+    end
+  }
+
+  scope :country_of_origin, ->(country_ids) {
+    unless country_ids.reject! { |id| id.try(:strip) == '' || id.nil? }.empty?
+      where(country_id: country_ids)
+    end
+  }
+
 
   filterrific(default_filter_params: {},
               available_filters: %i[filter_id
@@ -170,30 +249,51 @@ class Friend < ApplicationRecord
                                     filter_last_name
                                     filter_a_number
                                     filter_detained
+                                    filter_activity_tbd_or_control_date
+                                    filter_invited_to_speak_to_a_lawyer
+                                    filter_famu_docket
+                                    filter_must_be_seen_by_after
+                                    filter_must_be_seen_by_before
                                     filter_asylum_application_deadline_ending_after
                                     filter_asylum_application_deadline_ending_before
                                     filter_created_after
                                     filter_created_before
-                                    filter_clinic_wait_list_priority
-                                    filter_border_queue_number
-                                    filter_border_crossing_status
                                     filter_application_status
-                                    sorted_by])
+                                    filter_phone_number
+                                    filter_notes
+                                    filter_activity_start_date
+                                    filter_activity_end_date
+                                    sorted_by
+                                    activity_type
+                                    filter_no_record_in_eoir
+                                    filter_order_of_supervision
+                                    country_of_origin
+                                  ])
+
+  # This method provides select options for the `activity_type` filter select input
+  def self.options_for_activity_type
+    ActivityType.all.map do |type|
+      [type.name.humanize, type.id]
+    end
+  end
+
+  # This method provides select options for the `country_of_origin` filter select input
+  def self.options_for_country_of_origin
+    Country.all.map do |type|
+      [type.name.titlecase, type.id]
+    end
+  end
 
   # This method provides select options for the `sorted_by` filter select input.
   def self.options_for_sorted_by
     [
       %w[Newest created_at_desc],
       %w[Oldest created_at_asc],
-      ['Border Queue Number (Low to High)', 'border_queue_number_asc'],
-      ['Border Queue Number (High to Low)', 'border_queue_number_desc'],
       ['Intake Date (Ascending)', 'intake_date_asc'],
       ['Intake Date (Descending)', 'intake_date_desc'],
       ['Must Be Seen By (Soonest)', 'must_be_seen_by_asc'],
       ['Date of Entry (Ascending)', 'date_of_entry_asc'],
       ['Date of Entry (Descending)', 'date_of_entry_desc'],
-      ['Clinic Wait List Priority (Highest)', 'clinic_wait_list_priority_asc'],
-      ['Clinic Wait List Priority (Lowest)', 'clinic_wait_list_priority_desc']
     ]
   end
 
@@ -211,8 +311,8 @@ class Friend < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-  def name_and_clinic_priority
-    "#{name} (#{clinic_wait_list_priority.titlecase})"
+  def name_and_id
+    "#{name} (#{id})"
   end
 
   def ethnicity
@@ -239,17 +339,6 @@ class Friend < ApplicationRecord
 
   def self.string_to_end_of_date(date)
     date.to_str.to_date.end_of_day
-  end
-
-  def clinic_wait_list_class
-    case self.clinic_wait_list_priority
-    when "priority"
-      return "clinic_waitlist_pri_high"
-    when "needs_attention"
-      return "clinic_waitlist_pri_med"
-    when "can_wait"
-      return "clinic_waitlist_pri_low"
-    end
   end
 
   private

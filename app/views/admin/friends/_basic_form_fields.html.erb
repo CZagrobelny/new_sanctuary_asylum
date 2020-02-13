@@ -127,29 +127,44 @@
 </div>
 
 <div class='row form-group'>
+  <div class='col-md-offset-2 col-md-6'>
+    <%= f.check_box :famu_docket %>
+    <%= f.label :famu_docket, 'FAMU docket' %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <div class='col-md-offset-2 col-md-6'>
+    <%= f.check_box :no_record_in_eoir %>
+    <%= f.label :no_record_in_eoir, 'No Record in EOIR' %>
+  </div>
+</div>
+
+<div class='row form-group'>
+  <div class='col-md-offset-2 col-md-6'>
+    <%= f.check_box :order_of_supervision %>
+    <%= f.label :order_of_supervision, 'Has Order of Supervision' %>
+  </div>
+</div>
+
+<div class='row form-group'>
   <%= f.label :date_of_entry, 'Date of Entry', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
     <%= f.date_select :date_of_entry, { start_year: Date.current.year, end_year: 1930, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
   </div>
 </div>
 
-<div class='row form-group'>
-  <%= f.label :border_queue_number, 'Border Queue Number', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= f.text_field :border_queue_number, class: 'form-control' %>
-  </div>
-</div>
+<h3>Family</h3>
 
-<div class='row form-group'>
-  <%= f.label :border_crossing_status, 'Border Crossing Status', class: 'col-md-2 control-label' %>
-  <div class='col-md-6'>
-    <%= f.select :border_crossing_status, options_for_select(Friend::BORDER_CROSSING_STATUSES, @friend.border_crossing_status), {include_blank: true}, {class: 'form-control'} %>
+<% if @friend.persisted? %>
+  <div id='family-list' >
+    <%= render partial: 'admin/friends/family_relationships/list', locals: { friend: @friend } %>
   </div>
-</div>
 
-<div class='row form-group'>
-  <%= f.label :notes, class: 'col-md-2 control-label' %>
-  <div class='col-md-10'>
-    <%= f.text_area :notes, class: 'form-control', style: 'height: 200px;' %>
-  </div>
-</div>
+  </br>
+  <%= link_to 'Add Family Member', new_community_admin_friend_family_relationship_path(current_community.slug, @friend), remote: true, class: 'btn btn-primary', data: { toggle: 'modal', target: '#add_family_relationship_modal' } %>
+<% else %>
+  <p>
+    <strong>Once you 'Save' this new Friend record, you can return to this section to add Family members.</strong>
+  </p>
+<% end %>

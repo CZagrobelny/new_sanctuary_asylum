@@ -27,15 +27,18 @@ Rails.application.routes.draw do
           patch :submit_for_review
           patch :approve
         end
-        resources :reviews, except: [:index, :destroy]
+        resources :reviews, except: [:index]
       end
-      resources :releases, only: [:new, :create]
     end
     resources :accompaniments, only: [:create, :update]
     resources :activities, only: [:index]
 
     namespace :admin do
-    	resources :users, except: [:new, :create, :show]
+    	resources :users, except: [:new, :create, :show] do
+        member do
+          patch :unlock
+        end
+      end
       resources :access_time_slots, except: [:show]
       resources :activities, except: [:destroy] do
         collection do
@@ -54,10 +57,17 @@ Rails.application.routes.draw do
           end
         end
         resources :detentions, controller: 'friends/detentions', except: [:index, :show]
+        resources :friend_notes, controller: 'friends/friend_notes', except: [:index, :show]
+
+        resources :ankle_monitors, controller: 'friends/ankle_monitors', except: [:index, :show]
         resources :family_relationships, only: [:new, :create, :destroy]
       end
 
-      resources :judges, except: [:show, :destroy]
+      resources :judges, except: [:show, :destroy] do
+        member do
+          patch :toggle
+        end
+      end
       resources :locations, except: [:show, :destroy]
       resources :sanctuaries, except: [:show, :destroy]
       resources :lawyers, except: [:show, :destroy]
@@ -76,6 +86,8 @@ Rails.application.routes.draw do
         end
         resources :friend_cohort_assignments, only: [:create, :update, :destroy]
       end
+
+      resources :stats
     end
 
     namespace :accompaniment_leader do
@@ -103,9 +115,7 @@ Rails.application.routes.draw do
   end
 
   namespace :remote_clinic do
-    resources :friends, only: [:index, :show] do
-      resources :releases, only: [:new, :create, :destroy]
-    end
+    resources :friends, only: [:index, :show]
   end
 
 	match '/404', to: 'errors#not_found', via: :all

@@ -2,7 +2,7 @@
   <div class='col-md-9'>
     <strong>
       <%= link_to "#{activity.activity_type.name.titlecase}", edit_community_admin_friend_activity_path(current_community.slug, friend, activity), remote: true, class: 'open_activity_modal' %>
-      <%= activity.occur_at.strftime("-- %I:%M %p, %A, %B %-d, %Y") %>
+      <%= activity.occur_at_str %>
     </strong><br>
     <% if activity.location.present? %>
       <strong>Location:  </strong><%= activity.location.name %><br>
@@ -32,6 +32,11 @@
           <strong>Notes: </strong><%= report.notes %>
           <br>
       <% end %>
+    <% end %>
+    <% if activity.last_edited_by_user %>
+      <strong>Last Edited By:</strong>
+      <%= activity.last_edited_by_user.name %>
+      <br>
     <% end %>
     <strong>
       <%= link_to 'Remove', community_admin_friend_activity_path(current_community.slug, friend, activity), method: :delete, data: { confirm: 'Are you sure you want to remove this activity?' }, remote: true, style: 'color: #b30000 !important; font-style: italic;' %>

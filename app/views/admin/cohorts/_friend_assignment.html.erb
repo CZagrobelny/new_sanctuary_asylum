@@ -1,6 +1,6 @@
 <h3>Friends Assigned</h3>
 <%= form_for [current_community, :admin, cohort, FriendCohortAssignment.new], remote: true do |f| %>
-  <%= f.select(:friend_id, options_from_collection_for_select(current_community.friends.where('clinic_wait_list_priority IS NOT NULL'), 'id', 'name_and_clinic_priority', disabled: FriendCohortAssignment.all.pluck(:friend_id)), {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+  <%= f.select(:friend_id, options_from_collection_for_select(current_community.friends, 'id', 'name_and_id', disabled: FriendCohortAssignment.all.pluck(:friend_id)), {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
 <% end %>
 <br>
 <table class='table table-bordered'>
@@ -8,6 +8,8 @@
     <tr>
       <th />
       <th>Name</th>
+      <th>Date of Entry</th>
+      <th>Clinic Plan</th>
       <th>Confirmed</th>
       <% @events.each do |event| %>
         <th><%= event.date.strftime("%-m/%-d") %></th>
@@ -30,6 +32,12 @@
             ), target: '_blank', id: "edit-user-#{assignment.friend.id}" do %>
             <% "#{assignment.friend.name}" %>
           <% end %>
+        </td>
+        <td>
+          <%= assignment.friend.date_of_entry.try(:strftime, '%m/%d/%y') %>
+        </td>
+        <td>
+          <%= assignment.friend.clinic_plan&.titlecase %>
         </td>
         <td>
           <%= form_for [current_community, :admin, cohort, assignment]  do |f| %>

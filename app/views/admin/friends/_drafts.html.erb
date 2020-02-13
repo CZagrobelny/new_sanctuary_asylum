@@ -1,8 +1,16 @@
 <br>
-<div class='col-md-2 col-md-offset-10'>
-  <%= f.submit 'Manage Documents', name: 'manage_drafts', class: 'btn btn-primary' %>
+<div class='row'>
+  <div class='col-md-8'>
+    <%= f.check_box :digitized %>
+    <%= f.label :digitized %>
+    <% if @friend.digitized_by && @friend.digitized_at %>
+      <span>(by <%= User.find(@friend.digitized_by).try(:name) %> on <%= @friend.digitized_at.strftime("%B %-d, %Y") %>)</span>
+    <% end %>
+  </div>
+  <div class='col-md-2'>
+    <%= f.submit 'Manage Documents', name: 'manage_drafts', class: 'btn btn-primary' %>
+  </div>
 </div>
-<br>
 <% if @friend.grouped_drafts.empty? %>
   <h3> There are no files associated with this user.</h3>
 <% else %>
@@ -10,7 +18,7 @@
     <h3><%= group[:name].titlecase %></h3>
     <% group[:drafts].each do |draft| %>
       <div class='row'>
-        <div class='col-md-6'>
+        <div class='col-md-10'>
           <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
           <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
 
@@ -22,10 +30,19 @@
             <strong>Notes:  </strong><%= draft.notes %><br>
           <% end %>
           <% draft.reviews.each do |review| %>
-            <%= link_to "Review by #{review.user.name} (#{review.user.role.tr('_', ' ').titlecase})", community_friend_draft_review_path(current_community.slug, @friend, draft, review) %><%= review.created_at.strftime(" -- %A, %B %-d, %Y") %>
+            <%= link_to "Review by #{review.user.name} (#{review.user.role.tr('_', ' ').titlecase})", review.authored_by?(current_user) ? edit_community_friend_draft_review_path(@friend.community.slug, @friend, draft, review) : community_friend_draft_review_path(@friend.community.slug, @friend, draft, review) %><%= review.created_at.strftime(" -- %A, %B %-d, %Y") %>
+            <% if review.authored_by?(current_user) %>
+              <div class='pull-right'>
+                <%= link_to 'Remove', community_friend_draft_review_path(current_community.slug, @friend, draft, review), method: :delete, remote: true, class: 'delete' %>
+              </div>
+            <% end %>
             <br>
           <% end %>
+          <% unless draft.reviews.by_user(current_user).present? %>
+            <%= link_to 'Add Review', new_community_friend_draft_review_path(@friend.community.slug, @friend, draft) %>
+          <% end %>
         </div>
+
         <%= render partial: 'drafts/draft_status', locals: { current_community: current_community, friend: friend, draft: draft } %>
         <br>
       </div>

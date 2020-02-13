@@ -1,5 +1,5 @@
 class Admin::CohortsController < AdminController
-  before_action :require_admin
+  before_action :require_admin_or_access_time_slot
 
   def index
     @cohorts = current_community.cohorts.order('start_date desc').paginate(page: params[:page])

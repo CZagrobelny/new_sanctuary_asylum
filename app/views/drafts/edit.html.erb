@@ -1,4 +1,4 @@
-<% unless current_user.admin_or_has_active_access_time_slot? %>
+<% unless current_user.admin? || current_user.has_active_access_time_slot? %>
   <div class='row'><%= link_to 'Back to Friend Record', community_friend_path(current_community.slug, @friend, tab: '#documents') %></div>
 <% end %>
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_05_223234) do
+ActiveRecord::Schema.define(version: 2020_02_01_173349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,9 @@ ActiveRecord::Schema.define(version: 2019_09_05_223234) do
     t.boolean "confirmed"
     t.text "public_notes"
     t.integer "activity_type_id"
+    t.integer "last_edited_by"
+    t.boolean "occur_at_tbd"
+    t.datetime "control_date"
     t.index ["activity_type_id"], name: "index_activities_on_activity_type_id"
     t.index ["region_id"], name: "index_activities_on_region_id"
   end
@@ -67,6 +70,17 @@ ActiveRecord::Schema.define(version: 2019_09_05_223234) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "accompaniment_eligible"
+  end
+
+  create_table "ankle_monitors", force: :cascade do |t|
+    t.datetime "date_removed"
+    t.boolean "bi_smart_link"
+    t.text "notes"
+    t.bigint "friend_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "date_applied"
+    t.index ["friend_id"], name: "index_ankle_monitors_on_friend_id"
   end
 
   create_table "applications", id: :serial, force: :cascade do |t|
@@ -169,6 +183,25 @@ ActiveRecord::Schema.define(version: 2019_09_05_223234) do
     t.index ["language_id"], name: "index_friend_languages_on_language_id"
   end
 
+  create_table "friend_notes", force: :cascade do |t|
+    t.bigint "friend_id", null: false
+    t.bigint "user_id", null: false
+    t.text "note", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["friend_id"], name: "index_friend_notes_on_friend_id"
+    t.index ["user_id"], name: "index_friend_notes_on_user_id"
+  end
+
+  create_table "friend_social_work_referral_categories", force: :cascade do |t|
+    t.bigint "friend_id", null: false
+    t.bigint "social_work_referral_category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["friend_id"], name: "index_friend_social_work_referral_categories_on_friend_id"
+    t.index ["social_work_referral_category_id"], name: "index_fswrc_on_swrc_id"
+  end
+
   create_table "friends", id: :serial, force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -218,15 +251,22 @@ ActiveRecord::Schema.define(version: 2019_09_05_223234) do
     t.string "sponsor_name"
     t.string "sponsor_phone_number"
     t.string "sponsor_relationship"
-    t.string "border_crossing_status"
-    t.integer "border_queue_number"
     t.string "city"
     t.string "jail_id"
     t.text "intake_notes"
     t.datetime "intake_date"
     t.datetime "must_be_seen_by"
-    t.integer "clinic_wait_list_priority"
     t.string "eoir_case_status"
+    t.boolean "digitized", default: false
+    t.datetime "digitized_at"
+    t.integer "digitized_by"
+    t.boolean "invited_to_speak_to_a_lawyer"
+    t.boolean "releases_signed"
+    t.text "social_work_referral_notes"
+    t.boolean "famu_docket", default: false
+    t.boolean "no_record_in_eoir", default: false
+    t.boolean "order_of_supervision", default: false
+    t.string "clinic_plan"
     t.index ["community_id"], name: "index_friends_on_community_id"
     t.index ["region_id"], name: "index_friends_on_region_id"
   end
@@ -237,6 +277,7 @@ ActiveRecord::Schema.define(version: 2019_09_05_223234) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "region_id"
+    t.boolean "hidden", default: false
     t.index ["region_id"], name: "index_judges_on_region_id"
   end
 
@@ -277,17 +318,6 @@ ActiveRecord::Schema.define(version: 2019_09_05_223234) do
     t.string "name"
   end
 
-  create_table "releases", id: :serial, force: :cascade do |t|
-    t.integer "friend_id"
-    t.string "category"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "release_form"
-    t.integer "user_id"
-    t.index ["friend_id"], name: "index_releases_on_friend_id"
-    t.index ["user_id"], name: "index_releases_on_user_id"
-  end
-
   create_table "reviews", id: :serial, force: :cascade do |t|
     t.text "notes"
     t.integer "draft_id"
@@ -317,6 +347,12 @@ ActiveRecord::Schema.define(version: 2019_09_05_223234) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "pdf_draft", null: false
+  end
+
+  create_table "social_work_referral_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_draft_associations", id: :serial, force: :cascade do |t|
@@ -421,13 +457,13 @@ ActiveRecord::Schema.define(version: 2019_09_05_223234) do
   add_foreign_key "activities", "regions"
   add_foreign_key "communities", "regions"
   add_foreign_key "events", "communities"
+  add_foreign_key "friend_notes", "friends"
+  add_foreign_key "friend_notes", "users"
   add_foreign_key "friends", "communities"
   add_foreign_key "friends", "regions"
   add_foreign_key "judges", "regions"
   add_foreign_key "lawyers", "regions"
   add_foreign_key "locations", "regions"
-  add_foreign_key "releases", "friends"
-  add_foreign_key "releases", "users"
   add_foreign_key "sanctuaries", "communities"
   add_foreign_key "user_regions", "regions"
   add_foreign_key "user_regions", "users"

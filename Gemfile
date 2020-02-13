@@ -1,9 +1,8 @@
 source 'https://rubygems.org'
 
-# Make sure to bump .ruby-version when updating this
-ruby '2.6.2'
+ruby File.read('.ruby-version').strip
 
-gem 'rails', '~> 5.2.2.x'
+gem 'rails', '~> 5.2.x'
 
 gem 'airbrake', '~> 6.2'
 gem 'american_date'
@@ -27,14 +26,16 @@ gem 'non-stupid-digest-assets'
 gem 'pg', '~> 1.1'
 gem 'pg_search'
 gem 'phantomjs'
-gem 'puma'
+gem 'puma', '~> 3.x'
 gem 'redis', '~> 3.3'
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'simple_calendar', '~> 2.0'
 gem 'textacular', '~> 5.0'
+gem 'timecop' #used for seed data on staging
 gem 'turbolinks', '~> 5.x'
-gem 'will_paginate', '~> 3.1'
+gem 'will_paginate'
+gem "chartkick"
 
 group :assets do
   gem 'coffee-rails'
@@ -59,7 +60,6 @@ group :development, :test do
   gem 'rubocop'
   gem 'shoulda-matchers', '~> 3.1', require: false
   gem 'simplecov'
-  gem 'timecop'
   gem 'webmock', '~> 2.1', require: false
 end
 
@@ -74,5 +74,7 @@ group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-watcher-listen', '~> 2.0'
+  gem 'tocer', '~> 9.1'
   gem 'web-console', '~> 3.0'
 end
+
