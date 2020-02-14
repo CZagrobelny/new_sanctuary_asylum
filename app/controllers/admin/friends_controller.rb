@@ -1,14 +1,25 @@
 class Admin::FriendsController < AdminController
   def index
-    if params[:filterrific] && params[:filterrific][:activity_type]
-      params[:filterrific][:activity_type].reject!(&:blank?)
+    if params[:filterrific] 
+      if params[:filterrific][:activity_type]
+        params[:filterrific][:activity_type].reject!(&:blank?)
+      end
+      if params[:filterrific][:activity_judge]
+        params[:filterrific][:activity_judge].reject!(&:blank?)
+      end
+      if params[:filterrific][:activity_location]
+        params[:filterrific][:activity_location].reject!(&:blank?)
+      end
     end
+    
     @filterrific = initialize_filterrific(Friend,
                                           params[:filterrific],
                                           default_filter_params: { sorted_by: 'created_at_desc' },
                                           select_options: {
                                             sorted_by: Friend.options_for_sorted_by,
                                             activity_type: Friend.options_for_activity_type,
+                                            activity_judge: Friend.options_for_activity_judge(current_region),
+                                            activity_location: Friend.options_for_activity_location(current_region),
                                             country_of_origin: Friend.options_for_country_of_origin,
                                           },
                                           persistence_id: false)
