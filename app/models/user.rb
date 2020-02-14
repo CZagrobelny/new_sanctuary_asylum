@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  PRIMARY_ROLES = %w[volunteer accompaniment_leader data_entry admin].map { |k, _v| [k.humanize.titleize, k] }
+  PRIMARY_ROLES = %w[volunteer accompaniment_leader data_entry eior_caller admin].map { |k, _v| [k.humanize.titleize, k] }
   NON_PRIMARY_ROLES = %w[volunteer data_entry admin].map { |k, _v| [k.humanize.titleize, k] }
 
   devise :invitable, :database_authenticatable, :lockable,
@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   attr_reader :raw_invitation_token
 
-  enum role: %i[volunteer accompaniment_leader admin data_entry]
+  enum role: %i[volunteer accompaniment_leader admin data_entry eior_caller]
 
   validates :first_name, :last_name, :email, :phone, :community_id, presence: true
   validates :email, uniqueness: true
@@ -31,9 +31,6 @@ class User < ApplicationRecord
   has_many :reviews
   has_many :user_event_attendances, dependent: :destroy
   has_many :friend_notes, dependent: :restrict_with_error
-
-
-
 
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
 
