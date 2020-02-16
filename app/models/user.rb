@@ -1,6 +1,8 @@
 class User < ApplicationRecord
-  PRIMARY_ROLES = %w[volunteer accompaniment_leader data_entry eior_caller admin].map { |k, _v| [k.humanize.titleize, k] }
-  NON_PRIMARY_ROLES = %w[volunteer data_entry admin].map { |k, _v| [k.humanize.titleize, k] }
+  PRIMARY_ROLES = %w[volunteer accompaniment_leader data_entry eoir_caller admin].map { |k, _v| [k.humanize.titleize, k] }
+  NON_PRIMARY_ROLES = %w[volunteer data_entry eoir_caller admin].map { |k, _v| [k.humanize.titleize, k] }
+  # The users who can attend accompaniments (NOT as accompaniment leaders)
+  ACCOMPANIMENT_ELIGIBLE_ROLES = %w[volunteer data_entry eoir_caller]
 
   devise :invitable, :database_authenticatable, :lockable,
          :recoverable, :rememberable, :trackable, :secure_validatable,
@@ -9,7 +11,7 @@ class User < ApplicationRecord
 
   attr_reader :raw_invitation_token
 
-  enum role: %i[volunteer accompaniment_leader admin data_entry eior_caller]
+  enum role: %i[volunteer accompaniment_leader admin data_entry eoir_caller]
 
   validates :first_name, :last_name, :email, :phone, :community_id, presence: true
   validates :email, uniqueness: true
@@ -87,8 +89,12 @@ class User < ApplicationRecord
     )
   }
 
-  def has_active_access_time_slot?
-    access_time_slots.where('start_time < ? AND end_time > ?', Time.now, Time.now).present?
+  def has_active_data_entry_access_time_slot?
+    data_entry? && access_time_slots.active.present?
+  end
+
+  def has_active_eoir_caller_access_time_slot?
+    eoir_caller? && access_time_slots.active.present?
   end
 
   def confirmed?
@@ -153,6 +159,6 @@ class User < ApplicationRecord
   end
 
   def admin_or_existing_relationship?(friend_id)
-    admin? || has_active_access_time_slot? || existing_relationship?(friend_id)
+    admin? || has_active_data_entry_access_time_slot? || existing_relationship?(friend_id)
   end
 end

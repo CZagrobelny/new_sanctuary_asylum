@@ -20,7 +20,7 @@
             <%= f.select(:use, AccessTimeSlot::DATA_ENTRY_USES.map { |use| [use.humanize, use] }, {prompt: true}, class: 'form-control') %>
           </div>
         </div>
-      <% elsif @access_time_slot_type == 'eior_caller' %>
+      <% elsif @access_time_slot_type == 'eoir_caller' %>
         <%= f.hidden_field :use, value: @access_time_slot_type %>
       <% end %>
 

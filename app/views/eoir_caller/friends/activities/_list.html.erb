@@ -1,0 +1,13 @@
+<% if friend.activities.eoir_caller_editable.present? %>
+  <% friend.activities.eoir_caller_editable.order('occur_at desc').each do |activity| %>
+    <%= render partial: 'eoir_caller/friends/activities/activity', locals: { friend: friend, activity: activity } %>
+  <% end %>
+<% end %>
+
+<script>
+  $(document).ready(function () {
+    $('.open_activity_modal').click(function() {
+      $('#activity_modal').modal('show');
+    });
+  });
+</script>

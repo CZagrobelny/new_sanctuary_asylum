@@ -5,6 +5,10 @@ class ActivityType < ApplicationRecord
     where(accompaniment_eligible: true)
   }
 
+  scope :eoir_caller_editable, -> {
+    where(eoir_caller_editable: true)
+  }
+
   scope :by_name, -> {
     order('name asc')
   }

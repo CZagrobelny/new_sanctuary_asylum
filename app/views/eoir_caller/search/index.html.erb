@@ -1,0 +1,63 @@
+<%= form_for :friend, url: community_eoir_caller_search_index_path(current_community.slug), method: :get do |f| %>
+  <div class='row'>
+    <div class='col-md-2 col-md-offset-7 col-sm-2 col-xs-3'>
+      <%= f.label :a_number, 'A Number', class: 'control-label', style: 'float: right; margin-top: 5px;' %>
+    </div>
+    <div class='col-md-2 col-sm-4 col-xs-4'>
+      <%= f.text_field :a_number, value: params.dig(:friend, :a_number), class: 'form-control' %>
+    </div>
+    <%= f.submit 'Search', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+
+<% if @friend %>
+  <h2><%= "#{@friend.name} (#{@friend.id})" %></h2>
+
+  <div class= 'row'>
+    <div class='col-md-11'>
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item active">
+          <a class="nav-link" data-toggle="tab" href="#activities" role="tab">Activities</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#notes" role="tab">Notes</a>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content form-inputs">
+        <div class="tab-pane active" id="activities" role="tabpanel">
+          <br>
+          <div class='row'>
+            <div class='pull-right'>
+              <%= link_to 'Add Activity', new_community_eoir_caller_friend_activity_path(current_community.slug, @friend), remote: true, class: 'btn btn-primary', data: {toggle: 'modal', target: '#activity_modal'} %>
+            </div>
+          </div>
+          <div id='activity-list' >
+            <%= render partial: 'eoir_caller/friends/activities/list', locals: { friend: @friend } %>
+          </div>
+        </div>
+        <div class="tab-pane" id="notes" role="tabpanel">
+          <br>
+          <div class='row'>
+            <div class='pull-right'>
+              <%= link_to 'Add Note', new_community_eoir_caller_friend_friend_note_path(current_community.slug, @friend), remote: true, class: 'btn btn-primary', data: { toggle: 'modal', target: '#friend_note_modal' } %>
+            </div>
+          </div>
+          <div id='friend-notes-list'>
+            <%= render partial: 'eoir_caller/friends/friend_notes/list', locals: { friend: @friend } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= render partial: 'eoir_caller/friends/activities/modal', locals: { activity: @friend.activities.new } %>
+  <%= render partial: 'eoir_caller/friends/friend_notes/modal', locals: { friend_note: @friend.friend_notes.new } %>
+
+<% else %>
+  <h3>No Friend found with that A Number.</h3>
+<% end %>
