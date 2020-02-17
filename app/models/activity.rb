@@ -20,6 +20,11 @@ class Activity < ApplicationRecord
     joins(:activity_type).where(activity_types: { accompaniment_eligible: false })
   }
 
+  scope :eoir_caller_editable, -> {
+    joins(:activity_type).where(activity_types: { eoir_caller_editable: true })
+  }
+
+
   scope :by_region, ->(region) {
     where(region_id: region.id)
   }
@@ -78,7 +83,7 @@ class Activity < ApplicationRecord
 
   def volunteer_accompaniments
     accompaniments.select do |accompaniment|
-      %w[volunteer data_entry].include? accompaniment.user.role
+      User::ACCOMPANIMENT_ELIGIBLE_ROLES.include? accompaniment.user.role
     end
   end
 

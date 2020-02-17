@@ -1,4 +1,6 @@
-<%= link_to "Add New", new_community_admin_access_time_slot_path(current_community), class: 'btn btn-primary pull-right' %>
+<%= link_to "Add Data Entry Timeslot", new_community_admin_access_time_slot_path(current_community, type: 'data_entry'), class: 'btn btn-primary pull-right', style: 'margin-left: 20px;' %>
+
+<%= link_to "Add EOIR Caller Timeslot", new_community_admin_access_time_slot_path(current_community, type: 'eoir_caller'), class: 'btn btn-success pull-right' %>
 
 <h1>Access Time Slots</h1>
 
@@ -10,7 +12,7 @@
         <%= "#{access_time_slot.start_time.strftime("%_I:%M %p")} - #{access_time_slot.end_time.strftime("%_I:%M %p")}" %>
       </dt>
       <dd>
-        <%= link_to "#{access_time_slot.grantee.name} (#{access_time_slot.use.titlecase})",edit_community_admin_access_time_slot_path(current_community, access_time_slot) %>
+        <%= link_to "#{access_time_slot.grantee.name} (#{access_time_slot.use.titlecase})",edit_community_admin_access_time_slot_path(current_community, access_time_slot), class: "#{'eoir_caller' if access_time_slot.grantee.role == 'eoir_caller'}" %>
       </dd>
   <% end %>
   </dl>
