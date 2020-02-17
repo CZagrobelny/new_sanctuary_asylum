@@ -1,0 +1,28 @@
+<div class='row' style='margin-left:5px;'>
+  <div class='col-md-9'>
+    <strong>
+      <%= link_to "#{activity.activity_type.name.titlecase}", edit_community_eoir_caller_friend_activity_path(current_community.slug, friend, activity), remote: true, class: 'open_activity_modal' %>
+      <%= activity.occur_at_str %>
+    </strong><br>
+    <% if activity.location.present? %>
+      <strong>Location:  </strong><%= activity.location.name %><br>
+    <% end %>
+    <% if activity.judge.present? %>
+      <strong>Judge:  </strong><%= activity.judge.name %><br>
+    <% end %>
+    <% if activity.notes.present? %>
+      <strong>Notes:  </strong><%= activity.notes %><br>
+    <% end %>
+    <% if activity.last_edited_by_user %>
+      <strong>Last Edited By:</strong>
+      <%= activity.last_edited_by_user.name %>
+      <br>
+    <% end %>
+    <strong>
+      <%= link_to 'Remove', community_eoir_caller_friend_activity_path(current_community.slug, friend, activity), method: :delete, data: { confirm: 'Are you sure you want to remove this activity?' }, remote: true, style: 'color: #b30000 !important; font-style: italic;' %>
+    </strong>
+  </div>
+</div>
+<br>
+<br>
+

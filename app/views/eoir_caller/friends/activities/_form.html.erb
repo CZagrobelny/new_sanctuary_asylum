@@ -1,0 +1,68 @@
+<% if activity.errors.present? %>
+  <%= display_validation_errors(activity) %>
+<% end %>
+<%= form_for([current_community, :eoir_caller, friend, activity], controller: 'friends/activities', remote: true) do |f| %>
+  <div class='form-inputs'>
+
+    <div class='row form-group'>
+      <%= f.label :activity_type_id, 'Type', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= collection_select(:activity, :activity_type_id, ActivityType.eoir_caller_editable.by_name, :id, :display_name_with_accompaniment_eligibility, prompt: true) %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :location_id, 'Location', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= collection_select(:activity, :location_id, locations_by_name(current_region), :id, :name, {prompt: true}, {class: 'form-control chzn-select'}) %>
+        <span class="text-muted">Select 'EOIR Hotline' if there is no physical location</span>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :judge_id, 'Judge', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= collection_select(:activity, :judge_id, current_region.judges.active, :id, :name, {prompt: true}, {class: 'form-control chzn-select'}) %>
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :occur_at, 'Date/Time', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.date_select :occur_at, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+        <%= f.time_select :occur_at, { ignore_date: true, prompt: true, minute_step: 15 }, {class: 'form-control inline-date-select'} %>
+        <span>ET
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :control_date, 'Control Date', class: 'col-md-12 col-xs-12 control-label' %>
+      <div class='col-md-12 col-xs-12'>
+        <%= f.date_select :control_date, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+        <%= f.time_select :control_date, { ignore_date: true, prompt: true, minute_step: 15 }, {class: 'form-control inline-date-select'} %>
+        <span>ET
+      </div>
+    </div>
+
+    <div class='row form-group'>
+      <%= f.label :occur_at_tbd, 'Occur at TBD', class: 'col-md-3 col-xs-12 control-label' %>
+      <div class='col-md-6 col-xs-12'>
+        <%= f.check_box :occur_at_tbd %> <br />
+      </div>
+    </div>
+
+
+    <div class='row form-group'>
+      <%= f.label :notes, class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.text_area :notes, {class: 'form-control', style: 'height: 200px;'} %>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-md-1 col-md-offset-10'>
+        <%= f.submit 'Save', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>

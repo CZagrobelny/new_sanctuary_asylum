@@ -1,0 +1,20 @@
+<% if friend_note.errors.present? %>
+  <%= display_validation_errors(friend_note) %>
+<% end %>
+<%= form_for([current_community, :eoir_caller, friend, friend_note], remote: true) do |f| %>
+  <div class='form-inputs'>
+
+    <div class='row form-group'>
+      <%= f.label :note, 'Note', class: 'col-md-12 control-label' %>
+      <div class='col-md-12'>
+        <%= f.text_area :note, {class: 'form-control', style: 'height: 200px;'} %>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-md-1 col-md-offset-10'>
+        <%= f.submit 'Save', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>
