@@ -65,6 +65,15 @@
     </div>
   </div>
 
+  <div class="row search_activity_sub_row">
+    <div class='form-group col-md-7'>
+      <%= f.label :activity_judge, 'with' %>
+      <%= f.select :activity_judge, @filterrific.select_options[:activity_judge], { include_blank: true }, multiple: true, class: 'chzn-select form-control' %>
+      <%= f.label :activity_location, 'at' %>
+      <%= f.select :activity_location, @filterrific.select_options[:activity_location], { include_blank: true }, multiple: true, class: 'chzn-select form-control' %>
+    </div>
+  </div>
+
   <div class="row">
     <div class='form-group col-md-6'>
       <%= f.label :filter_must_be_seen_by, 'Must be seen by:' %>

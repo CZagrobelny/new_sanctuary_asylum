@@ -228,6 +228,16 @@ class Friend < ApplicationRecord
       .where('activities.occur_at <= ?', Date.strptime(time, '%m/%d/%Y').end_of_day)
   }
 
+  scope :activity_judge, ->(activity_judge_ids) {
+    joins(:activities)
+      .where(activities: { judge: activity_judge_ids })
+  }
+
+  scope :activity_location, ->(activity_locations) {
+    joins(:activities)
+      .where(activities: { location: activity_locations })
+  }
+
   scope :filter_activity_tbd_or_control_date, ->(occur_at_tbd) {
     if occur_at_tbd == 1
       joins(:activities)
@@ -265,6 +275,8 @@ class Friend < ApplicationRecord
                                     filter_activity_end_date
                                     sorted_by
                                     activity_type
+                                    activity_judge
+                                    activity_location
                                     filter_no_record_in_eoir
                                     filter_order_of_supervision
                                     country_of_origin
@@ -274,6 +286,20 @@ class Friend < ApplicationRecord
   def self.options_for_activity_type
     ActivityType.all.map do |type|
       [type.name.humanize, type.id]
+    end
+  end
+
+  # This method provides select options for the `activity_judge` filter select input
+  def self.options_for_activity_judge(current_region)
+    current_region.judges.active.map do |judge|
+      [judge.name, judge.id]
+    end
+  end
+
+  # This method provides select options for the `activity_location` filter select input
+  def self.options_for_activity_location(current_region)
+    current_region.locations.order('name').map do |location|
+      [location.name, location.id]
     end
   end
 

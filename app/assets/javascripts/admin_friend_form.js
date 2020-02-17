@@ -60,6 +60,11 @@ function activateChosen() {
     };
     if (chosen_select.id == 'filterrific_activity_type') {
       attributes['width'] = '33%'
+    } else if (
+      chosen_select.id == 'filterrific_activity_location' ||
+      chosen_select.id == 'filterrific_activity_judge'
+    ) {
+      attributes['width'] = '45%'
     } else if (chosen_select.id == 'filterrific_country_of_origin') {
       attributes['width'] = '66%'
     } else {
