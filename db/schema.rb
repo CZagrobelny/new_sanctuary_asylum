@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_18_020814) do
+ActiveRecord::Schema.define(version: 2020_04_01_002007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2020_03_18_020814) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.text "outcome_of_hearing"
+    t.bigint "friend_id"
   end
 
   create_table "accompaniments", id: :serial, force: :cascade do |t|
