@@ -214,6 +214,52 @@ RSpec.describe Friend, type: :model do
     end
   end
 
+  describe '#filter_judge_imposed_deadline_ending_after' do
+    let(:friend) { create :friend, judge_imposed_i589_deadline: 2.months.from_now }
+    let(:safe_buffer_date) { ActiveSupport::SafeBuffer.new(date.to_s) }
+
+    context 'the filter is before the friend\'s deadline' do
+      let(:date) { friend.judge_imposed_i589_deadline - 1.week }
+
+      it 'returns the friend' do
+        expect(Friend.filter_judge_imposed_deadline_ending_after(safe_buffer_date))
+          .to contain_exactly friend
+      end
+    end
+
+    context 'the filter is after the friend\'s deadline' do
+      let(:date) { friend.judge_imposed_i589_deadline + 1.week }
+
+      it 'doesn\'t return the friend' do
+        expect(Friend.filter_judge_imposed_deadline_ending_after(safe_buffer_date))
+          .to be_empty
+      end
+    end
+  end
+
+  describe '#filter_judge_imposed_deadline_ending_before' do
+    let(:friend) { create :friend, judge_imposed_i589_deadline: 2.months.from_now }
+    let(:safe_buffer_date) { ActiveSupport::SafeBuffer.new(date.to_s) }
+
+    context 'the filter is before the friend\'s deadline' do
+      let(:date) { friend.judge_imposed_i589_deadline - 1.week }
+
+      it 'doesn\'t return the friend' do
+        expect(Friend.filter_judge_imposed_deadline_ending_before(safe_buffer_date))
+          .to be_empty
+      end
+    end
+
+    context 'the filter is after the friend\'s deadline' do
+      let(:date) { friend.judge_imposed_i589_deadline + 1.week }
+
+      it 'returns the friend' do
+        expect(Friend.filter_judge_imposed_deadline_ending_before(safe_buffer_date))
+          .to contain_exactly friend
+      end
+    end
+  end
+
   describe '#filter_created_after' do
     let(:friend) { create :friend }
     let(:safe_buffer_date) { ActiveSupport::SafeBuffer.new(date.to_s) }
