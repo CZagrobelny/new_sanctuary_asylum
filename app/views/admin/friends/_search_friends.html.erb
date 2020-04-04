@@ -74,22 +74,6 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class='form-group col-md-6'>
-      <%= f.label :filter_must_be_seen_by, 'Must be seen by:' %>
-
-      <%= f.text_field :filter_must_be_seen_by_after, class: 'datepicker form-control' %>
-      <%= f.text_field :filter_must_be_seen_by_before, class: 'datepicker form-control' %>
-    </div>
-
-    <div class='form-group col-md-6'>
-      <%= f.label :filter_start_date, '1 year deadline:' %>
-
-      <%= f.text_field :filter_asylum_application_deadline_ending_after, class: 'datepicker form-control' %>
-      <%= f.text_field :filter_asylum_application_deadline_ending_before, class: 'datepicker form-control' %>
-    </div>
-  </div>
-
   <div class='row'>
     <div class='form-group col-md-6 inline-form-group'>
       <%= f.label :filter_created_date, 'Created:' %>
@@ -98,10 +82,33 @@
     </div>
 
     <div class='form-group col-md-6'>
-      <%= f.label :filter_start_date, 'Judge imposed deadline:' %>
+      <%= f.label :country_of_origin, 'Country of origin:' %>
+      <%= f.select :country_of_origin, @filterrific.select_options[:country_of_origin], { include_blank: true }, multiple: true, class: 'chzn-select form-control' %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='form-group col-md-6'>
+      <%= f.label :filter_start_date, '1 year deadline:' %>
+
+      <%= f.text_field :filter_asylum_application_deadline_ending_after, class: 'datepicker form-control' %>
+      <%= f.text_field :filter_asylum_application_deadline_ending_before, class: 'datepicker form-control' %>
+    </div>
+
+    <div class='form-group col-md-6'>
+      <%= f.label :filter_start_date, 'Judge deadline:' %>
 
       <%= f.text_field :filter_judge_imposed_deadline_ending_after, class: 'datepicker form-control' %>
       <%= f.text_field :filter_judge_imposed_deadline_ending_before, class: 'datepicker form-control' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class='form-group col-md-6'>
+      <%= f.label :filter_must_be_seen_by, 'Must be seen by:' %>
+
+      <%= f.text_field :filter_must_be_seen_by_after, class: 'datepicker form-control' %>
+      <%= f.text_field :filter_must_be_seen_by_before, class: 'datepicker form-control' %>
     </div>
   </div>
 
@@ -111,11 +118,6 @@
         <%= f.label :sorted_by, 'Sorted by' %>
         <%= f.select :sorted_by, @filterrific.select_options[:sorted_by], {}, { class: 'form-control' } %>
       </div>
-    </div>
-
-    <div class='form-group col-md-6'>
-      <%= f.label :country_of_origin, 'Country of origin:' %>
-      <%= f.select :country_of_origin, @filterrific.select_options[:country_of_origin], { include_blank: true }, multiple: true, class: 'chzn-select form-control' %>
     </div>
   </div>
 
