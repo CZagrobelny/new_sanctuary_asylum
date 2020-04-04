@@ -138,6 +138,7 @@ class Admin::FriendsController < AdminController
       :no_record_in_eoir,
       :order_of_supervision,
       :clinic_plan,
+      :judge_imposed_i589_deadline,
       language_ids: [],
       social_work_referral_category_ids: [],
       user_ids: []

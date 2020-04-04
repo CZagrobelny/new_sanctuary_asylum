@@ -57,6 +57,7 @@ class Friend < ApplicationRecord
   has_many :friend_languages, dependent: :destroy
   has_many :languages, through: :friend_languages
   has_many :activities, dependent: :restrict_with_error
+  has_many :accompaniment_reports, dependent: :restrict_with_error
   has_many :detentions, dependent: :destroy
   has_many :ankle_monitors, dependent: :destroy
   has_many :user_friend_associations, dependent: :destroy
@@ -151,6 +152,14 @@ class Friend < ApplicationRecord
   scope :filter_asylum_application_deadline_ending_before, ->(date) {
     # if the date - 1.year is greater than the date_of_entry
     where('date_of_entry <= ?', string_to_end_of_date(date) - ASYLUM_APPLICATION_DEADLINE)
+  }
+
+  scope :filter_judge_imposed_deadline_ending_after, ->(date) {
+    where('judge_imposed_i589_deadline > ?', string_to_beginning_of_date(date))
+  }
+
+  scope :filter_judge_imposed_deadline_ending_before, ->(date) {
+    where('judge_imposed_i589_deadline <= ?', string_to_beginning_of_date(date))
   }
 
   scope :filter_created_after, ->(date) {
@@ -268,6 +277,8 @@ class Friend < ApplicationRecord
                                     filter_asylum_application_deadline_ending_before
                                     filter_created_after
                                     filter_created_before
+                                    filter_judge_imposed_deadline_ending_after
+                                    filter_judge_imposed_deadline_ending_before
                                     filter_application_status
                                     filter_phone_number
                                     filter_notes

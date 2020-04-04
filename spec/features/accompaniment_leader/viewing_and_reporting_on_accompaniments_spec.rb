@@ -44,10 +44,13 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
       it 'displays a flash message that my accompaniment leader notes were addded' do
         fill_in 'Outcome of hearing', with: 'outcome'
         fill_in 'Notes', with: 'Test notes'
+        fill_in 'Judge-imposed asylum application deadline', with: '5/31/2020'
         click_button 'Save'
         within '.alert' do
           expect(page).to have_content 'Your accompaniment leader notes were added.'
         end
+
+        expect(activity.friend.reload.judge_imposed_i589_deadline.to_date).to eq Date.new(2020, 5, 31)
       end
     end
 
