@@ -61,6 +61,7 @@ class DraftsController < ApplicationController
     end
   end
 
+=begin
   def submit_for_review
     if draft.update_status(:in_review)
       notify_lawyer(draft)
@@ -70,6 +71,7 @@ class DraftsController < ApplicationController
     end
     render_document_list
   end
+=end
 
   def approve
     if draft.update_status(:approved)
@@ -89,9 +91,11 @@ class DraftsController < ApplicationController
 
   private
 
+=begin
   def notify_lawyer(draft)
     Notification.draft_for_review(draft: draft)
   end
+=end
 
   def render_document_list
     if current_user.admin? || current_user.has_active_data_entry_access_time_slot?
