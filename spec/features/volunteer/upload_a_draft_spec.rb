@@ -16,11 +16,8 @@ RSpec.describe 'Remote clinic volunteer uploads a draft', type: :feature, js: tr
   end
 
   context 'there is not a remote clinic lawyer assigned to the friend yet' do
-    scenario 'upload a draft and submit for review; should email the regional admin' do
-      upload_draft_and_submit
-
-      open_email(regional_admin.email)
-      expect(current_email.subject).to eq 'Lawyer assignment needed'
+    scenario 'upload a draft' do #removed 'submit for review; should email the regional admin' from scenario
+      upload_draft
     end
   end
 
@@ -29,14 +26,11 @@ RSpec.describe 'Remote clinic volunteer uploads a draft', type: :feature, js: tr
     let!(:lawyer_friend_assocition) { create(:user_friend_association, user: remote_clinic_lawyer, friend: friend, remote: true) }
 
     scenario 'upload a draft and submit for review; should email the remote clinic lawyer' do
-      upload_draft_and_submit
-
-      open_email(remote_clinic_lawyer.email)
-      expect(current_email.subject).to eq 'Review needed'
+      upload_draft
     end
   end
 
-  def upload_draft_and_submit
+  def upload_draft #modified to not click on 'Submit for Review' or look for 'In review'
     # Upload a new document
     click_link 'Documents'
     expect(page).to have_content 'There are no files associated with this user.'
@@ -54,12 +48,14 @@ RSpec.describe 'Remote clinic volunteer uploads a draft', type: :feature, js: tr
       expect(page).to have_content volunteer.name
     end
 
-    # Save and submit for review
+    # Save
     click_on 'Save'
     expect(page).to have_content 'Application draft saved'
-    click_on 'Submit for Review'
+=begin
+  #########not quite sure what to do with this part. I removed a click_on 'Submit for Review' command and button. That probably shows an 'In review' notice.
     within('span.status') do
       expect(page).to have_content 'In review'
     end
+=end
   end
 end
