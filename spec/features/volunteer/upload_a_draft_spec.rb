@@ -48,14 +48,9 @@ RSpec.describe 'Remote clinic volunteer uploads a draft', type: :feature, js: tr
       expect(page).to have_content volunteer.name
     end
 
-    # Save
+    # Save only
     click_on 'Save'
     expect(page).to have_content 'Application draft saved'
-=begin
-  #########not quite sure what to do with this part. I removed a click_on 'Submit for Review' command and button. That probably shows an 'In review' notice.
-    within('span.status') do
-      expect(page).to have_content 'In review'
-    end
-=end
+
   end
 end
