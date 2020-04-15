@@ -24,7 +24,6 @@ Rails.application.routes.draw do
     resources :friends, only: [:index, :show, :update] do
       resources :drafts do
         member do
-          #patch :submit_for_review
           patch :approve
         end
         resources :reviews, except: [:index]
