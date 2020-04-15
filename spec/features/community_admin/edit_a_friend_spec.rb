@@ -170,10 +170,6 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
         expect(page).to have_link 'nsc_logo.png'
       end
 
-      it 'displays a "Submit for Review" link' do
-        expect(page).to have_link('Submit for Review')
-      end
-
       it 'redirects to application drafts page to "Manage Documents"' do
         click_button 'Manage Documents'
         expect(current_path).to eq community_friend_drafts_path(community_slug: community.slug, friend_id: friend.id)
