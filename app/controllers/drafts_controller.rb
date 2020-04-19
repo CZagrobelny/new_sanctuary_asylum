@@ -63,7 +63,6 @@ class DraftsController < ApplicationController
 
   def submit_for_review
     if draft.update_status(:in_review)
-      notify_lawyer(draft)
       flash[:success] = 'Draft submitted for review.'
     else
       flash[:error] = 'There was an issue submitting the draft for review.'
@@ -88,10 +87,6 @@ class DraftsController < ApplicationController
   end
 
   private
-
-  def notify_lawyer(draft)
-    Notification.draft_for_review(draft: draft)
-  end
 
   def render_document_list
     if current_user.admin? || current_user.has_active_data_entry_access_time_slot?
