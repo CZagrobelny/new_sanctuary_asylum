@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_01_002007) do
+ActiveRecord::Schema.define(version: 2020_04_19_151613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -270,6 +270,8 @@ ActiveRecord::Schema.define(version: 2020_04_01_002007) do
     t.boolean "order_of_supervision", default: false
     t.string "clinic_plan"
     t.datetime "judge_imposed_i589_deadline"
+    t.boolean "has_a_lawyer"
+    t.string "lawyer_name"
     t.index ["community_id"], name: "index_friends_on_community_id"
     t.index ["region_id"], name: "index_friends_on_region_id"
   end
