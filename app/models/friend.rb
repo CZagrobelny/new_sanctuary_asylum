@@ -137,6 +137,10 @@ class Friend < ApplicationRecord
     where(order_of_supervision: true) if order_of_supervision == 1
   }
 
+  scope :filter_has_a_lawyer, ->(has_a_lawyer) {
+    where(has_a_lawyer: true) if has_a_lawyer == 1
+  }
+
   scope :filter_must_be_seen_by_after, ->(date) {
     where('must_be_seen_by >= ?', string_to_beginning_of_date(date))
   }
@@ -291,6 +295,7 @@ class Friend < ApplicationRecord
                                     activity_location
                                     filter_no_record_in_eoir
                                     filter_order_of_supervision
+                                    filter_has_a_lawyer
                                     country_of_origin
                                   ])
 

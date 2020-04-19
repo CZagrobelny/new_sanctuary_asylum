@@ -163,6 +163,19 @@ RSpec.describe Friend, type: :model do
     end
   end
 
+  describe '#filter_has_a_lawyer' do
+    let!(:friend_with_lawyer) { create :friend, has_a_lawyer: true, lawyer_name: 'Susan Q. Example' }
+    let!(:friend_without_lawyer) { create :friend, has_a_lawyer: false }
+
+    it 'returns the friend with a lawyer if 1' do
+      expect(Friend.filter_has_a_lawyer(1)).to contain_exactly(friend_with_lawyer)
+    end
+
+    it 'returns all friends if not 1' do
+      expect(Friend.filter_has_a_lawyer(0)).to contain_exactly(friend_with_lawyer, friend_without_lawyer)
+    end
+  end
+
   describe '#filter_first_name' do
     let(:friend) { create :friend, first_name: "Cat"}
     
