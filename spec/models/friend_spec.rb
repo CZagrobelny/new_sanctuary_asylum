@@ -38,6 +38,18 @@ RSpec.describe Friend, type: :model do
     context 'zip_code is invalid if not a number' do
       it { should validate_numericality_of(:zip_code) }
     end
+
+    context 'has_a_lawyer is true' do
+      before { friend.has_a_lawyer = true }
+
+      it { should validate_presence_of(:lawyer_name) }
+    end
+
+    context 'has_a_lawyer is false' do
+      before { friend.has_a_lawyer = false }
+
+      it { should_not validate_presence_of(:lawyer_name) }
+    end
   end
 
   describe '#destroy' do
@@ -148,6 +160,19 @@ RSpec.describe Friend, type: :model do
 
     it 'returns all friends if not 1' do
       expect(Friend.filter_detained(0)).to eq [detained_friend, friend]
+    end
+  end
+
+  describe '#filter_has_a_lawyer' do
+    let!(:friend_with_lawyer) { create :friend, has_a_lawyer: true, lawyer_name: 'Susan Q. Example' }
+    let!(:friend_without_lawyer) { create :friend, has_a_lawyer: false }
+
+    it 'returns the friend with a lawyer if 1' do
+      expect(Friend.filter_has_a_lawyer(1)).to contain_exactly(friend_with_lawyer)
+    end
+
+    it 'returns all friends if not 1' do
+      expect(Friend.filter_has_a_lawyer(0)).to contain_exactly(friend_with_lawyer, friend_without_lawyer)
     end
   end
 

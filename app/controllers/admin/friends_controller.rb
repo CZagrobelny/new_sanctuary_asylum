@@ -139,6 +139,8 @@ class Admin::FriendsController < AdminController
       :order_of_supervision,
       :clinic_plan,
       :judge_imposed_i589_deadline,
+      :has_a_lawyer,
+      :lawyer_name,
       language_ids: [],
       social_work_referral_category_ids: [],
       user_ids: []

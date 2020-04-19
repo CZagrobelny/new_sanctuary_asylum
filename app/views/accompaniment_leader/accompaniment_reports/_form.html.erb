@@ -21,6 +21,17 @@
           <%= friend_f.text_field :judge_imposed_i589_deadline, class: 'datepicker form-control' %>
         </div>
       </div>
+
+      <div class='row form-group form-inline'>
+        <div class='col-md-4'>
+          <%= friend_f.check_box :has_a_lawyer %>
+          <%= friend_f.label :has_a_lawyer, 'Has a Lawyer' %>
+        </div>
+        <div class='col-md-8'>
+          <%= friend_f.label :lawyer_name, 'Lawyer Name', class: 'control-label' %>
+          <%= friend_f.text_field :lawyer_name, class: 'form-control' %>
+        </div>
+      </div>
     <% end %>
 
     <div class='row'>

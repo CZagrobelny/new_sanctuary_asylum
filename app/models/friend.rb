@@ -84,6 +84,7 @@ class Friend < ApplicationRecord
   validates_uniqueness_of :a_number, if: :a_number_available?
   validates :gender, presence: true, on: :create
   validates :clinic_plan, inclusion: {in: CLINIC_PLANS.map(&:last)}, allow_blank: true
+  validates :lawyer_name, presence: true, if: :has_a_lawyer?
 
   scope :detained, -> { where(status: 'in_detention') }
 
@@ -134,6 +135,10 @@ class Friend < ApplicationRecord
 
   scope :filter_order_of_supervision, ->(order_of_supervision) {
     where(order_of_supervision: true) if order_of_supervision == 1
+  }
+
+  scope :filter_has_a_lawyer, ->(has_a_lawyer) {
+    where(has_a_lawyer: true) if has_a_lawyer == 1
   }
 
   scope :filter_must_be_seen_by_after, ->(date) {
@@ -290,6 +295,7 @@ class Friend < ApplicationRecord
                                     activity_location
                                     filter_no_record_in_eoir
                                     filter_order_of_supervision
+                                    filter_has_a_lawyer
                                     country_of_origin
                                   ])
 
