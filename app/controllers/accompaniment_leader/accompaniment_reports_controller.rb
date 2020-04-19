@@ -36,7 +36,7 @@ class AccompanimentLeader::AccompanimentReportsController < AccompanimentLeaderC
     params.require(:accompaniment_report).permit(
       :notes,
       :outcome_of_hearing,
-      friend_attributes: [:judge_imposed_i589_deadline]
+      friend_attributes: [:has_a_lawyer, :judge_imposed_i589_deadline, :lawyer_name]
     ).merge(user_id: current_user.id, friend_id: friend.id)
   end
 
