@@ -38,6 +38,18 @@ RSpec.describe Friend, type: :model do
     context 'zip_code is invalid if not a number' do
       it { should validate_numericality_of(:zip_code) }
     end
+
+    context 'has_a_lawyer is true' do
+      before { friend.has_a_lawyer = true }
+
+      it { should validate_presence_of(:lawyer_name) }
+    end
+
+    context 'has_a_lawyer is false' do
+      before { friend.has_a_lawyer = false }
+
+      it { should_not validate_presence_of(:lawyer_name) }
+    end
   end
 
   describe '#destroy' do

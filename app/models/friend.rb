@@ -84,6 +84,7 @@ class Friend < ApplicationRecord
   validates_uniqueness_of :a_number, if: :a_number_available?
   validates :gender, presence: true, on: :create
   validates :clinic_plan, inclusion: {in: CLINIC_PLANS.map(&:last)}, allow_blank: true
+  validates :lawyer_name, presence: true, if: :has_a_lawyer?
 
   scope :detained, -> { where(status: 'in_detention') }
 
