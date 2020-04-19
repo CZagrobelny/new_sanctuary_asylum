@@ -38,18 +38,6 @@ RSpec.describe Friend, type: :model do
     context 'zip_code is invalid if not a number' do
       it { should validate_numericality_of(:zip_code) }
     end
-
-    context 'has_a_lawyer is true' do
-      before { friend.has_a_lawyer = true }
-
-      it { should validate_presence_of(:lawyer_name) }
-    end
-
-    context 'has_a_lawyer is false' do
-      before { friend.has_a_lawyer = false }
-
-      it { should_not validate_presence_of(:lawyer_name) }
-    end
   end
 
   describe '#destroy' do
@@ -178,7 +166,7 @@ RSpec.describe Friend, type: :model do
 
   describe '#filter_first_name' do
     let(:friend) { create :friend, first_name: "Cat"}
-    
+
     it 'returns the friend with the first name' do
       expect(Friend.filter_first_name(friend.first_name)).to eq [friend]
     end
@@ -201,9 +189,9 @@ RSpec.describe Friend, type: :model do
 
       it 'returns the friend' do
         expect(Friend.filter_asylum_application_deadline_ending_after(safe_buffer_date))
-          .to eq [friend] 
+          .to eq [friend]
       end
-    end 
+    end
 
     context 'the filter is after the friend\'s deadline' do
       let(:date) { friend.date_of_entry + 1.year + 1.day }
@@ -211,7 +199,7 @@ RSpec.describe Friend, type: :model do
 
       it 'doesn\'t return the friend' do
         expect(Friend.filter_asylum_application_deadline_ending_after(safe_buffer_date))
-          .to eq [] 
+          .to eq []
       end
     end
   end
@@ -225,16 +213,16 @@ RSpec.describe Friend, type: :model do
 
       it 'doesn\'t return the friend' do
         expect(Friend.filter_asylum_application_deadline_ending_before(safe_buffer_date))
-          .to eq [] 
+          .to eq []
       end
-    end 
+    end
 
     context 'the filter is after the friend\'s deadline' do
       let(:date) { friend.date_of_entry + 1.year }
 
       it 'returns the friend' do
         expect(Friend.filter_asylum_application_deadline_ending_before(safe_buffer_date))
-          .to eq [friend] 
+          .to eq [friend]
       end
     end
   end
