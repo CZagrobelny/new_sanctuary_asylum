@@ -1,6 +1,6 @@
 class ReviewMailerPreview < ActionMailer::Preview
-  def changes_requested_email
-    ReviewMailer.changes_requested_email(Review.last)
+  def review_added_email
+    ReviewMailer.review_added_email(Review.last)
   end
 
   def application_approved_email

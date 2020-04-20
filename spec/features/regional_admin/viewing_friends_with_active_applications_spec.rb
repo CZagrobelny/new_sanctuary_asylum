@@ -12,7 +12,7 @@ RSpec.describe 'Regional Admin views friends with active applications', type: :f
   end
 
   describe 'friend with at least one active application' do
-    let!(:application) { create :application, friend: friend, status: 'in_review' }
+    let!(:application) { create :application, friend: friend, status: 'review_requested' }
     let!(:remote_clinic_lawyer) { create :user, :remote_clinic_lawyer }
     let!(:user_friend_association) { create :user_friend_association, user: remote_clinic_lawyer, friend: friend, remote: true }
 
@@ -46,7 +46,7 @@ RSpec.describe 'Regional Admin views friends with active applications', type: :f
     end
 
     describe "with other applications" do
-      let!(:other_application) { create :application, friend: friend, status: 'in_review', category: "sijs" }
+      let!(:other_application) { create :application, friend: friend, status: 'review_requested', category: "sijs" }
 
       it 'closes an application and does not destroy the remote user_friend_associations' do
         visit regional_admin_region_friend_path(region, friend)

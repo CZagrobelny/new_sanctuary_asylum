@@ -16,11 +16,11 @@ class Review < ApplicationRecord
     !self.user.nil? && self.user == user
   end
 
-  def save_and_note_changes_requested
+  def save_and_note_review_added
     transaction do
       save!
-      draft.update!(status: :changes_requested)
-      draft.application.update!(status: :changes_requested)
+      draft.update!(status: :review_added)
+      draft.application.update!(status: :review_added)
     end
     true
   rescue
