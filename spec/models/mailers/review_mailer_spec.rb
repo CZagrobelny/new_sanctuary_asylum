@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe ReviewMailer, type: :mailer do
-  describe 'changes_requested_email(review)' do
+  describe 'review_added_email(review)' do
     let(:community) { create :community }
     let(:region) { community.region }
-    let(:draft) { create :draft, status: :changes_requested, friend: friend }
+    let(:draft) { create :draft, status: :review_added, friend: friend }
     let(:review) { create :review, draft: draft }
     let(:friend) { create :friend, community: community, region: region }
     let!(:volunteer) { create :user, community: community }
     let!(:community_admin) { create :user, :community_admin, community: community }
     let!(:regional_admin) { create :user, :regional_admin, community: community }
 
-    subject(:mail) { ReviewMailer.changes_requested_email(review)}
+    subject(:mail) { ReviewMailer.review_added_email(review)}
 
     before do
       UserFriendAssociation.create!(friend_id: friend.id,

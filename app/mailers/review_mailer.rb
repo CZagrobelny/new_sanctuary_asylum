@@ -1,7 +1,7 @@
 class ReviewMailer < ApplicationMailer
   include Rails.application.routes.url_helpers
 
-  def changes_requested_email(review)
+  def review_added_email(review)
     @review = review
     friend = review.draft.friend
     emails = friend.users.where(user_friend_associations: { remote: false }).pluck(:email)

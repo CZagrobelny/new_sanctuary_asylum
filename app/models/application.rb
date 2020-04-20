@@ -14,7 +14,7 @@ class Application < ApplicationRecord
 
   enum status: %i[in_progress
                   review_requested
-                  changes_requested
+                  review_added
                   approved
                   closed]
 end

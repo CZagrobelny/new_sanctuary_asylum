@@ -1,7 +1,7 @@
 class RegionalAdmin::ApplicationsController < RegionalAdminController
   def close
     if application.update_attributes(status: :closed)
-      if friend.applications.where(status: %i[review_requested changes_requested approved]).empty?
+      if friend.applications.where(status: %i[review_requested review_added approved]).empty?
         friend.user_friend_associations.where(remote: true).destroy_all
         flash[:success] = 'Application closed and assigned remote clinic lawyers removed. Friend has been removed from Active Applications dashboard.'
         redirect_to regional_admin_region_friends_path(region)
