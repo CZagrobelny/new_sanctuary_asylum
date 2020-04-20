@@ -20,6 +20,20 @@
   <h3>Lawyer</h3>
 
   <div class='row form-group'>
+    <div class='col-md-12'>
+      <%= f.check_box :has_a_lawyer %>
+      <%= f.label :has_a_lawyer, 'Has a Lawyer' %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :lawyer_name, 'Lawyer Name', class: 'col-md-2 control-label' %>
+    <div class='col-md-4'>
+      <%= f.text_field :lawyer_name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
     <%= f.label :lawyer_referred_to,'Referred to', class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
       <%= collection_select(:friend, :lawyer_referred_to, current_region.lawyers.order('organization asc'), :id, :name_and_organization, {include_blank: true}, {class: 'form-control chzn-select'}) %>

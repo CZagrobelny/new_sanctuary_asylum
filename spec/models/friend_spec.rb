@@ -151,9 +151,22 @@ RSpec.describe Friend, type: :model do
     end
   end
 
+  describe '#filter_has_a_lawyer' do
+    let!(:friend_with_lawyer) { create :friend, has_a_lawyer: true, lawyer_name: 'Susan Q. Example' }
+    let!(:friend_without_lawyer) { create :friend, has_a_lawyer: false }
+
+    it 'returns the friend with a lawyer if 1' do
+      expect(Friend.filter_has_a_lawyer(1)).to contain_exactly(friend_with_lawyer)
+    end
+
+    it 'returns all friends if not 1' do
+      expect(Friend.filter_has_a_lawyer(0)).to contain_exactly(friend_with_lawyer, friend_without_lawyer)
+    end
+  end
+
   describe '#filter_first_name' do
     let(:friend) { create :friend, first_name: "Cat"}
-    
+
     it 'returns the friend with the first name' do
       expect(Friend.filter_first_name(friend.first_name)).to eq [friend]
     end
@@ -176,9 +189,9 @@ RSpec.describe Friend, type: :model do
 
       it 'returns the friend' do
         expect(Friend.filter_asylum_application_deadline_ending_after(safe_buffer_date))
-          .to eq [friend] 
+          .to eq [friend]
       end
-    end 
+    end
 
     context 'the filter is after the friend\'s deadline' do
       let(:date) { friend.date_of_entry + 1.year + 1.day }
@@ -186,7 +199,7 @@ RSpec.describe Friend, type: :model do
 
       it 'doesn\'t return the friend' do
         expect(Friend.filter_asylum_application_deadline_ending_after(safe_buffer_date))
-          .to eq [] 
+          .to eq []
       end
     end
   end
@@ -200,16 +213,62 @@ RSpec.describe Friend, type: :model do
 
       it 'doesn\'t return the friend' do
         expect(Friend.filter_asylum_application_deadline_ending_before(safe_buffer_date))
-          .to eq [] 
+          .to eq []
       end
-    end 
+    end
 
     context 'the filter is after the friend\'s deadline' do
       let(:date) { friend.date_of_entry + 1.year }
 
       it 'returns the friend' do
         expect(Friend.filter_asylum_application_deadline_ending_before(safe_buffer_date))
-          .to eq [friend] 
+          .to eq [friend]
+      end
+    end
+  end
+
+  describe '#filter_judge_imposed_deadline_ending_after' do
+    let(:friend) { create :friend, judge_imposed_i589_deadline: 2.months.from_now }
+    let(:safe_buffer_date) { ActiveSupport::SafeBuffer.new(date.to_s) }
+
+    context 'the filter is before the friend\'s deadline' do
+      let(:date) { friend.judge_imposed_i589_deadline - 1.week }
+
+      it 'returns the friend' do
+        expect(Friend.filter_judge_imposed_deadline_ending_after(safe_buffer_date))
+          .to contain_exactly friend
+      end
+    end
+
+    context 'the filter is after the friend\'s deadline' do
+      let(:date) { friend.judge_imposed_i589_deadline + 1.week }
+
+      it 'doesn\'t return the friend' do
+        expect(Friend.filter_judge_imposed_deadline_ending_after(safe_buffer_date))
+          .to be_empty
+      end
+    end
+  end
+
+  describe '#filter_judge_imposed_deadline_ending_before' do
+    let(:friend) { create :friend, judge_imposed_i589_deadline: 2.months.from_now }
+    let(:safe_buffer_date) { ActiveSupport::SafeBuffer.new(date.to_s) }
+
+    context 'the filter is before the friend\'s deadline' do
+      let(:date) { friend.judge_imposed_i589_deadline - 1.week }
+
+      it 'doesn\'t return the friend' do
+        expect(Friend.filter_judge_imposed_deadline_ending_before(safe_buffer_date))
+          .to be_empty
+      end
+    end
+
+    context 'the filter is after the friend\'s deadline' do
+      let(:date) { friend.judge_imposed_i589_deadline + 1.week }
+
+      it 'returns the friend' do
+        expect(Friend.filter_judge_imposed_deadline_ending_before(safe_buffer_date))
+          .to contain_exactly friend
       end
     end
   end

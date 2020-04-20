@@ -1,7 +1,7 @@
 <ol>
   <% activity.accompaniments.each do |accompaniment| %>
     <% if scope == 'volunteer' %>
-      <% next unless %w[volunteer data_entry].include?(accompaniment.user.role) %>
+      <% next unless User::ACCOMPANIMENT_ELIGIBLE_ROLES.include?(accompaniment.user.role) %>
     <% else %>
       <% next unless accompaniment.user.send("#{scope}?") %>
     <% end %>

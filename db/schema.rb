@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_01_173349) do
+ActiveRecord::Schema.define(version: 2020_04_19_151613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_173349) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.text "outcome_of_hearing"
+    t.bigint "friend_id"
   end
 
   create_table "accompaniments", id: :serial, force: :cascade do |t|
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_173349) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "accompaniment_eligible"
+    t.boolean "eoir_caller_editable", default: false
   end
 
   create_table "ankle_monitors", force: :cascade do |t|
@@ -267,6 +269,9 @@ ActiveRecord::Schema.define(version: 2020_02_01_173349) do
     t.boolean "no_record_in_eoir", default: false
     t.boolean "order_of_supervision", default: false
     t.string "clinic_plan"
+    t.datetime "judge_imposed_i589_deadline"
+    t.boolean "has_a_lawyer"
+    t.string "lawyer_name"
     t.index ["community_id"], name: "index_friends_on_community_id"
     t.index ["region_id"], name: "index_friends_on_region_id"
   end

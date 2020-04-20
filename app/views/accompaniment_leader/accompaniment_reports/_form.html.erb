@@ -14,6 +14,26 @@
       </div>
     </div>
 
+    <%= f.fields_for :friend, @accompaniment_report.friend do |friend_f| %>
+      <div class='row form-group'>
+        <%= friend_f.label :judge_imposed_i589_deadline, 'Judge-imposed asylum application deadline', class: 'col-md-12 control-label' %>
+        <div class='col-md-12'>
+          <%= friend_f.text_field :judge_imposed_i589_deadline, class: 'datepicker form-control' %>
+        </div>
+      </div>
+
+      <div class='row form-group form-inline'>
+        <div class='col-md-4'>
+          <%= friend_f.check_box :has_a_lawyer %>
+          <%= friend_f.label :has_a_lawyer, 'Has a Lawyer' %>
+        </div>
+        <div class='col-md-8'>
+          <%= friend_f.label :lawyer_name, 'Lawyer Name', class: 'control-label' %>
+          <%= friend_f.text_field :lawyer_name, class: 'form-control' %>
+        </div>
+      </div>
+    <% end %>
+
     <div class='row'>
       <div class='col-md-1 col-md-offset-11'>
         <%= f.submit 'Save', class: 'btn btn-primary' %>

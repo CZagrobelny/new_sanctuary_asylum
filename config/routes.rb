@@ -98,6 +98,14 @@ Rails.application.routes.draw do
         resources :accompaniment_reports, except: [:index, :show, :destroy]
       end
     end
+
+    namespace :eoir_caller do
+      resources :search, only: [:index]
+      resources :friends, only: [] do
+        resources :friend_notes, controller: 'friends/friend_notes', except: [:index, :show]
+        resources :activities, controller: 'friends/activities', except: [:index, :show]
+      end
+    end
   end
 
   namespace :regional_admin do

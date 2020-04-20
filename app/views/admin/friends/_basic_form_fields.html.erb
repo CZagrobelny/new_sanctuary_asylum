@@ -154,6 +154,13 @@
   </div>
 </div>
 
+<div class='row form-group'>
+  <%= f.label :judge_imposed_i589_deadline, 'Judge-imposed asylum application deadline', class: 'col-md-2 control-label' %>
+  <div class='col-md-6'>
+    <%= f.date_select :judge_imposed_i589_deadline, { start_year: Date.current.year, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+  </div>
+</div>
+
 <h3>Family</h3>
 
 <% if @friend.persisted? %>

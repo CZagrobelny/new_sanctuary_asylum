@@ -1,21 +1,7 @@
 class ReviewMailer < ApplicationMailer
   include Rails.application.routes.url_helpers
 
-  def review_needed_email(draft)
-    @draft = draft
-    emails = draft.friend.remote_clinic_lawyers.pluck(:email)
-    @link_url = remote_clinic_friend_url(draft.friend)
-    mail(to: emails, subject: 'Review needed')
-  end
-
-  def lawyer_assignment_needed_email(draft)
-    @draft = draft
-    emails = draft.friend.region.regional_admins.pluck(:email)
-    @link_url = regional_admin_region_friend_url(draft.friend.region, draft.friend)
-    mail(to: emails, subject: 'Lawyer assignment needed')
-  end
-
-  def changes_requested_email(review)
+  def review_added_email(review)
     @review = review
     friend = review.draft.friend
     emails = friend.users.where(user_friend_associations: { remote: false }).pluck(:email)

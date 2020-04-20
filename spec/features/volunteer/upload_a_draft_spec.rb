@@ -15,28 +15,7 @@ RSpec.describe 'Remote clinic volunteer uploads a draft', type: :feature, js: tr
     click_link friend.name
   end
 
-  context 'there is not a remote clinic lawyer assigned to the friend yet' do
-    scenario 'upload a draft and submit for review; should email the regional admin' do
-      upload_draft_and_submit
-
-      open_email(regional_admin.email)
-      expect(current_email.subject).to eq 'Lawyer assignment needed'
-    end
-  end
-
-  context 'there is a remote clinic lawyer assigned to the friend' do
-    let!(:remote_clinic_lawyer) { create(:user, :remote_clinic_lawyer) }
-    let!(:lawyer_friend_assocition) { create(:user_friend_association, user: remote_clinic_lawyer, friend: friend, remote: true) }
-
-    scenario 'upload a draft and submit for review; should email the remote clinic lawyer' do
-      upload_draft_and_submit
-
-      open_email(remote_clinic_lawyer.email)
-      expect(current_email.subject).to eq 'Review needed'
-    end
-  end
-
-  def upload_draft_and_submit
+  scenario 'upload a draft and submit for review' do
     # Upload a new document
     click_link 'Documents'
     expect(page).to have_content 'There are no files associated with this user.'
@@ -59,7 +38,8 @@ RSpec.describe 'Remote clinic volunteer uploads a draft', type: :feature, js: tr
     expect(page).to have_content 'Application draft saved'
     click_on 'Submit for Review'
     within('span.status') do
-      expect(page).to have_content 'In review'
+      expect(page).to have_content 'Review requested'
     end
   end
+
 end

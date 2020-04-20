@@ -1,6 +1,6 @@
 class AccompanimentLeader::AccompanimentReportsController < AccompanimentLeaderController
   def new
-    @accompaniment_report = activity.accompaniment_reports.new
+    @accompaniment_report = activity.accompaniment_reports.new(friend: friend)
   end
 
   def edit
@@ -35,12 +35,17 @@ class AccompanimentLeader::AccompanimentReportsController < AccompanimentLeaderC
   def accompaniment_report_params
     params.require(:accompaniment_report).permit(
       :notes,
-      :outcome_of_hearing
-    ).merge(user_id: current_user.id)
+      :outcome_of_hearing,
+      friend_attributes: [:has_a_lawyer, :judge_imposed_i589_deadline, :lawyer_name]
+    ).merge(user_id: current_user.id, friend_id: friend.id)
   end
 
   def activity
     @activity ||= current_region.activities.find(params[:activity_id])
+  end
+
+  def friend
+    @friend ||= activity.friend
   end
 
   def accompaniment_report

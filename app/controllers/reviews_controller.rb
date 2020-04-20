@@ -18,9 +18,9 @@ class ReviewsController < ApplicationController
 
   def create
     @review = draft.reviews.new(review_params.merge(user: current_user))
-    if review.save_and_note_changes_requested
+    if review.save_and_note_review_added
       if friend.users.where(user_friend_associations: { remote: false }).present?
-        ReviewMailer.changes_requested_email(review).deliver_now
+        ReviewMailer.review_added_email(review).deliver_now
       end
       flash[:success] = 'Review created.'
       render_friend_page

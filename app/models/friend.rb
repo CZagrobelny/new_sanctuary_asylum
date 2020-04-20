@@ -57,6 +57,7 @@ class Friend < ApplicationRecord
   has_many :friend_languages, dependent: :destroy
   has_many :languages, through: :friend_languages
   has_many :activities, dependent: :restrict_with_error
+  has_many :accompaniment_reports, dependent: :restrict_with_error
   has_many :detentions, dependent: :destroy
   has_many :ankle_monitors, dependent: :destroy
   has_many :user_friend_associations, dependent: :destroy
@@ -89,7 +90,7 @@ class Friend < ApplicationRecord
   scope :with_active_applications, -> {
     joins(:applications)
       .distinct
-      .where(applications: { status: %i[in_review changes_requested approved] })
+      .where(applications: { status: %i[review_requested review_added approved] })
   }
 
   def volunteers_with_access
@@ -135,6 +136,10 @@ class Friend < ApplicationRecord
     where(order_of_supervision: true) if order_of_supervision == 1
   }
 
+  scope :filter_has_a_lawyer, ->(has_a_lawyer) {
+    where(has_a_lawyer: true) if has_a_lawyer == 1
+  }
+
   scope :filter_must_be_seen_by_after, ->(date) {
     where('must_be_seen_by >= ?', string_to_beginning_of_date(date))
   }
@@ -153,6 +158,14 @@ class Friend < ApplicationRecord
     where('date_of_entry <= ?', string_to_end_of_date(date) - ASYLUM_APPLICATION_DEADLINE)
   }
 
+  scope :filter_judge_imposed_deadline_ending_after, ->(date) {
+    where('judge_imposed_i589_deadline > ?', string_to_beginning_of_date(date))
+  }
+
+  scope :filter_judge_imposed_deadline_ending_before, ->(date) {
+    where('judge_imposed_i589_deadline <= ?', string_to_beginning_of_date(date))
+  }
+
   scope :filter_created_after, ->(date) {
     where('created_at >= ?', string_to_beginning_of_date(date))
   }
@@ -162,7 +175,7 @@ class Friend < ApplicationRecord
   }
 
   scope :filter_application_status, ->(status) {
-    status = %i[in_review changes_requested approved] if status == 'all_active'
+    status = %i[review_requested review_added approved] if status == 'all_active'
     joins(:applications)
       .distinct
       .where(applications: { status: status })
@@ -228,6 +241,16 @@ class Friend < ApplicationRecord
       .where('activities.occur_at <= ?', Date.strptime(time, '%m/%d/%Y').end_of_day)
   }
 
+  scope :activity_judge, ->(activity_judge_ids) {
+    joins(:activities)
+      .where(activities: { judge: activity_judge_ids })
+  }
+
+  scope :activity_location, ->(activity_locations) {
+    joins(:activities)
+      .where(activities: { location: activity_locations })
+  }
+
   scope :filter_activity_tbd_or_control_date, ->(occur_at_tbd) {
     if occur_at_tbd == 1
       joins(:activities)
@@ -258,6 +281,8 @@ class Friend < ApplicationRecord
                                     filter_asylum_application_deadline_ending_before
                                     filter_created_after
                                     filter_created_before
+                                    filter_judge_imposed_deadline_ending_after
+                                    filter_judge_imposed_deadline_ending_before
                                     filter_application_status
                                     filter_phone_number
                                     filter_notes
@@ -265,8 +290,11 @@ class Friend < ApplicationRecord
                                     filter_activity_end_date
                                     sorted_by
                                     activity_type
+                                    activity_judge
+                                    activity_location
                                     filter_no_record_in_eoir
                                     filter_order_of_supervision
+                                    filter_has_a_lawyer
                                     country_of_origin
                                   ])
 
@@ -274,6 +302,20 @@ class Friend < ApplicationRecord
   def self.options_for_activity_type
     ActivityType.all.map do |type|
       [type.name.humanize, type.id]
+    end
+  end
+
+  # This method provides select options for the `activity_judge` filter select input
+  def self.options_for_activity_judge(current_region)
+    current_region.judges.active.map do |judge|
+      [judge.name, judge.id]
+    end
+  end
+
+  # This method provides select options for the `activity_location` filter select input
+  def self.options_for_activity_location(current_region)
+    current_region.locations.order('name').map do |location|
+      [location.name, location.id]
     end
   end
 
@@ -301,8 +343,8 @@ class Friend < ApplicationRecord
   def self.options_for_application_status_filter_by
     [
       %w[All all_active],
-      ['In Review', 'in_review'],
-      ['Changes Requested', 'changes_requested'],
+      ['Review Requested', 'review_requested'],
+      ['Review Added', 'review_added'],
       %w[Approved approved]
     ]
   end

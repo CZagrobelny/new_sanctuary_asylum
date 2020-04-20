@@ -2,10 +2,11 @@ class Admin::AccessTimeSlotsController < AdminController
   before_action :require_admin
 
   def index
-    @access_time_slots =  current_community.access_time_slots
+    @access_time_slots = current_community.access_time_slots
   end
 
   def new
+    @access_time_slot_type = params[:type]
     @access_time_slot = AccessTimeSlot.new
   end
 
@@ -14,11 +15,13 @@ class Admin::AccessTimeSlotsController < AdminController
     if access_time_slot.save
       redirect_to community_admin_access_time_slots_path
     else
+      @access_time_slot_type = params[:type]
       render :new
     end
   end
 
   def edit
+    @access_time_slot_type = access_time_slot.grantee.role
     access_time_slot
   end
 
@@ -26,6 +29,7 @@ class Admin::AccessTimeSlotsController < AdminController
     if access_time_slot.update(access_time_slots_params)
       redirect_to community_admin_access_time_slots_path
     else
+      @access_time_slot_type = params[:type]
       render :edit
     end
   end
