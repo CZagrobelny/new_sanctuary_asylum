@@ -13,7 +13,7 @@ class Application < ApplicationRecord
   validates_uniqueness_of :category, scope: :friend_id
 
   enum status: %i[in_progress
-                  in_review
+                  review_requested
                   changes_requested
                   approved
                   closed]

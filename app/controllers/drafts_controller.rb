@@ -62,7 +62,7 @@ class DraftsController < ApplicationController
   end
 
   def submit_for_review
-    if draft.update_status(:in_review)
+    if draft.update_status(:review_requested)
       flash[:success] = 'Draft submitted for review.'
     else
       flash[:error] = 'There was an issue submitting the draft for review.'

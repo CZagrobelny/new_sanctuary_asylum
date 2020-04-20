@@ -38,7 +38,7 @@ RSpec.describe 'Remote clinic volunteer uploads a draft', type: :feature, js: tr
     expect(page).to have_content 'Application draft saved'
     click_on 'Submit for Review'
     within('span.status') do
-      expect(page).to have_content 'In review'
+      expect(page).to have_content 'Review requested'
     end
   end
 

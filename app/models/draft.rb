@@ -9,7 +9,7 @@ class Draft < ApplicationRecord
   validates :application_id, presence: true
 
   enum status: %i[in_progress
-                  in_review
+                  review_requested
                   changes_requested
                   approved
                   closed]

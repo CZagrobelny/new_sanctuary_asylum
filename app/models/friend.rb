@@ -90,7 +90,7 @@ class Friend < ApplicationRecord
   scope :with_active_applications, -> {
     joins(:applications)
       .distinct
-      .where(applications: { status: %i[in_review changes_requested approved] })
+      .where(applications: { status: %i[review_requested changes_requested approved] })
   }
 
   def volunteers_with_access
@@ -175,7 +175,7 @@ class Friend < ApplicationRecord
   }
 
   scope :filter_application_status, ->(status) {
-    status = %i[in_review changes_requested approved] if status == 'all_active'
+    status = %i[review_requested changes_requested approved] if status == 'all_active'
     joins(:applications)
       .distinct
       .where(applications: { status: status })
@@ -343,7 +343,7 @@ class Friend < ApplicationRecord
   def self.options_for_application_status_filter_by
     [
       %w[All all_active],
-      ['In Review', 'in_review'],
+      ['Review Requested', 'review_requested'],
       ['Changes Requested', 'changes_requested'],
       %w[Approved approved]
     ]
