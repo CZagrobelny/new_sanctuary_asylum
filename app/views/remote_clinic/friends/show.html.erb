@@ -16,10 +16,6 @@
           <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
           <%= draft.created_at.strftime("-- %A, %B %-d, %Y") %><br>
 
-          <% if draft.users.present? %>
-            <strong>Team:  </strong><%= draft.users.collect{|u| "#{u.name} (#{u.phone})"}.to_sentence %><br>
-          <% end %>
-
           <% if draft.notes.present? %>
             <strong>Notes:  </strong><%= draft.notes %><br>
           <% end %>
