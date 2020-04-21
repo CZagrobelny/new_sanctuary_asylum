@@ -33,6 +33,7 @@ class User < ApplicationRecord
   has_many :reviews
   has_many :user_event_attendances, dependent: :destroy
   has_many :friend_notes, dependent: :restrict_with_error
+  has_many :remote_review_actions, dependent: :restrict_with_error
 
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
 

@@ -2,12 +2,12 @@ class RegionalAdmin::FriendsController < RegionalAdminController
   before_action :find_friend, only: %i[show update]
 
   def index
-    @filterrific = initialize_filterrific(Friend,
-                                          params[:filterrific],
-                                          default_filter_params: { filter_application_status: 'all_active' },
-                                          select_options: { filter_application_status: Friend.options_for_application_status_filter_by },
-                                          persistence_id: false)
-    @friends = current_region.friends.order('created_at desc').filterrific_find(@filterrific)
+    @remote_review_actions = current_region
+      .remote_review_actions
+      .where('created_at > ?', 1.month.ago)
+      .includes(:community, :region, :friend, :user, :application, :draft)
+      .order('created_at desc')
+      .paginate(page: params[:page])
   end
 
   def show; end

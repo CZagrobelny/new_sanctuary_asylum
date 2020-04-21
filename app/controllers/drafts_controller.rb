@@ -61,12 +61,24 @@ class DraftsController < ApplicationController
     end
   end
 
+a = RemoteReviewAction.new(action: 'review_requested', user_id: current_user.id, friend_id: friend.id, community_id: friend.community_id, region_id: friend.region_id)
+
   def submit_for_review
-    if draft.update_status(:review_requested)
-      flash[:success] = 'Draft submitted for review.'
-    else
-      flash[:error] = 'There was an issue submitting the draft for review.'
+    ActiveRecord::Base.transaction do
+      debugger
+      draft.update!(status: 'review_requested')
+      RemoteReviewAction.create!(
+        action: 'review_requested',
+        user_id: current_user.id,
+        friend_id: friend.id,
+        community_id: friend.community_id,
+        region_id: friend.region_id,
+      )
     end
+    flash[:success] = 'Draft submitted for review.'
+    render_document_list
+  rescue
+    flash[:error] = 'There was an issue submitting the draft for review.'
     render_document_list
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_19_151613) do
+ActiveRecord::Schema.define(version: 2020_04_20_231703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -321,6 +321,19 @@ ActiveRecord::Schema.define(version: 2020_04_19_151613) do
 
   create_table "regions", id: :serial, force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "remote_review_actions", force: :cascade do |t|
+    t.string "action", null: false
+    t.integer "friend_id", null: false
+    t.integer "user_id", null: false
+    t.integer "region_id", null: false
+    t.integer "community_id", null: false
+    t.integer "application_id", null: false
+    t.integer "draft_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_id"], name: "index_remote_review_actions_on_region_id"
   end
 
   create_table "reviews", id: :serial, force: :cascade do |t|

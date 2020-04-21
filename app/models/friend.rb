@@ -174,13 +174,6 @@ class Friend < ApplicationRecord
     where('created_at <= ?', string_to_end_of_date(date))
   }
 
-  scope :filter_application_status, ->(status) {
-    status = %i[review_requested review_added approved] if status == 'all_active'
-    joins(:applications)
-      .distinct
-      .where(applications: { status: status })
-  }
-
   scope :filter_phone_number, ->(phone) {
     return nil if phone.blank?
 
@@ -283,7 +276,6 @@ class Friend < ApplicationRecord
                                     filter_created_before
                                     filter_judge_imposed_deadline_ending_after
                                     filter_judge_imposed_deadline_ending_before
-                                    filter_application_status
                                     filter_phone_number
                                     filter_notes
                                     filter_activity_start_date
