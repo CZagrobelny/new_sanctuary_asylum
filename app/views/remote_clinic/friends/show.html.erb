@@ -4,6 +4,24 @@
   <h2 style='display: inline;'>
     <%= group[:name].titlecase %>
   </h2>
+
+  <div class='row'>
+    <h3>
+        <div class='col-md-2'>
+            Status
+        </div>
+        <div class='col-md-4'>
+            Document
+        </div>
+        <div class='col-md-4'>
+            Reviews
+        </div>
+        <div class='col-md-2'>
+            Actions
+        </div>
+    </h3>
+  </div>
+
   <% if group[:application].closed? %>
     <span class='text-muted'><%= "#{group[:application].status.titlecase} #{group[:application].updated_at.strftime('%m/%d/%Y')}" %></span>
   <% end %>
