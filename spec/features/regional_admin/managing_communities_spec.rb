@@ -42,7 +42,9 @@ RSpec.describe 'Regional Admin manages communities', type: :feature do
 
   scenario 'navigating to a community' do
     visit regional_admin_region_communities_path(region, community)
-    click_link community.name
-    expect(current_path).to eq community_admin_friends_path(community)
+    within '.regional_admin' do
+      click_link community.name
+      expect(current_path).to eq community_admin_path(community)
+    end
   end
 end

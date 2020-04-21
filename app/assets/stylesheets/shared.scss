@@ -330,3 +330,18 @@
 .eoir_caller {
   color: #5cb85c !important;
 }
+
+.navbar-nav li.dropdown.regional_admin > ul.dropdown-menu > li {
+  a {
+    font-weight: bold;
+  }
+
+  a.region_community {
+    font-weight: normal;
+  }
+}
+
+li a.region_community {
+  // Based off the Bootstrap .dropdown-menu > li > a padding
+  padding-left: 30px;
+}
