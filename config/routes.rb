@@ -113,11 +113,12 @@ Rails.application.routes.draw do
 
     resources :regions, only: [] do
       resources :communities, except: [:show, :destroy]
-      resources :friends, only: [:index, :show, :update] do
+      resources :friends, only: [:show, :update] do
         resources :applications, only: [] do
           patch :close
         end
       end
+      resources :remote_review_actions, only: [:index]
     end
     resources :remote_lawyers, except: [:new, :create, :show]
   end

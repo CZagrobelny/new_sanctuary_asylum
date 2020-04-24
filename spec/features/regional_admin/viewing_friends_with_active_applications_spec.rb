@@ -23,7 +23,7 @@ RSpec.describe 'Regional Admin views friends with active applications', type: :f
         category = application.category.titlecase
         click_on("Close #{category} Application")
 
-        success_text = 'Application closed and assigned remote clinic lawyers removed. Friend has been removed from Active Applications dashboard.'
+        success_text = 'Application closed and assigned remote clinic lawyers removed.'
         expect(page).to have_content(success_text)
 
         expect(friend.reload.users).to be_empty
