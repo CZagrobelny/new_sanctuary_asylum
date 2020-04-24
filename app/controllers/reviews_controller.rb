@@ -18,13 +18,27 @@ class ReviewsController < ApplicationController
 
   def create
     @review = draft.reviews.new(review_params.merge(user: current_user))
-    if review.save_and_note_review_added
+
+    begin
+      ActiveRecord::Base.transaction do
+        draft.update!(status: 'review_added')
+        application.update!(status: 'review_added')
+        RemoteReviewAction.create!(
+          action: 'review_added',
+          user_id: current_user.id,
+          friend_id: friend.id,
+          community_id: friend.community_id,
+          region_id: friend.region_id,
+          application_id: application.id,
+          draft_id: draft.id,
+        )
+      end
       if friend.users.where(user_friend_associations: { remote: false }).present?
         ReviewMailer.review_added_email(review).deliver_now
       end
       flash[:success] = 'Review created.'
       render_friend_page
-    else
+    rescue
       friend
       flash.now[:error] = 'Review failed to save.'
       render :new
@@ -74,6 +88,10 @@ class ReviewsController < ApplicationController
 
   def draft
     @draft ||= friend.drafts.find(params[:draft_id])
+  end
+
+  def application
+    @application ||= draft.application
   end
 
   def friend

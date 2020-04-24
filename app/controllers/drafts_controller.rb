@@ -61,18 +61,18 @@ class DraftsController < ApplicationController
     end
   end
 
-a = RemoteReviewAction.new(action: 'review_requested', user_id: current_user.id, friend_id: friend.id, community_id: friend.community_id, region_id: friend.region_id)
-
   def submit_for_review
     ActiveRecord::Base.transaction do
-      debugger
       draft.update!(status: 'review_requested')
+      application.update!(status: 'review_requested')
       RemoteReviewAction.create!(
         action: 'review_requested',
         user_id: current_user.id,
         friend_id: friend.id,
         community_id: friend.community_id,
         region_id: friend.region_id,
+        application_id: application.id,
+        draft_id: draft.id,
       )
     end
     flash[:success] = 'Draft submitted for review.'
@@ -83,19 +83,27 @@ a = RemoteReviewAction.new(action: 'review_requested', user_id: current_user.id,
   end
 
   def approve
-    if draft.update_status(:approved)
-      if friend.users.where(user_friend_associations: { remote: false }).present?
-        ReviewMailer.application_approved_email(application).deliver_now
-      end
-      flash[:success] = 'Draft approved.'
-    else
-      flash[:error] = 'There was an issue approving the draft.'
+    ActiveRecord::Base.transaction do
+      draft.update!(status: 'approved')
+      application.update!(status: 'approved')
+      RemoteReviewAction.create!(
+        action: 'approved',
+        user_id: current_user.id,
+        friend_id: friend.id,
+        community_id: friend.community_id,
+        region_id: friend.region_id,
+        application_id: application.id,
+        draft_id: draft.id,
+      )
     end
-    if current_user.regional_admin?
-      redirect_to regional_admin_region_friend_path(friend.region, friend)
-    else
-      redirect_to remote_clinic_friend_path(friend)
+    if friend.users.where(user_friend_associations: { remote: false }).present?
+      ReviewMailer.application_approved_email(application).deliver_now
     end
+    flash[:success] = 'Draft approved.'
+    redirect_to_clinic_friend_show
+  rescue
+    flash[:error] = 'There was an issue approving the draft.'
+    redirect_to_clinic_friend_show
   end
 
   private
@@ -105,6 +113,14 @@ a = RemoteReviewAction.new(action: 'review_requested', user_id: current_user.id,
       redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#documents')
     else
       redirect_to community_friend_path(current_community.slug, friend, tab: '#documents')
+    end
+  end
+
+  def redirect_to_clinic_friend_show
+    if current_user.regional_admin?
+      redirect_to regional_admin_region_friend_path(friend.region, friend)
+    else
+      redirect_to remote_clinic_friend_path(friend)
     end
   end
 

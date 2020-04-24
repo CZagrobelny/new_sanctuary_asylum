@@ -16,25 +16,12 @@ RSpec.describe 'Regional Admin views friends with active applications', type: :f
     let!(:remote_clinic_lawyer) { create :user, :remote_clinic_lawyer }
     let!(:user_friend_association) { create :user_friend_association, user: remote_clinic_lawyer, friend: friend, remote: true }
 
-    it 'is displayed in the "Friends with Active Appplications" section' do
-      visit regional_admin_region_friends_path(region)
-      within '#friends-with-active-applications' do
-        expect(page).to have_link(friend.name)
-      end
-    end
-
     describe "without other applications" do
       it 'closes an application and destroys the remote user_friend_associations' do
         visit regional_admin_region_friend_path(region, friend)
 
         category = application.category.titlecase
         click_on("Close #{category} Application")
-
-        within '#friends-with-active-applications' do
-          expect(page).to_not have_link(friend.name)
-        end
-
-        expect(page).to have_content('Friends with Active Applications')
 
         success_text = 'Application closed and assigned remote clinic lawyers removed. Friend has been removed from Active Applications dashboard.'
         expect(page).to have_content(success_text)
@@ -62,15 +49,6 @@ RSpec.describe 'Regional Admin views friends with active applications', type: :f
         expect(friend.reload.users).to match_array([remote_clinic_lawyer])
 
         expect(application.reload.status).to eq('closed')
-      end
-    end
-  end
-
-  describe 'friend with NO active applications' do
-    it 'is NOT displayed in the "Friends with Active Applications" section' do
-      visit regional_admin_region_friends_path(region)
-      within '#friends-with-active-applications' do
-        expect(page).to_not have_link(friend.name)
       end
     end
   end

@@ -74,6 +74,7 @@ class Friend < ApplicationRecord
   has_many :social_work_referral_categories, through: :friend_social_work_referral_categories
   has_many :friend_notes, dependent: :destroy
   has_one :country
+  has_many :remote_review_actions, dependent: :destroy
 
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
 

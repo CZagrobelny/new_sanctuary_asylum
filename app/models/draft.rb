@@ -19,14 +19,4 @@ class Draft < ApplicationRecord
   def status_string
     status ? status.humanize : NO_STATUS_MESSAGE
   end
-
-  def update_status(status)
-    transaction do
-      update!(status: status)
-      application.update!(status: status)
-    end
-    true
-  rescue
-    false
-  end
 end
