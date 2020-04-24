@@ -4,6 +4,6 @@ class RemoteReviewAction < ApplicationRecord
   belongs_to :region
   belongs_to :user
 
-  validates :friend, :community, :region, :user, :action
-  validates_inclusion_of :action, in: %w[review_requested, review_added, approved, closed]
+  validates :friend, :community, :region, :user, :action, presence: true
+  validates_inclusion_of :action, in: %w[review_requested review_added approved closed]
 end
