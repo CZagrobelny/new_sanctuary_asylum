@@ -83,6 +83,32 @@ class DraftsController < ApplicationController
   end
 
   def approve
+    if set_approved_status
+      if friend.users.where(user_friend_associations: { remote: false }).present?
+        ReviewMailer.application_approved_email(application).deliver_now
+      end
+      flash[:success] = 'Draft approved.'
+    else
+      flash[:error] = 'There was an issue approving the draft.'
+    end
+    if current_user.regional_admin?
+      redirect_to regional_admin_region_friend_path(friend.region, friend)
+    else
+      redirect_to remote_clinic_friend_path(friend)
+    end
+  end
+
+  private
+
+  def render_document_list
+    if current_user.admin? || current_user.has_active_data_entry_access_time_slot?
+      redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#documents')
+    else
+      redirect_to community_friend_path(current_community.slug, friend, tab: '#documents')
+    end
+  end
+
+  def set_approved_status
     ActiveRecord::Base.transaction do
       draft.update!(status: 'approved')
       application.update!(status: 'approved')
@@ -96,32 +122,9 @@ class DraftsController < ApplicationController
         draft_id: draft.id,
       )
     end
-    if friend.users.where(user_friend_associations: { remote: false }).present?
-      ReviewMailer.application_approved_email(application).deliver_now
-    end
-    flash[:success] = 'Draft approved.'
-    redirect_to_clinic_friend_show
+    true
   rescue
-    flash[:error] = 'There was an issue approving the draft.'
-    redirect_to_clinic_friend_show
-  end
-
-  private
-
-  def render_document_list
-    if current_user.admin? || current_user.has_active_data_entry_access_time_slot?
-      redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#documents')
-    else
-      redirect_to community_friend_path(current_community.slug, friend, tab: '#documents')
-    end
-  end
-
-  def redirect_to_clinic_friend_show
-    if current_user.regional_admin?
-      redirect_to regional_admin_region_friend_path(friend.region, friend)
-    else
-      redirect_to remote_clinic_friend_path(friend)
-    end
+    false
   end
 
   def draft
