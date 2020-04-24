@@ -1,4 +1,4 @@
-<div class='row'><%= link_to "Back to #{@friend.region.name.upcase} Friends with Active Applications", regional_admin_region_friends_path(@friend.region) %></div>
+<div class='row'><%= link_to "Back to #{@friend.region.name.upcase} Remote Review Action Log", regional_admin_region_remote_review_actions_path(@friend.region) %></div>
 
 <h1><%= link_to @friend.name, edit_community_admin_friend_path(@friend.community.slug, @friend) %></h1>
 
@@ -9,7 +9,7 @@
   <% if group[:application].closed? %>
     <span class='text-muted'><%= "#{group[:application].status.titlecase} #{group[:application].updated_at.strftime('%m/%d/%Y')}" %></span>
   <% else %>
-    <%= link_to "Close #{group[:name].titlecase} Application", regional_admin_region_friend_application_close_path(current_region, @friend, group[:application]), method: :patch, class: 'text-muted', data: { confirm: 'Are you sure? If the friend has no other active applications, this will remove all assigned remote clinic lawyers from the friend and will remove the friend from the Active Applications dashboard.' } %>
+    <%= link_to "Close #{group[:name].titlecase} Application", regional_admin_region_friend_application_close_path(current_region, @friend, group[:application]), method: :patch, class: 'text-muted', data: { confirm: 'Are you sure? If the friend has no other active applications, this will remove all assigned remote clinic lawyers from the friend.' } %>
   <% end %>
   <br>
   <br>

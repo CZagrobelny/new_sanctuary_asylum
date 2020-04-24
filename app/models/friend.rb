@@ -74,6 +74,7 @@ class Friend < ApplicationRecord
   has_many :social_work_referral_categories, through: :friend_social_work_referral_categories
   has_many :friend_notes, dependent: :destroy
   has_one :country
+  has_many :remote_review_actions, dependent: :destroy
 
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
 
@@ -172,13 +173,6 @@ class Friend < ApplicationRecord
 
   scope :filter_created_before, ->(date) {
     where('created_at <= ?', string_to_end_of_date(date))
-  }
-
-  scope :filter_application_status, ->(status) {
-    status = %i[review_requested review_added approved] if status == 'all_active'
-    joins(:applications)
-      .distinct
-      .where(applications: { status: status })
   }
 
   scope :filter_phone_number, ->(phone) {
@@ -283,7 +277,6 @@ class Friend < ApplicationRecord
                                     filter_created_before
                                     filter_judge_imposed_deadline_ending_after
                                     filter_judge_imposed_deadline_ending_before
-                                    filter_application_status
                                     filter_phone_number
                                     filter_notes
                                     filter_activity_start_date

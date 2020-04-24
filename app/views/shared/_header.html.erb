@@ -31,7 +31,7 @@
                 <% region.communities.each do |community| %>
                   <li><%= link_to safe_join([community.name], ' '), community_admin_path(community.slug), class: 'region_community' %></li>
                 <% end %>
-                <li><%= link_to "#{region.name.upcase} Remote Clinic", regional_admin_region_friends_path(region) %></li>
+                <li><%= link_to "#{region.name.upcase} Remote Clinic", regional_admin_region_remote_review_actions_path(region) %></li>
                 <li role='separator' class='divider'></li>
               <% end %>
               <li><%= link_to 'Manage Remote Lawyers', regional_admin_remote_lawyers_path %></li>

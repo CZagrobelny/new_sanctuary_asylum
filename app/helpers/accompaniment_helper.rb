@@ -12,20 +12,6 @@ module AccompanimentHelper
     end
   end
 
-  def print_week_start_end_dates(week)
-    Date.commercial(Date.today.year, week.to_i, 1).strftime('%B %-d') +
-      ' - ' +
-      Date.commercial(Date.today.year, week.to_i, 7).strftime('%B %-d')
-  end
-
-  def group_activities_by_week(activities)
-    activities.group_by { |a| a.occur_at.strftime('%V') }
-  end
-
-  def group_activities_by_day(activities)
-    activities.group_by { |a| a.occur_at.to_date }
-  end
-
   def volunteers_needed(activity)
     if activity.activity_type.cap.present?
       pluralize(activity.activity_type.cap - activity.volunteer_accompaniments.count, 'volunteer') + ' needed.'
