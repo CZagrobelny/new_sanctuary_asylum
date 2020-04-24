@@ -3,6 +3,8 @@
     <%= link_to "Return to #{@review.draft.friend.name}'s record", regional_admin_region_friend_path(@review.draft.friend.region, @review.draft.friend) %>
   <% elsif current_user.admin? || current_user.has_active_data_entry_access_time_slot? %>
     <%= link_to "Return to #{@review.draft.friend.name}'s record", edit_community_admin_friend_path(current_community.slug, @review.draft.friend, tab: '#documents') %>
+  <% elsif current_user.remote_clinic_lawyer? %>
+    <%= link_to "Return to #{@friend.name}'s record", remote_clinic_friend_path(@friend) %>
   <% else %>
     <%= link_to "Return to #{@review.draft.friend.name}'s record", community_friend_path(current_community.slug, @review.draft.friend, tab: '#documents') %>
   <% end %>
