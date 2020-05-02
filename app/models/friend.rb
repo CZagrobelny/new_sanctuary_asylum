@@ -215,6 +215,8 @@ class Friend < ApplicationRecord
       where('must_be_seen_by IS NOT NULL').order("friends.must_be_seen_by #{direction}")
     when /^date_of_entry/
       where('date_of_entry IS NOT NULL').order("friends.date_of_entry #{direction}")
+    when /^last_name/
+      order("friends.last_name #{direction}")
     else
       raise(ArgumentError, "Invalid sort option: #{sort_option.inspect}")
     end
@@ -329,6 +331,8 @@ class Friend < ApplicationRecord
       ['Must Be Seen By (Soonest)', 'must_be_seen_by_asc'],
       ['Date of Entry (Ascending)', 'date_of_entry_asc'],
       ['Date of Entry (Descending)', 'date_of_entry_desc'],
+      ['Last Name (Ascending)', 'last_name_asc'],
+      ['Last Name (Descending)', 'last_name_desc'],
     ]
   end
 
