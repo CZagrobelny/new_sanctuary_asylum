@@ -1,26 +1,16 @@
-<h2>Friends with Active Applications</h2>
+<h2>Your Friends</h2>
 
-<div id='friends-with-active-applications'>
+<div>
   <% @friends.each do |friend| %>
     <% friendship = current_user.relationship(friend) %>
     <div class='row'>
       <div class='col-md-6'>
         <strong><%= link_to friend.name, remote_clinic_friend_path(friend) %></strong>
         <br>
-        <strong>Assigned lawyer:  </strong><%= current_user.name %> -- <%= friendship.created_at.strftime('%m/%d/%Y') %>
-      </div>
-      <div class='col-md-6'>
-        <% friend.applications.each do |application| %>
-          <div class='col-md-8'>
-            <strong><%= application.category.titlecase %></strong>
-            <span class="status <%= application.status %>">
-              <%= "-- #{application.status.try(:titlecase)} #{application.updated_at.strftime('%m/%d/%Y')}" %>
-            </span>
-          </div>
-          <div class='col-md-4'>
-            Open <%= (Date.today - application.created_at.to_date).to_i %> days
-          </div>
-        <% end %>
+        <strong>Assigned lawyer(s):  </strong>
+        <%= friend.user_friend_associations.remote.map { |friendship|
+          "#{ friendship.user == current_user ? 'You' : friendship.user.name } -- #{ friendship.created_at.strftime('%m/%d/%Y') }"
+        }.join(', ') %>
       </div>
     </div>
     <br>
