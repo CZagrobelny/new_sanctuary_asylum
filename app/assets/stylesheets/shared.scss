@@ -270,7 +270,7 @@
   .has-events {}
 }
 
-.status {
+.status, .remote_lawyer_review_status {
   font-weight: bold;
 }
 
@@ -289,6 +289,26 @@
 .approved {
   color: #339933;
 }
+
+.remote_lawyer_review_status.in_progress {
+    color: #555;
+}
+  
+.remote_lawyer_review_status.review_requested {
+    color: #b11d1d;
+}
+  
+.remote_lawyer_review_status.review_added {
+    color: #1a1aff;
+}
+  
+.remote_lawyer_review_status.approved {
+    color: #339933;
+}
+
+.remote_lawyer_no_reviews {
+    color: #999;
+  }
 
 .event_small_col {
   width: 36px;
@@ -329,4 +349,19 @@
 
 .eoir_caller {
   color: #5cb85c !important;
+}
+
+.navbar-nav li.dropdown.regional_admin > ul.dropdown-menu > li {
+  a {
+    font-weight: bold;
+  }
+
+  a.region_community {
+    font-weight: normal;
+  }
+}
+
+li a.region_community {
+  // Based off the Bootstrap .dropdown-menu > li > a padding
+  padding-left: 30px;
 }

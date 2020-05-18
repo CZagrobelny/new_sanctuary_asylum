@@ -1,0 +1,30 @@
+<h1><%= current_region.name.upcase %> Remote Review Action Log</h1>
+
+<% @remote_review_actions.each do |remote_review_action| %>
+  <div class='row'>
+    <div class='col-md-12'>
+      <p>
+        <% case remote_review_action.action %>
+        <% when 'review_requested' %>
+          <%= link_to "#{ remote_review_action.friend.name }'s #{ remote_review_action.application.category.humanize.downcase } application", regional_admin_region_friend_path(current_region, remote_review_action.friend) %>
+          <%= "has been submitted for review (#{ remote_review_action.created_at.strftime("%A, %B %-d") } -- #{ remote_review_action.community.name.upcase })." %>
+        <% when 'review_added' %>
+          <%= "#{ remote_review_action.user.name } has added a review for " %>
+          <%= link_to "#{ remote_review_action.friend.name }'s #{ remote_review_action.application.category.humanize.downcase } application", regional_admin_region_friend_path(current_region, remote_review_action.friend) %>
+          <%= "(#{ remote_review_action.created_at.strftime("%A, %B %-d") } -- #{ remote_review_action.community.name.upcase })." %>
+        <% when 'approved' %>
+          <%= link_to "#{ remote_review_action.friend.name }'s #{ remote_review_action.application.category.humanize.downcase } application", regional_admin_region_friend_path(current_region, remote_review_action.friend) %>
+          <%= "has been approved (#{ remote_review_action.created_at.strftime("%A, %B %-d") } -- #{ remote_review_action.community.name.upcase })." %>
+        <% when 'closed' %>
+          <%= "#{ remote_review_action.user.name } has closed " %>
+          <%= link_to "#{ remote_review_action.friend.name }'s #{ remote_review_action.application.category.humanize.downcase } application", regional_admin_region_friend_path(current_region, remote_review_action.friend) %>
+          <%= "(#{ remote_review_action.created_at.strftime("%A, %B %-d") } -- #{ remote_review_action.community.name.upcase })." %>
+        <% end %>
+      </p>
+    </div>
+  </div>
+<% end %>
+
+<div class='pull-right'>
+  <%= will_paginate @remote_review_actions %>
+</div

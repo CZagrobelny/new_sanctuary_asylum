@@ -62,16 +62,28 @@ class DraftsController < ApplicationController
   end
 
   def submit_for_review
-    if draft.update_status(:review_requested)
-      flash[:success] = 'Draft submitted for review.'
-    else
-      flash[:error] = 'There was an issue submitting the draft for review.'
+    ActiveRecord::Base.transaction do
+      draft.update!(status: 'review_requested')
+      application.update!(status: 'review_requested')
+      RemoteReviewAction.create!(
+        action: 'review_requested',
+        user_id: current_user.id,
+        friend_id: friend.id,
+        community_id: friend.community_id,
+        region_id: friend.region_id,
+        application_id: application.id,
+        draft_id: draft.id,
+      )
     end
+    flash[:success] = 'Draft submitted for review.'
+    render_document_list
+  rescue
+    flash[:error] = 'There was an issue submitting the draft for review.'
     render_document_list
   end
 
   def approve
-    if draft.update_status(:approved)
+    if set_approved_status
       if friend.users.where(user_friend_associations: { remote: false }).present?
         ReviewMailer.application_approved_email(application).deliver_now
       end
@@ -94,6 +106,25 @@ class DraftsController < ApplicationController
     else
       redirect_to community_friend_path(current_community.slug, friend, tab: '#documents')
     end
+  end
+
+  def set_approved_status
+    ActiveRecord::Base.transaction do
+      draft.update!(status: 'approved')
+      application.update!(status: 'approved')
+      RemoteReviewAction.create!(
+        action: 'approved',
+        user_id: current_user.id,
+        friend_id: friend.id,
+        community_id: friend.community_id,
+        region_id: friend.region_id,
+        application_id: application.id,
+        draft_id: draft.id,
+      )
+    end
+    true
+  rescue
+    false
   end
 
   def draft

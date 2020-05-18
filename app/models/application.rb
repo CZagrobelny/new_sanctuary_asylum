@@ -6,6 +6,7 @@ class Application < ApplicationRecord
                   report_back sijs work_authorization team_sheet].freeze
 
   has_many :drafts, dependent: :restrict_with_error
+  has_many :remote_review_actions, dependent: :destroy
   belongs_to :friend
 
   validates :friend, presence: true

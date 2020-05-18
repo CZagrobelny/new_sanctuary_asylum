@@ -74,6 +74,7 @@ class Friend < ApplicationRecord
   has_many :social_work_referral_categories, through: :friend_social_work_referral_categories
   has_many :friend_notes, dependent: :destroy
   has_one :country
+  has_many :remote_review_actions, dependent: :destroy
 
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
 
@@ -174,13 +175,6 @@ class Friend < ApplicationRecord
     where('created_at <= ?', string_to_end_of_date(date))
   }
 
-  scope :filter_application_status, ->(status) {
-    status = %i[review_requested review_added approved] if status == 'all_active'
-    joins(:applications)
-      .distinct
-      .where(applications: { status: status })
-  }
-
   scope :filter_phone_number, ->(phone) {
     return nil if phone.blank?
 
@@ -221,6 +215,8 @@ class Friend < ApplicationRecord
       where('must_be_seen_by IS NOT NULL').order("friends.must_be_seen_by #{direction}")
     when /^date_of_entry/
       where('date_of_entry IS NOT NULL').order("friends.date_of_entry #{direction}")
+    when /^last_name/
+      order("friends.last_name #{direction}")
     else
       raise(ArgumentError, "Invalid sort option: #{sort_option.inspect}")
     end
@@ -283,7 +279,6 @@ class Friend < ApplicationRecord
                                     filter_created_before
                                     filter_judge_imposed_deadline_ending_after
                                     filter_judge_imposed_deadline_ending_before
-                                    filter_application_status
                                     filter_phone_number
                                     filter_notes
                                     filter_activity_start_date
@@ -336,6 +331,8 @@ class Friend < ApplicationRecord
       ['Must Be Seen By (Soonest)', 'must_be_seen_by_asc'],
       ['Date of Entry (Ascending)', 'date_of_entry_asc'],
       ['Date of Entry (Descending)', 'date_of_entry_desc'],
+      ['Last Name (Ascending)', 'last_name_asc'],
+      ['Last Name (Descending)', 'last_name_desc'],
     ]
   end
 

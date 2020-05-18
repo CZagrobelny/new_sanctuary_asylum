@@ -7,7 +7,15 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <div class='navbar-brand'><%= link_to 'New Sanctuary Coalition', current_user.present? ? root_path : unauthenticated_root_path %></div>
+    <div class='navbar-brand'>
+      <%= link_to 'New Sanctuary Coalition', current_user.present? ? root_path : unauthenticated_root_path %>
+      <% if current_user&.regional_admin? && current_region %>
+        > <%= current_region.name.upcase %>
+        <% if current_community %>
+          > <%= current_community.name %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
@@ -15,12 +23,15 @@
     <ul class='nav navbar-nav navbar-right' style='margin-right:10px;'>
       <% if current_user %>
         <% if current_user.regional_admin? %>
-          <li class='dropdown'>
+          <li class='dropdown regional_admin'>
             <a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Regional Management<span class='caret'></span></a>
             <ul class='dropdown-menu'>
               <% current_user.regions.each do |region| %>
                 <li><%= link_to "#{region.name.upcase} Communities", regional_admin_region_communities_path(region) %></li>
-                <li><%= link_to "#{region.name.upcase} Remote Clinic", regional_admin_region_friends_path(region) %></li>
+                <% region.communities.each do |community| %>
+                  <li><%= link_to safe_join([community.name], ' '), community_admin_path(community.slug), class: 'region_community' %></li>
+                <% end %>
+                <li><%= link_to "#{region.name.upcase} Remote Clinic", regional_admin_region_remote_review_actions_path(region) %></li>
                 <li role='separator' class='divider'></li>
               <% end %>
               <li><%= link_to 'Manage Remote Lawyers', regional_admin_remote_lawyers_path %></li>

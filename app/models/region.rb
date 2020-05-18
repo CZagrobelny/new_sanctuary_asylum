@@ -7,6 +7,7 @@ class Region < ApplicationRecord
   has_many :locations
   has_many :judges
   has_many :activities
+  has_many :remote_review_actions
 
   validates :name, presence: true
   validates_uniqueness_of :name

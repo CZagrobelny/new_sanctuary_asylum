@@ -15,15 +15,4 @@ class Review < ApplicationRecord
   def authored_by?(user)
     !self.user.nil? && self.user == user
   end
-
-  def save_and_note_review_added
-    transaction do
-      save!
-      draft.update!(status: :review_added)
-      draft.application.update!(status: :review_added)
-    end
-    true
-  rescue
-    false
-  end
 end
