@@ -24,7 +24,9 @@ class ReviewsController < ApplicationController
       flash[:success] = 'Review created.'
       render_friend_page
     else
+      review
       friend
+      draft
       flash.now[:error] = 'Review failed to save.'
       render :new
     end
