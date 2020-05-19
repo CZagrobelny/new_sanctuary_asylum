@@ -37,6 +37,10 @@
       <p>
         <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
         <br>
+        <% if draft.users.present? && is_admin %>
+            <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
+        <% end %>
+
 
         <% if draft.notes.present? %>
           <strong>Notes:  </strong><%= draft.notes %><br>
@@ -50,7 +54,10 @@
               <% if review.authored_by?(current_user) %>
                   <%= link_to "Your Review", edit_community_friend_draft_review_path(@friend.community.slug, @friend, draft, review) %>
               <% else %>
-                  <%= link_to "Review by #{review.user.name}", community_friend_draft_review_path(@friend.community.slug, @friend, draft, review) %>
+                <%= link_to "Review by #{review.user.name}",  community_friend_draft_review_path(@friend.community.slug, @friend, draft, review, remote_clinic: is_admin) %>
+                <% if is_admin %>
+                    (<%= review.user.role.tr('_', ' ').titlecase %>)
+                <% end %>
               <% end %>
               <br>
           <% end %>
@@ -65,7 +72,7 @@
       <% if draft.reviews.by_user(current_user).present? %>
           <%= link_to 'Edit Review', new_community_friend_draft_review_path(@friend.community.slug, @friend, draft), class: 'btn btn-info' %>
       <% else %>
-        <%= link_to 'Add Review', new_community_friend_draft_review_path(@friend.community.slug, @friend, draft), class: 'btn btn-primary' %>
+        <%= link_to 'Add Review', new_community_friend_draft_review_path(@friend.community.slug, @friend, draft, remote_clinic: is_admin), class: 'btn btn-primary' %>
       <% end %>
       <% unless draft.application.approved? || draft.application.closed? || draft.friend.region.border?  %>
         <%= link_to 'Approve Draft', approve_community_friend_draft_path(@friend.community.slug, @friend, draft), method: :patch, class: 'btn btn-success', data: { confirm: 'Are you sure?  This will notify community admins and volunteers that the draft has been approved and cannot be undone.' } %>
