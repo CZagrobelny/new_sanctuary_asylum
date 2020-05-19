@@ -103,6 +103,8 @@ class DraftsController < ApplicationController
   def render_document_list
     if current_user.admin? || current_user.has_active_data_entry_access_time_slot?
       redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#documents')
+    elsif current_user.remote_clinic_lawyer?
+      redirect_to remote_clinic_friend_path(friend)
     else
       redirect_to community_friend_path(current_community.slug, friend, tab: '#documents')
     end

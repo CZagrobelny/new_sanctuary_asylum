@@ -1,3 +1,4 @@
+<%= link_to 'Create Document', new_community_friend_draft_path(@friend.community.slug, @friend), class: 'pull-right btn btn-primary' %>
 <h1><%= @friend.name %></h1>
 
 <% @friend.grouped_drafts.each do |group| %>
