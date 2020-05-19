@@ -1,4 +1,3 @@
-<h1><%= @friend.name %></h1>
 
 <% @friend.grouped_drafts.each do |group| %>
   <h2 style='display: inline;'>
@@ -6,6 +5,8 @@
   </h2>
   <% if group[:application].closed? %>
     <span class='text-muted'><%= "#{group[:application].status.titlecase} #{group[:application].updated_at.strftime('%m/%d/%Y')}" %></span>
+  <% elsif is_admin %>
+    <%= link_to "Close #{group[:name].titlecase} Application", regional_admin_region_friend_application_close_path(current_region, @friend, group[:application]), method: :patch, class: 'text-muted', data: { confirm: 'Are you sure? If the friend has no other active applications, this will remove all assigned remote clinic lawyers from the friend.' } %>
   <% end %>
 
   <div class='row hidden-sm hidden-xs'>
