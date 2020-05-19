@@ -1,5 +1,8 @@
-<% unless current_user.admin? || current_user.has_active_data_entry_access_time_slot? %>
+<% if current_user.remote_clinic_lawyer? %>
+  <div class='row'><%= link_to 'Back to Friend Record', remote_clinic_friend_path(@friend) %></div>
+<% elsif !current_user.admin? && !current_user.has_active_data_entry_access_time_slot? %>
   <div class='row'><%= link_to 'Back to Friend Record', community_friend_path(current_community.slug, @friend, tab: '#documents') %></div>
 <% end %>
+
 <h2>New Document</h2>
 <%= render 'form' %>
