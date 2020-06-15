@@ -90,4 +90,27 @@ module ApplicationHelper
       %w[Wyoming WY]
     ]
   end
+
+  def accompaniment_activity_classes(activity)
+    [].tap do |classes|
+      classes << activity.activity_type.name
+      classes << 'friend_in_detention' if activity.friend.status == 'in_detention'
+    end
+  end
+
+  # Maps activity type name [or other key] to hexadecimal color code
+  def color_map
+    {
+      'high_risk_ice_check_in' => '#800080',
+      'friend_in_detention' => '#e83737',
+    }
+  end
+
+  def color_code
+    content_tag :p, safe_join(
+      color_map.map do |class_name, color|
+        content_tag(:span, class_name.titlecase, class: "#{ class_name } color_code")
+      end
+    )
+  end
 end

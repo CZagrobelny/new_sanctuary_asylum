@@ -1,0 +1,8 @@
+<% ApplicationController.helpers.color_map.each do |class_name, color| %>
+  .<%= class_name %> {
+    color: <%= color %>;
+  }
+  span.color_code.<%= class_name %> {
+    display: block;
+  }
+<% end %>
