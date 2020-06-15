@@ -173,7 +173,6 @@ ActiveRecord::Base.transaction do
   #Activities
   Friend.all.each do |friend|
     friend.activities.create!(
-      event: ['check_in', 'master_calendar_hearing', 'individual_hearing'].sample,
       location_id: Location.first.id,
       judge_id: Judge.first.id,
       occur_at: Faker::Time.between(1.month.ago, 1.month.from_now),

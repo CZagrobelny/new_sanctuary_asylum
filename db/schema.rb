@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_20_231703) do
+ActiveRecord::Schema.define(version: 2020_06_15_223912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 2020_04_20_231703) do
   end
 
   create_table "activities", id: :serial, force: :cascade do |t|
-    t.string "event"
     t.integer "location_id"
     t.integer "friend_id"
     t.integer "judge_id"
