@@ -1,0 +1,92 @@
+
+<% @friend.grouped_drafts.each do |group| %>
+  <h2 style='display: inline;'>
+    <%= group[:name].titlecase %>
+  </h2>
+  <% if group[:application].closed? %>
+    <span class='text-muted'><%= "#{group[:application].status.titlecase} #{group[:application].updated_at.strftime('%m/%d/%Y')}" %></span>
+  <% elsif is_admin %>
+    <%= link_to "Close #{group[:name].titlecase} Application", regional_admin_region_friend_application_close_path(current_region, @friend, group[:application]), method: :patch, class: 'text-muted', data: { confirm: 'Are you sure? If the friend has no other active applications, this will remove all assigned remote clinic lawyers from the friend.' } %>
+  <% end %>
+
+  <div class='row hidden-sm hidden-xs'>
+  <h4>
+    <div class='col-md-2'>
+      Status
+    </div>
+    <div class='col-md-4'>
+      Document
+    </div>
+    <div class='col-md-3'>
+      Reviews
+    </div>
+    <div class='col-md-3'>
+      Actions
+    </div>
+  </h4>
+</div>
+<br>
+<% group[:drafts].each do |draft| %>
+  <div class='row'>
+    <div class='col-md-2'>
+      <div class='remote_lawyer_review_status <%= draft.status %>'>
+          <%= draft.status_string %>
+      </div>
+      <%= draft.updated_at.strftime('%m/%d/%Y') %>
+    </div>
+    <div class='col-md-4'>
+      <p>
+        <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
+        <br>
+        <% if draft.users.present? && is_admin %>
+            <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
+        <% end %>
+
+
+        <% if draft.notes.present? %>
+          <strong>Notes:  </strong><%= draft.notes %><br>
+        <% end %>
+      </p>
+    </div>
+
+    <div class='col-md-3'>
+      <% if draft.reviews.present? %>
+          <% draft.reviews.each do |review| %>
+              <% if review.authored_by?(current_user) %>
+                  <%= link_to "Your Review", edit_community_friend_draft_review_path(@friend.community.slug, @friend, draft, review) %>
+              <% else %>
+                <%= link_to "Review by #{review.user.name}",  community_friend_draft_review_path(@friend.community.slug, @friend, draft, review, remote_clinic: is_admin) %>
+                <% if is_admin %>
+                    (<%= review.user.role.tr('_', ' ').titlecase %>)
+                <% end %>
+              <% end %>
+              <br>
+          <% end %>
+      <% else %>
+          <div class='remote_lawyer_no_reviews'>
+              No reviews yet
+          </div>
+      <% end %>
+    </div>
+
+    <div class='col-md-3'>
+      <% if draft.reviews.by_user(current_user).present? %>
+          <%= link_to 'Edit Review', new_community_friend_draft_review_path(@friend.community.slug, @friend, draft), class: 'btn btn-info' %>
+      <% else %>
+        <%= link_to 'Add Review', new_community_friend_draft_review_path(@friend.community.slug, @friend, draft, remote_clinic: is_admin), class: 'btn btn-primary' %>
+      <% end %>
+      <% unless draft.application.approved? || draft.application.closed? || draft.friend.region.border?  %>
+        <%= link_to 'Approve Draft', approve_community_friend_draft_path(@friend.community.slug, @friend, draft), method: :patch, class: 'btn btn-success', data: { confirm: 'Are you sure?  This will notify community admins and volunteers that the draft has been approved and cannot be undone.' } %>
+      <% end %>
+    </div>
+  </div>
+  <br>
+<% end %>
+<br>
+<% end %>
+
+<% if @friend.notes.present? %>
+  <h3>Notes for <%= @friend.name %></h3>
+  <p><%= @friend.notes %></p>
+  </br>
+<% end %>
