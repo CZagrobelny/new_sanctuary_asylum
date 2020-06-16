@@ -167,13 +167,12 @@ ActiveRecord::Base.transaction do
   Judge.create!(first_name: 'Elena', last_name: 'Kagan', region_id: ny_region.id)
 
   #ActivityType
-  hearing = ActivityType.create!(name: "Hearing", cap: 0, accompaniment_eligible: false)
-  check_in = ActivityType.create!(name: "Check In", cap: 3, accompaniment_eligible: true)
+  hearing = ActivityType.create!(name: "individual_hearing", cap: 0, accompaniment_eligible: false)
+  check_in = ActivityType.create!(name: "check_in", cap: 3, accompaniment_eligible: true)
 
   #Activities
   Friend.all.each do |friend|
     friend.activities.create!(
-      event: ['check_in', 'master_calendar_hearing', 'individual_hearing'].sample,
       location_id: Location.first.id,
       judge_id: Judge.first.id,
       occur_at: Faker::Time.between(1.month.ago, 1.month.from_now),

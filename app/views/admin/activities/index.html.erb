@@ -7,8 +7,11 @@
   <% activities.each do |activity| %>
       <dt><%= activity.occur_at.strftime("%I:%M %p") %></dt>
       <dd>
-        <a href="#" data-toggle="modal" data-target="#modal_activity_<%= activity.id %>"><%= "#{activity.activity_type.name.titlecase} for #{activity.friend.name}" %></a><%= " (#{activity.friend.community.name.upcase})" if !activity.friend.community.primary? %>
-         <div id="modal_activity_<%= activity.id %>" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <%= link_to '#', data: { toggle: 'modal', target: "#modal_activity_#{ activity.id }"}, class: accompaniment_activity_classes(activity) do %>
+          <%= activity.activity_type.name.titlecase %> for <%= activity.friend.name %>
+        <% end %>
+        <%= " (#{activity.friend.community.name.upcase})" if !activity.friend.community.primary? %>
+        <div id="modal_activity_<%= activity.id %>" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -34,6 +37,9 @@
   <% end %>
   </dl>
 <% end %>
+
+<h3>Color Code</h3>
+<%= color_code %>
 
 <script type="text/javascript">
   $(document).ready(function(){
