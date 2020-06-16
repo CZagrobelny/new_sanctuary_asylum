@@ -36,7 +36,7 @@
     </div>
     <div class='col-md-4'>
         <p>
-            <%= link_to draft.pdf_draft_url("response-content-disposition" => "attachment") do %>
+            <%= link_to draft.pdf_draft.url(query: {"response-content-disposition" => "attachment;"}) do %>
                     <i class="fa fa-download" aria-hidden="true" title="Download File"></i>
             <% end %>
             <%= link_to draft.pdf_draft_url, target: '_blank' do %>
