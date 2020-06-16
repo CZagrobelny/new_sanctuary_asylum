@@ -35,18 +35,24 @@
       <%= draft.updated_at.strftime('%m/%d/%Y') %>
     </div>
     <div class='col-md-4'>
-      <p>
-        <%= link_to draft.pdf_draft.file.filename, draft.pdf_draft_url, target: '_blank' %>
-        <br>
-        <% if draft.users.present? && is_admin %>
-            <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
-        <% end %>
+        <p>
+            <%= link_to draft.pdf_draft_url(:query => {"response-content-disposition" => "attachment"}) do %>
+                    <i class="fa fa-download" aria-hidden="true" title="Download File"></i>
+            <% end %>
+            <%= link_to draft.pdf_draft_url, target: '_blank' do %>
+                <i class="fa fa-eye" aria-hidden="true" title="View File (EDITS WILL NOT BE SAVED!)"></i>
+            <% end %>
+            <%= draft.pdf_draft.file.filename %>
+            <br>
 
+            <% if draft.users.present? && is_admin %>
+                <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
+            <% end %>
 
-        <% if draft.notes.present? %>
-          <strong>Notes:  </strong><%= draft.notes %><br>
-        <% end %>
-      </p>
+            <% if draft.notes.present? %>
+            <strong>Notes:  </strong><%= draft.notes %><br>
+            <% end %>
+        </p>
     </div>
 
     <div class='col-md-3'>
