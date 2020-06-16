@@ -63,9 +63,13 @@
               <br>
           <% end %>
       <% else %>
+        <% if draft.in_progress? && is_admin %>
+          <%= link_to 'Submit for Review', submit_for_review_community_friend_draft_path(@friend.community.slug, @friend, draft, remote_clinic: is_admin), method: :patch, class: 'btn btn-info'%>
+        <% else %>
           <div class='remote_lawyer_no_reviews'>
-              No reviews yet
+            No reviews yet
           </div>
+        <% end %>
       <% end %>
     </div>
 

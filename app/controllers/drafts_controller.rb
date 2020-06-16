@@ -101,7 +101,9 @@ class DraftsController < ApplicationController
   private
 
   def render_document_list
-    if current_user.admin? || current_user.has_active_data_entry_access_time_slot?
+    if current_user.regional_admin? && params[:remote_clinic].present?
+      redirect_to regional_admin_region_friend_path(friend.region, friend)
+    elsif current_user.admin? || current_user.has_active_data_entry_access_time_slot?
       redirect_to edit_community_admin_friend_path(current_community.slug, friend, tab: '#documents')
     elsif current_user.remote_clinic_lawyer?
       redirect_to remote_clinic_friend_path(friend)
