@@ -116,11 +116,11 @@ class Admin::UsersController < AdminController
   end
 
   def password_params
-    password_params = params.require(:user).permit(:password)
-
-    password_params.each { |key, value|
-      password_params[key] = value.strip.empty? ? nil : value.strip
-    }.compact
+    compact_password_params = HashWithIndifferentAccess.new
+    params.require(:user).permit(:password).each do |key, value|
+      compact_password_params[key] = value.strip.empty? ? nil : value.strip
+    end
+    compact_password_params.compact
   end
 
   def user_index_scope
