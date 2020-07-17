@@ -167,7 +167,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
       end
 
       it 'displays the draft name' do
-        expect(page).to have_link 'nsc_logo.png'
+        expect(page).to have_content 'nsc_logo.png'
       end
 
       it 'displays a "Submit for Review" link' do
