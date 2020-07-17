@@ -37,12 +37,16 @@
     <div class='col-md-4'>
       <p>
         <%= draft.pdf_draft.file.filename %><br>
-        <%= link_to draft.pdf_draft.url(response_content_disposition: %Q{attachment; filename="#{ draft.pdf_draft.file.filename }"}) do %>
-          <i class="fa fa-download" aria-hidden="true" title="Download File"></i>
-        <% end %>
         <%= link_to draft.pdf_draft_url, target: '_blank' do %>
-          <i class="fa fa-eye" aria-hidden="true" title="View File (EDITS WILL NOT BE SAVED!)"></i>
+          <i class='fa fa-eye fa-lg'></i>
+          View
         <% end %>
+        <span style='padding-left:10px; padding-right:10px;'>|</span>
+        <%= link_to draft.pdf_draft.url(response_content_disposition: %Q{attachment; filename="#{ draft.pdf_draft.file.filename }"}) do %>
+          <i class='fa fa-download fa-lg'></i>
+          Download
+        <% end %>
+        <br>
 
         <% if draft.users.present? && is_admin %>
           <strong>Team:  </strong><%= draft.users.map(&:name).to_sentence %><br>
