@@ -359,7 +359,7 @@ class Friend < ApplicationRecord
   end
 
   def grouped_drafts
-    applications.map do |application|
+    applications.order('category asc').map do |application|
       {
         name: application.category,
         drafts: application.drafts.order('created_at desc'),
