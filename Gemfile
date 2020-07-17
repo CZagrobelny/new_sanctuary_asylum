@@ -4,11 +4,11 @@ ruby File.read('.ruby-version').strip
 
 gem 'rails', '~> 5.2.x'
 
-gem 'airbrake', '~> 6.2'
 gem 'american_date'
 gem 'brakeman'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-aws'
+gem 'chartkick'
 gem 'chosen-rails'
 gem 'devise', '~> 4.7'
 gem 'devise_invitable', '~> 1.7'
@@ -20,7 +20,6 @@ gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0'
 gem 'multi_json', '~> 1.11'
-gem 'newrelic_rpm'
 gem 'nokogiri', '~> 1.10'
 gem 'non-stupid-digest-assets'
 gem 'pg', '~> 1.1'
@@ -36,7 +35,6 @@ gem 'textacular', '~> 5.0'
 gem 'timecop' #used for seed data on staging
 gem 'turbolinks', '~> 5.x'
 gem 'will_paginate'
-gem "chartkick"
 
 group :assets do
   gem 'coffee-rails'

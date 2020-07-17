@@ -44,9 +44,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
-    airbrake (6.3.0)
-      airbrake-ruby (~> 2.4)
-    airbrake-ruby (2.12.0)
     american_date (1.1.1)
     arel (9.0.0)
     ast (2.4.0)
@@ -181,7 +178,6 @@ GEM
     minitest (5.14.1)
     multi_json (1.13.1)
     mustermann (1.0.3)
-    newrelic_rpm (6.1.0.352)
     nio4r (2.5.2)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
@@ -385,7 +381,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake (~> 6.2)
   american_date
   brakeman
   bundler-audit
@@ -412,7 +407,6 @@ DEPENDENCIES
   launchy
   listen (~> 3.0)
   multi_json (~> 1.11)
-  newrelic_rpm
   nokogiri (~> 1.10)
   non-stupid-digest-assets
   pg (~> 1.1)
