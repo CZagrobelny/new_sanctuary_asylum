@@ -28,6 +28,7 @@ gem 'pg_search'
 gem 'phantomjs'
 gem 'puma', '~> 3.x'
 gem 'redis', '~> 3.3'
+gem 'rollbar'
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'simple_calendar', '~> 2.0'
