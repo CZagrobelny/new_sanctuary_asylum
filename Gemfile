@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby File.read('.ruby-version').strip
 
-gem 'rails', '~> 5.2.x'
+gem 'rails', '~> 6.0.x'
 
 gem 'american_date'
 gem 'brakeman'
