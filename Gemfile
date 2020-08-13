@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+'https://rubygems.org'
 
 ruby File.read('.ruby-version').strip
 
@@ -34,6 +34,7 @@ gem 'simple_calendar', '~> 2.0'
 gem 'textacular', '~> 5.0'
 gem 'timecop' #used for seed data on staging
 gem 'turbolinks', '~> 5.x'
+gem 'webpacker'
 gem 'will_paginate'
 
 group :assets do
