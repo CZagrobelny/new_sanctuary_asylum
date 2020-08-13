@@ -11,22 +11,24 @@ RSpec.describe Admin::UsersController, type: :controller do
 
   describe "PUT #update" do
     context 'when the user has an active time slot' do
+      let!(:user) {create :user, community: community, role: "admin", first_name: "Elizabeth"}
       before do
-        AccessTimeSlot.create(grantee_id: data_entry_user.id,
-          grantor_id: 100,
+        AccessTimeSlot.create!(
+          grantee_id: data_entry_user.id,
+          grantor_id: user.id,
           community_id: data_entry_user.community.id,
           use: 'data_entry',
           start_time: 1.hour.ago,
           end_time: 1.hour.from_now
         )
       end
-      let!(:user) {create :user, community: community, role: "admin", first_name: "Elizabeth"}
+
       it 'does NOT update user role but does update other attributes' do
         user.first_name = "Jane"
         user.role = "data_entry"
         put :update, params: {
-          community_slug: community.slug, 
-          id: user.id, 
+          community_slug: community.slug,
+          id: user.id,
           user: user.attributes
         }
         expect(user.reload.role).to eq "admin"

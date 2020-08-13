@@ -25,7 +25,7 @@ class Admin::FriendEventAttendancesController < AdminController
   def render_success
     respond_to do |format|
       format.js do
-        render file: 'admin/events/friend_attendance',
+        render template: 'admin/events/friend_attendance',
                locals: { event: event,
                          friend_attendance: event.friend_attendances,
                          attending_friends: event.friends }

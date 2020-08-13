@@ -1,7 +1,7 @@
 class Activity < ApplicationRecord
   belongs_to :friend
   belongs_to :region
-  belongs_to :judge
+  belongs_to :judge, optional: true
   belongs_to :location
   belongs_to :activity_type
   has_many :accompaniments, -> { order(created_at: :asc) }, dependent: :destroy

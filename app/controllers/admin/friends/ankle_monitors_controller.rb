@@ -51,13 +51,13 @@ class Admin::Friends::AnkleMonitorsController < AdminController
 
   def render_modal
     respond_to do |format|
-      format.js { render file: 'admin/friends/ankle_monitors/modal', locals: { friend: friend, ankle_monitor: ankle_monitor } }
+      format.js { render template: 'admin/friends/ankle_monitors/modal', locals: { friend: friend, ankle_monitor: ankle_monitor } }
     end
   end
 
   def render_success
     respond_to do |format|
-      format.js { render file: 'admin/friends/ankle_monitors/list', locals: { friend: friend } }
+      format.js { render template: 'admin/friends/ankle_monitors/list', locals: { friend: friend } }
     end
   end
 end

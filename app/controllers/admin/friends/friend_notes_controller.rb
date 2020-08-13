@@ -48,13 +48,13 @@ class Admin::Friends::FriendNotesController < AdminController
 
   def render_modal
     respond_to do |format|
-      format.js { render file: 'admin/friends/friend_notes/modal', locals: { friend: friend, friend_note: friend_note } }
+      format.js { render template: 'admin/friends/friend_notes/modal', locals: { friend: friend, friend_note: friend_note } }
     end
   end
 
   def render_success
     respond_to do |format|
-      format.js { render file: 'admin/friends/friend_notes/list', locals: { friend: friend } }
+      format.js { render template: 'admin/friends/friend_notes/list', locals: { friend: friend } }
     end
   end
 
