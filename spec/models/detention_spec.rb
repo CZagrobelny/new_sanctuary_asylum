@@ -13,7 +13,7 @@ RSpec.describe Detention, type: :model do
 
     context 'no case status' do
       before do
-        detention.update_attributes!(case_status: nil)
+        detention.update!(case_status: nil)
       end
 
       it 'returns nil' do
@@ -25,7 +25,7 @@ RSpec.describe Detention, type: :model do
       other_case_status = 'test'
 
       before do
-        detention.update_attributes!(case_status: 'other', other_case_status: other_case_status)
+        detention.update!(case_status: 'other', other_case_status: other_case_status)
       end
 
       it 'returns the other case status' do

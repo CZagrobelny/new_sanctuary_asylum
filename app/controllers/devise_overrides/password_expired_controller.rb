@@ -1,3 +1,4 @@
+require 'devise_overrides/user_with_password'
 class DeviseOverrides::PasswordExpiredController < Devise::PasswordExpiredController
   # A slight customization of how devise_security_extension was doing things
   def update

@@ -6,7 +6,7 @@ module DeviseOverrides::UserWithPassword
       # This is all customized for our needs
       if params[:password].present? && params[:password_confirmation].present?
         # We're skipping password so it shouldn't need to be deleted
-        update_attributes(params)
+        update(params)
       else
         assign_attributes(params)
         valid?

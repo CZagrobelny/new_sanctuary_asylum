@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module NewSanctuaryAsylum
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.0
+    config.load_defaults 6.0
     config.time_zone = 'Eastern Time (US & Canada)'
 
     # Allow the app to control its own error routes (custom 404, etc.)

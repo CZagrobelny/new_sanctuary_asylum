@@ -15,7 +15,7 @@ class FriendsController < ApplicationController
   def update
     friend.update(friend_params)
     respond_to do |format|
-      format.js { render file: 'friends/access', locals: { friend: friend } }
+      format.js { render template: 'friends/access', locals: { friend: friend } }
     end
   end
 
