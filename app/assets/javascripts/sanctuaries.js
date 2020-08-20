@@ -3,9 +3,7 @@ $(document).on('turbolinks:load', function () {
 });
 
 function activateSanctuariesChosen() {
-  $('.chosen-select').chosen({
-    allow_single_deselect: true,
-    no_results_text: 'No results matched',
+  $('.chzn-select-sanctuaries').select2({
     width: '100%'
   });
 }

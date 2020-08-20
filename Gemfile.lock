@@ -88,10 +88,6 @@ GEM
       aws-sdk-s3 (~> 1.0)
       carrierwave (>= 0.7, < 2.0)
     chartkick (3.3.0)
-    chosen-rails (1.8.7)
-      coffee-rails (>= 3.2)
-      railties (>= 3.0)
-      sass-rails (>= 3.2)
     cliver (0.3.2)
     coderay (1.1.2)
     coffee-rails (4.2.2)
@@ -304,6 +300,7 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    select2-rails (4.0.13)
     sendgrid-ruby (5.3.0)
       ruby_http_client (~> 3.3.0)
       sinatra (>= 1.4.7, < 3)
@@ -390,7 +387,6 @@ DEPENDENCIES
   carrierwave (~> 1.0)
   carrierwave-aws
   chartkick
-  chosen-rails
   coffee-rails
   database_cleaner (~> 1.5)
   devise (~> 4.7)
@@ -425,6 +421,7 @@ DEPENDENCIES
   rubocop
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  select2-rails
   sendgrid-ruby (~> 5.2)
   shoulda-matchers (~> 3.1)
   simple_calendar (~> 2.0)
@@ -447,4 +444,4 @@ RUBY VERSION
    ruby 2.6.2p47
 
 BUNDLED WITH
-   2.0.2
+   2.1.4

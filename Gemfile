@@ -9,7 +9,6 @@ gem 'brakeman'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-aws'
 gem 'chartkick'
-gem 'chosen-rails'
 gem 'devise', '~> 4.7'
 gem 'devise_invitable', '~> 1.7'
 gem 'devise-security'
@@ -30,6 +29,7 @@ gem 'redis', '~> 3.3'
 gem 'rollbar'
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem "select2-rails"
 gem 'simple_calendar', '~> 2.0'
 gem 'textacular', '~> 5.0'
 gem 'timecop' #used for seed data on staging
