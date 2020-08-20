@@ -59,9 +59,12 @@ The New Sanctuary Coalition is a network of congregations, organizations, and in
 
 ```
 FROM_ADDRESS='test@example.com'
+POSTGRES_PASSWORD=password
 ```
 
 For local development, create a `.env` file in the root directory of the application and put the environment variable in there. There is a `.env.example` file.
+
+Make sure `POSTGRES_PASSWORD` matches the password in `config/database_docker.yml.sample`.
 
 ### Using Docker to Run the Application (optional)
 
