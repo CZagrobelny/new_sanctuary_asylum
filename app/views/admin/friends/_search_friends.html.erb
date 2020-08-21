@@ -60,7 +60,7 @@
   <div class="row">
     <div class='form-group col-md-12'>
       <%= f.label :activity_type, 'Activity type' %>
-      <%= f.select :activity_type, @filterrific.select_options[:activity_type], { }, multiple: true, class: 'chzn-select form-control' %>
+      <%= f.select :activity_type, @filterrific.select_options[:activity_type], { }, multiple: true, class: 'js-select2 form-control' %>
       <%= f.label :filter_activity_start_date, 'between' %>
       <%= f.text_field :filter_activity_start_date, class: 'datepicker form-control' %>
       <%= f.label :filter_activity_end_date, 'and' %>
@@ -71,9 +71,9 @@
   <div class="row search_activity_sub_row">
     <div class='form-group col-md-7'>
       <%= f.label :activity_judge, 'with' %>
-      <%= f.select :activity_judge, @filterrific.select_options[:activity_judge], { }, multiple: true, class: 'chzn-select form-control' %>
+      <%= f.select :activity_judge, @filterrific.select_options[:activity_judge], { }, multiple: true, class: 'js-select2 form-control' %>
       <%= f.label :activity_location, 'at' %>
-      <%= f.select :activity_location, @filterrific.select_options[:activity_location], { }, multiple: true, class: 'chzn-select form-control' %>
+      <%= f.select :activity_location, @filterrific.select_options[:activity_location], { }, multiple: true, class: 'js-select2 form-control' %>
     </div>
   </div>
 
@@ -86,7 +86,7 @@
 
     <div class='form-group col-md-6'>
       <%= f.label :country_of_origin, 'Country of origin:' %>
-      <%= f.select :country_of_origin, @filterrific.select_options[:country_of_origin], { }, multiple: true, class: 'chzn-select form-control' %>
+      <%= f.select :country_of_origin, @filterrific.select_options[:country_of_origin], { }, multiple: true, class: 'js-select2 form-control' %>
     </div>
   </div>
 

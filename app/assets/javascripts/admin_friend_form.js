@@ -1,5 +1,5 @@
 $(document).on('turbolinks:load', function () {
-  activateChosen();
+  activateSelect2();
 
   $('#friend_ethnicity').change(function() {
     if ($(this).find('option:selected').text() == "Other") {
@@ -50,23 +50,23 @@ $(document).on('turbolinks:load', function () {
   });
 });
 
-function activateChosen() {
-  var all_chosen_selects = $('.chzn-select');
-  for (var i=0; i<all_chosen_selects.length;i++) {
-    var chosen_select = all_chosen_selects[i];
+function activateSelect2() {
+  var allSelect2Elements = $('.js-select2');
+  for (var i=0; i<allSelect2Elements.length;i++) {
+    var select2Element = allSelect2Elements[i];
     var attributes = {};
-    if (chosen_select.id == 'filterrific_activity_type') {
+    if (select2Element.id == 'filterrific_activity_type') {
       attributes['width'] = '33%'
     } else if (
-      chosen_select.id == 'filterrific_activity_location' ||
-      chosen_select.id == 'filterrific_activity_judge'
+      select2Element.id == 'filterrific_activity_location' ||
+      select2Element.id == 'filterrific_activity_judge'
     ) {
       attributes['width'] = '45%'
-    } else if (chosen_select.id == 'filterrific_country_of_origin') {
+    } else if (select2Element.id == 'filterrific_country_of_origin') {
       attributes['width'] = '66%'
     } else {
       attributes['width'] = '100%'
     }
-    $(chosen_select).select2(attributes);
+    $(select2Element).select2(attributes);
   }
 }

@@ -36,7 +36,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
             expect(page).to have_select('Relationship type', selected: '')
             select 'Spouse', from: 'Relationship type'
             expect(page).to have_select('Relationship type', selected: 'Spouse')
-            select_from_chosen(family_member.name, from: { id: 'family_relationship_relation_id' })
+            select family_member.name, from: 'family_relationship_relation_id'
             click_button 'Add'
           end
           within '#family-list' do
@@ -96,7 +96,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
             sleep 1
             select activity_type.display_name_with_accompaniment_eligibility, from: 'Type'
             expect(page).to have_select('Type', selected: activity_type.display_name_with_accompaniment_eligibility)
-            select_from_chosen(location.name, from: { id: 'activity_location_id' })
+            select location.name, from: 'activity_location_id'
             select_date_and_time(Time.now.beginning_of_hour, from: 'activity_occur_at')
             within '#new_activity' do
               click_button 'Save'

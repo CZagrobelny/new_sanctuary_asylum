@@ -1,9 +1,9 @@
 $(document).on('turbolinks:load', function () {
-  activateSanctuariesChosen();
+  activateSanctuariesSelect2();
 });
 
-function activateSanctuariesChosen() {
-  $('.chzn-select-sanctuaries').select2({
+function activateSanctuariesSelect2() {
+  $('.js-select2-sanctuaries').select2({
     width: '100%'
   });
 }
