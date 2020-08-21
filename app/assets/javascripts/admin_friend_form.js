@@ -68,5 +68,13 @@ function activateSelect2() {
       attributes['width'] = '100%'
     }
     $(select2Element).select2(attributes);
+
+    // remove duplicated select2-containers
+    // this happens when you start on a page with a select2 element,
+    // then navigate to a second page AND use the browser back button
+    // to return to the original page
+    if ($(select2Element).next().next().hasClass('select2-container')) {
+      $(select2Element).next().next().remove();
+    }
   }
 }
