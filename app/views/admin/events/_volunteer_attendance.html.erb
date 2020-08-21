@@ -1,6 +1,6 @@
 <h3>Volunteers Attending</h3>
 <%= form_for [current_community, :admin, event, UserEventAttendance.new], remote: true do |f| %>
-  <%= f.select(:user_id, options_from_collection_for_select(current_community.users, 'id', 'name', disabled: attending_volunteers.map(&:id)), {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+  <%= f.select(:user_id, options_from_collection_for_select(current_community.users, 'id', 'name', disabled: attending_volunteers.map(&:id)), {}, {multiple: true, prompt: true, class: 'js-select2 form-control'}) %>
 <% end %>
 <br>
 <table class='table table-bordered'>
@@ -48,7 +48,7 @@
 
 <script>
   $(document).ready(function(){
-    activateChosen();
+    activateSelect2();
     $('#user_event_attendance_user_id').change(function() {
       $('#new_user_event_attendance').submit();
     });

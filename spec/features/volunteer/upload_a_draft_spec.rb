@@ -25,13 +25,7 @@ RSpec.describe 'Remote clinic volunteer uploads a draft', type: :feature, js: tr
     select 'Asylum', from: 'application[category]'
 
     # Add self as a volunteer
-    find('#draft_user_ids_chosen').click
-    within('.chosen-results') do
-      find('li', text: volunteer.name).click
-    end
-    within('.chosen-choices') do
-      expect(page).to have_content volunteer.name
-    end
+    select volunteer.name, from: 'draft_user_ids'
 
     # Save and submit for review
     click_on 'Save'

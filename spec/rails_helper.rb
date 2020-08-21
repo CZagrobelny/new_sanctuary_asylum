@@ -18,7 +18,7 @@ require 'database_cleaner'
 require 'launchy'
 
 require 'support/wait_for_ajax'
-require 'support/select_from_chosen'
+require 'support/select_helpers'
 
 Faker::Config.locale = 'en-US'
 Capybara.javascript_driver = :poltergeist
@@ -57,7 +57,6 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers
   config.include Rails.application.routes.url_helpers
   config.include WaitForAjax, type: :feature
-  ##Helper to select from chosen js dropdowns
   config.include Select, type: :feature
 
   config.include Devise::Test::ControllerHelpers, type: :controller
