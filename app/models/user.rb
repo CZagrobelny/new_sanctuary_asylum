@@ -38,6 +38,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
 
   scope :remote_lawyers, -> { where(remote_clinic_lawyer: true) }
+  scope :confirmed, -> { where('invitation_accepted_at IS NOT NULL') }
 
   filterrific(
     available_filters: %i[

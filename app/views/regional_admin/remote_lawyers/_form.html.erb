@@ -72,7 +72,7 @@
         <%= fields_for @remote_lawyer.user_friend_associations do |fl| %>
           <%= f.label 'Assigned Friends', class: 'col-md-2 control-label' %>
           <div class='col-md-6'>
-            <%= collection_select(:remote_lawyer, :friend_ids, Friend.with_active_applications, :id, :name, {selected: @remote_lawyer.remote_clinic_friends.pluck(:id)}, {multiple: true, prompt: true, class: 'js-chosen form-control'}) %>
+            <%= collection_select(:remote_lawyer, :friend_ids, Friend.with_active_applications, :id, :name, {selected: @remote_lawyer.remote_clinic_friends.pluck(:id)}, {multiple: true, prompt: true, class: 'js-select2 form-control'}) %>
           </div>
         <% end %>
       </div>
