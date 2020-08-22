@@ -9,8 +9,6 @@ gem 'brakeman'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-aws'
 gem 'chartkick'
-# Chosen is deprecated, but it's the only thing that works dropdowns with a TON of options (like Friends and Users)
-gem 'chosen-rails'
 gem 'devise', '~> 4.7'
 gem 'devise_invitable', '~> 1.7'
 gem 'devise-security'
@@ -51,6 +49,7 @@ group :development, :test do
   gem 'capybara-email'
   gem 'database_cleaner', '~> 1.5', require: false
   gem 'dotenv-rails'
+  gem 'capybara-select-2'
   gem 'factory_bot_rails', '~> 4.0', require: false
   gem 'launchy', require: false
   gem 'poltergeist', '~> 1.11', require: false

@@ -64,6 +64,15 @@ class Admin::ActivitiesController < AdminController
     redirect_to accompaniments_community_admin_activities_path(start_date: start_date)
   end
 
+  def select2_regional_friends
+    @friends = current_region.friends.autocomplete_name(params[:q])
+    results = { results: @friends.map { |friend| { id: friend.id, text: friend.name } } }
+
+    respond_to do |format|
+      format.json { render json: results }
+    end
+  end
+
   private
 
   def activity

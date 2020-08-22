@@ -58,7 +58,7 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers
   config.include WaitForAjax, type: :feature
   config.include Select, type: :feature
-
+  config.include CapybaraSelect2, type: :feature
   config.include Devise::Test::ControllerHelpers, type: :controller
 
   config.before(:each) do

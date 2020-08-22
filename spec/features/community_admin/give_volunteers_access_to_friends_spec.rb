@@ -12,7 +12,7 @@ RSpec.describe 'Give volunteers access to friends', type: :feature, js: true, sk
       login_as(community_admin)
       visit edit_community_admin_friend_path(community, friend)
       click_link 'Access'
-      select volunteer.name, from: 'friend_user_ids'
+      select2 volunteer.name, from: 'Volunteers with Access', search: true
       within '#submission_wrapper' do
         click_button 'Save'
       end
