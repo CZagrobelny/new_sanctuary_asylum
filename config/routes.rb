@@ -53,6 +53,9 @@ Rails.application.routes.draw do
         end
       end
       resources :friends, except: [:show] do
+        collection do
+          get :select2_options
+        end
         resources :activities, controller: 'friends/activities', except: [:index, :show] do
           member do
           patch :confirm

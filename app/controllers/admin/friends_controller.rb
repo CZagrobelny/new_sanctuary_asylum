@@ -70,6 +70,15 @@ class Admin::FriendsController < AdminController
     redirect_to community_admin_friends_path(current_community, query: params[:query])
   end
 
+  def select2_options
+    @friends = current_community.friends.autocomplete_name(params[:q])
+    results = { results: @friends.map { |friend| { id: friend.id, text: friend.name } } }
+
+    respond_to do |format|
+      format.json { render json: results }
+    end
+  end
+
   private
 
   def friend

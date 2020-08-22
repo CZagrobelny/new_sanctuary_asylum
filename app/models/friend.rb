@@ -94,6 +94,12 @@ class Friend < ApplicationRecord
       .where(applications: { status: %i[review_requested review_added approved] })
   }
 
+  pg_search_scope :autocomplete_name,
+    against: [:first_name, :last_name],
+    using: {
+      tsearch: { prefix: true }
+    }
+
   def volunteers_with_access
     users.where(user_friend_associations: { remote: false })
   end
