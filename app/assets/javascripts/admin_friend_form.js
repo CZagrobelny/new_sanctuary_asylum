@@ -56,17 +56,22 @@ function activateSelect2() {
     var select2Element = allSelect2Elements[i];
     var attributes = {};
     if (select2Element.id == 'filterrific_activity_type') {
-      attributes['width'] = '33%'
+      attributes['width'] = '33%';
     } else if (
       select2Element.id == 'filterrific_activity_location' ||
       select2Element.id == 'filterrific_activity_judge'
     ) {
-      attributes['width'] = '45%'
+      attributes['width'] = '45%';
     } else if (select2Element.id == 'filterrific_country_of_origin') {
-      attributes['width'] = '66%'
+      attributes['width'] = '66%';
     } else {
-      attributes['width'] = '100%'
+      attributes['width'] = '100%';
     }
+
+    if (!select2Element.id.includes('filterrific')) {
+      attributes['theme'] = 'bootstrap';
+    }
+
     $(select2Element).select2(attributes);
 
     // remove duplicated select2-containers
