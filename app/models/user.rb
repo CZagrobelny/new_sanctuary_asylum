@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include PgSearch
+
   PRIMARY_ROLES = %w[volunteer accompaniment_leader data_entry eoir_caller admin].map { |k, _v| [k.humanize.titleize, k] }
   NON_PRIMARY_ROLES = %w[volunteer data_entry eoir_caller admin].map { |k, _v| [k.humanize.titleize, k] }
   # The users who can attend accompaniments (NOT as accompaniment leaders)
@@ -90,6 +92,12 @@ class User < ApplicationRecord
       *number_chunks.flatten,
     )
   }
+
+  pg_search_scope :autocomplete_name,
+    against: [:first_name, :last_name],
+    using: {
+      tsearch: { prefix: true }
+    }
 
   def has_active_data_entry_access_time_slot?
     data_entry? && access_time_slots.active.present?
