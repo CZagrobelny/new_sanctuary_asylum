@@ -37,7 +37,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
             expect(page).to have_select('Relationship type', selected: '')
             select 'Spouse', from: 'Relationship type'
             expect(page).to have_select('Relationship type', selected: 'Spouse')
-            select family_member.name, from: 'family_relationship_relation_id'
+            select2 family_member.name, css: '#family_relationship_relation_id'
             click_button 'Add'
           end
           within '#family-list' do

@@ -20,7 +20,11 @@ Rails.application.routes.draw do
     get 'admin', to: 'admin/friends#index'
     get 'dashboard', to: 'dashboard#index'
 
-    resources :users, only: [:edit, :update]
+    resources :users, only: [:edit, :update] do
+      collection do
+        get :select2_options
+      end
+    end
     resources :friends, only: [:index, :show, :update] do
       resources :drafts do
         member do
@@ -46,6 +50,7 @@ Rails.application.routes.draw do
       resources :activities, except: [:destroy] do
         collection do
           get :accompaniments
+          get :select2_regional_friends
         end
         member do
           patch :confirm

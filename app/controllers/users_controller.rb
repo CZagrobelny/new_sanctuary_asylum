@@ -27,6 +27,15 @@ class UsersController < ApplicationController
     render 'edit'
   end
 
+  def select2_options
+    @users = current_community.users.confirmed.autocomplete_name(params[:q]).limit(10)
+    results = { results: @users.map { |user| { id: user.id, text: user.name } } }
+
+    respond_to do |format|
+      format.json { render json: results }
+    end
+  end
+
   private
 
   def user

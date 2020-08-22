@@ -12,17 +12,20 @@ class Admin::FriendsController < AdminController
       end
     end
 
-    @filterrific = initialize_filterrific(Friend,
-                                          params[:filterrific],
-                                          default_filter_params: { sorted_by: 'created_at_desc' },
-                                          select_options: {
-                                            sorted_by: Friend.options_for_sorted_by,
-                                            activity_type: Friend.options_for_activity_type,
-                                            activity_judge: Friend.options_for_activity_judge(current_region),
-                                            activity_location: Friend.options_for_activity_location(current_region),
-                                            country_of_origin: Friend.options_for_country_of_origin,
-                                          },
-                                          persistence_id: false)
+    @filterrific =
+      initialize_filterrific(
+        Friend,
+        params[:filterrific],
+        default_filter_params: { sorted_by: 'created_at_desc' },
+        select_options: {
+          sorted_by: Friend.options_for_sorted_by,
+          activity_type: Friend.options_for_activity_type,
+          activity_judge: Friend.options_for_activity_judge(current_region),
+          activity_location: Friend.options_for_activity_location(current_region),
+          country_of_origin: Friend.options_for_country_of_origin,
+        },
+        persistence_id: false
+      )
 
     @friends = current_community.friends
       .filterrific_find(@filterrific)
