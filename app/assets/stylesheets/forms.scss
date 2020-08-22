@@ -67,6 +67,15 @@ input.datepicker.form-control {
   }
 }
 
+.chosen-choices {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.chosen-search-input {
+  min-width: 130px;
+}
+
 // Manual tweaking for spacing on some inline labels
 label[for=filterrific_filter_activity_start_date] {
   margin-left: 0.25em;

@@ -1,5 +1,6 @@
 $(document).on('turbolinks:load', function () {
   activateSelect2();
+  activateChosen();
 
   $('#friend_ethnicity').change(function() {
     if ($(this).find('option:selected').text() == "Other") {
@@ -80,6 +81,22 @@ function activateSelect2() {
     // to return to the original page
     if ($(select2Element).next().next().hasClass('select2-container')) {
       $(select2Element).next().next().remove();
+    }
+  }
+}
+
+function activateChosen() {
+  var all_chosen_selects = $('.js-chosen');
+  for (var i=0; i<all_chosen_selects.length;i++) {
+    var chosen_select = all_chosen_selects[i];
+    var attributes = {
+      allow_single_deselect: true,
+      no_results_text: 'No results matched',
+      width: '100%'
+    };
+    $(chosen_select).chosen(attributes);
+    if ($(chosen_select).next().next().hasClass('chosen-container')) {
+      $(chosen_select).next().next().remove();
     }
   }
 }

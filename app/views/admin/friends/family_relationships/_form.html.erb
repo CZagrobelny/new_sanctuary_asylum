@@ -14,7 +14,7 @@
     <div class='row form-group'>
       <%= f.label :relation_id, class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
-        <%= collection_select(:family_relationship, :relation_id, current_community.friends, :id, :name, { prompt: true }, { class: 'js-select2 form-control' }) %>
+        <%= collection_select(:family_relationship, :relation_id, current_community.friends, :id, :name, { prompt: true }, { class: 'js-chosen form-control' }) %>
       </div>
     </div>
 
@@ -28,6 +28,6 @@
 
 <script>
   $(document).ready(function(){
-    activateSelect2();
+    activateChosen();
   });
 </script>
