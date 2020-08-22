@@ -38,6 +38,9 @@ Rails.application.routes.draw do
         member do
           patch :unlock
         end
+        collection do
+          get :select2_options
+        end
       end
       resources :access_time_slots, except: [:show]
       resources :activities, except: [:destroy] do
