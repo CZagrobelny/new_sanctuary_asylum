@@ -32,7 +32,7 @@
     <div class='row form-group'>
       <%= f.label :users, 'Volunteers', class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
-        <%= collection_select(:draft, :user_ids, current_community.users, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+        <%= collection_select(:draft, :user_ids, current_community.users, :id, :name, {}, {multiple: true, prompt: true, class: 'js-select2 form-control'}) %>
       </div>
     </div>
 

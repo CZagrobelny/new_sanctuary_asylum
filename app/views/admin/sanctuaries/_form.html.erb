@@ -27,7 +27,7 @@
     <div class='row form-group'>
       <%= f.label :state, 'State', class: 'col-md-2 control-label' %>
       <div class='col-md-6'>
-        <%= f.select :state, options_for_select(us_states_options, @sanctuary.state), {}, class: 'form-control chosen-select' %>
+        <%= f.select :state, options_for_select(us_states_options, @sanctuary.state), {}, class: 'form-control js-select2' %>
       </div>
     </div>
 

@@ -36,16 +36,6 @@
   display: inline-block;
 }
 
-// style chosen element like bootstrap fields
-.chosen-choices {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.chosen-search-input {
-  min-width: 130px;
-}
-
 .delete {
   float: right;
   color: #b30000 !important;
@@ -74,10 +64,6 @@ input.datepicker.form-control {
     display: inline-block !important;
     width: auto !important;
     margin-right: 0.5em;
-
-    &.chzn-select {
-      display: none !important;
-    }
   }
 }
 

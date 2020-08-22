@@ -31,7 +31,7 @@ To confirm the containers have stopped, you can take a look with `docker ps` -- 
 ## Docker Workflow
 While you're developing, you should be able to work in your text editor and see your changes to the application while the container is up and running.
 
-The server may need to be restarted at times, such as after adding new migrations or adding or updating gems. If you previously would have had to restart the rails server to see changes, instead you'll have to `down` and `up` the docker container. 
+The server may need to be restarted at times, such as after adding new migrations or adding or updating gems. If you previously would have had to restart the rails server to see changes, instead you'll have to `down` and `up` the docker container.
 
 ### Running Commands inside a Container
 To run the rails console or rspec, you have to `exec` into a running container. This application has two: a `web` container, which contains the rails application, and a `db` container, which contains the postgres database.
@@ -52,10 +52,13 @@ Some shortcuts for using PSQL: [cheatsheet](https://gist.github.com/Kartones/dd3
 ## Docker Troubleshooting
 To start from scratch completely and eliminate previously-built images, run `docker-compose -f docker-compose.yml down --rmi all` or `make down_clean` (for macs).
 
-If you get the error `A server is already running. Check /tmp/sanctuary/tmp/pids/server.pid`, in another tab run 
+If you get the error `A server is already running. Check /tmp/sanctuary/tmp/pids/server.pid`, in another tab run
 
 ```
 docker start sanctuary_web; docker exec sanctuary_web rm /sanctuary/tmp/pids/server.pid
 ```
 and the container should restart with a new pid.
+
+## Running the Application Without Docker (after running it WITH Docker)
+Running the application without Docker requires values in the database.yml file that are different from what Docker populated when building the image. To run without Docker, replace the contents of `database.yml` with the contents of `database.yml.sample`.
 
