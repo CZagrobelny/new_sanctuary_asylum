@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 2020_08_12_230425) do
   end
 
   create_table "activities", id: :serial, force: :cascade do |t|
-    t.string "event"
     t.integer "location_id"
     t.integer "friend_id"
     t.integer "judge_id"
@@ -70,7 +69,7 @@ ActiveRecord::Schema.define(version: 2020_08_12_230425) do
     t.integer "cap"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "accompaniment_eligible"
+    t.boolean "accompaniment_eligible", default: false
     t.boolean "eoir_caller_editable", default: false
   end
 
