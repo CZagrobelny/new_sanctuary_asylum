@@ -1,5 +1,8 @@
-<h3>Volunteers Attending</h3>
 <%= form_for [current_community, :admin, event, UserEventAttendance.new], remote: true do |f| %>
+  <%= f.label :user_id do %>
+    <h3>Volunteers Attending</h3>
+  <% end %>
+
   <%= f.select(:user_id, [], {}, { multiple: true, prompt: true, class: 'js-select2 form-control', data: { select2_collection_path: select2_options_community_admin_users_path } }) %>
 <% end %>
 <br>

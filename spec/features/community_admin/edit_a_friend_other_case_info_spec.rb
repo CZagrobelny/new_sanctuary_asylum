@@ -37,7 +37,7 @@ RSpec.describe 'Friend edit other case info', type: :feature, js: true do
         it 'saves category' do
           select 'ESL', from:'friend_social_work_referral_category_ids'
           click_button 'Save'
-          selected_value = get_from_select2(from: {id: 'friend_social_work_referral_category_ids'})
+          selected_value = page.evaluate_script("$('#friend_social_work_referral_category_ids').val()")
           expect(selected_value).to eq [esl_social_work_referral_category.id.to_s]
         end
       end
