@@ -18,14 +18,14 @@ jobs:
           name: Install gems
           command: bundle install
       - run:
-          name: Install PhantomJS
-          command: sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
-      - run:
           name: Database config
           command: cp config/database.yml.sample config/database.yml
       - run:
-          name: Setup Database
-          command: bundle exec rails db:setup
+          name: Create Database
+          command: bundle exec rake db:setup
+      - run:
+          name: Migrate DB
+          command: bundle exec rake db:migrate
       - run:
           name: Create dot-env file
           command: echo FROM_ADDRESS='test@example.com' > .env
