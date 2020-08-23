@@ -150,6 +150,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
           click_link 'Add Detention'
           sleep 1
           select 'Immigration Court', from: 'Case Status'
+          select location.name, from: 'Location'
           within '#new_detention' do
             click_button 'Save'
           end
