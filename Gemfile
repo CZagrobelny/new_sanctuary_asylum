@@ -31,6 +31,7 @@ gem 'will_paginate'
 
 group :development, :test do
   gem 'bundler-audit'
+  gem 'byebug'
   gem 'capybara', require: false
   gem 'capybara-select-2'
   gem 'database_cleaner', require: false
@@ -38,8 +39,10 @@ group :development, :test do
   gem 'factory_bot_rails', require: false
   gem 'rspec-rails', require: false
   gem 'rubocop'
+  gem 'selenium-webdriver', '3.141.0' # version locked bc/ https://stackoverflow.com/questions/56445641/ruby-watir-selenium-webdriver-depricated-warning/
   gem 'shoulda-matchers'
   gem 'simplecov'
+  gem 'webdrivers'
   gem 'webmock', '~> 2.1', require: false
 end
 
