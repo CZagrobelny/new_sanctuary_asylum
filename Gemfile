@@ -29,29 +29,16 @@ gem 'timecop' # used for seed data on staging
 gem 'turbolinks', '~> 5.x'
 gem 'will_paginate'
 
-group :assets do
-  gem 'coffee-rails'
-  gem 'sprockets'
-  gem 'uglifier'
-end
-
 group :development, :test do
   gem 'bundler-audit'
-  gem 'byebug'
-  gem 'capybara', '~> 2.10', require: false
-  gem 'capybara-email'
-  gem 'database_cleaner', '~> 1.5', require: false
-  gem 'dotenv-rails'
+  gem 'capybara', require: false
   gem 'capybara-select-2'
+  gem 'database_cleaner', require: false
+  gem 'dotenv-rails'
   gem 'factory_bot_rails', require: false
-  gem 'launchy', require: false
-  gem 'poltergeist', '~> 1.11', require: false
-  gem 'phantomjs'
-  gem 'pry'
-  gem 'rails-controller-testing'
-  gem 'rspec-rails', '~> 4.0.1', require: false
+  gem 'rspec-rails', require: false
   gem 'rubocop'
-  gem 'shoulda-matchers', '~> 3.1', require: false
+  gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'webmock', '~> 2.1', require: false
 end
@@ -63,12 +50,8 @@ group :production do
 end
 
 group :development do
-  gem 'listen', '~> 3.0'
-  gem 'spring'
-  gem 'spring-commands-rspec'
-  gem 'spring-watcher-listen', '~> 2.0'
-  gem 'tocer', '~> 9.1'
-  gem 'web-console', '~> 3.0'
   gem 'brakeman'
+  gem 'listen'
+  gem 'tocer', '~> 9.1' # used for the table of contents in our Readme
 end
 
