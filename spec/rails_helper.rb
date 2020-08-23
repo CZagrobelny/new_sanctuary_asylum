@@ -12,26 +12,23 @@ require 'faker'
 
 require 'capybara/rspec'
 require 'capybara/rails'
-require 'capybara/email/rspec'
-require 'capybara/poltergeist'
 require 'database_cleaner'
-require 'launchy'
 
 require 'support/wait_for_ajax'
 require 'support/select_helpers'
 
 Faker::Config.locale = 'en-US'
-Capybara.javascript_driver = :poltergeist
-Phantomjs.path
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, {
-    js_errors: false,
-    debug: false,
-    inspect: false,
-    phantomjs_options: ['--ssl-protocol=any'],
-    :phantomjs => Phantomjs.path
-  })
-end
+# Capybara.javascript_driver = :poltergeist
+# Phantomjs.path
+# Capybara.register_driver :poltergeist do |app|
+#   Capybara::Poltergeist::Driver.new(app, {
+#     js_errors: false,
+#     debug: false,
+#     inspect: false,
+#     phantomjs_options: ['--ssl-protocol=any'],
+#     :phantomjs => Phantomjs.path
+#   })
+# end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -85,7 +82,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, :type => :feature) do
-    driver_shared_db_connection = (Capybara.current_driver == :rack_test)
+    # driver_shared_db_connection = (Capybara.current_driver == :rack_test)
 
     unless driver_shared_db_connection
       DatabaseCleaner.strategy = :truncation
@@ -104,18 +101,18 @@ RSpec.configure do |config|
   #
   # Wait longer for certain feature specs
   #
-  config.before(:each, wait_longer: true) do
-    @_original_wait_time = Capybara.default_max_wait_time
-    Capybara.default_max_wait_time = 8
+  # config.before(:each, wait_longer: true) do
+  #   @_original_wait_time = Capybara.default_max_wait_time
+  #   Capybara.default_max_wait_time = 8
 
-    Rails.logger.info "=====> Capybara wait time changed from #{@_original_wait_time} to 8"
-  end
+  #   Rails.logger.info "=====> Capybara wait time changed from #{@_original_wait_time} to 8"
+  # end
 
-  config.after(:each, wait_longer: true) do
-    Capybara.default_max_wait_time = @_original_wait_time
+  # config.after(:each, wait_longer: true) do
+  #   Capybara.default_max_wait_time = @_original_wait_time
 
-    Rails.logger.info "=====> Capybara wait time reset to #{@original_wait_time}"
-  end
+  #   Rails.logger.info "=====> Capybara wait time reset to #{@original_wait_time}"
+  # end
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
