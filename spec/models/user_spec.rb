@@ -3,12 +3,6 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   subject(:user) { build :user }
 
-  it { should validate_presence_of(:first_name) }
-  it { should validate_presence_of(:last_name) }
-  it { should validate_presence_of(:email) }
-  it { should validate_presence_of(:community_id) }
-  it { should belong_to :community }
-
   describe '#can_access_community?(community)' do
     context 'when the user is a regional admin' do
       let(:user) { create :user, :regional_admin }

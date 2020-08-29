@@ -1,5 +1,5 @@
 class Friend < ApplicationRecord
-  include PgSearch
+  include PgSearch::Model
 
   enum ethnicity: %i[white black hispanic asian south_asian caribbean indigenous other]
   enum gender: %i[male female awesome]

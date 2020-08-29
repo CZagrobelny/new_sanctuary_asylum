@@ -55,13 +55,13 @@ class EoirCaller::Friends::ActivitiesController < EoirCallerController
 
   def render_modal
     respond_to do |format|
-      format.js { render file: 'eoir_caller/friends/activities/modal', locals: { friend: friend, activity: activity } }
+      format.js { render template: 'eoir_caller/friends/activities/modal', locals: { friend: friend, activity: activity } }
     end
   end
 
   def render_success
     respond_to do |format|
-      format.js { render file: 'eoir_caller/friends/activities/list', locals: { friend: friend } }
+      format.js { render template: 'eoir_caller/friends/activities/list', locals: { friend: friend } }
     end
   end
 end

@@ -1,4 +1,4 @@
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
 require 'rails/all'
 
@@ -8,38 +8,22 @@ Bundler.require(*Rails.groups)
 
 module NewSanctuaryAsylum
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 6.0
     config.time_zone = 'Eastern Time (US & Canada)'
-    load_path_strategy = Rails.env.production? ? :eager_load_paths : :autoload_paths
-    config.public_send(load_path_strategy) << Rails.root.join('lib')
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
 
-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
-
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
-
-    # Setting location for mailer previews. You can see the list of previews at localhost:3000/rails/mailers
-    config.action_mailer.preview_path = Rails.root.join('lib/mailer_previews')
-
-    # Allow the app to controll it's own error routes (custom 404, etc.)
-    # NOTE:and app errors will still cause the server env to handle errors (Heroku),
+    # Allow the app to control its own error routes (custom 404, etc.)
+    # NOTE: and app errors will still cause the server env to handle errors (Heroku),
     # so these routes are only effective when the app is running
-  	config.exceptions_app = self.routes
+    config.exceptions_app = self.routes
 
     if !Rails.env.development? && !Rails.env.test?
       config.middleware.use Rack::Attack
     end
 
-    config.generators do |g|
-      g.test_framework false
-      g.stylesheets false
-      g.javascripts false
-      g.helper false
-    end
+    # Settings in config/environments/* take precedence over those specified here.
+    # Application configuration can go into files in config/initializers
+    # -- all .rb files in that directory are automatically loaded after loading
+    # the framework and any gems in your application.
   end
 end

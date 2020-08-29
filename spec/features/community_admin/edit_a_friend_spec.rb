@@ -27,8 +27,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
 
     describe 'editing "Family" information' do
       describe 'adding a new family relationship with valid information' do
-        # TODO skipped for select2 with ajax...need to fix
-        it 'displays the new family member', skip: true do
+        it 'displays the new family member' do
           family_member = Friend.last
           expect(page).to have_link 'Add Family Member'
           click_link 'Add Family Member'
@@ -37,7 +36,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
             expect(page).to have_select('Relationship type', selected: '')
             select 'Spouse', from: 'Relationship type'
             expect(page).to have_select('Relationship type', selected: 'Spouse')
-            select2 family_member.name, css: '#family_relationship_relation_id'
+            select2(family_member.name, from: 'Family Member', search: true)
             click_button 'Add'
           end
           within '#family-list' do
@@ -150,6 +149,7 @@ RSpec.describe 'Friend edit', type: :feature, js: true do
           click_link 'Add Detention'
           sleep 1
           select 'Immigration Court', from: 'Case Status'
+          select location.name, from: 'Location'
           within '#new_detention' do
             click_button 'Save'
           end

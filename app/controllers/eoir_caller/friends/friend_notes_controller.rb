@@ -50,13 +50,13 @@ class EoirCaller::Friends::FriendNotesController < EoirCallerController
 
   def render_modal
     respond_to do |format|
-      format.js { render file: 'eoir_caller/friends/friend_notes/modal', locals: { friend: friend, friend_note: friend_note } }
+      format.js { render template: 'eoir_caller/friends/friend_notes/modal', locals: { friend: friend, friend_note: friend_note } }
     end
   end
 
   def render_success
     respond_to do |format|
-      format.js { render file: 'eoir_caller/friends/friend_notes/list', locals: { friend: friend } }
+      format.js { render template: 'eoir_caller/friends/friend_notes/list', locals: { friend: friend } }
     end
   end
 

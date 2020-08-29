@@ -30,7 +30,7 @@ class Admin::FriendCohortAssignmentsController < AdminController
     @events = Event.pro_se_clinics_at_dates([cohort.start_date, cohort.start_date + 1.week, cohort.start_date + 2.weeks])
     respond_to do |format|
       format.js do
-        render file: 'admin/cohorts/friend_assignment',
+        render template: 'admin/cohorts/friend_assignment',
                locals: { cohort: cohort,
                          friend_assignments: cohort.friend_assignments,
                          assigned_friends: cohort.friends }

@@ -46,7 +46,7 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    if review.update_attributes(review_params)
+    if review.update(review_params)
       flash[:success] = 'Review updated.'
       render_friend_page
     else

@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  include PgSearch
+  include PgSearch::Model
 
   PRIMARY_ROLES = %w[volunteer accompaniment_leader data_entry eoir_caller admin].map { |k, _v| [k.humanize.titleize, k] }
   NON_PRIMARY_ROLES = %w[volunteer data_entry eoir_caller admin].map { |k, _v| [k.humanize.titleize, k] }
@@ -60,17 +60,13 @@ class User < ApplicationRecord
     where(role: role)
   }
 
-  scope :filter_first_name, ->(name) {
-    basic_search(first_name: name)
-  }
+  pg_search_scope :filter_first_name, against: :first_name,
+                                      using: { tsearch: { prefix: true } }
 
-  scope :filter_last_name, ->(name) {
-    basic_search(last_name: name)
-  }
+  pg_search_scope :filter_last_name, against: :last_name,
+                                     using: { tsearch: { prefix: true } }
 
-  scope :filter_email, ->(email) {
-    basic_search(email: email)
-  }
+  pg_search_scope :filter_email, against: :email, using: { tsearch: { prefix: true } }
 
   scope :filter_phone_number, ->(phone) {
     return nil if phone.blank?

@@ -24,7 +24,7 @@ class Admin::FamilyRelationshipsController < AdminController
   def render_modal
     respond_to do |format|
       format.js do
-        render file: 'admin/friends/family_relationships/modal',
+        render template: 'admin/friends/family_relationships/modal',
                locals: { friend: friend, family_relationship: @family_relationship }
       end
     end
@@ -33,7 +33,7 @@ class Admin::FamilyRelationshipsController < AdminController
   def render_list
     respond_to do |format|
       format.js do
-        render file: 'admin/friends/family_relationships/list', locals: { friend: friend }
+        render template: 'admin/friends/family_relationships/list', locals: { friend: friend }
       end
     end
   end

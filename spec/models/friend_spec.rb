@@ -3,15 +3,7 @@ require 'rails_helper'
 RSpec.describe Friend, type: :model do
 	subject(:friend) { build :friend }
 
-  it { should validate_presence_of(:first_name) }
-  it { should validate_presence_of(:last_name) }
-  it { should validate_presence_of(:community_id) }
-  it { should validate_inclusion_of(:clinic_plan).in_array(%w(i589 individual_hearing motion_to_reopen appeal osup_rfi
-                                                              consultation foia change_of_venue work_permit)) }
-  it { should allow_value(nil).for(:clinic_plan) }
-
   describe 'validations' do
-
   	context 'no_a_number is true' do
   		before { friend.no_a_number = true }
   		it { should_not validate_presence_of(:a_number) }

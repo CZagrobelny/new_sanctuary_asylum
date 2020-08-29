@@ -53,13 +53,13 @@ class Admin::Friends::DetentionsController < AdminController
 
   def render_modal
     respond_to do |format|
-      format.js { render file: 'admin/friends/detentions/modal', locals: { friend: friend, detention: detention } }
+      format.js { render template: 'admin/friends/detentions/modal', locals: { friend: friend, detention: detention } }
     end
   end
 
   def render_success
     respond_to do |format|
-      format.js { render file: 'admin/friends/detentions/list', locals: { friend: friend } }
+      format.js { render template: 'admin/friends/detentions/list', locals: { friend: friend } }
     end
   end
 end

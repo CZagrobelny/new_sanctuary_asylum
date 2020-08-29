@@ -16,6 +16,16 @@ class Admin::FriendEventAttendancesController < AdminController
     render_success if @friend_event_attendance.destroy
   end
 
+  def select2_options
+    already_assigned = event.friends.pluck(:id)
+    @friends = current_community.friends.where.not(id: already_assigned).autocomplete_name(params[:q])
+    results = { results: @friends.map { |friend| { id: friend.id, text: friend.name } } }
+
+    respond_to do |format|
+      format.json { render json: results }
+    end
+  end
+
   private
 
   def event
@@ -25,7 +35,7 @@ class Admin::FriendEventAttendancesController < AdminController
   def render_success
     respond_to do |format|
       format.js do
-        render file: 'admin/events/friend_attendance',
+        render template: 'admin/events/friend_attendance',
                locals: { event: event,
                          friend_attendance: event.friend_attendances,
                          attending_friends: event.friends }

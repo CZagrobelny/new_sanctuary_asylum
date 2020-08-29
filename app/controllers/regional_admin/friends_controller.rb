@@ -4,7 +4,7 @@ class RegionalAdmin::FriendsController < RegionalAdminController
   def show; end
 
   def update
-    if @friend.update_attributes(user_friend_associations_params)
+    if @friend.update(user_friend_associations_params)
       flash[:success] = 'Changes successfully saved.'
     else
       flash[:error] = 'Something went wrong. Please try again.'

@@ -1,6 +1,8 @@
-<h3>Friends Attending</h3>
 <%= form_for [current_community, :admin, event, FriendEventAttendance.new], remote: true do |f| %>
-  <%= f.select(:friend_id, [], {}, { multiple: true, prompt: true, class: 'js-select2 form-control', data: { select2_collection_path: select2_options_community_admin_friends_path } }) %>
+  <%= f.label :friend_id do %>
+    <h3>Friends Attending</h3>
+  <% end %>
+  <%= f.select(:friend_id, [], {}, { multiple: true, prompt: true, class: 'js-select2 form-control', data: { select2_collection_path: select2_options_community_admin_event_friend_event_attendances_path(current_community.slug, event) } }) %>
 <% end %>
 <br>
 <table class='table table-bordered'>

@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     resources :activities, only: [:index]
 
     namespace :admin do
-    	resources :users, except: [:new, :create, :show] do
+        resources :users, except: [:new, :create, :show] do
         member do
           patch :unlock
         end
@@ -87,11 +87,22 @@ Rails.application.routes.draw do
         member do
           get :attendance
         end
-        resources :user_event_attendances, only: [:create, :destroy]
-        resources :friend_event_attendances, only: [:create, :destroy]
+        resources :user_event_attendances, only: [:create, :destroy] do
+          collection do
+            get :select2_options
+          end
+        end
+        resources :friend_event_attendances, only: [:create, :destroy] do
+          collection do
+            get :select2_options
+          end
+        end
       end
 
       resources :cohorts, except: [:show] do
+        collection do
+          get :select2_friend_options
+        end
         member do
           get :assignment
         end
@@ -138,6 +149,6 @@ Rails.application.routes.draw do
     resources :friends, only: [:index, :show]
   end
 
-	match '/404', to: 'errors#not_found', via: :all
-	match '/500', to: 'errors#internal_server_error', via: :all
+  match '/404', to: 'errors#not_found', via: :all
+  match '/500', to: 'errors#internal_server_error', via: :all
 end

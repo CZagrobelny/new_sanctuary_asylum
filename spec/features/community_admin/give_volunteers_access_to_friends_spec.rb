@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-# TODO skipped for select2 with ajax...need to fix
-RSpec.describe 'Give volunteers access to friends', type: :feature, js: true, skip: true do
+RSpec.describe 'Give volunteers access to friends', type: :feature, js: true do
   let(:community_admin) { create(:user, :community_admin, community: community) }
   let(:community) { create :community }
   let!(:friend) { create(:friend, community: community) }

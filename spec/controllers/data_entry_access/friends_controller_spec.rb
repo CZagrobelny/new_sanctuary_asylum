@@ -11,8 +11,8 @@ RSpec.describe Admin::FriendsController, type: :controller do
   describe 'viewing Friends#index'  do
     context 'when the user has an active access_time_slot' do
       before do
-        AccessTimeSlot.create(grantee_id: data_entry_user.id,
-          grantor_id: 100,
+        AccessTimeSlot.create!(grantee_id: data_entry_user.id,
+          grantor_id: create(:user, role: 'admin', community: data_entry_user.community).id,
           community_id: data_entry_user.community.id,
           use: 'data_entry',
           start_time: 1.hour.ago,

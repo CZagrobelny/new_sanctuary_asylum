@@ -20,7 +20,7 @@ RSpec.describe Admin::Friends::DetentionsController, type: :controller do
     end
 
     describe 'POST #create' do
-      let(:detention) { build :detention, friend: friend }
+      let(:detention) { build :detention, friend: friend, location: create(:location) }
       it 'allows access' do
         detention_count = Detention.count
         post :create, params: { community_slug: community.slug, friend_id: friend.id, detention: detention.attributes }, format: 'js', xhr: true
