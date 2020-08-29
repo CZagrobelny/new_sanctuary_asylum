@@ -1,6 +1,4 @@
 class Admin::CohortsController < AdminController
-  before_action :require_admin_or_access_time_slot
-
   def index
     @cohorts = current_community.cohorts.order('start_date desc').paginate(page: params[:page])
   end
@@ -46,6 +44,16 @@ class Admin::CohortsController < AdminController
     @friend_assignments = @cohort.friend_assignments
     @assigned_friends = @cohort.friends
     @events = Event.pro_se_clinics_at_dates([@cohort.start_date, @cohort.start_date + 1.week, @cohort.start_date + 2.weeks])
+  end
+
+  def select2_friend_options
+    already_assigned = FriendCohortAssignment.pluck(:friend_id)
+    @friends = current_community.friends.where.not(id: already_assigned).autocomplete_name(params[:q])
+    results = { results: @friends.map { |friend| { id: friend.id, text: friend.name } } }
+
+    respond_to do |format|
+      format.json { render json: results }
+    end
   end
 
   private

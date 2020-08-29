@@ -7,6 +7,6 @@ class Lawyer < ApplicationRecord
   end
 
   def name_and_organization
-    "#{first_name} #{last_name}, #{organization}"
+    [name, organization].compact.join(',')
   end
 end

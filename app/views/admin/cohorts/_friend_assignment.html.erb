@@ -1,6 +1,6 @@
 <h3>Friends Assigned</h3>
 <%= form_for [current_community, :admin, cohort, FriendCohortAssignment.new], remote: true do |f| %>
-  <%= f.select(:friend_id, [], {}, { multiple: true, prompt: true, class: 'js-select2 form-control', data: { select2_collection_path: select2_options_community_admin_friends_path } }) %>
+  <%= f.select(:friend_id, [], {}, { multiple: true, prompt: true, class: 'js-select2 form-control', data: { select2_collection_path: select2_friend_options_community_admin_cohorts_path(current_community.slug) } }) %>
 <% end %>
 <br>
 <table class='table table-bordered'>
