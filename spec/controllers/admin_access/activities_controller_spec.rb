@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Admin::ActivitiesController, type: :controller do
   let(:community_admin) { create :user, :community_admin, community: community }
+  let(:friend) { create :friend, community: community }
 
   before do
     allow(controller).to receive(:authenticate_user!).and_return(true)
@@ -34,7 +35,8 @@ RSpec.describe Admin::ActivitiesController, type: :controller do
       end
 
       describe 'POST #create' do
-        let(:activity) { build :activity, region: community.region }
+        let(:activity) { build :activity, activity_type: create(:activity_type), friend: friend, location: create(:location, region: community.region), region: community.region }
+
         it 'allows access' do
           activity_count = Activity.count
           post :create, params: { community_slug: community.slug, activity: activity.attributes }

@@ -1,12 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Detention, type: :model do
-  subject(:detention) { build :detention }
-
-  it { is_expected.to belong_to :friend }
-  it { is_expected.to belong_to :location }
-
-  it { is_expected.to validate_presence_of :friend_id }
+  subject(:detention) { build :detention, location: create(:location), friend: create(:friend) }
 
   describe '#display_case_status' do
     subject { detention.display_case_status }

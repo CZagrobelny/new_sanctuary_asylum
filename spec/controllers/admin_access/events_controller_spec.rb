@@ -26,7 +26,7 @@ RSpec.describe Admin::EventsController, type: :controller do
       end
 
       describe 'POST #create' do
-        let(:event) { build :event, community: community }
+        let(:event) { build :event, community: community, location: create(:location) }
         it 'allows access' do
           event_count = Event.count
           post :create, params: { community_slug: community.slug, event: event.attributes }
