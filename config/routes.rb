@@ -87,11 +87,22 @@ Rails.application.routes.draw do
         member do
           get :attendance
         end
-        resources :user_event_attendances, only: [:create, :destroy]
-        resources :friend_event_attendances, only: [:create, :destroy]
+        resources :user_event_attendances, only: [:create, :destroy] do
+          collection do
+            get :select2_options
+          end
+        end
+        resources :friend_event_attendances, only: [:create, :destroy] do
+          collection do
+            get :select2_options
+          end
+        end
       end
 
       resources :cohorts, except: [:show] do
+        collection do
+          get :select2_friend_options
+        end
         member do
           get :assignment
         end
