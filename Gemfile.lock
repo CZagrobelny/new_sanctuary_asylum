@@ -182,7 +182,8 @@ GEM
     powerpack (0.1.2)
     psych (3.1.0)
     public_suffix (4.0.5)
-    puma (3.12.6)
+    puma (4.3.5)
+      nio4r (~> 2.0)
     rack (2.2.3)
     rack-attack (6.3.1)
       rack (>= 1.0, < 3)
@@ -217,7 +218,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
     rainbow (3.0.0)
-    rake (13.0.1)
+    rake (13.0.0)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -356,14 +357,14 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
-  filterrific (~> 5.x)
+  filterrific
   geography_helper
   jquery-rails
   jquery-ui-rails
   listen
-  pg (~> 1.1)
+  pg
   pg_search
-  puma (~> 3.x)
+  puma (~> 4.x)
   rack-attack
   rails (~> 6.0.3.2)
   rollbar
@@ -374,7 +375,7 @@ DEPENDENCIES
   selenium-webdriver (= 3.141.0)
   sendgrid-ruby (~> 5.2)
   shoulda-matchers
-  simple_calendar (~> 2.x)
+  simple_calendar
   simplecov
   skylight
   timecop
