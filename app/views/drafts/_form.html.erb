@@ -12,7 +12,7 @@
     <div class='row form-group'>
       <div class='col-md-12'>
         <%= f.label :pdf_draft, 'File Upload', class: 'control-label required', style: 'padding-right: 20px;' %>
-        <%= button_to 'Browse', '#', class: 'btn btn-primary', id: 'browse' %>
+        <%= link_to 'Browse', '#', class: 'btn btn-primary', id: 'browse' %>
         <span id='current-file'><%= @draft.pdf_draft.file.filename if @draft.pdf_draft.file.present? %></span>
         <%= f.file_field :pdf_draft, class: 'form-control', style: 'display:none;' %>
       </div>

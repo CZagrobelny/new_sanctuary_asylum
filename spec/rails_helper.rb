@@ -7,8 +7,8 @@ require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'factory_bot_rails'
-require 'shoulda/matchers'
 require 'faker'
+require 'shoulda/matchers'
 
 require 'capybara/rspec'
 require 'capybara/rails'
@@ -90,7 +90,6 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-
 end
 
 Shoulda::Matchers.configure do |config|

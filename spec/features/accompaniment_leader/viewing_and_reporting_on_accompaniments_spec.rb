@@ -7,7 +7,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
   let(:region) { community.region }
   let(:friend) { create :friend, community: community, region: region }
   let(:team_leader) { create(:user, :accompaniment_leader, community: community) }
-  let!(:activity) { create(:activity, friend: friend, occur_at: 1.week.from_now, region: region, confirmed: true) }
+  let!(:activity) { create(:activity, friend: friend, occur_at: 1.week.from_now, region: region, location: create(:location, region: region), activity_type: activity_type, confirmed: true) }
   let!(:activity_type) { create :activity_type }
   let!(:accompaniment) { create(:accompaniment, user: team_leader, activity: activity) }
   let(:accompaniment_listing) { "#{activity.activity_type.name.titlecase} for #{activity.friend.first_name} at #{activity.location.name}" }
@@ -25,15 +25,6 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
       activity.activity_type = activity_type
       expect(page).to have_content(accompaniment_listing)
     end
-
-    describe 'when the team leader is attending an activity' do
-      it 'lists me as "Team Leader" for the activity' do
-        click_link accompaniment_listing
-        within "#modal_activity_#{activity.id}" do
-          expect(page).to have_content("Accompaniment Leaders: #{team_leader.name}")
-        end
-      end
-    end
   end
 
   describe 'creating an accompaniment report' do
@@ -41,7 +32,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
       visit new_community_accompaniment_leader_activity_accompaniment_report_path(community, activity)
     end
 
-    describe 'with valid info' do
+    context 'with valid info' do
       it 'displays a flash message that my accompaniment leader notes were addded' do
         fill_in 'Outcome of hearing', with: 'outcome'
         fill_in 'Notes', with: 'Test notes'
@@ -60,7 +51,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
       end
     end
 
-    describe 'with invalid info' do
+    context 'with invalid info' do
       it 'displays a flash message that my accompaniment report was NOT created' do
         click_button 'Save'
         within '.alert' do
@@ -78,7 +69,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
       visit edit_community_accompaniment_leader_activity_accompaniment_report_path(community, activity, report)
     end
 
-    describe 'with valid info' do
+    context 'with valid info' do
       it 'displays a flash message that my accompaniment report was updated' do
         fill_in 'Notes', with: 'Edited test notes'
         click_button 'Save'
@@ -88,7 +79,7 @@ RSpec.describe 'Accompaniment leader viewing and reporting on accompaniments', t
       end
     end
 
-    describe 'with invalid info' do
+    context 'with invalid info' do
       it 'displays a flash message that my accompaniment report was NOT updated' do
         fill_in 'Notes', with: ''
         click_button 'Save'
