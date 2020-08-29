@@ -46,7 +46,7 @@ end
 
 group :production do
   gem 'rack-attack'
-  gem 'sendgrid-ruby', '~> 5.2'
+  gem 'sendgrid-ruby'
   gem 'skylight'
 end
 
