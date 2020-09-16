@@ -22,7 +22,7 @@ RSpec.describe RegionalAdmin::FriendsController, type: :controller do
     end
 
     describe 'PUT #update' do
-      let(:user) { create :user, remote_clinic_lawyer: true }
+      let(:user) { create :user, :remote_clinic_lawyer }
       it 'updates the friend' do
         user_friend_association_count = UserFriendAssociation.count
         put :update, params: { region_id: region.id, id: friend.id, friend: { user_ids: [user.id] } }

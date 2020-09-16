@@ -16,11 +16,10 @@ class InvitationsController < Devise::InvitationsController
 
     if resource_invited
       flash[:notice] = "An invitation email has been sent to #{resource.email}." if resource.invitation_sent_at
-      redirect_to new_user_community_invitation_path(resource.community.slug)
     else
       flash[:notice] = 'An account has already been created with this email.'
-      redirect_to new_user_community_invitation_path(resource.community.slug)
     end
+    redirect_to new_user_community_invitation_path(resource.community.slug)
   end
 
   protected
@@ -36,7 +35,6 @@ class InvitationsController < Devise::InvitationsController
                   :phone,
                   :password,
                   :password_confirmation,
-                  :remote_clinic_lawyer,
                   :invitation_token,
                   :pledge_signed,
                   language_ids: [])
@@ -44,6 +42,6 @@ class InvitationsController < Devise::InvitationsController
   end
 
   def allow_devise_params
-    devise_parameter_sanitizer.permit(:invite, keys: %i[community_id remote_clinic_lawyer])
+    devise_parameter_sanitizer.permit(:invite, keys: %i[community_id])
   end
 end
