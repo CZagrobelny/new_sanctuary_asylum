@@ -60,13 +60,13 @@ ActiveRecord::Base.transaction do
   #Some additional NYC volunteer users
   20.times do |index|
     Timecop.travel(index.days.ago)
-    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: nyc_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true)
+    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.unique.safe_email, community_id: nyc_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true)
   end
   Timecop.return
 
   10.times do |index|
     Timecop.travel(index.days.ago)
-    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: nyc_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true, remote_clinic_lawyer: false)
+    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.unique.safe_email, community_id: nyc_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true, remote_clinic_lawyer: false)
   end
   Timecop.return
   ## Long Island Users
@@ -84,7 +84,7 @@ ActiveRecord::Base.transaction do
   #Some additional Long Island volunteer users
   30.times do |index|
     Timecop.travel(index.days.ago)
-    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: long_island_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true)
+    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.unique.safe_email, community_id: long_island_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true)
   end
   Timecop.return
 
