@@ -1,14 +1,4 @@
 module ApplicationHelper
-  def display_validation_errors(resource)
-    return unless resource.errors.present?
-
-    content_tag :ul, class: 'error-list' do
-      resource.errors.full_messages.each do |message|
-        concat content_tag(:li, message)
-      end
-    end
-  end
-
   BOOTSTRAP_FLASH_MSG = {
     success: 'alert-success',
     error: 'alert-danger',
@@ -18,6 +8,16 @@ module ApplicationHelper
 
   def bootstrap_class_for(flash_type)
     BOOTSTRAP_FLASH_MSG.fetch(flash_type.to_sym, flash_type.to_s)
+  end
+
+  def display_validation_errors(resource)
+    return unless resource.errors.present?
+
+    content_tag :ul, class: 'error-list' do
+      resource.errors.full_messages.each do |message|
+        concat content_tag(:li, message)
+      end
+    end
   end
 
   def locations_by_name(region)
