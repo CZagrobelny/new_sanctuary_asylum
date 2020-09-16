@@ -1,4 +1,4 @@
-FROM ruby:2.6.2
+FROM ruby:2.6.6
 RUN apt-get update -qq \
     && apt-get install -y --no-install-recommends \
     libpq-dev \
