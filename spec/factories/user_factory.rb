@@ -31,7 +31,7 @@ FactoryBot.define do
   end
 
   trait :remote_clinic_lawyer do
-    remote_clinic_lawyer {true}
+    role { :remote_clinic_lawyer }
   end
 
   trait :unconfirmed do

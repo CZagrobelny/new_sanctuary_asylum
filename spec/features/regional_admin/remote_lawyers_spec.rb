@@ -6,8 +6,8 @@ RSpec.describe 'Regional Admin manages lawyers', type: :feature do
   let(:community) { create :community }
   let(:region) { community.region }
   let(:other_region) { create :region }
-  let(:keeper) { create(:user, first_name: 'Persistent', last_name: 'Record', remote_clinic_lawyer: true) }
-  let(:deleteable) { create(:user, first_name: 'Deleteable', remote_clinic_lawyer: true) }
+  let(:keeper) { create(:user, :remote_clinic_lawyer, first_name: 'Persistent', last_name: 'Record') }
+  let(:deleteable) { create(:user, :remote_clinic_lawyer, first_name: 'Deleteable') }
 
   before do
     login_as(regional_admin)
@@ -27,8 +27,8 @@ RSpec.describe 'Regional Admin manages lawyers', type: :feature do
 
     describe 'has lawyers' do
       before do
-        lawyer1 = create(:user, first_name: 'Asha', remote_clinic_lawyer: true)
-        lawyer2 = create(:user, first_name: 'Robbie', remote_clinic_lawyer: true)
+        lawyer1 = create(:user, :remote_clinic_lawyer, first_name: 'Asha')
+        lawyer2 = create(:user, :remote_clinic_lawyer, first_name: 'Robbie')
         @lawyers = [lawyer1, lawyer2]
       end
 

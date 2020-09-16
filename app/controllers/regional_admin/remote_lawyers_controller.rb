@@ -2,7 +2,7 @@ class RegionalAdmin::RemoteLawyersController < AdminController
   before_action :set_lawyer, only: %i[edit update destroy]
 
   def index
-    @remote_lawyers = User.remote_lawyers.order('last_name asc').paginate(page: params[:page])
+    @remote_lawyers = User.remote_clinic_lawyer.order('last_name asc').paginate(page: params[:page])
   end
 
   def edit; end
@@ -58,7 +58,6 @@ class RegionalAdmin::RemoteLawyersController < AdminController
       :role,
       :pledge_signed,
       :signed_guidelines,
-      :remote_clinic_lawyer,
       friend_ids: [],
       language_ids: []
     )

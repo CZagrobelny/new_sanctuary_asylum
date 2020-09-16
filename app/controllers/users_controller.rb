@@ -49,7 +49,6 @@ class UsersController < ApplicationController
       :email,
       :phone,
       :pledge_signed,
-      :remote_clinic_lawyer,
       language_ids: [],
     )
   end
