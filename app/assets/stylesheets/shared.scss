@@ -361,3 +361,11 @@ li a.region_community {
   // Based off the Bootstrap .dropdown-menu > li > a padding
   padding-left: 30px;
 }
+
+td .button-cell {
+    min-width: 66px;
+}
+
+tr .text-stretch {
+    white-space: nowrap;
+}
