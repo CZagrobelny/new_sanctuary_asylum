@@ -60,13 +60,13 @@ ActiveRecord::Base.transaction do
   #Some additional NYC volunteer users
   20.times do |index|
     Timecop.travel(index.days.ago)
-    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: nyc_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true)
+    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.unique.safe_email, community_id: nyc_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true)
   end
   Timecop.return
 
   10.times do |index|
     Timecop.travel(index.days.ago)
-    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: nyc_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true, remote_clinic_lawyer: false)
+    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.unique.safe_email, community_id: nyc_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true, remote_clinic_lawyer: false)
   end
   Timecop.return
   ## Long Island Users
@@ -84,7 +84,7 @@ ActiveRecord::Base.transaction do
   #Some additional Long Island volunteer users
   30.times do |index|
     Timecop.travel(index.days.ago)
-    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email, community_id: long_island_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true)
+    User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.unique.safe_email, community_id: long_island_community.id, phone: Faker::PhoneNumber.phone_number, password: 'Password1234', password_confirmation: 'Password1234', invitation_accepted_at: Time.now, role: 0, pledge_signed: true)
   end
   Timecop.return
 
@@ -101,9 +101,9 @@ ActiveRecord::Base.transaction do
       phone: Faker::PhoneNumber.phone_number,
       ethnicity: ['white', 'black', 'hispanic', 'asian', 'south_asian', 'caribbean', 'indigenous'].sample,
       gender: ['male', 'female', 'awesome'].sample,
-      date_of_birth: Faker::Time.between(10.years.ago, 40.years.ago),
+      date_of_birth: Faker::Time.between(from: 10.years.ago, to: 40.years.ago),
       status: 'not_in_deportation_proceedings',
-      date_of_entry: Faker::Time.between(1.day.ago, 5.years.ago),
+      date_of_entry: Faker::Time.between(from: 1.day.ago, to: 5.years.ago),
       notes: Faker::Lorem.paragraph,
       asylum_status: ['not_eligible', 'eligible', 'application_started'].sample,
       asylum_notes: Faker::Lorem.paragraph,
@@ -132,9 +132,9 @@ ActiveRecord::Base.transaction do
       phone: Faker::PhoneNumber.phone_number,
       ethnicity: ['white', 'black', 'hispanic', 'asian', 'south_asian', 'caribbean', 'indigenous'].sample,
       gender: ['male', 'female', 'awesome'].sample,
-      date_of_birth: Faker::Time.between(10.years.ago, 40.years.ago),
+      date_of_birth: Faker::Time.between(from: 10.years.ago, to: 40.years.ago),
       status: 'not_in_deportation_proceedings',
-      date_of_entry: Faker::Time.between(10.years.ago, 40.years.ago),
+      date_of_entry: Faker::Time.between(from: 10.years.ago, to: 40.years.ago),
       notes: Faker::Lorem.paragraph,
       asylum_status: ['not_eligible', 'eligible', 'application_started'].sample,
       asylum_notes: Faker::Lorem.paragraph,
@@ -175,7 +175,7 @@ ActiveRecord::Base.transaction do
     friend.activities.create!(
       location_id: Location.first.id,
       judge_id: Judge.first.id,
-      occur_at: Faker::Time.between(1.month.ago, 1.month.from_now),
+      occur_at: Faker::Time.between(from: 1.month.ago, to: 1.month.from_now),
       notes: Faker::Lorem.paragraph,
       confirmed: true,
       region_id: ny_region.id,
@@ -191,7 +191,7 @@ ActiveRecord::Base.transaction do
   30.times do |t|
     Event.create!(location: Location.order("RANDOM()").first,
                 category: Event::CATEGORIES.sample[0],
-                date: Faker::Time.between(2.months.ago, 2.months.from_now),
+                date: Faker::Time.between(from: 2.months.ago, to: 2.months.from_now),
                 title: "Test Event #{t}",
                 community_id: nyc_community.id)
   end
@@ -204,9 +204,9 @@ ActiveRecord::Base.transaction do
   #Detentions
   Friend.all[0..25].each_with_index do |friend, index|
     is_released = index % 5 == 0
-    date_released = is_released ? Faker::Time.between(1.month.from_now, 1.month.ago) : nil
+    date_released = is_released ? Faker::Time.between(from: 1.month.from_now, to: 1.month.ago) : nil
     friend.detentions.create!(
-      date_detained: Faker::Time.between(8.months.ago, 7.months.ago),
+      date_detained: Faker::Time.between(from: 8.months.ago, to: 7.months.ago),
       date_released: date_released,
       case_status: ['immigration_court', 'bia', 'circuit_court'].sample,
       location_id: Location.last.id,
