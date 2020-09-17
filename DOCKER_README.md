@@ -11,7 +11,6 @@ Confirm docker is installed by typing `docker info` in your terminal.
 ### Setup files
 
 * Ensure you have a `.env` file (see `README.md` for details.)
-* Set your `database.yml`: `cp config/database_docker.yml.sample config/database.yml`
 * Add this line to `.env`: `POSTGRES_PASSWORD=password`
 
 ### Building The Image
