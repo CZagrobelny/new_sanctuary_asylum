@@ -34,7 +34,7 @@
     <div class='form-group'>
       <%= f.label :role, class: 'col-md-2 control-label required' %>
       <div class='col-md-6'>
-        <%= f.select :role, User::NON_PRIMARY_ROLES + ['Remote Clinic Lawyer', 'remote_clinic_lawyer'], {}, {class: 'form-control input-md'} %>
+        <%= f.select :role, User::NON_PRIMARY_ROLES + [['Remote Clinic Lawyer', 'remote_clinic_lawyer']], {}, {class: 'form-control input-md'} %>
       </div>
     </div>
 
