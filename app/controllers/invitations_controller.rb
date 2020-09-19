@@ -3,6 +3,7 @@ class InvitationsController < Devise::InvitationsController
   before_action :require_admin_or_access_time_slot, only: %i[new create]
   before_action :require_access_to_community, only: %i[new create]
   before_action :update_sanitized_params, only: :update
+  before_action :set_invitee_role, only: :create
   before_action :allow_devise_params, only: :create
 
   ## This is a devise invitable method that I needed to overwrite, unfortunately
@@ -10,7 +11,7 @@ class InvitationsController < Devise::InvitationsController
   ## Original method: https://github.com/scambra/devise_invitable/blob/master/app/controllers/devise/invitations_controller.rb#L18
   def create
     self.resource = invite_resource
-    resource_invited = resource.errors.empty?
+    resource_invited = resource.errors.empty? && resource.update_columns(role: @role)
 
     yield resource if block_given?
 
@@ -43,5 +44,13 @@ class InvitationsController < Devise::InvitationsController
 
   def allow_devise_params
     devise_parameter_sanitizer.permit(:invite, keys: %i[community_id])
+  end
+  
+  def set_invitee_role
+    if params['user']['remote_clinic_lawyer'] == 'true'
+      @role = 'remote_clinic_lawyer'
+    else
+      @role = 'volunteer'
+    end
   end
 end
