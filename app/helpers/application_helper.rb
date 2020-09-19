@@ -1,14 +1,4 @@
 module ApplicationHelper
-  def display_validation_errors(resource)
-    return unless resource.errors.present?
-
-    content_tag :ul, class: 'error-list' do
-      resource.errors.full_messages.each do |message|
-        concat content_tag(:li, message)
-      end
-    end
-  end
-
   BOOTSTRAP_FLASH_MSG = {
     success: 'alert-success',
     error: 'alert-danger',
@@ -20,14 +10,23 @@ module ApplicationHelper
     BOOTSTRAP_FLASH_MSG.fetch(flash_type.to_sym, flash_type.to_s)
   end
 
-  def flash_messages(_opts = {})
-    flash.delete('timedout').each do |msg_type, message|
-      concat(content_tag(:div, message, class: "alert #{bootstrap_class_for(msg_type)}", role: 'alert') do
-        concat content_tag(:button, 'x', class: 'close', data: { dismiss: 'alert' })
-        concat message
-      end)
+  def display_validation_errors(resource)
+    return unless resource.errors.present?
+
+    content_tag :ul, class: 'error-list' do
+      resource.errors.full_messages.each do |message|
+        concat content_tag(:li, message)
+      end
     end
-    nil
+  end
+
+  def available_roles
+    roles = current_community.primary? ? User::PRIMARY_ROLES : User::NON_PRIMARY_ROLES
+    if current_user.regional_admin?
+      roles + [['Remote Clinic Lawyer', 'remote_clinic_lawyer']]
+    else
+      roles
+    end
   end
 
   def locations_by_name(region)

@@ -22,7 +22,7 @@ RSpec.describe RegionalAdmin::RemoteLawyersController, type: :controller do
   end
 
   describe 'GET #edit' do
-    let!(:user) { create(:user, first_name: 'Hello', remote_clinic_lawyer: true) }
+    let!(:user) { create(:user, :remote_clinic_lawyer, first_name: 'Hello') }
 
     it 'returns a successful page' do
       get :edit, params: {id: user.id }
@@ -31,7 +31,7 @@ RSpec.describe RegionalAdmin::RemoteLawyersController, type: :controller do
   end
 
   describe 'PUT #update' do
-    let!(:user) { create(:user, first_name: 'Hello', remote_clinic_lawyer: true) }
+    let!(:user) { create(:user, :remote_clinic_lawyer, first_name: 'Hello') }
 
     it 'update of a lawyer is successful' do
       put :update, params: { id: user.id, remote_lawyer: { first_name: 'Goodbye' } }

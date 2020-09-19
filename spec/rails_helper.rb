@@ -20,6 +20,7 @@ require 'support/select_date_time'
 Faker::Config.locale = 'en-US'
 
 Capybara.javascript_driver = :selenium_chrome_headless
+Capybara.server = :puma, { Silent: true }
 
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.

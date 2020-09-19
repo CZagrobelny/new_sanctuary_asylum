@@ -34,7 +34,7 @@
     <div class='form-group'>
       <%= f.label :role, class: 'col-md-2 control-label required' %>
       <div class='col-md-6'>
-        <%= f.select :role, User::NON_PRIMARY_ROLES, {}, {class: 'form-control input-md'} %>
+        <%= f.select :role, User::NON_PRIMARY_ROLES + [['Remote Clinic Lawyer', 'remote_clinic_lawyer']], {}, {class: 'form-control input-md'} %>
       </div>
     </div>
 
@@ -55,17 +55,6 @@
         </label>
       </div>
     </div>
-
-    <% if current_user.regional_admin? %>
-      <div class='form-group'>
-        <div class='col-md-6 col-md-offset-2'>
-          <%= f.check_box :remote_clinic_lawyer %>
-          <label>
-            Remote Clinic Lawyer
-          </label>
-        </div>
-      </div>
-    <% end %>
 
     <% if @remote_lawyer.remote_clinic_friends.present? %>
       <div class="form-group">
