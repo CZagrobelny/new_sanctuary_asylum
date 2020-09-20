@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_12_230425) do
+ActiveRecord::Schema.define(version: 2020_09_19_235758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -448,7 +448,6 @@ ActiveRecord::Schema.define(version: 2020_08_12_230425) do
     t.datetime "locked_at"
     t.boolean "signed_guidelines"
     t.integer "community_id"
-    t.boolean "remote_clinic_lawyer"
     t.boolean "attended_training"
     t.index ["community_id"], name: "index_users_on_community_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

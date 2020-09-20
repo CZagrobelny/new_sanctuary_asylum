@@ -45,9 +45,9 @@ class InvitationsController < Devise::InvitationsController
   def allow_devise_params
     devise_parameter_sanitizer.permit(:invite, keys: %i[community_id])
   end
-  
+
   def set_invitee_role
-    if params['user']['remote_clinic_lawyer'] == 'true'
+    if params['remote_clinic_lawyer'] == 'true'
       @role = 'remote_clinic_lawyer'
     else
       @role = 'volunteer'
