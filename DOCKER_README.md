@@ -17,14 +17,18 @@ Confirm docker is installed by typing `docker info` in your terminal.
 The first time you run the application in docker, you need to build the docker-compose image. This will create a static artifact that will be used to start the containers. You only need to build once, or if you change the Dockerfile, docker-compose.yml file, or make changes to the database.
 
 Run `make build`.
+If you are on Windows, `make` commands may not work.
+Windows OS: `docker-compose -f docker-compose.yml build`
 
 ### To Start and Run the Containers
 Now that the image has been build, we need to start the containers for the web application and the database. We do this with the `up` command.
 
 Run `make up`.
+Windows OS: `docker-compose -f docker-compose.yml up`
 
 ### To Stop the Containers
 To stop your running container process, press `ctrl+c`. To bring down the containers cleanly, run `make down`.
+Windows OS: `docker-compose -f docker-compose.yml down`
 
 To confirm the containers have stopped, you can take a look with `docker ps` -- the output should be empty.
 
@@ -51,6 +55,7 @@ Some shortcuts for using PSQL: [cheatsheet](https://gist.github.com/Kartones/dd3
 
 ## Docker Troubleshooting
 To start from scratch completely and eliminate previously-built images, run `make down_clean`.
+Windows OS: `docker-compose -f docker-compose.yml down --rmi all`
 
 If you get the error `A server is already running. Check /tmp/sanctuary/tmp/pids/server.pid`, in another tab run:
 
