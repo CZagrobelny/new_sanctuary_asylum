@@ -75,7 +75,7 @@ function activateSelect2() {
     }
 
     if(select2CollectionPath) {
-      attributes['ajax'] = { url: select2CollectionPath, dataType: 'json' }
+      attributes['ajax'] = { url: select2CollectionPath, dataType: 'json', delay: 300 }
     }
 
     $select2Element.select2(attributes);
