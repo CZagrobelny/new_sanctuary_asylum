@@ -78,6 +78,11 @@ function activateSelect2() {
       attributes['ajax'] = { url: select2CollectionPath, dataType: 'json', delay: 300 }
     }
 
+    if(!select2Element['multiple']) {
+      attributes['placeholder'] = 'Select';
+      attributes['allowClear'] = true;
+    }
+
     $select2Element.select2(attributes);
 
     // remove duplicated select2-containers
