@@ -8,6 +8,8 @@ class Friend < ApplicationRecord
                 not_in_deportation_proceedings
                 asylum_reciepient
                 asylum_application_denied
+                withholding_of_removal_granted
+                cat_granted
                 legal_permanent_resident
                 in_detention
                 deported
@@ -35,10 +37,17 @@ class Friend < ApplicationRecord
                      denied].map { |status| [status.titlecase, status] }
 
   EOIR_CASE_STATUSES = %w[case_pending
+                          case_information_not_available
+                          no_case_found_for_a_number
+                          appeal_pending
+                          motion_to_reopen_pending
+                          voluntary_departure
+                          terminated_proceedings
                           immigration_judge_ordered_removal
-                          prior_voluntary_departure
-                          appeal pending
-                          motion_to_reopen_submitted].map { |status| [status.titlecase, status] }
+                          application_granted
+                          application_denied
+                          administrative_decision_issued
+                        ].map { |status| [status.titlecase, status] }
 
   CLINIC_PLANS = %w[i589
                     individual_hearing
