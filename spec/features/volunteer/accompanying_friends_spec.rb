@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'support/simple_calendar_date_chooser'
 include SimpleCalendarDateChooser
 
-RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: true do
+RSpec.describe 'Volunteer signing up for accompaniments', type: :feature, js: true, skip: true do
   let(:community) { create :community, :primary }
   let(:region) { community.region }
   let(:volunteer) { create(:user, :volunteer, community: community) }

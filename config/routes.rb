@@ -35,7 +35,11 @@ Rails.application.routes.draw do
       end
     end
     resources :accompaniments, only: [:create, :update]
-    resources :activities, only: [:index]
+    resources :activities, only: [:index] do
+      collection do
+        get :accompaniment_program_paused
+      end
+    end
 
     namespace :admin do
         resources :users, except: [:new, :create, :show] do

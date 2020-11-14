@@ -10,3 +10,16 @@
 </div>
 
 <p><strong>Volunteer emails: </strong><%= @friend.users.map(&:email).join(', ') %></p>
+
+<% if current_community.primary? %>
+  <div class='row form-group'>
+    <%= f.label :users, 'Assigned Remote Clinic Lawyers', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= collection_select(:friend, :remote_clinic_lawyer_user_ids, User.confirmed.remote_clinic_lawyer, :id, :name, { selected: @friend.remote_clinic_lawyers.pluck(:id) }, { multiple: true, prompt: true, class: 'js-select2 form-control' }) %>
+    </div>
+    <div class='col-md-12 text-muted'>
+      Give users with the Remote Clinic Lawyer role access to view the Friend record and leave reviews on documents.<br>
+      When you assign a lawyer they are sent an email notifying them of the assignment!
+    </div>
+  </div>
+<% end %>

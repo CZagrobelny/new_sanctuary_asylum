@@ -53,13 +53,19 @@ class Admin::FriendsController < AdminController
   end
 
   def update
-    if params['manage_drafts'].present?
-      update_and_render_drafts
-    elsif friend.update(friend_params) && update_digitized_fields
-      flash[:success] = 'Friend record saved.'
-      redirect_to edit_community_admin_friend_path(current_community, @friend, tab: current_tab)
+    if friend.update(update_friend_params)
+      if params['manage_drafts'].present?
+        redirect_to community_friend_drafts_path(current_community, friend)
+      else
+        flash[:success] = 'Friend record saved.'
+        redirect_to edit_community_admin_friend_path(current_community, @friend, tab: current_tab)
+      end
     else
-      flash.now[:error] = 'Friend record not saved.'
+      if params['manage_drafts'].present?
+        flash.now[:error] = 'Please fill in all required friend fields before managing documents.'
+      else
+        flash.now[:error] = 'Friend record not saved.'
+      end
       render :edit
     end
   end
@@ -159,22 +165,23 @@ class Admin::FriendsController < AdminController
     ).merge(community_id: current_community.id, region_id: current_region.id)
   end
 
-  def update_and_render_drafts
-    if friend.update(friend_params)
-      redirect_to community_friend_drafts_path(current_community, friend)
+  def update_friend_params
+    update_friend_params = friend_params
+    update_friend_params[:user_ids] = if current_community.primary?
+      (Array(friend_params[:user_ids]) + Array(params[:friend][:remote_clinic_lawyer_user_ids])).flatten.compact
     else
-      flash.now[:error] = 'Please fill in all required friend fields before managing documents.'
-      render :edit
+      (Array(friend_params[:user_ids]) + friend.remote_clinic_lawyers.pluck(:id)).flatten.compact
     end
-  end
 
-  def update_digitized_fields
-    return true unless friend.saved_change_to_attribute?('digitized')
-    if friend.digitized
-      friend.update(digitized_at: Time.now, digitized_by: current_user.id)
-    else
-      friend.update(digitized_at: nil, digitized_by: nil)
+    if friend.saved_change_to_attribute?('digitized')
+      digitized_params = if friend.digitized
+        { digitized_at: Time.now, digitized_by: current_user.id }
+      else
+        { digitized_at: nil, digitized_by: nil }
+      end
+      update_friend_params.merge(digitized_params)
     end
+    update_friend_params
   end
 
   def current_tab

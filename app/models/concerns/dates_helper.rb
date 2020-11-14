@@ -13,13 +13,12 @@ module DatesHelper
   end
 
   def five_weeks
-    if Date.today.cwday >= 5 && !Activity.remaining_this_week?
-      start_date = 2.weeks.ago.beginning_of_week.to_date
-      end_date = 2.weeks.from_now.end_of_week.to_date
+    start_date = if Date.today.cwday >= 5 && !Activity.remaining_this_week?
+      2.weeks.ago.beginning_of_week.to_date
     else
-      start_date = 3.weeks.ago.beginning_of_week.to_date
-      end_date = 2.weeks.from_now.end_of_week.to_date
+      3.weeks.ago.beginning_of_week.to_date
     end
+    end_date = 2.weeks.from_now.end_of_week.to_date
     [start_date, end_date]
   end
 end
