@@ -75,7 +75,10 @@ class Admin::UsersController < AdminController
   end
 
   def select2_options
-    @users = current_community.users.confirmed.autocomplete_name(params[:q])
+    @users = current_community.users
+      .confirmed
+      .where.not(role: [:admin, :remote_clinic_lawyer])
+      .autocomplete_name(params[:q])
     results = { results: @users.map { |user| { id: user.id, text: user.name } } }
 
     respond_to do |format|

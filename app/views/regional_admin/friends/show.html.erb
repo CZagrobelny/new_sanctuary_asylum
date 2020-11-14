@@ -7,11 +7,9 @@
 <h3>Assigned Lawyers</h3>
 <div class='row form-group'>
   <%= form_for [:regional_admin, current_region, @friend] do |f| %>
-    <%= fields_for @friend.user_friend_associations do |fl| %>
-      <div class='col-md-6'>
-        <%= collection_select(:friend, :user_ids, User.confirmed.remote_clinic_lawyer, :id, :name, {selected: @friend.remote_clinic_lawyers.pluck(:id)}, {multiple: true, prompt: true, class: 'js-select2 form-control'}) %>
-      </div>
-    <% end %>
+    <div class='col-md-6'>
+      <%= collection_select(:friend, :remote_clinic_lawyer_user_ids, User.confirmed.remote_clinic_lawyer, :id, :name, {selected: @friend.remote_clinic_lawyers.pluck(:id)}, {multiple: true, prompt: true, class: 'js-select2 form-control'}) %>
+    </div>
 
     <%= f.submit 'Save', class: 'btn btn-primary' %>
   <% end %>
