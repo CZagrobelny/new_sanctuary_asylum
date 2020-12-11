@@ -1,5 +1,12 @@
 class Rack::Attack
   if !Rails.env.development? && !Rails.env.test?
+    ### Block IPs ###
+    if ENV['RACK_ATTACK_IPS'].present?
+      blocklist('block by IP') do |req|
+        ENV['RACK_ATTACK_IPS'].split(',').include?(req.ip)
+      end
+    end
+
     ### Throttle Spammy Clients ###
 
     # If any single client IP is making tons of requests, then they're
@@ -9,7 +16,7 @@ class Rack::Attack
     # Note: If you're serving assets through rack, those requests may be
     # counted by rack-attack and this throttle may be activated too
     # quickly. If so, enable the condition to exclude them from tracking.
-    
+
     # throttle = false if Rails.env.test? && !ENV["THROTTLE_DURING_TEST"]
 
     # Throttle all requests by IP (60rpm)
