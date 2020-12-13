@@ -17,10 +17,10 @@ class User < ApplicationRecord
   # The users who can attend accompaniments (NOT as accompaniment leaders)
   ACCOMPANIMENT_ELIGIBLE_ROLES = %w[volunteer data_entry eoir_caller].freeze
 
-  devise :invitable, :database_authenticatable, :lockable,
-         :recoverable, :rememberable, :trackable, :secure_validatable,
-         :password_expirable, :password_archivable, :timeoutable,
-         :session_limitable, invite_for: 1.week
+  devise :invitable, :database_authenticatable, :authy_authenticatable,
+    :lockable, :authy_lockable, :recoverable, :rememberable, :trackable,
+    :secure_validatable, :password_expirable, :password_archivable,
+    :timeoutable, :session_limitable, invite_for: 1.week
 
   attr_reader :raw_invitation_token
 
