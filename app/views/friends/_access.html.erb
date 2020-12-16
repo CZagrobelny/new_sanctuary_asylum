@@ -3,7 +3,7 @@
     <%= fields_for(@friend.user_friend_associations.build) do |fl| %>
       <%= fl.label :users,'Volunteers with Access', class: 'col-md-3 control-label' %>
       <div class='col-md-9'>
-        <%= collection_select(:friend, :user_ids, current_community.users, :id, :name, {selected: @friend.volunteers_with_access.pluck(:id)}, {multiple: true, prompt: true, class: 'chzn-select form-control', id: 'volunteer-shares-friend'}) %>
+        <%= collection_select(:friend, :user_ids, @friend.volunteers_with_access, :id, :name, { selected: @friend.volunteers_with_access.pluck(:id) }, { multiple: true, prompt: true, class: 'js-select2 form-control', id: 'volunteer-shares-friend', data: { select2_collection_path: select2_options_community_users_path } }) %>
       </div>
     <% end %>
   <% end %>
@@ -11,9 +11,8 @@
 
 <script>
   $(document).ready(function () {
-    activateChosen();
-
-    $('#volunteer-shares-friend').chosen().change(function(){
+    activateSelect2();
+    $('#volunteer-shares-friend').change(function(){
       $('.edit_friend').submit();
     });
   });

@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.2-node-browsers
+      - image: circleci/ruby:2.6.6-node-browsers
       - image: postgres:9.6
         environment:
           POSTGRES_HOST_AUTH_METHOD: trust
@@ -13,19 +13,19 @@ jobs:
           command: sudo apt-get update --quiet && sudo apt-get install --assume-yes nodejs
       - run:
           name: Install bundler
-          command: gem install bundler --version 2.0.1
+          command: gem install bundler --version 2.1.4
       - run:
           name: Install gems
           command: bundle install
       - run:
-          name: Install PhantomJS
-          command: sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
-      - run:
           name: Database config
           command: cp config/database.yml.sample config/database.yml
       - run:
-          name: Setup Database
-          command: bundle exec rails db:setup
+          name: Create Database
+          command: bundle exec rake db:setup
+      - run:
+          name: Migrate DB
+          command: bundle exec rake db:migrate
       - run:
           name: Create dot-env file
           command: echo FROM_ADDRESS='test@example.com' > .env

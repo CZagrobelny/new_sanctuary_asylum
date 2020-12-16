@@ -1,0 +1,2 @@
+namespace :temporary do
+end

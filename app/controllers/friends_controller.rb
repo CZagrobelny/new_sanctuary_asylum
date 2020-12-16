@@ -13,9 +13,11 @@ class FriendsController < ApplicationController
   end
 
   def update
-    friend.update(friend_params)
+    update_friend_params = friend_params
+    update_friend_params[:user_ids] = (Array(friend_params[:user_ids]) + friend.remote_clinic_lawyers.pluck(:id)).flatten.compact
+    friend.update(update_friend_params)
     respond_to do |format|
-      format.js { render file: 'friends/access', locals: { friend: friend } }
+      format.js { render template: 'friends/access', locals: { friend: friend } }
     end
   end
 

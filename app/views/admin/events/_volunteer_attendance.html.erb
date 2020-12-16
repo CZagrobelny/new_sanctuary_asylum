@@ -1,6 +1,9 @@
-<h3>Volunteers Attending</h3>
 <%= form_for [current_community, :admin, event, UserEventAttendance.new], remote: true do |f| %>
-  <%= f.select(:user_id, options_from_collection_for_select(current_community.users, 'id', 'name', disabled: attending_volunteers.map(&:id)), {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+  <%= f.label :user_id do %>
+    <h3>Volunteers Attending</h3>
+  <% end %>
+
+  <%= f.select(:user_id, [], {}, { multiple: true, prompt: true, class: 'js-select2 form-control', data: { select2_collection_path: select2_options_community_admin_event_user_event_attendances_path(current_community.slug, event) } }) %>
 <% end %>
 <br>
 <table class='table table-bordered'>
@@ -48,7 +51,7 @@
 
 <script>
   $(document).ready(function(){
-    activateChosen();
+    activateSelect2();
     $('#user_event_attendance_user_id').change(function() {
       $('#new_user_event_attendance').submit();
     });

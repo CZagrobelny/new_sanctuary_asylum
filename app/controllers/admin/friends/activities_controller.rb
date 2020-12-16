@@ -73,13 +73,13 @@ class Admin::Friends::ActivitiesController < AdminController
 
   def render_modal
     respond_to do |format|
-      format.js { render file: 'admin/friends/activities/modal', locals: { friend: friend, activity: activity } }
+      format.js { render template: 'admin/friends/activities/modal', locals: { friend: friend, activity: activity } }
     end
   end
 
   def render_success
     respond_to do |format|
-      format.js { render file: 'admin/friends/activities/list', locals: { friend: friend } }
+      format.js { render template: 'admin/friends/activities/list', locals: { friend: friend } }
     end
   end
 end

@@ -1,19 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Detention, type: :model do
-  subject(:detention) { build :detention }
-
-  it { is_expected.to belong_to :friend }
-  it { is_expected.to belong_to :location }
-
-  it { is_expected.to validate_presence_of :friend_id }
+  subject(:detention) { build :detention, location: create(:location), friend: create(:friend) }
 
   describe '#display_case_status' do
     subject { detention.display_case_status }
 
     context 'no case status' do
       before do
-        detention.update_attributes!(case_status: nil)
+        detention.update!(case_status: nil)
       end
 
       it 'returns nil' do
@@ -25,7 +20,7 @@ RSpec.describe Detention, type: :model do
       other_case_status = 'test'
 
       before do
-        detention.update_attributes!(case_status: 'other', other_case_status: other_case_status)
+        detention.update!(case_status: 'other', other_case_status: other_case_status)
       end
 
       it 'returns the other case status' do

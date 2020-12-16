@@ -4,7 +4,7 @@
   <%= form_for resource, as: resource_name, url: user_community_invitation_path(current_community, resource_name), html: {method: :post} do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
   <div class='form-inputs'>
-    <% resource.class.invite_key_fields.each do |field| -%>
+    <% resource.class.invite_key_fields.each do |field| %>
       <div class='form-group field'>
         <%= f.label field %> </ br>
         <%= f.text_field field, class: 'form-control' %>
@@ -12,8 +12,8 @@
     <% end -%>
     <% if current_user.regional_admin? %>
       <div class='form-check'>
-        <%= f.check_box :remote_clinic_lawyer, {class: 'form-check-input'}, true , false %>
-        <%= f.label :remote_clinic_lawyer, "Remote Clinic Lawyer?", {class: 'form-check-label'} %>
+        <%= check_box_tag :remote_clinic_lawyer, true, false, { class: 'form-check-input' } %>
+        <%= label_tag :remote_clinic_lawyer, "Remote Clinic Lawyer?", { class: 'form-check-label' } %>
       </div>
     <% end %>
     <%= f.hidden_field :community_id, value: current_community.id %>

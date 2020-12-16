@@ -64,6 +64,9 @@
 <p><strong>Date Submitted:  </strong><%= friend.date_foia_request_submitted.strftime('%m/%d/%y') if friend.date_foia_request_submitted.present? %></p>
 <p><strong>Notes:  </strong><%= friend.foia_request_notes %></p>
 
+<h3>Social Work</h3>
+<p><strong>Notes:</strong> <%= friend.social_work_referral_notes %></p>
+
 <h3>Detention</h3>
 <p><strong>Jail ID:  </strong><%= friend.jail_id %></p>
 <p><strong>Has a Lawyer for Detention?  </strong><%= 'Yes' if friend.has_a_lawyer_for_detention %></p>

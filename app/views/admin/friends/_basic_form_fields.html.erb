@@ -71,7 +71,7 @@
   <%= fields_for(@friend.languages.build) do |fl| %>
     <%= fl.label :languages,'Languages', class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
-      <%= collection_select(:friend, :language_ids, Language.all, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+      <%= collection_select(:friend, :language_ids, Language.all, :id, :name, {}, {multiple: true, prompt: true, class: 'js-select2 form-control'}) %>
     </div>
   <% end %>
 </div>
@@ -79,7 +79,7 @@
 <div class='row form-group'>
   <%= f.label :country_id,'Country of Origin', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= collection_select(:friend, :country_id, Country.all, :id, :name, {prompt: true}, {class: 'chzn-select form-control'}) %>
+    <%= collection_select(:friend, :country_id, Country.all, :id, :name, {prompt: true}, {class: 'js-select2 form-control'}) %>
   </div>
 </div>
 
@@ -100,7 +100,7 @@
 <div class='row form-group'>
   <%= f.label :state, 'State', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= f.select :state, us_states_options(), {}, { class: 'form-control chzn-select' } %>
+    <%= f.select :state, us_states_options(), {}, { class: 'form-control js-select2' } %>
 
   </div>
 </div>
@@ -122,7 +122,7 @@
 <div class='row form-group'>
   <%= f.label :eoir_case_status, "EOIR Case Status", class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
-    <%= f.select :eoir_case_status, options_for_select(Friend::EOIR_CASE_STATUSES.map { |status_array| status_array[0] }, @friend.eoir_case_status), {include_blank: true}, {class: 'form-control'} %>
+    <%= f.select :eoir_case_status, options_for_select(Friend::EOIR_CASE_STATUSES, @friend.eoir_case_status), {include_blank: true}, {class: 'form-control'} %>
   </div>
 </div>
 

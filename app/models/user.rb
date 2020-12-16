@@ -1,8 +1,21 @@
 class User < ApplicationRecord
-  PRIMARY_ROLES = %w[volunteer accompaniment_leader data_entry eoir_caller admin].map { |k, _v| [k.humanize.titleize, k] }
-  NON_PRIMARY_ROLES = %w[volunteer data_entry eoir_caller admin].map { |k, _v| [k.humanize.titleize, k] }
+  include PgSearch::Model
+
+  PRIMARY_ROLES = %w[
+    volunteer
+    accompaniment_leader
+    data_entry
+    eoir_caller
+    admin
+  ].map { |k, _v| [k.humanize.titleize, k] }.freeze
+  NON_PRIMARY_ROLES = %w[
+    volunteer
+    data_entry
+    eoir_caller
+    admin
+  ].map { |k, _v| [k.humanize.titleize, k] }.freeze
   # The users who can attend accompaniments (NOT as accompaniment leaders)
-  ACCOMPANIMENT_ELIGIBLE_ROLES = %w[volunteer data_entry eoir_caller]
+  ACCOMPANIMENT_ELIGIBLE_ROLES = %w[volunteer data_entry eoir_caller].freeze
 
   devise :invitable, :database_authenticatable, :lockable,
          :recoverable, :rememberable, :trackable, :secure_validatable,
@@ -11,7 +24,15 @@ class User < ApplicationRecord
 
   attr_reader :raw_invitation_token
 
-  enum role: %i[volunteer accompaniment_leader admin data_entry eoir_caller]
+  # Do not change the order of this Array!
+  enum role: %i[
+    volunteer
+    accompaniment_leader
+    admin
+    data_entry
+    eoir_caller
+    remote_clinic_lawyer
+  ]
 
   validates :first_name, :last_name, :email, :phone, :community_id, presence: true
   validates :email, uniqueness: true
@@ -37,7 +58,7 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :user_friend_associations, allow_destroy: true
 
-  scope :remote_lawyers, -> { where(remote_clinic_lawyer: true) }
+  scope :confirmed, -> { where('invitation_accepted_at IS NOT NULL') }
 
   filterrific(
     available_filters: %i[
@@ -57,17 +78,13 @@ class User < ApplicationRecord
     where(role: role)
   }
 
-  scope :filter_first_name, ->(name) {
-    basic_search(first_name: name)
-  }
+  pg_search_scope :filter_first_name, against: :first_name,
+                                      using: { tsearch: { prefix: true } }
 
-  scope :filter_last_name, ->(name) {
-    basic_search(last_name: name)
-  }
+  pg_search_scope :filter_last_name, against: :last_name,
+                                     using: { tsearch: { prefix: true } }
 
-  scope :filter_email, ->(email) {
-    basic_search(email: email)
-  }
+  pg_search_scope :filter_email, against: :email, using: { tsearch: { prefix: true } }
 
   scope :filter_phone_number, ->(phone) {
     return nil if phone.blank?
@@ -89,6 +106,12 @@ class User < ApplicationRecord
       *number_chunks.flatten,
     )
   }
+
+  pg_search_scope :autocomplete_name,
+    against: [:first_name, :last_name],
+    using: {
+      tsearch: { prefix: true }
+    }
 
   def has_active_data_entry_access_time_slot?
     data_entry? && access_time_slots.active.present?

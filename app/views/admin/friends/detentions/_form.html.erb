@@ -21,7 +21,7 @@
     <div class='row form-group'>
       <%= f.label :location_id, 'Location', class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
-        <%= collection_select(:detention, :location_id, locations_by_name(current_region), :id, :name, {prompt: true}, {class: 'form-control chzn-select'}) %>
+        <%= collection_select(:detention, :location_id, locations_by_name(current_region), :id, :name, {prompt: true}, {class: 'form-control js-select2'}) %>
       </div>
     </div>
 
@@ -56,6 +56,6 @@
 
 <script>
   $(document).ready(function(){
-    activateChosen();
+    activateSelect2();
   });
 </script>

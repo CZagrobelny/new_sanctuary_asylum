@@ -4,9 +4,22 @@
   <%= fields_for(@friend.user_friend_associations.build) do |fl| %>
     <%= fl.label :users,'Volunteers with Access', class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
-      <%= collection_select(:friend, :user_ids, current_community.users, :id, :name, {selected: @friend.volunteers_with_access.pluck(:id)}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+      <%= collection_select(:friend, :user_ids, @friend.volunteers_with_access, :id, :name, { selected: @friend.volunteers_with_access.pluck(:id) }, { multiple: true, prompt: true, class: 'js-select2 form-control', data: { select2_collection_path: select2_options_community_admin_users_path } }) %>
     </div>
   <% end %>
 </div>
 
 <p><strong>Volunteer emails: </strong><%= @friend.users.map(&:email).join(', ') %></p>
+
+<% if current_community.primary? %>
+  <div class='row form-group'>
+    <%= f.label :users, 'Assigned Remote Clinic Lawyers', class: 'col-md-2 control-label' %>
+    <div class='col-md-6'>
+      <%= collection_select(:friend, :remote_clinic_lawyer_user_ids, User.confirmed.remote_clinic_lawyer, :id, :name, { selected: @friend.remote_clinic_lawyers.pluck(:id) }, { multiple: true, prompt: true, class: 'js-select2 form-control' }) %>
+    </div>
+    <div class='col-md-12 text-muted'>
+      Give users with the Remote Clinic Lawyer role access to view the Friend record and leave reviews on documents.<br>
+      When you assign a lawyer they are sent an email notifying them of the assignment!
+    </div>
+  </div>
+<% end %>

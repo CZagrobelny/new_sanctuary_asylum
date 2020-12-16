@@ -11,7 +11,7 @@ RSpec.describe 'Give volunteers access to friends', type: :feature, js: true do
       login_as(community_admin)
       visit edit_community_admin_friend_path(community, friend)
       click_link 'Access'
-      select_from_multi_chosen(volunteer.name, from: {id: 'friend_user_ids'})
+      select2 volunteer.name, from: 'Volunteers with Access', search: true
       within '#submission_wrapper' do
         click_button 'Save'
       end

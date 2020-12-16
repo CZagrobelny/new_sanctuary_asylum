@@ -74,6 +74,18 @@ class Admin::UsersController < AdminController
     redirect_to edit_community_admin_user_path(current_community.slug, @user)
   end
 
+  def select2_options
+    @users = current_community.users
+      .confirmed
+      .where.not(role: [:admin, :remote_clinic_lawyer])
+      .autocomplete_name(params[:q])
+    results = { results: @users.map { |user| { id: user.id, text: user.name } } }
+
+    respond_to do |format|
+      format.json { render json: results }
+    end
+  end
+
   private
 
   def role_options
@@ -96,7 +108,6 @@ class Admin::UsersController < AdminController
       :pledge_signed,
       :signed_guidelines,
       :attended_training,
-      :remote_clinic_lawyer,
       language_ids: [],
     )
   end
@@ -110,17 +121,16 @@ class Admin::UsersController < AdminController
       :pledge_signed,
       :signed_guidelines,
       :attended_training,
-      :remote_clinic_lawyer,
       language_ids: [],
     )
   end
 
   def password_params
-    password_params = params.require(:user).permit(:password)
-
-    password_params.each { |key, value|
-      password_params[key] = value.strip.empty? ? nil : value.strip
-    }.compact
+    compact_password_params = HashWithIndifferentAccess.new
+    params.require(:user).permit(:password).each do |key, value|
+      compact_password_params[key] = value.strip.empty? ? nil : value.strip
+    end
+    compact_password_params.compact
   end
 
   def user_index_scope

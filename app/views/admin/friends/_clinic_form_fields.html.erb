@@ -1,3 +1,7 @@
+<% if current_user.can_access_region?(@friend.region) %>
+  <%= link_to 'Remote Clinic Review', regional_admin_region_friend_path(@friend.region, @friend), target: 'blank', class: 'btn btn-primary pull-right' %>
+<% end %>
+
 <div class='form_fields_section'>
   <h3>Intake</h3>
 
@@ -91,7 +95,7 @@
   <div class='row form-group'>
     <%= f.label :sijs_lawyer, 'SIJS Lawyer', class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
-      <%= collection_select(:friend, :sijs_lawyer, current_region.lawyers.order('organization asc'), :id, :name_and_organization, {include_blank: true}, {class: 'form-control chzn-select'}) %>
+      <%= collection_select(:friend, :sijs_lawyer, current_region.lawyers.order('organization asc'), :id, :name_and_organization, { include_blank: true }, {class: 'form-control js-select2'}) %>
     </div>
   </div>
 

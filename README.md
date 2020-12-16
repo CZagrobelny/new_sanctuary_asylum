@@ -46,7 +46,7 @@ The New Sanctuary Coalition is a network of congregations, organizations, and in
 **Learn More**
 - About New Sanctuary Coalition: http://www.newsanctuarynyc.org/
 - About how this project supports NSC's work (Strange Loop, 2019): https://www.youtube.com/watch?v=5htAAL0cc_w
-- About this project (5by5 Ruby on Rails Podcast): https://5by5.tv/rubyonrails/284 
+- About this project (5by5 Ruby on Rails Podcast): https://5by5.tv/rubyonrails/284
 
 ## Getting setup
 
@@ -57,11 +57,9 @@ The New Sanctuary Coalition is a network of congregations, organizations, and in
 
 ### Environment Variables
 
-```
-FROM_ADDRESS='test@example.com'
-```
+For local development, create a `.env` file in the root directory of the application and copy the environment variables contained in `.env.example` into your newly created `.env` file.
 
-For local development, create a `.env` file in the root directory of the application and put the environment variable in there. There is a `.env.example` file.
+If you are using docker to run the application (as described below), add `POSTGRES_PASSWORD=password` to your `.env` file.
 
 ### Using Docker to Run the Application (optional)
 

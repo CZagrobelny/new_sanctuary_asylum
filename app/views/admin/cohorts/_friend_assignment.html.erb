@@ -1,6 +1,6 @@
 <h3>Friends Assigned</h3>
 <%= form_for [current_community, :admin, cohort, FriendCohortAssignment.new], remote: true do |f| %>
-  <%= f.select(:friend_id, options_from_collection_for_select(current_community.friends, 'id', 'name_and_id', disabled: FriendCohortAssignment.all.pluck(:friend_id)), {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+  <%= f.select(:friend_id, [], {}, { multiple: true, prompt: true, class: 'js-select2 form-control', data: { select2_collection_path: select2_friend_options_community_admin_cohorts_path(current_community.slug) } }) %>
 <% end %>
 <br>
 <table class='table table-bordered'>
@@ -65,7 +65,7 @@
 
 <script>
   $(document).ready(function(){
-    activateChosen();
+    activateSelect2();
     $('#friend_cohort_assignment_friend_id').change(function() {
       $('#new_friend_cohort_assignment').submit();
     });

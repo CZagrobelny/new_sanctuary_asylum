@@ -16,6 +16,16 @@ class Admin::UserEventAttendancesController < AdminController
     render_success if @user_event_attendance.destroy
   end
 
+  def select2_options
+    already_assigned = event.users.pluck(:id)
+    @users = current_community.users.where.not(id: already_assigned).autocomplete_name(params[:q])
+    results = { results: @users.map { |user| { id: user.id, text: user.name } } }
+
+    respond_to do |format|
+      format.json { render json: results }
+    end
+  end
+
   private
 
   def event
@@ -25,7 +35,7 @@ class Admin::UserEventAttendancesController < AdminController
   def render_success
     respond_to do |format|
       format.js do
-        render file: 'admin/events/volunteer_attendance',
+        render template: 'admin/events/volunteer_attendance',
                locals: { event: event,
                          volunteer_attendance: event.user_attendances,
                          attending_volunteers: event.users }

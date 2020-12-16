@@ -35,7 +35,7 @@
       <%= fields_for(@user.languages.build) do |fl| %>
         <%= fl.label :languages,'Languages', class: 'col-md-2 control-label' %>
         <div class='col-md-6'>
-          <%= collection_select(:user, :language_ids, Language.all, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+          <%= collection_select(:user, :language_ids, Language.all, :id, :name, {}, {multiple: true, prompt: true, class: 'js-select2 form-control'}) %>
         </div>
       <% end %>
     </div>
@@ -44,7 +44,7 @@
       <div class='form-group'>
         <%= f.label :role, class: 'col-md-2 control-label required' %>
         <div class='col-md-6'>
-          <%= f.select :role, current_community.primary? ? User::PRIMARY_ROLES : User::NON_PRIMARY_ROLES, {}, {class: 'form-control input-md'} %>
+          <%= f.select :role, available_roles, {}, {class: 'form-control input-md'} %>
         </div>
       </div>
     <% end %>
@@ -75,17 +75,6 @@
         </label>
       </div>
     </div>
-
-    <% if current_user.regional_admin? %>
-      <div class='form-group'>
-        <div class='col-md-6 col-md-offset-2'>
-          <%= f.check_box :remote_clinic_lawyer %>
-          <label>
-            Remote Clinic Lawyer
-          </label>
-        </div>
-      </div>
-    <% end %>
 
     <div class='row form-group'>
       <p><strong>ONLY</strong> fill in the password field if you want to <strong>CHANGE</strong> your password. If you leave this field blank, your password will stay the same.</p>

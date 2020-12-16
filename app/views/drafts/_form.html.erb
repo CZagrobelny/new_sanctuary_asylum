@@ -12,7 +12,7 @@
     <div class='row form-group'>
       <div class='col-md-12'>
         <%= f.label :pdf_draft, 'File Upload', class: 'control-label required', style: 'padding-right: 20px;' %>
-        <%= button_to 'Browse', '#', class: 'btn btn-primary', id: 'browse' %>
+        <%= link_to 'Browse', '#', class: 'btn btn-primary', id: 'browse' %>
         <span id='current-file'><%= @draft.pdf_draft.file.filename if @draft.pdf_draft.file.present? %></span>
         <%= f.file_field :pdf_draft, class: 'form-control', style: 'display:none;' %>
       </div>
@@ -32,7 +32,7 @@
     <div class='row form-group'>
       <%= f.label :users, 'Volunteers', class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
-        <%= collection_select(:draft, :user_ids, current_community.users, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+        <%= collection_select(:draft, :user_ids, @draft.users, :id, :name, {}, { multiple: true, prompt: true, class: 'js-select2 form-control', data: { select2_collection_path: select2_options_community_users_path } }) %>
       </div>
     </div>
 

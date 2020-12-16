@@ -4,7 +4,7 @@
 
 <h1>Access Time Slots</h1>
 
-<%= month_calendar events: @access_time_slots do |date, access_time_slots| %>
+<%= week_calendar events: @access_time_slots do |date, access_time_slots| %>
   <h5><%= date.day %></h5>
   <dl>
   <% access_time_slots.each do |access_time_slot| %>

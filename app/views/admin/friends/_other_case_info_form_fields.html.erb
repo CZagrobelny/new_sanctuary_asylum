@@ -5,7 +5,7 @@
     <%= fields_for(@friend.social_work_referral_categories.build) do |fl| %>
       <%= fl.label :social_work_referral_categories, 'Social Work Categories', class: 'col-md-2 control-label' %>
       <div class='col-md-6'>
-        <%= collection_select(:friend, :social_work_referral_category_ids, SocialWorkReferralCategory.all, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+        <%= collection_select(:friend, :social_work_referral_category_ids, SocialWorkReferralCategory.all, :id, :name, {}, {multiple: true, prompt: true, class: 'js-select2 form-control'}) %>
       </div>
     <% end %>
   </div>
@@ -36,14 +36,14 @@
   <div class='row form-group'>
     <%= f.label :lawyer_referred_to,'Referred to', class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
-      <%= collection_select(:friend, :lawyer_referred_to, current_region.lawyers.order('organization asc'), :id, :name_and_organization, {include_blank: true}, {class: 'form-control chzn-select'}) %>
+      <%= collection_select(:friend, :lawyer_referred_to, current_region.lawyers.order('organization asc'), :id, :name_and_organization, { include_blank: true }, {class: 'form-control js-select2'}) %>
     </div>
   </div>
 
   <div class='row form-group'>
     <%= f.label :lawyer_represented_by,'Represented by', class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
-      <%= collection_select(:friend, :lawyer_represented_by, current_region.lawyers.order('organization asc'), :id, :name_and_organization, {include_blank: true}, {class: 'form-control chzn-select'}) %>
+      <%= collection_select(:friend, :lawyer_represented_by, current_region.lawyers.order('organization asc'), :id, :name_and_organization, { include_blank: true }, {class: 'form-control js-select2'}) %>
     </div>
   </div>
 
@@ -82,7 +82,7 @@
   <div class='row form-group'>
     <%= f.label :bonded_out_by, 'Bonded Out By', class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
-      <%= collection_select(:friend, :bonded_out_by, current_community.sanctuaries, :id, :name, {prompt: true}, {class: 'chzn-select form-control'}) %>
+      <%= collection_select(:friend, :bonded_out_by, current_community.sanctuaries, :id, :name, {prompt: true}, {class: 'js-select2 form-control'}) %>
     </div>
   </div>
 </div>

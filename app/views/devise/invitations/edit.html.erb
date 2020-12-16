@@ -30,7 +30,7 @@
         <%= fields_for(@user.languages.build) do |fl| %>
           <%= fl.label :languages,'Languages', class: 'col-md-2 control-label' %>
           <div class='col-md-6'>
-            <%= collection_select(:user, :language_ids, Language.all, :id, :name, {}, {multiple: true, prompt: true, class: 'chzn-select form-control'}) %>
+            <%= collection_select(:user, :language_ids, Language.all, :id, :name, {}, {multiple: true, prompt: true, class: 'js-select2 form-control'}) %>
           </div>
         <% end %>
       </div>

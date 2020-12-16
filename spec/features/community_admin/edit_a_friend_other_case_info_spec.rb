@@ -6,7 +6,7 @@ RSpec.describe 'Friend edit other case info', type: :feature, js: true do
     let(:community) { create :community }
     let(:community_admin) { create(:user, :community_admin, community: community) }
     let(:friend) { create(:friend, community: community) }
-    let!(:social_work_referral_categories) { 
+    let!(:social_work_referral_categories) {
       [
         esl_social_work_referral_category,
         create(:social_work_referral_category, name: 'IDNYC')
@@ -35,10 +35,10 @@ RSpec.describe 'Friend edit other case info', type: :feature, js: true do
     describe 'selecting referral category' do
       context 'friend with no category' do
         it 'saves category' do
-          select_from_multi_chosen('ESL', from: {id: 'friend_social_work_referral_category_ids'})
+          select 'ESL', from:'friend_social_work_referral_category_ids'
           click_button 'Save'
-          chosen = get_from_chosen(from: {id: 'friend_social_work_referral_category_ids'})
-          expect(chosen).to eq [esl_social_work_referral_category.id.to_s]
+          selected_value = page.evaluate_script("$('#friend_social_work_referral_category_ids').val()")
+          expect(selected_value).to eq [esl_social_work_referral_category.id.to_s]
         end
       end
     end

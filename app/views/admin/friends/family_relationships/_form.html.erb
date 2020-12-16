@@ -12,9 +12,9 @@
     </div>
 
     <div class='row form-group'>
-      <%= f.label :relation_id, class: 'col-md-12 control-label' %>
+      <%= f.label :relation_id, 'Family Member', class: 'col-md-12 control-label' %>
       <div class='col-md-12'>
-        <%= collection_select(:family_relationship, :relation_id, current_community.friends, :id, :name, { prompt: true }, { class: 'chzn-select form-control' }) %>
+        <%= collection_select(:family_relationship, :relation_id, [], :id, :name, { prompt: true }, { class: 'js-select2 form-control', data: { select2_collection_path: select2_options_community_admin_friends_path } }) %>
       </div>
     </div>
 
@@ -28,6 +28,6 @@
 
 <script>
   $(document).ready(function(){
-    activateChosen();
+    activateSelect2();
   });
 </script>

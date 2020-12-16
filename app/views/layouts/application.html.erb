@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>New Sanctuary Coalition</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= stylesheet_link_tag 'application', 'https://use.fontawesome.com/releases/v5.3.1/css/all.css' %>
-  <%= csrf_meta_tags %>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
+  <head>
+    <title>New Sanctuary Coalition</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag 'application', 'https://use.fontawesome.com/releases/v5.3.1/css/all.css' %>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <%= render 'shared/header' %>
 
-  <%= render 'shared/header' %>
+    <div class="container-fluid">
+      <% flash.each do |key, value| %>
+        <% next if key == 'timedout' %>
 
-  <div class="container-fluid">
-    <%= flash_messages %>
-    <%= yield %>
-  </div>
+        <%= content_tag(:div, value, class: "alert #{ bootstrap_class_for(key) }", role: 'alert') do %>
+          <button class="close" data-dismiss="alert">x</button>
+          <%= value %>
+        <% end %>
+      <% end %>
 
-</body>
+      <%= yield %>
+    </div>
+  </body>
 </html>

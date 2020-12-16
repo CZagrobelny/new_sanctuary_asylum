@@ -3,7 +3,7 @@ class RemoteClinic::FriendsController < ApplicationController
   before_action :require_access_to_friend, only: [:show]
 
   def index
-    @friends = current_user.remote_clinic_friends.with_active_applications
+    @friends = current_user.remote_clinic_friends
   end
 
   def show

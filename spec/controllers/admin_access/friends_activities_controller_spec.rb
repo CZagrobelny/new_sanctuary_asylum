@@ -20,7 +20,7 @@ RSpec.describe Admin::Friends::ActivitiesController, type: :controller do
     end
 
     describe 'POST #create' do
-      let(:activity) { build :activity, region: community.region, friend: friend }
+      let(:activity) { build :activity, region: community.region, friend: friend, location: create(:location), activity_type: create(:activity_type) }
       it 'allows access' do
         activity_count = Activity.count
         post :create, params: { community_slug: community.slug, friend_id: friend.id, activity: activity.attributes }, format: 'js', xhr: true

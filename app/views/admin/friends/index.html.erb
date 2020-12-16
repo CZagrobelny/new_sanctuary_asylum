@@ -29,14 +29,16 @@
               <i class='far fa-calendar-check' style="color: <%= friend.cohorts.first.color %>;"></i>
             <% end %>
           </td>
-          <td><%= link_to friend.first_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>
-          <td><%= link_to friend.last_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>
+          <td class='text-stretch'>
+            <%= link_to friend.first_name, edit_community_admin_friend_path(current_community.slug, friend) %>
+          </td>
+          <td class='text-stretch'><%= link_to friend.last_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>
           <td><%= friend.a_number %></td>
           <td><%= friend.phone %></td>
           <td><%= friend.date_of_entry.try(:strftime, '%m/%d/%y') %></td>
           <td><%= friend.created_at.strftime('%m/%d/%y') %></td>
           <td>
-            <div class='btn-group'>
+            <div class='button-cell btn-group'>
               <%= link_to(edit_community_admin_friend_path(current_community.slug, friend), id: "edit-friend-#{friend.id}", class: 'btn btn-default') do %>
                 <i class="fa fa-edit"></i>
               <% end %>
@@ -55,6 +57,9 @@
   <div class='pull-right'>
     <%= will_paginate @friends %>
   </div>
+
+  <h3>Color Code</h3>
+  <%= color_code %>
 <% else %>
   <h3>No search results matched your criteria.</h3>
 <% end %>

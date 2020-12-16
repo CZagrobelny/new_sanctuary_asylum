@@ -27,6 +27,15 @@ class UsersController < ApplicationController
     render 'edit'
   end
 
+  def select2_options
+    @users = current_community.users.confirmed.autocomplete_name(params[:q]).limit(10)
+    results = { results: @users.map { |user| { id: user.id, text: user.name } } }
+
+    respond_to do |format|
+      format.json { render json: results }
+    end
+  end
+
   private
 
   def user
@@ -40,17 +49,16 @@ class UsersController < ApplicationController
       :email,
       :phone,
       :pledge_signed,
-      :remote_clinic_lawyer,
       language_ids: [],
     )
   end
 
   def password_params
-    password_params = params.require(:user).permit(:password)
-
-    password_params.each { |key, value|
-      password_params[key] = value.strip.empty? ? nil : value.strip
-    }.compact
+    compact_password_params = HashWithIndifferentAccess.new
+    params.require(:user).permit(:password).each do |key, value|
+      compact_password_params[key] = value.strip.empty? ? nil : value.strip
+    end
+    compact_password_params.compact
   end
 
   def require_account_owner

@@ -7,7 +7,7 @@
     <div class='row form-group'>
       <%= f.label :relation_id, 'Friend', class: 'col-md-3 col-xs-12 control-label' %>
       <div class='col-md-6 col-xs-12'>
-        <%= collection_select(:activity, :friend_id, current_region.friends, :id, :name, {prompt: true}, {class: 'chzn-select form-control'}) %>
+        <%= collection_select(:activity, :friend_id, [@activity.friend].compact, :id, :name, { prompt: true }, { class: 'js-select2 form-control', data: { select2_collection_path: select2_regional_friends_community_admin_activities_path } }) %>
       </div>
     </div>
 
@@ -21,14 +21,14 @@
     <div class='row form-group'>
       <%= f.label :location_id, 'Location', class: 'col-md-3 col-xs-12 control-label' %>
       <div class='col-md-6 col-xs-12'>
-        <%= collection_select(:activity, :location_id, locations_by_name(current_region), :id, :name, {prompt: true}, {class: 'chzn-select form-control'}) %>
+        <%= collection_select(:activity, :location_id, locations_by_name(current_region), :id, :name, {prompt: true}, {class: 'js-select2 form-control'}) %>
       </div>
     </div>
 
     <div class='row form-group'>
       <%= f.label :judge_id, 'Judge', class: 'col-md-3 col-xs-12 control-label' %>
       <div class='col-md-6 col-xs-12'>
-        <%= collection_select(:activity, :judge_id, current_region.judges.active, :id, :name, {prompt: true}, {class: 'chzn-select form-control'}) %>
+        <%= collection_select(:activity, :judge_id, current_region.judges.active, :id, :name, {prompt: true}, {class: 'js-select2 form-control'}) %>
       </div>
     </div>
 
@@ -36,7 +36,7 @@
       <%= f.label :occur_at, 'Date/Time', class: 'col-md-3 col-xs-12 control-label' %>
       <div class='col-md-6 col-xs-12'>
         <%= f.date_select :occur_at, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
-        <%= f.time_select :occur_at, { ignore_date: true, prompt: true, minute_step: 15 }, {class: 'form-control inline-date-select'} %>
+        <%= f.time_select :occur_at, { ignore_date: true, prompt: true, minute_step: 15, ampm: true }, {class: 'form-control inline-date-select'} %>
         <span>ET
       </div>
     </div>
@@ -45,7 +45,7 @@
       <%= f.label :control_date, 'Control Date', class: 'col-md-3 col-xs-12 control-label' %>
       <div class='col-md-6 col-xs-12'>
         <%= f.date_select :control_date, { start_year: 2017, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
-        <%= f.time_select :control_date, { ignore_date: true, prompt: true, minute_step: 15 }, {class: 'form-control inline-date-select'} %>
+        <%= f.time_select :control_date, { ignore_date: true, prompt: true, minute_step: 15, ampm: true }, {class: 'form-control inline-date-select'} %>
         <span>ET
       </div>
     </div>
