@@ -9,6 +9,7 @@ gem 'carrierwave'
 gem 'carrierwave-aws'
 gem 'chartkick'
 gem 'devise'
+gem 'devise-authy'
 gem 'devise_invitable'
 gem 'devise-security'
 gem 'faker' # used for seed data on staging

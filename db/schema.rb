@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_19_235758) do
+ActiveRecord::Schema.define(version: 2020_12_13_170831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -449,6 +449,10 @@ ActiveRecord::Schema.define(version: 2020_09_19_235758) do
     t.boolean "signed_guidelines"
     t.integer "community_id"
     t.boolean "attended_training"
+    t.string "authy_id"
+    t.datetime "last_sign_in_with_authy"
+    t.boolean "authy_enabled", default: false
+    t.index ["authy_id"], name: "index_users_on_authy_id"
     t.index ["community_id"], name: "index_users_on_community_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true

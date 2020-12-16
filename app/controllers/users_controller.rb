@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   private
 
   def user
-    @user ||= current_community.users.find(params[:id])
+    @user ||= current_user
   end
 
   def user_params
