@@ -8,9 +8,9 @@ class AdminController < ApplicationController
 
   def log_action
     did_use_2fac = session['user_authy_token_checked'];
-    Rails.logger.info "ADMIN [#{current_user.email}, "\
-    "Used Authy to 2fac: #{did_use_2fac ? 'YES' : 'NO'}, "\
-    "ip: #{request.remote_ip}]:  #{request_path_parameters} "\
+    Rails.logger.info "ADMIN [email=#{current_user.email}, "\
+    "Used Authy to 2fac= #{did_use_2fac ? 'YES' : 'NO'}, "\
+    "ip=#{request.remote_ip}]:  #{request_path_parameters} "\
     "#{request_query_parameters} "
   end
 
