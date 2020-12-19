@@ -4,7 +4,7 @@ Devise.setup do |config|
 
   # ==> Devise Authy Authentication Extension
   # How long should the user's device be remembered for.
-  # config.authy_remember_device = 1.month
+  config.authy_remember_device = 1.week
 
   # Should Authy OneTouch be enabled?
   # config.authy_enable_onetouch = false
@@ -322,7 +322,7 @@ Devise.setup do |config|
   # end
 
   Warden::Manager.after_authentication do |user,auth,opts|
-    Rails.logger.info "Forensics Login Successful: user=#{user.email}"
+    Rails.logger.info "Forensics Login Successful: email=#{user.email}"
   end
 
   Warden::Manager.before_failure do |env, opts|
@@ -335,7 +335,7 @@ Devise.setup do |config|
   end
 
   Warden::Manager.before_logout do |user,auth,opts|
-    Rails.logger.info "Forensics Logout: user=#{user.email}" if user.present?
+    Rails.logger.info "Forensics Logout: email=#{user.email}" if user.present?
   end
 
   # ==> Mountable engine configurations
