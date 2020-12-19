@@ -1,6 +1,18 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
+
+  # ==> Devise Authy Authentication Extension
+  # How long should the user's device be remembered for.
+  config.authy_remember_device = 1.week
+
+  # Should Authy OneTouch be enabled?
+  # config.authy_enable_onetouch = false
+
+  # Should generating QR codes for other authenticator apps be enabled?
+  # Note: you need to enable this in your Twilio console.
+  # config.authy_enable_qr_code = false
+
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
@@ -310,7 +322,7 @@ Devise.setup do |config|
   # end
 
   Warden::Manager.after_authentication do |user,auth,opts|
-    Rails.logger.info "Forensics Login Successful: user=#{user.email}"
+    Rails.logger.info "Forensics Login Successful: email=#{user.email}"
   end
 
   Warden::Manager.before_failure do |env, opts|
@@ -323,7 +335,7 @@ Devise.setup do |config|
   end
 
   Warden::Manager.before_logout do |user,auth,opts|
-    Rails.logger.info "Forensics Logout: user=#{user.email}" if user.present?
+    Rails.logger.info "Forensics Logout: email=#{user.email}" if user.present?
   end
 
   # ==> Mountable engine configurations

@@ -1,0 +1,83 @@
+<h2>
+  <span class='text-danger'>STOP!</span>
+  And review this checklist:
+</h2>
+
+<strong>
+  <ol>
+    <li style='margin-bottom: 10px;'>
+      How did you navigate to the previous login page?<br>
+      <span class='text-danger'>
+        If you clicked on a link, BAIL NOW and DO NOT enter your Authy code below!
+      </span>
+    </li>
+    <li style='margin-bottom: 10px;'>
+      Are you using a device that you own and the browser that you habitually use when working with the NSC database software?<br>
+      <span class='text-danger'>
+        If not, BAIL NOW and switch to the device that you own and the browser that you habitually use when working with the NSC database software!
+      </span>
+    </li>
+    <li style='margin-bottom: 10px;'>
+      Should you be prompted for 2 Factor Authentication?<br>
+      You will be prompted to enter your Authy code IF:
+      <ul>
+        <li>
+          You previously allowed Authy to remember your browser/device for 1 week, and that 1 week has passed.
+        </li>
+        <li>
+          You did NOT allow Authy to remember your browser/device for 1 week when you last entered your Authy code.
+        </li>
+        <li>
+          You changed your password since the last time you logged in and entered your Authy code.
+        </li>
+      </ul>
+    </li>
+    <li style='margin-bottom: 10px;'>
+      If your Authy code is not accepted, try one more time (carefully checking that the code you are entering is correct and not expired).<br>
+      <span class='text-danger'>
+        If the second attempt fails, immediately lock down your account (the lock down link will NEVER be provided here).
+      </span>
+    </li>
+    <li style='margin-bottom: 10px;'>
+      If your Authy code is accepted, but once you are in the application you find that the data does not look quite right.<br>
+      <span class='text-danger'>
+        Immediately lock down your account (the lock down link will NEVER be provided here).
+      </span>
+    </li>
+  </ol>
+</strong>
+
+<%= verify_authy_form do %>
+  <legend>Thank you for taking the time to keep our data secure, you may now enter your Authy code:</legend>
+  <%= label_tag 'authy-token' %>
+  <%= text_field_tag :token, "", :autocomplete => "one-time-code", :inputmode => "numeric", :pattern => "[0-9]*", :id => 'authy-token' %>
+  <label>
+    <%= check_box_tag :remember_device %>
+    <span>Remember this device for 1 week</span>
+  </label>
+
+  <!-- Help tooltip -->
+  <!-- You need to configure a help message. -->
+  <!-- See documentation: https://github.com/authy/authy-form-helpers#help-tooltip -->
+  <!-- <%= link_to '?', '#', :id => 'authy-help' %> -->
+
+  <%= authy_request_sms_link %>
+  <%= submit_tag I18n.t('submit_token', {:scope => 'devise'}), :class => 'btn' %>
+<% end %>
+
+<% if @onetouch_uuid %>
+    <script>
+      (function(){
+        var onetouchInterval = setInterval(function(){
+          var onetouchRequest = new XMLHttpRequest();
+          var rememberDevice = document.getElementById("remember_device").checked ? '1' : '0';
+          onetouchRequest.addEventListener("load", function(){
+            if(this.status != 202) clearInterval(onetouchInterval);
+            if(this.status == 200) window.location = JSON.parse(this.responseText).redirect;
+          });
+          onetouchRequest.open("GET", "<%= polymorphic_path [resource_name, :authy_onetouch_status] %>?remember_device="+rememberDevice+"&onetouch_uuid=<%= @onetouch_uuid %>");
+          onetouchRequest.send();
+        }, 3000);
+      })();
+    </script>
+<% end %>
