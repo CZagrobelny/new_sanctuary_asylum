@@ -29,7 +29,7 @@ class Admin::FriendsController < AdminController
 
     @friends = current_community.friends
       .filterrific_find(@filterrific)
-      .paginate(page: params[:page], per_page: 10)
+      .limit(30)
   end
 
   def new
