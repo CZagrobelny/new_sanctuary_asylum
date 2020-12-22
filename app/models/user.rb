@@ -17,7 +17,7 @@ class User < ApplicationRecord
     remote_clinic_lawyer
   ].map { |k, _v| [k.humanize.titleize, k] }.freeze
   # The users who can attend accompaniments (NOT as accompaniment leaders)
-  ACCOMPANIMENT_ELIGIBLE_ROLES = %w[volunteer data_entry eoir_caller].freeze
+  ACCOMPANIMENT_ELIGIBLE_ROLES = %w[volunteer data_entry].freeze
 
   devise :invitable, :database_authenticatable, :authy_authenticatable,
     :lockable, :authy_lockable, :recoverable, :rememberable, :trackable,

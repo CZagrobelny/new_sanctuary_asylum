@@ -3,7 +3,7 @@
     <% if scope == 'volunteer' %>
       <% next unless User::ACCOMPANIMENT_ELIGIBLE_ROLES.include?(accompaniment.user.role) %>
     <% else %>
-      <% next unless accompaniment.user.send("#{scope}?") %>
+      <% next unless accompaniment.user.accompaniment_leader? || accompaniment.user.eoir_caller? %>
     <% end %>
     <li>
       <%= current_user.volunteer? ? accompaniment.user.first_name : accompaniment.user.name %>,
