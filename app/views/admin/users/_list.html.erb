@@ -10,7 +10,9 @@
           <th>Phone Number</th>
           <th>Role</th>
           <th>Created At</th>
-          <th>Actions</th>
+          <% if current_user.admin? %>
+            <th>Actions</th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
@@ -23,21 +25,23 @@
             <td><%= user.phone %></td>
             <td><%= user.role.try(:titlecase) %></td>
             <td><%= user.created_at.strftime('%m/%d/%y') %></td>
-            <td>
-              <div class='btn-group'>
-                <% if user.confirmed? %>
-                  <%= link_to edit_community_admin_user_path(current_community.slug, user), id: "edit-user-#{user.id}", class: "btn btn-default" do %>
-                    <i class="fa fa-edit"></i>
+            <% if current_user.admin? %>
+              <td>
+                <div class='btn-group'>
+                  <% if user.confirmed? %>
+                    <%= link_to edit_community_admin_user_path(current_community.slug, user), id: "edit-user-#{user.id}", class: "btn btn-default" do %>
+                      <i class="fa fa-edit"></i>
+                    <% end %>
                   <% end %>
-                <% end %>
-                <button type='button' class='btn dropdown-toggle btn-default' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                  <span class='caret'></span>
-                </button>
-                <ul class='dropdown-menu'>
-                  <li><%= link_to 'Delete', community_admin_user_path(current_community.slug, user, query: params[:query]), method: :delete, confirm: true %></li>
-                </ul>
-              </div>
-            </td>
+                  <button type='button' class='btn dropdown-toggle btn-default' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                    <span class='caret'></span>
+                  </button>
+                  <ul class='dropdown-menu'>
+                    <li><%= link_to 'Delete', community_admin_user_path(current_community.slug, user, query: params[:query]), method: :delete, confirm: true %></li>
+                  </ul>
+                </div>
+              </td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
