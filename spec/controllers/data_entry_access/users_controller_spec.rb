@@ -23,16 +23,12 @@ RSpec.describe Admin::UsersController, type: :controller do
         )
       end
 
-      it 'does NOT update user role but does update other attributes' do
+      it 'does NOT allow access' do
         user.first_name = "Jane"
         user.role = "data_entry"
-        put :update, params: {
-          community_slug: community.slug,
-          id: user.id,
-          user: user.attributes
-        }
+        expect { put :update, params: { community_slug: community.slug, id: user.id, user: user.attributes } }.to raise_error('Not Found')
         expect(user.reload.role).to eq "admin"
-        expect(user.reload.first_name).to eq "Jane"
+        expect(user.reload.first_name).to eq "Elizabeth"
       end
     end
   end
