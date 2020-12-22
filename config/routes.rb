@@ -131,6 +131,7 @@ Rails.application.routes.draw do
         resources :friend_notes, controller: 'friends/friend_notes', except: [:index, :show]
         resources :activities, controller: 'friends/activities', except: [:index, :show]
       end
+      resources :activities, only: [:index]
     end
   end
 
