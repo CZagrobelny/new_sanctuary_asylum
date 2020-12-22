@@ -20,15 +20,6 @@ module ApplicationHelper
     end
   end
 
-  def available_roles
-    roles = current_community.primary? ? User::PRIMARY_ROLES : User::NON_PRIMARY_ROLES
-    if current_user.regional_admin?
-      roles + [['Remote Clinic Lawyer', 'remote_clinic_lawyer']]
-    else
-      roles
-    end
-  end
-
   def locations_by_name(region)
     region.locations.order('name')
   end

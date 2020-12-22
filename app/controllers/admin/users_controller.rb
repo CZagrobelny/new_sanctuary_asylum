@@ -1,4 +1,6 @@
 class Admin::UsersController < AdminController
+  before_action :require_admin, only: [:destroy, :edit, :update, :unlock]
+
   def index
     @filterrific = initialize_filterrific(User,
                                           params[:filterrific],
@@ -49,7 +51,9 @@ class Admin::UsersController < AdminController
   def update
     @user = current_community.users.find(params[:id])
     ActiveRecord::Base.transaction do
-      @user.update!(current_user.admin? ? user_params : user_params_excluding_role)
+      @user.update!(
+        current_user.can_access_region?(current_region) ? user_params : user_params_excluding_role
+      )
       if password_params.present?
         unless @user.reset_password(password_params[:password], password_params[:password])
           @user.errors.delete(:password)
