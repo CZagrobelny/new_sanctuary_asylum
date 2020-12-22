@@ -1,0 +1,59 @@
+<div class='row'>
+  <div class='col-md-10'>
+    <div id="activity_<%=activity.id%>" style='margin-left:5px;'>
+      <% if activity.friend.phone.present? %>
+        <strong>Friend Phone Number:  </strong><%= activity.friend.phone %><br>
+      <% end %>
+      <% if activity.friend.languages.present? %>
+        <strong>Friend Languages:  </strong><%= activity.friend.languages.map(&:name).to_sentence %><br>
+      <% end %>
+      <% if activity.friend.a_number.present? %>
+          <strong>A Number:  </strong><%= activity.friend.a_number %><br>
+        <% end %>
+      <% if activity.location.present? %>
+        <strong>Location:  </strong><%= activity.location.name %><br>
+      <% end %>
+      <% if activity.judge.present? %>
+        <strong>Judge:  </strong><%= activity.judge.name %><br>
+      <% end %>
+      <% if activity.notes.present? %>
+        <strong>Notes:  </strong><%= activity.notes %><br>
+      <% end %>
+      <% if activity.public_notes.present? %>
+        <strong>Public Notes:  </strong><%= activity.public_notes %><br>
+      <% end %>
+      <% if activity.accompaniment_leader_accompaniments.present? %>
+        <strong>Accompaniment Leaders:  </strong>
+        <%= render 'shared/scoped_activity_users_details', activity: activity, scope: 'accompaniment_leader' %>
+      <% end %>
+      <% if activity.volunteer_accompaniments.present? %>
+        <strong>Volunteers:  </strong>
+        <%= render 'shared/scoped_activity_users_details', activity: activity, scope: 'volunteer' %>
+      <% end %>
+      <% if activity.accompaniment_reports.present? %>
+        <% activity.accompaniment_reports.each do |report| %>
+          <hr></hr>
+          <strong>Report Back by: </strong><%= report.user.name if report.user.present? %>
+          <div><strong>Outcome of hearing: </strong><%= report.outcome_of_hearing %></div>
+          <strong>Notes: </strong><%= report.notes %>
+          <br>
+        <% end %>
+      <% end %>
+      <% if activity.last_edited_by_user %>
+        <strong>Last Edited By:</strong>
+        <%= activity.last_edited_by_user.name %>
+        <br>
+      <% end %>
+    </div>
+  </div>
+  <div class="confirm">
+    <%= link_to "Edit Activity/Accompaniment", edit_community_admin_activity_path(current_community.slug, activity), class: "btn btn-primary pull-left accomp-edit" %>
+    <% if activity.accompaniment_eligible? %>
+      <% if activity.confirmed? %>
+        <%= link_to 'Unconfirm', unconfirm_community_admin_activity_path(current_community.slug, activity), method: :patch, class: 'btn btn-danger pull-left' %>
+      <% else %>
+        <%= link_to 'Confirm', confirm_community_admin_activity_path(current_community.slug, activity), method: :patch, class: 'btn btn-success pull-left' %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
