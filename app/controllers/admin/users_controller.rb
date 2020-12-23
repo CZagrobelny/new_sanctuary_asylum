@@ -54,7 +54,7 @@ class Admin::UsersController < AdminController
       @user.update!(
         current_user.can_access_region?(current_region) ? user_params : user_params_excluding_role
       )
-      if password_params.present?
+      if current_user.can_access_region?(current_region) && password_params.present?
         unless @user.reset_password(password_params[:password], password_params[:password])
           @user.errors.delete(:password)
           @user.errors.add(:password, 'does not meet minimum password requirements (see below).')
@@ -109,6 +109,7 @@ class Admin::UsersController < AdminController
       :email,
       :phone,
       :role,
+      :agreed_to_data_entry_policies,
       :pledge_signed,
       :signed_guidelines,
       :attended_training,

@@ -6,6 +6,7 @@
       <%= render 'form' %>
 
       <h3>Account Info</h3>
+      <p><strong>2FA Enabled:</strong> <%= @user.authy_enabled ? 'Yes' : 'No' %></p>
       <p><strong>Invitation Sent:</strong> <%= @user.invitation_sent_at.try(:strftime, '%-I:%M %p, %B %-d, %Y') %></p>
       <p><strong>Invitation Accepted:</strong> <%= @user.invitation_accepted_at.try(:strftime, '%-I:%M %p, %B %-d, %Y') %></p>
       <p><strong>Password Reset:</strong> <%= @user.password_changed_at.try(:strftime, '%-I:%M %p, %B %-d, %Y') %></p>

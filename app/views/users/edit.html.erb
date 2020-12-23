@@ -1,4 +1,4 @@
-<% if ENV['AUTHY_API_KEY'] && (@user.admin? || @user.data_entry?) %>
+<% if ENV['AUTHY_API_KEY'] %>
   <div class='pull-right'>
     <% if @user.authy_enabled %>
       <%= button_to 'Disable Two Factor Authentication', user_disable_authy_path, class: 'btn btn-danger' %>
