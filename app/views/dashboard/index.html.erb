@@ -7,15 +7,15 @@
 <h3><%= link_to 'Clinic', community_friends_path(current_community.slug) %></h3>
 
 <% if current_community.primary? %>
-  <% if current_user.accompaniment_leader? %>
-    <h3><%= link_to 'Accompaniment Program', community_accompaniment_leader_activities_path(current_community.slug) %></h3><br>
+  <% if current_user.accompaniment_leader? || current_user.eoir_caller? %>
+    <h3><%= link_to 'Accompaniment Program', community_accompaniment_leader_activities_path(current_community.slug) %></h3>
   <% else %>
     <h3><%= link_to 'Accompaniment Program', community_activities_path(current_community.slug) %></h3>
   <% end %>
 <% end %>
 
 <% if current_user.has_active_eoir_caller_access_time_slot? %>
-  <h3><%= link_to 'EOIR Calls', community_eoir_caller_search_index_path(current_community) %></h3>
+  <h3><%= link_to 'Accompaniment Data Entry', community_eoir_caller_activities_path(current_community) %></h3>
 <% end %>
 
 <br>

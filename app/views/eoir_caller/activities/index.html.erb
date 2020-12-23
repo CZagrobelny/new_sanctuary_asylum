@@ -1,0 +1,92 @@
+<h1>Accompaniment Data Entry</h1>
+<%= week_calendar events: @activities do |date, activities| %>
+  <h5><%= date.day %></h5>
+  <dl>
+  <% activities.each do |activity| %>
+      <dt>
+        <% if activity.confirmed? %>
+          <span class="confirmed event-info-icon">&#10003;</span>
+        <% end %>
+        <%= activity.occur_at.strftime("%I:%M %p") %>
+      </dt>
+      <dd>
+        <%= link_to '#', data: { toggle: 'modal', target: "#modal_activity_#{ activity.id }"}, class: accompaniment_activity_classes(activity) do %>
+          <%= activity.activity_type.name.titlecase %> for <%= activity.friend.name %>
+        <% end %>
+        <%= " (#{activity.friend.community.name.upcase})" if !activity.friend.community.primary? %>
+        <div id="modal_activity_<%= activity.id %>" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title"><span><%= activity.occur_at.strftime("%I:%M %p") %></span>
+                  <%= activity.activity_type.name.titlecase %>
+                  for
+                  <%= activity.friend.name %>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div>
+                  <div class='row'>
+                    <div class='col-md-10'>
+                      <div id="activity_<%=activity.id%>" style='margin-left:5px;'>
+                        <% if activity.friend.phone.present? %>
+                          <strong>Friend Phone Number:  </strong><%= activity.friend.phone %><br>
+                        <% end %>
+                        <% if activity.friend.languages.present? %>
+                          <strong>Friend Languages:  </strong><%= activity.friend.languages.map(&:name).to_sentence %><br>
+                        <% end %>
+                        <% if activity.friend.a_number.present? %>
+                            <strong>A Number:  </strong><%= activity.friend.a_number %><br>
+                          <% end %>
+                        <% if activity.location.present? %>
+                          <strong>Location:  </strong><%= activity.location.name %><br>
+                        <% end %>
+                        <% if activity.judge.present? %>
+                          <strong>Judge:  </strong><%= activity.judge.name %><br>
+                        <% end %>
+                        <% if activity.notes.present? %>
+                          <strong>Notes:  </strong><%= activity.notes %><br>
+                        <% end %>
+                        <% if activity.public_notes.present? %>
+                          <strong>Public Notes:  </strong><%= activity.public_notes %><br>
+                        <% end %>
+                        <% if activity.last_edited_by_user %>
+                          <strong>Last Edited By:</strong>
+                          <%= activity.last_edited_by_user.name %>
+                          <br>
+                        <% end %>
+                      </div>
+                    </div>
+                    <div class="confirm">
+                      <%= link_to 'Manage Activities', community_eoir_caller_search_index_path(friend: {a_number: activity.friend.a_number }), target: '_blank', class: "btn btn-primary pull-left accomp-edit" %>
+                      <% if activity.accompaniment_eligible? %>
+                        <% if activity.confirmed? %>
+                          <%= link_to 'Unconfirm', unconfirm_community_eoir_caller_activity_path(current_community.slug, activity), method: :patch, class: 'btn btn-danger pull-left' %>
+                        <% else %>
+                          <%= link_to 'Confirm', confirm_community_eoir_caller_activity_path(current_community.slug, activity), method: :patch, class: 'btn btn-success pull-left' %>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </dd>
+  <% end %>
+  </dl>
+<% end %>
+
+<h3>Color Code</h3>
+<%= color_code %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("body").removeClass("modal-open");
+    $(".in").hide();
+  });
+</script>
