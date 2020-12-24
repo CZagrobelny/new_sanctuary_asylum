@@ -187,4 +187,9 @@ class User < ApplicationRecord
   def admin_or_existing_relationship?(friend_id)
     admin? || has_active_data_entry_access_time_slot? || existing_relationship?(friend_id)
   end
+
+  def lockdown
+    password = SecureRandom.uuid + SecureRandom.uuid.upcase
+    reset_password(password, password)
+  end
 end
