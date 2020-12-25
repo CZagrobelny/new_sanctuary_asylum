@@ -6,6 +6,7 @@
 <%= render 'search_friends' %>
 
 <% if @friends.present? %>
+  <p class='pull-right'><strong><%= "#{ @friends.count } results" %></strong></p>
   <table class='table table-bordered'>
     <thead>
       <tr>
