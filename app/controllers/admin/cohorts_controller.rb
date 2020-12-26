@@ -48,7 +48,7 @@ class Admin::CohortsController < AdminController
 
   def select2_friend_options
     already_assigned = FriendCohortAssignment.pluck(:friend_id)
-    @friends = current_community.friends.where.not(id: already_assigned).autocomplete_name(params[:q])
+    @friends = current_community.friends.not_archived.where.not(id: already_assigned).autocomplete_name(params[:q])
     results = { results: @friends.map { |friend| { id: friend.id, text: friend.name } } }
 
     respond_to do |format|

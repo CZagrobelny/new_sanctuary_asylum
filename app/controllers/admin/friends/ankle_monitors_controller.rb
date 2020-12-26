@@ -1,4 +1,6 @@
 class Admin::Friends::AnkleMonitorsController < AdminController
+  before_action :restrict_access_to_archived_friend, only: [:edit, :update, :destroy]
+
   def new
     @ankle_monitor = friend.ankle_monitors.new
     render_modal

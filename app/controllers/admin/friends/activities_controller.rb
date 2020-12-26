@@ -1,4 +1,6 @@
 class Admin::Friends::ActivitiesController < AdminController
+  before_action :restrict_access_to_archived_friend, only: [:edit, :update, :destroy, :confirm, :unconfirm]
+
   def new
     @activity = friend.activities.new(region_id: current_region.id)
     render_modal
