@@ -10,7 +10,9 @@ class Activity < ApplicationRecord
 
   validates :activity_type_id, :friend_id, :region_id, presence: true
   validate :occur_at_OR_control_date_OR_tbd
+
   before_validation :ensure_occur_at_or_control_date_tbd
+  after_create :delete_friend_user_associations_when_filing_asylum_application
 
   scope :accompaniment_eligible, -> {
     joins(:activity_type).where(activity_types: { accompaniment_eligible: true })
@@ -23,7 +25,6 @@ class Activity < ApplicationRecord
   scope :eoir_caller_editable, -> {
     joins(:activity_type).where(activity_types: { eoir_caller_editable: true })
   }
-
 
   scope :by_region, ->(region) {
     where(region_id: region.id)
@@ -129,4 +130,9 @@ class Activity < ApplicationRecord
     end
   end
 
+  def delete_friend_user_associations_when_filing_asylum_application
+    return unless activity_type.filing_asylum_application?
+
+    friend.user_friend_associations.destroy_all
+  end
 end
