@@ -54,4 +54,8 @@ class ApplicationController < ActionController::Base
   def require_admin_or_remote_lawyer
     not_found unless current_user.admin? || current_user.existing_remote_relationship?(params[:friend_id])
   end
+
+  def require_access_to_region
+    not_found unless current_user.can_access_region?(current_region)
+  end
 end

@@ -1,4 +1,6 @@
 class Admin::FriendsController < AdminController
+  before_action :require_access_to_region, only: [:reactivate]
+
   def index
     if params[:filterrific]
       if params[:filterrific][:activity_type]
@@ -56,6 +58,15 @@ class Admin::FriendsController < AdminController
     end
   end
 
+  def reactivate
+    if friend.reactivate
+      flash[:success] = 'Friend record has been reactivated'
+    else
+      flash[:error] = 'There was an issue reactivating this Friend record.'
+    end
+    redirect_to community_admin_friends_path(current_community)
+  end
+
   def update
     if friend.update(update_friend_params)
       if params['manage_drafts'].present?
@@ -80,7 +91,7 @@ class Admin::FriendsController < AdminController
     else
       flash[:error] = 'Friend record has a Draft and/or Activities. It cannot be deleted until these are removed.'
     end
-    redirect_to community_admin_friends_path(current_community, query: params[:query])
+    redirect_to community_admin_friends_path(current_community)
   end
 
   def select2_options

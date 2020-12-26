@@ -22,7 +22,7 @@
     </thead>
     <tbody>
       <% @friends.each do |friend| %>
-        <tr id="friend-<%=friend.id%>" class="<%= "friend_in_detention" if friend.detained? %>">
+        <tr id="friend-<%=friend.id%>" class="<%= "friend_in_detention" if friend.detained? %>" style="<%= 'color: #b3b3b3;' if friend.archived? %>">
           <td style='text-align:center;'>
             <%= friend.id %>
             <br>
@@ -31,24 +31,48 @@
             <% end %>
           </td>
           <td class='text-stretch'>
-            <%= link_to friend.first_name, edit_community_admin_friend_path(current_community.slug, friend) %>
+            <% if friend.archived? %>
+              <%= friend.first_name %>
+            <% else %>
+              <%= link_to friend.first_name, edit_community_admin_friend_path(current_community.slug, friend) %>
+            <% end %>
           </td>
-          <td class='text-stretch'><%= link_to friend.last_name, edit_community_admin_friend_path(current_community.slug, friend) %></td>
+          <td class='text-stretch'>
+            <% if friend.archived? %>
+              <%= friend.last_name %>
+            <% else %>
+              <%= link_to friend.last_name, edit_community_admin_friend_path(current_community.slug, friend) %>
+            <% end %>
+          </td>
           <td><%= friend.a_number %></td>
-          <td><%= friend.phone %></td>
-          <td><%= friend.date_of_entry.try(:strftime, '%m/%d/%y') %></td>
+          <td>
+            <% unless friend.archived? %>
+              <%= friend.phone %>
+            <% end %>
+          </td>
+          <td>
+            <% unless friend.archived? %>
+              <%= friend.date_of_entry.try(:strftime, '%m/%d/%y') %>
+            <% end %>
+          </td>
           <td><%= friend.created_at.strftime('%m/%d/%y') %></td>
           <td>
             <div class='button-cell btn-group'>
-              <%= link_to(edit_community_admin_friend_path(current_community.slug, friend), id: "edit-friend-#{friend.id}", class: 'btn btn-default') do %>
-                <i class="fa fa-edit"></i>
+              <% if !friend.archived? %>
+                <%= link_to(edit_community_admin_friend_path(current_community.slug, friend), id: "edit-friend-#{friend.id}", class: 'btn btn-default') do %>
+                  <i class="fa fa-edit"></i>
+                <% end %>
+                <button type='button' class='btn dropdown-toggle btn-default' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                  <span class='caret'></span>
+                </button>
+                <ul class='dropdown-menu'>
+                  <li><%= link_to 'Delete', community_admin_friend_path(current_community.slug, friend), method: :delete, confirm: true %></li>
+                </ul>
+              <% elsif current_user.can_access_region?(current_region) %>
+                <%= link_to 'Reactivate', reactivate_community_admin_friend_path(friend.community.slug, friend), method: :patch %>
+              <% else %>
+                Archived
               <% end %>
-              <button type='button' class='btn dropdown-toggle btn-default' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                <span class='caret'></span>
-              </button>
-              <ul class='dropdown-menu'>
-                <li><%= link_to 'Delete', community_admin_friend_path(current_community.slug, friend, query: params[:query]), method: :delete, confirm: true %></li>
-              </ul>
             </div>
           </td>
         </tr>

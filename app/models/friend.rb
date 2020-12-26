@@ -395,6 +395,21 @@ class Friend < ApplicationRecord
     date.to_str.to_date.end_of_day
   end
 
+  def archive
+    ActiveRecord::Base.transaction do
+      update!(archived: true)
+      user_friend_associations.each do |relation|
+        relation.destroy!
+      end
+    end
+  rescue => error
+    Rollbar.error(error)
+  end
+
+  def reactivate
+    update(archived: false)
+  end
+
   private
 
   def a_number_available?

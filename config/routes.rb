@@ -42,7 +42,7 @@ Rails.application.routes.draw do
     end
 
     namespace :admin do
-        resources :users, except: [:new, :create, :show] do
+      resources :users, except: [:new, :create, :show] do
         member do
           patch :unlock
         end
@@ -65,10 +65,13 @@ Rails.application.routes.draw do
         collection do
           get :select2_options
         end
+        member do
+          patch :reactivate
+        end
         resources :activities, controller: 'friends/activities', except: [:index, :show] do
           member do
-          patch :confirm
-          patch :unconfirm
+            patch :confirm
+            patch :unconfirm
           end
         end
         resources :detentions, controller: 'friends/detentions', except: [:index, :show]
