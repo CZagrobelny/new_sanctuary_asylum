@@ -24,4 +24,8 @@ class ActivityType < ApplicationRecord
       display_name
     end
   end
+
+  def filing_asylum_application?
+    name == 'filing_asylum_application'
+  end
 end
