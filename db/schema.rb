@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_23_012526) do
+ActiveRecord::Schema.define(version: 2020_12_26_145828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -271,6 +271,7 @@ ActiveRecord::Schema.define(version: 2020_12_23_012526) do
     t.datetime "judge_imposed_i589_deadline"
     t.boolean "has_a_lawyer"
     t.string "lawyer_name"
+    t.boolean "archived", default: false
     t.index ["community_id"], name: "index_friends_on_community_id"
     t.index ["region_id"], name: "index_friends_on_region_id"
   end
