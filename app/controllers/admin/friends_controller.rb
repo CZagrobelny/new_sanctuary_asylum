@@ -1,5 +1,6 @@
 class Admin::FriendsController < AdminController
   before_action :require_access_to_region, only: [:reactivate]
+  before_action :restrict_access_to_archived_friend, only: [:edit, :update, :destroy]
 
   def index
     if params[:filterrific]
@@ -51,7 +52,7 @@ class Admin::FriendsController < AdminController
   end
 
   def edit
-    @friend = friend
+    friend
     @current_tab = current_tab
   end
 
@@ -103,7 +104,7 @@ class Admin::FriendsController < AdminController
   end
 
   def select2_options
-    @friends = current_community.friends.autocomplete_name(params[:q])
+    @friends = current_community.friends.not_archived.autocomplete_name(params[:q])
     results = { results: @friends.map { |friend| { id: friend.id, text: friend.name } } }
 
     respond_to do |format|

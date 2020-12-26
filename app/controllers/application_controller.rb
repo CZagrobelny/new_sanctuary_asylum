@@ -58,4 +58,8 @@ class ApplicationController < ActionController::Base
   def require_access_to_region
     not_found unless current_user.can_access_region?(current_region)
   end
+
+  def restrict_access_to_archived_friend
+    not_found if friend.archived?
+  end
 end

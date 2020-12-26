@@ -97,6 +97,8 @@ class Friend < ApplicationRecord
 
   scope :detained, -> { where(status: 'in_detention') }
 
+  scope :not_archived, -> { where(archived: false) }
+
   scope :with_active_applications, -> {
     joins(:applications)
       .distinct

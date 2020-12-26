@@ -1,4 +1,5 @@
 class EoirCaller::Friends::ActivitiesController < EoirCallerController
+  before_action :restrict_access_to_archived_friend
 
   def new
     @activity = friend.activities.new(region_id: current_region.id)

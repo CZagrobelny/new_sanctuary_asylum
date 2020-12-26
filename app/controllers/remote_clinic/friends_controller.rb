@@ -1,6 +1,7 @@
 class RemoteClinic::FriendsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_access_to_friend, only: [:show]
+  before_action :restrict_access_to_archived_friend, only: [:show]
 
   def index
     @friends = current_user.remote_clinic_friends
