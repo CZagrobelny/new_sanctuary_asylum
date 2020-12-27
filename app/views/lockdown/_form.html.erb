@@ -1,0 +1,21 @@
+<%= form_for :lockdown do |f| %>
+  
+  <div class='form-group'>
+    <div class='row'>
+      <%= f.label :email, class: 'col-md-2 control-label required' %>
+    </div>
+    <div class='row'>
+      <div class='col-md-4'>
+        <%= f.text_field :email, autocomplete: 'new', class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+
+    <div class='row'>
+      <div class='col-md-1'>
+        <%= f.submit 'Lockdown', class: 'btn btn-danger' %>
+      </div>
+    </div>
+  </div>
+
+<% end %>

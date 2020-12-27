@@ -14,6 +14,9 @@ Rails.application.routes.draw do
 
   get 'pledge', to: 'home#pledge'
 
+  resources :lockdown, only: [:create] 
+  match 'lockdown', to: 'lockdown#new', via: [:get]
+
   resources :communities, param: :slug, only: [] do
     devise_for :users, only: [:invitations], controllers: { invitations: "invitations" }
 
