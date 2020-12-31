@@ -27,12 +27,16 @@ class Admin::FriendsController < AdminController
         persistence_id: false
       )
 
-    @friends = if params.dig(:filterrific, :filter_detained) == '1'
-      current_community.friends.filterrific_find(@filterrific)
+    @friends = if current_community.primary?
+      if params.dig(:filterrific, :filter_detained) == '1'
+        current_community.friends.filterrific_find(@filterrific)
+      else
+        current_community.friends
+          .filterrific_find(@filterrific)
+          .limit(30)
+      end
     else
-      current_community.friends
-        .filterrific_find(@filterrific)
-        .limit(30)
+      current_community.friends.filterrific_find(@filterrific)
     end
   end
 
