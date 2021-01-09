@@ -18,8 +18,17 @@
       <%= activity.last_edited_by_user.name %>
       <br>
     <% end %>
+    <% activity.accompaniment_reports.each do |report| %>
+      <hr></hr>
+      <strong>Report Back by: </strong><%= report.user.name if report.user.present? %>
+      <div><strong>Outcome of hearing: </strong><%= report.outcome_of_hearing %></div>
+      <strong>Notes: </strong><%= report.notes %>
+      <br>
+    <% end %>
+  </div>
+  <div class='col-md-1'>
     <strong>
-      <%= link_to 'Remove', community_eoir_caller_friend_activity_path(current_community.slug, friend, activity), method: :delete, data: { confirm: 'Are you sure you want to remove this activity?' }, remote: true, style: 'color: #b30000 !important; font-style: italic;' %>
+      <%= link_to 'Remove', community_eoir_caller_friend_activity_path(current_community.slug, friend, activity), method: :delete, data: { confirm: 'Are you sure you want to remove this activity?' }, remote: true, class: 'pull-right', style: 'color: #b30000 !important; font-style: italic;' %>
     </strong>
   </div>
 </div>
