@@ -103,12 +103,6 @@ class Friend < ApplicationRecord
       .where(applications: { status: %i[review_requested review_added approved] })
   }
 
-  pg_search_scope :autocomplete_name,
-    against: [:first_name, :last_name],
-    using: {
-      tsearch: { prefix: true }
-    }
-
   def volunteers_with_access
     users.where(user_friend_associations: { remote: false })
   end
@@ -117,12 +111,29 @@ class Friend < ApplicationRecord
     users.where(user_friend_associations: { remote: true })
   end
 
+  pg_search_scope :autocomplete_name,
+    against: [:first_name, :last_name],
+    using: {
+      tsearch: { prefix: true }
+    },
+    order_within_rank: 'created_at DESC'
 
-  pg_search_scope :filter_first_name, against: :first_name,
-                                      using: { tsearch: { prefix: true } }
+  pg_search_scope :filter_first_name,
+    against: :first_name,
+    using: { tsearch: { prefix: true } },
+    order_within_rank: 'created_at DESC'
 
-  pg_search_scope :filter_last_name, against: :last_name,
-                                     using: { tsearch: { prefix: true } }
+  pg_search_scope :filter_last_name,
+    against: :last_name,
+    using: { tsearch: { prefix: true } },
+    order_within_rank: 'created_at DESC'
+
+  pg_search_scope :filter_notes,
+    associated_against: { friend_notes: :note },
+    using: {
+      tsearch: { dictionary: "english" }
+    },
+    order_within_rank: 'created_at DESC'
 
   scope :filter_a_number, ->(number) {
     where(a_number: number)
@@ -211,27 +222,21 @@ class Friend < ApplicationRecord
     )
   }
 
-  pg_search_scope :filter_notes,
-    associated_against: { friend_notes: :note },
-    using: {
-      tsearch: { dictionary: "english" }
-    }
-
   scope :sorted_by, ->(sort_option) {
     # extract the sort direction from the param value.
     direction = sort_option =~ /desc$/ ? 'desc' : 'asc'
     case sort_option.to_s
     when /^created_at_/
       # Simple sort on the created_at column.
-      order("friends.created_at #{direction}")
+      order("created_at #{direction}")
     when /^intake_date_/
-      where('intake_date IS NOT NULL').order("friends.intake_date #{direction}")
+      where('intake_date IS NOT NULL').order("intake_date #{direction}")
     when /^must_be_seen_by_/
-      where('must_be_seen_by IS NOT NULL').order("friends.must_be_seen_by #{direction}")
+      where('must_be_seen_by IS NOT NULL').order("must_be_seen_by #{direction}")
     when /^date_of_entry/
-      where('date_of_entry IS NOT NULL').order("friends.date_of_entry #{direction}")
+      where('date_of_entry IS NOT NULL').order("date_of_entry #{direction}")
     when /^last_name/
-      order("friends.last_name #{direction}")
+      order("last_name #{direction}")
     else
       raise(ArgumentError, "Invalid sort option: #{sort_option.inspect}")
     end
