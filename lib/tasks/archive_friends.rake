@@ -1,6 +1,16 @@
 desc 'Archive Friend records due to inactivity'
 task archive_friends: :environment do
-  # identify friends from criteria
-  # (lets make archive and unarchive model methods so they can be tested)
-  # set archived to true and also delete any friend user associations (there shouldn't be any)
+  friends = Friend
+    .where(archived: false)
+    .where('updated_at < ?', 1.year.ago)
+    .where.not(status: 'in_detention')
+    .includes(:activities, :drafts, :friend_notes)
+
+  friends.each do |friend|
+    next if friend.activities.where('occur_at > ?', Time.now).size > 0
+    next if friend.drafts.where('updated_at > ?', 1.year.ago).size > 0
+    next if friend.friend_notes.where('updated_at > ?', 1.year.ago).size > 0
+
+    friend.archive
+  end
 end
