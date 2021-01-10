@@ -284,6 +284,24 @@ RSpec.describe Friend, type: :model do
         expect(Friend.filter_created_after(safe_buffer_date)).to eq []
       end
     end
+  end
 
+  describe '#archive' do
+    let(:friend) { create :friend }
+    let!(:user_friend_association) { create :user_friend_association, friend: friend }
+
+    it 'updates archived=true and deletes any UserFriendAssociations' do
+      expect(friend.user_friend_associations.count).to eq 1
+      expect{ friend.archive }.to change{ friend.archived }.from(false).to(true)
+      expect(friend.user_friend_associations.count).to eq 0
+    end
+  end
+
+  describe '#reactivate' do
+    let(:friend) { create :friend, archived: true }
+
+    it 'updates archived=false' do
+      expect{ friend.reactivate }.to change{ friend.archived }.from(true).to(false)
+    end
   end
 end
