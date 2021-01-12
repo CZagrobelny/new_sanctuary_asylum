@@ -4,6 +4,7 @@ class ReviewsController < ApplicationController
   before_action :require_admin_or_access_to_friend, only: [:show]
   before_action :require_admin_or_remote_lawyer, only: [:new, :create]
   before_action :require_review_author, only: [:edit, :update, :destroy]
+  before_action :restrict_access_to_archived_friend
 
   def new
     @review = draft.reviews.by_user(current_user).first

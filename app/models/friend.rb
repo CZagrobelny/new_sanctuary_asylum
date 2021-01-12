@@ -97,6 +97,8 @@ class Friend < ApplicationRecord
 
   scope :detained, -> { where(status: 'in_detention') }
 
+  scope :not_archived, -> { where(archived: false) }
+
   scope :with_active_applications, -> {
     joins(:applications)
       .distinct
@@ -398,6 +400,21 @@ class Friend < ApplicationRecord
 
   def self.string_to_end_of_date(date)
     date.to_str.to_date.end_of_day
+  end
+
+  def archive
+    ActiveRecord::Base.transaction do
+      update!(archived: true)
+      user_friend_associations.each do |relation|
+        relation.destroy!
+      end
+    end
+  rescue => error
+    Rollbar.error(error)
+  end
+
+  def reactivate
+    update(archived: false)
   end
 
   private

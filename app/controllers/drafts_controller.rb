@@ -4,6 +4,7 @@ class DraftsController < ApplicationController
   before_action :require_admin_or_access_to_friend, except: [:approve]
   before_action :require_admin_or_access_time_slot, only: [:destroy]
   before_action :require_admin_or_remote_lawyer, only: [:approve]
+  before_action :restrict_access_to_archived_friend
 
   def new
     @draft = friend.drafts.new
