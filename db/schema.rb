@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_13_170831) do
+ActiveRecord::Schema.define(version: 2020_12_26_145828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,11 +55,11 @@ ActiveRecord::Schema.define(version: 2020_12_13_170831) do
     t.datetime "updated_at", null: false
     t.integer "region_id"
     t.boolean "confirmed"
-    t.text "public_notes"
     t.integer "activity_type_id"
-    t.integer "last_edited_by"
+    t.text "public_notes"
     t.boolean "occur_at_tbd"
     t.datetime "control_date"
+    t.integer "last_edited_by"
     t.index ["activity_type_id"], name: "index_activities_on_activity_type_id"
     t.index ["region_id"], name: "index_activities_on_region_id"
   end
@@ -271,6 +271,7 @@ ActiveRecord::Schema.define(version: 2020_12_13_170831) do
     t.datetime "judge_imposed_i589_deadline"
     t.boolean "has_a_lawyer"
     t.string "lawyer_name"
+    t.boolean "archived", default: false
     t.index ["community_id"], name: "index_friends_on_community_id"
     t.index ["region_id"], name: "index_friends_on_region_id"
   end
@@ -452,6 +453,7 @@ ActiveRecord::Schema.define(version: 2020_12_13_170831) do
     t.string "authy_id"
     t.datetime "last_sign_in_with_authy"
     t.boolean "authy_enabled", default: false
+    t.boolean "agreed_to_data_entry_policies", default: false
     t.index ["authy_id"], name: "index_users_on_authy_id"
     t.index ["community_id"], name: "index_users_on_community_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
@@ -459,6 +461,7 @@ ActiveRecord::Schema.define(version: 2020_12_13_170831) do
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["password_changed_at"], name: "index_users_on_password_changed_at"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true

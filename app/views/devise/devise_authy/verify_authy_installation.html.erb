@@ -11,7 +11,7 @@
   <%= text_field_tag :token, "", :autocomplete => "one-time-code", :inputmode => "numeric", :pattern => "[0-9]*", :id => 'authy-token' %>
   <label>
     <%= check_box_tag :remember_device %>
-    <span><%= I18n.t('remember_device', {:scope => 'devise'}) %></span>
+    <span>Remember this device for 1 week</span>
   </label>
   <%= authy_request_sms_link %>
   <%= submit_tag I18n.t('enable_my_account', {:scope => 'devise'}), :class => 'btn' %>

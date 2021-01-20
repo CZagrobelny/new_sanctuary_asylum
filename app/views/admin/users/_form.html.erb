@@ -40,11 +40,23 @@
       <% end %>
     </div>
 
-    <% if current_user.admin? %>
+    <% if current_user.can_access_region?(current_region) %>
+      <% available_roles = current_community.primary? ? User::PRIMARY_ROLES : User::NON_PRIMARY_ROLES %>
       <div class='form-group'>
         <%= f.label :role, class: 'col-md-2 control-label required' %>
         <div class='col-md-6'>
           <%= f.select :role, available_roles, {}, {class: 'form-control input-md'} %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if current_user.can_access_region?(current_region) %>
+      <div class='form-group'>
+        <div class='col-md-6 col-md-offset-2'>
+          <%= f.check_box :agreed_to_data_entry_policies %>
+          <label>
+            Agreed to Data Entry Digital Security Policies
+          </label>
         </div>
       </div>
     <% end %>
@@ -76,14 +88,16 @@
       </div>
     </div>
 
-    <div class='row form-group'>
-      <p><strong>ONLY</strong> fill in the password field if you want to <strong>CHANGE</strong> your password. If you leave this field blank, your password will stay the same.</p>
-      <p>Passwords are required to be at least 8 characters long AND contain at least one of EACH of the following: an uppercase letter, a lowercase letter, a number.  They also cannot be a password that you used previously.</p>
-      <%= f.label :password, class: 'col-md-2 control-label' %>
-      <div class='col-md-6'>
-        <%= f.password_field :password, autocomplete: 'new', class: 'form-control', placeholder: 'Set a NEW password' %>
+    <% if current_user.can_access_region?(current_region) %>
+      <div class='row form-group'>
+        <p><strong>ONLY</strong> fill in the password field if you want to <strong>CHANGE</strong> your password. If you leave this field blank, your password will stay the same.</p>
+        <p>Passwords are required to be at least 8 characters long AND contain at least one of EACH of the following: an uppercase letter, a lowercase letter, a number.  They also cannot be a password that you used previously.</p>
+        <%= f.label :password, class: 'col-md-2 control-label' %>
+        <div class='col-md-6'>
+          <%= f.password_field :password, autocomplete: 'new', class: 'form-control', placeholder: 'Set a NEW password' %>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <div class='row'>
       <div class='col-md-1 col-md-offset-7'>

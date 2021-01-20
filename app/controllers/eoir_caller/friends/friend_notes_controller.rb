@@ -1,5 +1,6 @@
 class EoirCaller::Friends::FriendNotesController < EoirCallerController
   before_action :require_note_author, only: [:edit, :update, :destroy]
+  before_action :restrict_access_to_archived_friend
 
   def new
     @friend_note = friend.friend_notes.new

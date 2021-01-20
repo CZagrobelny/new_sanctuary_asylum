@@ -1,4 +1,6 @@
 class Admin::Friends::DetentionsController < AdminController
+  before_action :restrict_access_to_archived_friend, only: [:edit, :update, :destroy]
+
   def new
     @detention = friend.detentions.new
     render_modal

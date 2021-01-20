@@ -35,29 +35,61 @@ RSpec.describe Admin::FriendsController, type: :controller do
     end
 
     describe 'GET #edit' do
-      let(:friend) { create :friend, community: community }
-      it 'allows access' do
-        get :edit, params: { community_slug: community.slug, id: friend.id }
-        expect(response.successful?).to eq true
+      context 'when the Friend is NOT archived' do
+        let(:friend) { create :friend, community: community }
+
+        it 'allows access' do
+          get :edit, params: { community_slug: community.slug, id: friend.id }
+          expect(response.successful?).to eq true
+        end
+      end
+
+      context 'when the Friend is archived' do
+        let(:friend) { create :friend, community: community, archived: true }
+
+        it 'does NOT allow access' do
+          expect { get :edit, params: { community_slug: community.slug, id: friend.id } }.to raise_error('Not Found')
+        end
       end
     end
 
     describe 'PUT #update' do
-      let!(:friend) { create :friend, community: community }
-      it 'allows access' do
-        friend_attributes = friend.attributes
-        friend_attributes['first_name'] = 'new name'
-        put :update, params: { community_slug: community.slug, id: friend.id, friend: friend_attributes }
-        expect(friend.reload.first_name).to eq 'new name'
+      context 'when the Friend is NOT archived' do
+        let!(:friend) { create :friend, community: community }
+
+        it 'allows access' do
+          friend_attributes = friend.attributes
+          friend_attributes['first_name'] = 'new name'
+          put :update, params: { community_slug: community.slug, id: friend.id, friend: friend_attributes }
+          expect(friend.reload.first_name).to eq 'new name'
+        end
+      end
+
+      context 'when the Friend is archived' do
+        let(:friend) { create :friend, community: community, archived: true }
+
+        it 'does NOT allow access' do
+          expect { put :update, params: { community_slug: community.slug, id: friend.id, friend: friend.attributes } }.to raise_error('Not Found')
+        end
       end
     end
 
     describe 'DELETE #destroy' do
-      let!(:friend) { create :friend, community: community }
-      it 'allows access' do
-        friend_count = Friend.count
-        delete :destroy, params: { community_slug: community.slug, id: friend.id }
-        expect(Friend.count).to eq friend_count - 1
+      context 'when the Friend is NOT archived' do
+        let!(:friend) { create :friend, community: community }
+        it 'allows access' do
+          friend_count = Friend.count
+          delete :destroy, params: { community_slug: community.slug, id: friend.id }
+          expect(Friend.count).to eq friend_count - 1
+        end
+      end
+
+      context 'when the Friend is archived' do
+        let(:friend) { create :friend, community: community, archived: true }
+
+        it 'does NOT allow access' do
+          expect { delete :destroy, params: { community_slug: community.slug, id: friend.id } }.to raise_error('Not Found')
+        end
       end
     end
   end

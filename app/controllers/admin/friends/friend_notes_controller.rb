@@ -1,4 +1,6 @@
 class Admin::Friends::FriendNotesController < AdminController
+  before_action :restrict_access_to_archived_friend, only: [:edit, :update, :destroy]
+
   def new
     @friend_note = friend.friend_notes.new
     render_modal

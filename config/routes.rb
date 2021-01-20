@@ -14,6 +14,9 @@ Rails.application.routes.draw do
 
   get 'pledge', to: 'home#pledge'
 
+  resources :lockdown, only: [:create] 
+  match 'lockdown', to: 'lockdown#new', via: [:get]
+
   resources :communities, param: :slug, only: [] do
     devise_for :users, only: [:invitations], controllers: { invitations: "invitations" }
 
@@ -42,7 +45,7 @@ Rails.application.routes.draw do
     end
 
     namespace :admin do
-        resources :users, except: [:new, :create, :show] do
+      resources :users, except: [:new, :create, :show] do
         member do
           patch :unlock
         end
@@ -65,10 +68,13 @@ Rails.application.routes.draw do
         collection do
           get :select2_options
         end
+        member do
+          patch :reactivate
+        end
         resources :activities, controller: 'friends/activities', except: [:index, :show] do
           member do
-          patch :confirm
-          patch :unconfirm
+            patch :confirm
+            patch :unconfirm
           end
         end
         resources :detentions, controller: 'friends/detentions', except: [:index, :show]
@@ -130,6 +136,12 @@ Rails.application.routes.draw do
       resources :friends, only: [] do
         resources :friend_notes, controller: 'friends/friend_notes', except: [:index, :show]
         resources :activities, controller: 'friends/activities', except: [:index, :show]
+      end
+      resources :activities, only: [:index] do
+        member do
+          patch :confirm
+          patch :unconfirm
+        end
       end
     end
   end

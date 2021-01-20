@@ -54,4 +54,34 @@ RSpec.describe Activity, type: :model do
       end
     end
   end
+
+  describe '#after_create' do
+    let(:activity) do
+      build(:activity, friend: friend, region: region, activity_type: activity_type)
+    end
+    let(:community) { create :community, region: region }
+
+    before do
+        3.times do
+          user = create(:user, community: community)
+          create(:user_friend_association, user: user, friend: friend)
+        end
+      end
+
+    context 'when the activity type is filing_asylum_application' do
+      let(:activity_type) { create :activity_type, name: 'filing_asylum_application' }
+
+      it 'destroys all user_friend_associations for the friend that the activity belongs to' do
+        expect{ activity.save! }.to change{ friend.user_friend_associations.count }.from(3).to(0)
+      end
+    end
+
+    context 'when the activity type is NOT filing_asylum_application' do
+      let(:activity_type) { create :activity_type, name: 'another_activity' }
+
+      it 'does NOT destroy the user_friend_associations for the friend that the activity belongs to' do
+        expect{ activity.save! }.not_to change{ friend.user_friend_associations.count }
+      end
+    end
+  end
 end

@@ -99,4 +99,11 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#lockdown' do
+    subject(:user) { create :user }
+    it 'sets secure password' do
+      expect { subject.lockdown }.to change { subject.encrypted_password }
+    end
+  end
 end

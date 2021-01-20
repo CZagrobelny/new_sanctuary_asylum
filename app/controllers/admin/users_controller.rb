@@ -1,4 +1,6 @@
 class Admin::UsersController < AdminController
+  before_action :require_admin, only: [:destroy, :edit, :update, :unlock]
+
   def index
     @filterrific = initialize_filterrific(User,
                                           params[:filterrific],
@@ -15,7 +17,7 @@ class Admin::UsersController < AdminController
     @users = current_community.users
       .order('created_at DESC')
       .filterrific_find(@filterrific)
-      .paginate(page: params[:page])
+      .limit(30)
 
     respond_to do |format|
       format.html
@@ -49,8 +51,10 @@ class Admin::UsersController < AdminController
   def update
     @user = current_community.users.find(params[:id])
     ActiveRecord::Base.transaction do
-      @user.update!(current_user.admin? ? user_params : user_params_excluding_role)
-      if password_params.present?
+      @user.update!(
+        current_user.can_access_region?(current_region) ? user_params : user_params_excluding_role
+      )
+      if current_user.can_access_region?(current_region) && password_params.present?
         unless @user.reset_password(password_params[:password], password_params[:password])
           @user.errors.delete(:password)
           @user.errors.add(:password, 'does not meet minimum password requirements (see below).')
@@ -105,6 +109,7 @@ class Admin::UsersController < AdminController
       :email,
       :phone,
       :role,
+      :agreed_to_data_entry_policies,
       :pledge_signed,
       :signed_guidelines,
       :attended_training,

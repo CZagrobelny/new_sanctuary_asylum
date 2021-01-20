@@ -7,15 +7,17 @@ class User < ApplicationRecord
     data_entry
     eoir_caller
     admin
+    remote_clinic_lawyer
   ].map { |k, _v| [k.humanize.titleize, k] }.freeze
   NON_PRIMARY_ROLES = %w[
     volunteer
     data_entry
     eoir_caller
     admin
+    remote_clinic_lawyer
   ].map { |k, _v| [k.humanize.titleize, k] }.freeze
   # The users who can attend accompaniments (NOT as accompaniment leaders)
-  ACCOMPANIMENT_ELIGIBLE_ROLES = %w[volunteer data_entry eoir_caller].freeze
+  ACCOMPANIMENT_ELIGIBLE_ROLES = %w[volunteer data_entry].freeze
 
   devise :invitable, :database_authenticatable, :authy_authenticatable,
     :lockable, :authy_lockable, :recoverable, :rememberable, :trackable,
@@ -154,7 +156,7 @@ class User < ApplicationRecord
   end
 
   def can_access_region?(region)
-    regions.include?(region)
+    regional_admin? && regions.include?(region)
   end
 
   def regional_admin?
@@ -184,5 +186,10 @@ class User < ApplicationRecord
 
   def admin_or_existing_relationship?(friend_id)
     admin? || has_active_data_entry_access_time_slot? || existing_relationship?(friend_id)
+  end
+
+  def lockdown
+    password = SecureRandom.uuid + SecureRandom.uuid.upcase
+    reset_password(password, password)
   end
 end

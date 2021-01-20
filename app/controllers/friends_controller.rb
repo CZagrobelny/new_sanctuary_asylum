@@ -2,13 +2,13 @@ class FriendsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_access_to_community
   before_action :require_access_to_friend, only: %i[update show]
+  before_action :restrict_access_to_archived_friend, only: [:show, :update]
 
   def index
     @friends = current_user.friends.order('first_name asc')
   end
 
   def show
-    friend
     @current_tab = current_tab
   end
 
