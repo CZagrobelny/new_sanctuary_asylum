@@ -1,5 +1,6 @@
 class Admin::AccessTimeSlotsController < AdminController
   before_action :require_admin
+  before_action :require_time_slot_in_future, only: [:edit, :update, :destroy]
 
   def index
     @access_time_slots = current_community.access_time_slots
@@ -57,5 +58,11 @@ class Admin::AccessTimeSlotsController < AdminController
       :grantor_id,
       :grantee_id,
     ).merge(community_id: current_community.id)
+  end
+
+  def require_time_slot_in_future
+    if access_time_slot.start_time.before?(Time.now)
+      not_found
+    end
   end
 end
