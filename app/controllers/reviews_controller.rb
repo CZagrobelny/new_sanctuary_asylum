@@ -87,9 +87,10 @@ class ReviewsController < ApplicationController
 
   def create_review_and_set_status
     ActiveRecord::Base.transaction do
-      @review = draft.reviews.create!(
+      @review = draft.reviews.new(
         review_params.merge(user: current_user)
       )
+      review.save!
       draft.update!(status: 'review_added')
       application.update!(status: 'review_added')
       RemoteReviewAction.create!(
