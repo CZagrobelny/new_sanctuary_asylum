@@ -1,0 +1,15 @@
+<p>
+The following users in your region have insecure (non-2fac) accounts that must 
+be secured immediately. Please contact them to enable 2fac ASAP:
+<br><br>
+<% @insecure_admins.each do |admin| %>
+    - <%= admin.name %> (<%= admin.email %>)
+    <% if !admin.authy_enabled %>
+        Authy: NOT ENABLED, 
+    <% else %>
+    <% if !admin.agreed_to_data_entry_policies %>
+        Data Entry Policies: NOT AGREED, 
+    <% else %>
+    <br>
+<% end %>
+</p>
