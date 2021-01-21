@@ -60,7 +60,7 @@
   </div>
 </div>
 
-<div class='row form-group other_ethnicity_wrapper', style="<%= 'display:none;' unless friend.other? %>">
+<div class='row form-group other_ethnicity_wrapper', style="<%= 'display:none;' unless @friend.other? %>">
   <%= f.label :other_ethnicity,'Other Ethnicity', class: 'col-md-2 control-label' %>
   <div class='col-md-6'>
     <%= f.text_field :other_ethnicity, class: 'form-control' %>
@@ -69,7 +69,7 @@
 
 <div class='row form-group'>
   <%= fields_for(@friend.languages.build) do |fl| %>
-    <%= fl.label :languages,'Languages', class: 'col-md-2 control-label' %>
+    <%= fl.label :languages, 'Languages', class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
       <%= collection_select(:friend, :language_ids, Language.all, :id, :name, {}, {multiple: true, prompt: true, class: 'js-select2 form-control'}) %>
     </div>
