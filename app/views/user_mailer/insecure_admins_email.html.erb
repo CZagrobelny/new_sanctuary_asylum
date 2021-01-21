@@ -6,10 +6,10 @@ be secured immediately. Please contact them to enable 2fac ASAP:
     - <%= admin.name %> (<%= admin.email %>)
     <% if !admin.authy_enabled %>
         Authy: NOT ENABLED, 
-    <% else %>
+    <% end %>
     <% if !admin.agreed_to_data_entry_policies %>
         Data Entry Policies: NOT AGREED, 
-    <% else %>
+    <% end %>
     <br>
 <% end %>
 </p>
