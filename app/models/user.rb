@@ -192,5 +192,6 @@ class User < ApplicationRecord
     password = SecureRandom.uuid + SecureRandom.uuid.upcase
     reset_password(password, password)
     UserMailer.account_lockdown_email(self).deliver_now
+    true
   end
 end
