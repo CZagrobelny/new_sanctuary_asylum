@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   get 'pledge', to: 'home#pledge'
 
-  resources :lockdown, only: [:create] 
+  resources :lockdown, only: [:create]
   match 'lockdown', to: 'lockdown#new', via: [:get]
 
   resources :communities, param: :slug, only: [] do
@@ -133,7 +133,7 @@ Rails.application.routes.draw do
 
     namespace :eoir_caller do
       resources :search, only: [:index]
-      resources :friends, only: [] do
+      resources :friends, only: [:update] do
         resources :friend_notes, controller: 'friends/friend_notes', except: [:index, :show]
         resources :activities, controller: 'friends/activities', except: [:index, :show]
       end

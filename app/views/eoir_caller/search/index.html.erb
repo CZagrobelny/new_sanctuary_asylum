@@ -20,6 +20,9 @@
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item active">
+          <a class="nav-link" data-toggle="tab" href="#basic" role="tab">Basic</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#activities" role="tab">Activities</a>
         </li>
         <li class="nav-item">
@@ -29,7 +32,178 @@
 
       <!-- Tab panes -->
       <div class="tab-content form-inputs">
-        <div class="tab-pane active" id="activities" role="tabpanel">
+        <div class="tab-pane active" id="basic" role="tabpanel">
+          <%= form_for([current_community, :eoir_caller, @friend]) do |f| %>
+            <h3>Basic</h3>
+
+            <!-- Validation errors -->
+            <%= display_validation_errors(@friend) %>
+
+            <div class='row form-group'>
+              <%= f.label :first_name, 'First Name', class: 'col-md-2 control-label required' %>
+              <div class='col-md-6'>
+                <%= f.text_field :first_name, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <%= f.label :middle_name, 'Middle Name', class: 'col-md-2 control-label' %>
+              <div class='col-md-6'>
+                <%= f.text_field :middle_name, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <%= f.label :last_name, 'Last Name', class: 'col-md-2 control-label required' %>
+              <div class='col-md-6'>
+                <%= f.text_field :last_name, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <%= f.label :a_number, 'A Number', class: 'col-md-2 control-label required' %>
+              <div class='col-md-6'>
+                <%= f.text_field :a_number, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <%= f.label :phone, class: 'col-md-2 control-label' %>
+              <div class='col-md-6'>
+                <%= f.text_field :phone, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <%= f.label :email, class: 'col-md-2 control-label' %>
+              <div class='col-md-6'>
+                <%= f.text_field :email, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <%= f.label :gender, class: 'col-md-2 control-label' %>
+              <div class='col-md-6'>
+                <%= f.select :gender, options_for_select(Friend.genders.map { |key, value| [key.humanize, key] }, @friend.gender), {include_blank: true}, {class: 'form-control'} %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <%= f.label :ethnicity, class: 'col-md-2 control-label' %>
+              <div class='col-md-6'>
+                <%= f.select :ethnicity, options_for_select(Friend.ethnicities.map { |key, value| [key.humanize, key] }, @friend.ethnicity), {include_blank: true}, {class: 'form-control'} %>
+              </div>
+            </div>
+
+            <div class='row form-group other_ethnicity_wrapper', style="<%= 'display:none;' unless @friend.other? %>">
+              <%= f.label :other_ethnicity,'Other Ethnicity', class: 'col-md-2 control-label' %>
+              <div class='col-md-6'>
+                <%= f.text_field :other_ethnicity, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <%= fields_for(@friend.languages.build) do |fl| %>
+                <%= fl.label :languages, 'Languages', class: 'col-md-2 control-label' %>
+                <div class='col-md-6'>
+                  <%= collection_select(:friend, :language_ids, Language.all, :id, :name, {}, {multiple: true, prompt: true, class: 'js-select2 form-control'}) %>
+                </div>
+              <% end %>
+            </div>
+
+            <div class='row form-group'>
+              <%= f.label :country_id,'Country of Origin', class: 'col-md-2 control-label' %>
+              <div class='col-md-6'>
+                <%= collection_select(:friend, :country_id, Country.all, :id, :name, {prompt: true}, {class: 'js-select2 form-control'}) %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <%= f.label :zip_code,'Zip Code', class: 'col-md-2 control-label' %>
+              <div class='col-md-6'>
+                <%= f.text_field :zip_code, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <%= f.label :city,'City', class: 'col-md-2 control-label' %>
+              <div class='col-md-6'>
+                <%= f.text_field :city, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <%= f.label :state, 'State', class: 'col-md-2 control-label' %>
+              <div class='col-md-6'>
+                <%= f.select :state, us_states_options(), {}, { class: 'form-control js-select2' } %>
+
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <%= f.label :date_of_birth, 'Date of Birth', class: 'col-md-2 control-label' %>
+              <div class='col-md-6'>
+                <%= f.date_select :date_of_birth, { start_year: Date.current.year, end_year: 1930, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <%= f.label :status, class: 'col-md-2 control-label' %>
+              <div class='col-md-6'>
+                <%= f.select :status, options_for_select(Friend::STATUSES, @friend.status), {include_blank: true}, {class: 'form-control'} %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <%= f.label :eoir_case_status, "EOIR Case Status", class: 'col-md-2 control-label' %>
+              <div class='col-md-6'>
+                <%= f.select :eoir_case_status, options_for_select(Friend::EOIR_CASE_STATUSES, @friend.eoir_case_status), {include_blank: true}, {class: 'form-control'} %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <div class='col-md-offset-2 col-md-6'>
+                <%= f.check_box :famu_docket %>
+                <%= f.label :famu_docket, 'FAMU docket' %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <div class='col-md-offset-2 col-md-6'>
+                <%= f.check_box :no_record_in_eoir %>
+                <%= f.label :no_record_in_eoir, 'No Record in EOIR' %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <div class='col-md-offset-2 col-md-6'>
+                <%= f.check_box :order_of_supervision %>
+                <%= f.label :order_of_supervision, 'Has Order of Supervision' %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <%= f.label :date_of_entry, 'Date of Entry', class: 'col-md-2 control-label' %>
+              <div class='col-md-6'>
+                <%= f.date_select :date_of_entry, { start_year: Date.current.year, end_year: 1930, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+              </div>
+            </div>
+
+            <div class='row form-group'>
+              <%= f.label :judge_imposed_i589_deadline, 'Judge-imposed asylum application deadline', class: 'col-md-2 control-label' %>
+              <div class='col-md-6'>
+                <%= f.date_select :judge_imposed_i589_deadline, { start_year: Date.current.year, end_year: 5.years.from_now.year, prompt: true, order: [:month, :day, :year] }, {class: 'form-control inline-date-select'} %>
+              </div>
+            </div>
+
+            <div class='row'>
+              <%= f.submit 'Save', class: 'btn btn-primary col-md-offset-3' %>
+            </div>
+            <br>
+          <% end %>
+        </div>
+
+        <div class="tab-pane" id="activities" role="tabpanel">
           <br>
           <div class='row'>
             <div class='pull-right'>

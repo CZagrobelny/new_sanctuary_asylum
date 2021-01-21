@@ -1,5 +1,4 @@
 class ReviewMailer < ApplicationMailer
-  include Rails.application.routes.url_helpers
 
   def review_added_email(review)
     @review = review
