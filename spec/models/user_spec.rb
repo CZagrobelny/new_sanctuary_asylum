@@ -102,7 +102,10 @@ RSpec.describe User, type: :model do
 
   describe '#lockdown' do
     subject(:user) { create :user }
+    let(:mailer_double) { double('mailer', deliver_now: true) }
     it 'sets secure password' do
+      expect(UserMailer).to receive(:account_lockdown_email).with(user).and_return(mailer_double)
+      expect(mailer_double).to receive(:deliver_now)
       expect { subject.lockdown }.to change { subject.encrypted_password }
     end
   end
