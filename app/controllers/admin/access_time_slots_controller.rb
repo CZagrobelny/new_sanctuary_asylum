@@ -71,13 +71,13 @@ class Admin::AccessTimeSlotsController < AdminController
   end
 
   def require_active_time_slot
-    if access_time_slot.start_time.after?(Time.now) || access_time_slot.end_time.before?(Time.now)
+    unless access_time_slot.active?
       not_found
     end
   end
 
   def require_time_slot_in_future
-    if access_time_slot.start_time.before?(Time.now)
+    unless access_time_slot.future?
       not_found
     end
   end

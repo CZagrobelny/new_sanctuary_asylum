@@ -14,6 +14,14 @@ class AccessTimeSlot < ApplicationRecord
 
   scope :active, -> { where('start_time < :current_time AND end_time > :current_time AND NOT deactivated', current_time: Time.now) }
 
+  def active?
+    start_time.before?(Time.now) && end_time.after?(Time.now)
+  end
+
+  def future?
+    start_time.after?(Time.now)
+  end
+
   private
 
   def end_time_is_after_start_time
