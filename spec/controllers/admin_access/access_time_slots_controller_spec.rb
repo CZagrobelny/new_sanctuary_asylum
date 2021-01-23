@@ -33,6 +33,15 @@ RSpec.describe Admin::AccessTimeSlotsController, type: :controller do
         expect{ AccessTimeSlot.find(time_slot.id) }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
+
+    describe 'PATCH #deactivate' do
+      it 'does NOT allow access' do
+        expect do
+          patch :deactivate, params: {community_slug: community.slug, id: time_slot.id}
+        end.to raise_error('Not Found')
+        expect(time_slot.reload).not_to be_deactivated
+      end
+    end
   end
 
   context 'time slot is ongoing now' do
@@ -64,6 +73,13 @@ RSpec.describe Admin::AccessTimeSlotsController, type: :controller do
         expect(AccessTimeSlot.find(time_slot.id)).to eq time_slot
       end
     end
+
+    describe 'PATCH #deactivate' do
+      it 'allows access' do
+        patch :deactivate, params: {community_slug: community.slug, id: time_slot.id}
+        expect(time_slot.reload).to be_deactivated
+      end
+    end
   end
 
   context 'time slot is in the past' do
@@ -93,6 +109,15 @@ RSpec.describe Admin::AccessTimeSlotsController, type: :controller do
           delete :destroy, params: {community_slug: community.slug, id: time_slot.id}
         end.to raise_error('Not Found')
         expect(AccessTimeSlot.find(time_slot.id)).to eq time_slot
+      end
+    end
+
+    describe 'PATCH #deactivate' do
+      it 'does NOT allow access' do
+        expect do
+          patch :deactivate, params: {community_slug: community.slug, id: time_slot.id}
+        end.to raise_error('Not Found')
+        expect(time_slot.reload).not_to be_deactivated
       end
     end
   end
