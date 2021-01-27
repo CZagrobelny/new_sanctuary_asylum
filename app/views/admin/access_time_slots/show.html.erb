@@ -1,4 +1,10 @@
-<h1>Access Time Slot</h1>
+<h1>
+  Access Time Slot
+
+  <% if @access_time_slot.deactivated? %>
+    <span class="label label-warning">Deactivated</span>
+  <% end %>
+</h1>
 
 <div>
   <%= "#{@access_time_slot.start_time.strftime("%B %-d %_I:%M %p")} - #{@access_time_slot.end_time.strftime("%_I:%M %p")}" %>
@@ -18,6 +24,9 @@
   <%= @access_time_slot.grantor.try(:name) %>
 </dd>
 
-<% if @access_time_slot.future? %>
+<% if @access_time_slot.active? %>
+  <%= link_to 'Deactivate', deactivate_community_admin_access_time_slot_path(current_community, @access_time_slot), method: :patch, class: 'btn btn-sm btn-default' %>
+<% elsif @access_time_slot.future? %>
   <%= link_to 'Edit', edit_community_admin_access_time_slot_path(current_community, @access_time_slot), class: 'btn btn-sm btn-default' %>
+  <%= link_to 'Delete', community_admin_access_time_slot_path(current_community, @access_time_slot), method: :delete, class: 'btn btn-sm btn-danger' %>
 <% end %>
