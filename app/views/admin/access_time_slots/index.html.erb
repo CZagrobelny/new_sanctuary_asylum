@@ -12,7 +12,7 @@
         <%= "#{access_time_slot.start_time.strftime("%_I:%M %p")} - #{access_time_slot.end_time.strftime("%_I:%M %p")}" %>
       </dt>
       <dd>
-        <%= link_to "#{access_time_slot.grantee.name} (#{access_time_slot.use.titlecase})",edit_community_admin_access_time_slot_path(current_community, access_time_slot), class: "#{'eoir_caller' if access_time_slot.grantee.role == 'eoir_caller'}" %>
+        <%= link_to "#{access_time_slot.grantee.name} (#{access_time_slot.use.titlecase})", community_admin_access_time_slot_path(current_community, access_time_slot), class: "#{'eoir_caller' if access_time_slot.grantee.role == 'eoir_caller'}" %>
       </dd>
   <% end %>
   </dl>

@@ -7,6 +7,10 @@ class Admin::AccessTimeSlotsController < AdminController
     @access_time_slots = current_community.access_time_slots
   end
 
+  def show
+    access_time_slot
+  end
+
   def new
     @access_time_slot_type = params[:type]
     @access_time_slot = AccessTimeSlot.new

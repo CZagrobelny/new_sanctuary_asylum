@@ -1,0 +1,23 @@
+<h1>Access Time Slot</h1>
+
+<div>
+  <%= "#{@access_time_slot.start_time.strftime("%B %-d %_I:%M %p")} - #{@access_time_slot.end_time.strftime("%_I:%M %p")}" %>
+</div>
+
+<div>
+  <%= @access_time_slot.use.titlecase %>
+</div>
+
+<dt>User</dt>
+<dd>
+  <%= @access_time_slot.grantee.name %>
+</dd>
+
+<dt>Created by</dt>
+<dd>
+  <%= @access_time_slot.grantor.try(:name) %>
+</dd>
+
+<% if @access_time_slot.future? %>
+  <%= link_to 'Edit', edit_community_admin_access_time_slot_path(current_community, @access_time_slot), class: 'btn btn-sm btn-default' %>
+<% end %>
