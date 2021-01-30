@@ -53,7 +53,11 @@ Rails.application.routes.draw do
           get :select2_options
         end
       end
-      resources :access_time_slots, except: [:show]
+      resources :access_time_slots do
+        member do
+          patch :deactivate
+        end
+      end
       resources :activities, except: [:destroy] do
         collection do
           get :accompaniments

@@ -1,3 +1,9 @@
 <h1>Edit Access Time Slot</h1>
-<%= link_to 'Delete', community_admin_access_time_slot_path(current_community, @access_time_slot), method: :delete, class: 'btn btn-sm btn-danger pull-right' %>
+
+<% if @access_time_slot.active? %>
+  <%= link_to 'Deactivate', deactivate_community_admin_access_time_slot_path(current_community, @access_time_slot), method: :patch, class: 'btn btn-sm btn-default pull-right' %>
+<% elsif @access_time_slot.future? %>
+  <%= link_to 'Delete', community_admin_access_time_slot_path(current_community, @access_time_slot), method: :delete, class: 'btn btn-sm btn-danger pull-right' %>
+<% end %>
+
 <%= render partial: 'form', locals: { access_time_slot: @access_time_slot } %>
