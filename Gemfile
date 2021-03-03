@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby File.read('.ruby-version').strip
 
-gem 'rails', '~> 6.0.3.3'
+gem 'rails', '~> 6.0.3.5'
 
 gem 'american_date' # this gives us the `to_date` method that we use in several places
 gem 'carrierwave'
