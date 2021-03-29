@@ -57,9 +57,16 @@
   </div>
 
   <div class='row form-group'>
-    <%= f.label :bond_amount, 'Bond Amount', class: 'col-md-2 control-label' %>
+    <%= f.label :total_bond_amount, 'Total Bond Amount', class: 'col-md-2 control-label' %>
     <div class='col-md-2'>
-      <%= f.number_field :bond_amount, class: 'form-control' %>
+      <%= f.number_field :total_bond_amount, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='row form-group'>
+    <%= f.label :nsc_contributed_bond_amount, 'NSC Contributed Bond Amount', class: 'col-md-2 control-label' %>
+    <div class='col-md-2'>
+      <%= f.number_field :nsc_contributed_bond_amount, class: 'form-control' %>
     </div>
   </div>
 
@@ -71,9 +78,9 @@
   </div>
 
   <div class='row form-group'>
-    <%= f.label :bonded_out_by, 'Bonded Out By', class: 'col-md-2 control-label' %>
+    <%= f.label :obligor, 'Obligor', class: 'col-md-2 control-label' %>
     <div class='col-md-6'>
-      <%= collection_select(:friend, :bonded_out_by, current_community.sanctuaries, :id, :name, {prompt: true}, {class: 'js-select2 form-control'}) %>
+      <%= collection_select(:friend, :obligor, current_community.sanctuaries, :id, :name, { include_blank: true }, { class: 'js-select2 form-control' }) %>
     </div>
   </div>
 </div>
