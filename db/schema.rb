@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_29_231207) do
+ActiveRecord::Schema.define(version: 2021_03_29_234709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -233,9 +233,9 @@ ActiveRecord::Schema.define(version: 2021_03_29_231207) do
     t.boolean "final_order_of_removal"
     t.boolean "has_a_lawyer_for_detention"
     t.boolean "bonded_out_by_nsc"
-    t.integer "bond_amount"
+    t.integer "total_bond_amount"
     t.datetime "date_bonded_out"
-    t.integer "bonded_out_by"
+    t.integer "obligor"
     t.datetime "date_foia_request_submitted"
     t.text "foia_request_notes"
     t.integer "community_id"
@@ -264,6 +264,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_231207) do
     t.boolean "has_a_lawyer"
     t.string "lawyer_name"
     t.boolean "archived", default: false
+    t.integer "nsc_contributed_bond_amount"
     t.index ["community_id"], name: "index_friends_on_community_id"
     t.index ["region_id"], name: "index_friends_on_region_id"
   end

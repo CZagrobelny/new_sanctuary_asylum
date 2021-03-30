@@ -92,13 +92,6 @@
 <p><strong>Lawyer Represented by:  </strong><%= Lawyer.find(friend.lawyer_represented_by).name if friend.lawyer_represented_by.present? %></p>
 <p><strong>Notes:  </strong><%= friend.lawyer_notes %></p>
 
-<h3>Bond</h3>
-<p><strong>Bonded Out by NSC:  </strong><%= friend.bonded_out_by_nsc ? 'Yes' : 'No' %></p>
-<p><strong>Bond Amount:  </strong><%= friend.bond_amount %></p>
-<p><strong>Date Bonded Out:  </strong><%= friend.date_bonded_out.strftime('%m/%d/%y') if friend.date_bonded_out.present? %></p>
-<p><strong>Bonded Out By:  </strong><%= Sanctuary.find(friend.bonded_out_by).name if friend.bonded_out_by.present? %></p>
-<br>
-
 <h3>Potential Sponsor</h3>
 <p><strong>Sponsor Name: </strong><%= friend.sponsor_name %></p>
 <p><strong>Sponsor Phone Number: </strong><%= friend.sponsor_phone_number %></p>
