@@ -177,7 +177,6 @@ class Admin::FriendsController < AdminController
       :digitized_at,
       :digitized_by,
       :releases_signed,
-      :social_work_referral_notes,
       :no_record_in_eoir,
       :order_of_supervision,
       :clinic_plan,
