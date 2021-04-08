@@ -36,7 +36,7 @@
     </div>
     <div class='col-md-4'>
       <p>
-        <%= draft.pdf_draft.file.filename %><br>
+        <span style='word-wrap: break-word;'><%= draft.pdf_draft.file.filename %></span><br>
         <%= link_to draft.pdf_draft_url, target: '_blank' do %>
           <i class='fa fa-eye fa-lg'></i>
           View
