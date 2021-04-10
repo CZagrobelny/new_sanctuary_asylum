@@ -49,6 +49,12 @@ class Friend < ApplicationRecord
                           administrative_decision_issued
                         ].map { |status| [status.titlecase, status] }
 
+  BOND_STATUSES = %w[active_bond
+                    bond_breached
+                    bond_in_progress_of_being_returned
+                    bond_returned
+                  ].map { |status| [status.titlecase, status] }
+
   CLINIC_PLANS = %w[i589
                     individual_hearing
                     motion_to_reopen

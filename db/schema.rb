@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_29_234709) do
+ActiveRecord::Schema.define(version: 2021_04_10_145814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -265,6 +265,8 @@ ActiveRecord::Schema.define(version: 2021_03_29_234709) do
     t.string "lawyer_name"
     t.boolean "archived", default: false
     t.integer "nsc_contributed_bond_amount"
+    t.text "bond_notes"
+    t.string "bond_status"
     t.index ["community_id"], name: "index_friends_on_community_id"
     t.index ["region_id"], name: "index_friends_on_region_id"
   end
