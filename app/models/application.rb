@@ -4,7 +4,7 @@ class Application < ApplicationRecord
                 detention foia government_issued_document habeas_corpus
                 humanitarian_parole identifying_document individual_hearing_material
                 intake life_bond_fund motion_to_reopen nsc_paperwork other
-                remote_review_*attorney_only* report_back sijs work_authorization team_sheet
+                remote_review_*attorney_only* report_back sijs tps work_authorization team_sheet
               ].freeze
 
   has_many :drafts, dependent: :restrict_with_error
