@@ -113,6 +113,11 @@
       <%= f.text_field :filter_must_be_seen_by_after, class: 'datepicker form-control' %>
       <%= f.text_field :filter_must_be_seen_by_before, class: 'datepicker form-control' %>
     </div>
+
+    <div class='form-group col-md-6'>
+      <%= f.label :filter_eoir_case_status, 'EOIR Case Status' %>
+      <%= f.select :filter_eoir_case_status, @filterrific.select_options[:eoir_case_status], { include_blank: true }, { class: 'form-control' } %>
+    </div>
   </div>
 
   <div class='row'>

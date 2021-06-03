@@ -26,6 +26,7 @@ class Admin::FriendsController < AdminController
           activity_judge: Friend.options_for_activity_judge(current_region),
           activity_location: Friend.options_for_activity_location(current_region),
           country_of_origin: Friend.options_for_country_of_origin,
+          eoir_case_status: Friend::EOIR_CASE_STATUSES,
         },
         persistence_id: false
       )

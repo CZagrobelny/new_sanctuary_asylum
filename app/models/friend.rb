@@ -38,6 +38,7 @@ class Friend < ApplicationRecord
 
   EOIR_CASE_STATUSES = %w[case_pending
                           case_information_not_available
+                          needs_a_change_of_venue
                           no_case_found_for_a_number
                           appeal_pending
                           motion_to_reopen_pending
@@ -287,6 +288,10 @@ class Friend < ApplicationRecord
     end
   }
 
+  scope :filter_eoir_case_status, ->(eoir_case_status) {
+    where(eoir_case_status: eoir_case_status)
+  }
+
 
   filterrific(default_filter_params: {},
               available_filters: %i[filter_id
@@ -314,6 +319,7 @@ class Friend < ApplicationRecord
                                     activity_judge
                                     activity_location
                                     filter_no_record_in_eoir
+                                    filter_eoir_case_status
                                     filter_order_of_supervision
                                     filter_has_a_lawyer
                                     country_of_origin
