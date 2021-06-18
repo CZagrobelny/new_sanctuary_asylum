@@ -68,7 +68,7 @@
                 <ul class='dropdown-menu'>
                   <li><%= link_to 'Delete', community_admin_friend_path(current_community.slug, friend), method: :delete, confirm: true %></li>
                 </ul>
-              <% elsif current_user.can_access_region?(current_region) %>
+              <% elsif current_user.can_access_region?(current_region) || (current_user.admin? && !current_community.primary?) %>
                 <%= link_to 'Reactivate', reactivate_community_admin_friend_path(friend.community.slug, friend), method: :patch %>
               <% else %>
                 Archived

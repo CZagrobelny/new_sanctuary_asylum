@@ -40,7 +40,7 @@
       <% end %>
     </div>
 
-    <% if current_user.can_access_region?(current_region) %>
+    <% if current_user.can_access_region?(current_region) || !current_community.primary? %>
       <% available_roles = current_community.primary? ? User::PRIMARY_ROLES : User::NON_PRIMARY_ROLES %>
       <div class='form-group'>
         <%= f.label :role, class: 'col-md-2 control-label required' %>

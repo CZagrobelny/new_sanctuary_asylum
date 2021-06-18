@@ -1,5 +1,5 @@
 class Admin::FriendsController < AdminController
-  before_action :require_access_to_region, only: [:reactivate]
+  before_action :require_access_to_region_or_non_primary_community_admin, only: [:reactivate]
   before_action :restrict_access_to_archived_friend, only: [:edit, :update, :destroy]
 
   def index
@@ -208,6 +208,13 @@ class Admin::FriendsController < AdminController
       update_friend_params.merge(digitized_params)
     end
     update_friend_params
+  end
+
+  def require_access_to_region_or_non_primary_community_admin
+    return if current_user.can_access_region?(current_region)
+    return if current_user.admin? && !current_community.primary?
+
+    not_found
   end
 
   def current_tab

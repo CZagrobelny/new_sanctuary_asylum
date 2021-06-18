@@ -52,7 +52,7 @@ class Admin::UsersController < AdminController
     @user = current_community.users.find(params[:id])
     ActiveRecord::Base.transaction do
       @user.update!(
-        current_user.can_access_region?(current_region) ? user_params : user_params_excluding_role
+        current_user.can_access_region?(current_region) || !current_community.primary? ? user_params : user_params_excluding_role
       )
       if current_user.can_access_region?(current_region) && password_params.present?
         unless @user.reset_password(password_params[:password], password_params[:password])
