@@ -56,11 +56,11 @@ ActiveRecord::Schema.define(version: 2021_04_10_145814) do
     t.datetime "updated_at", null: false
     t.integer "region_id"
     t.boolean "confirmed"
-    t.integer "activity_type_id"
     t.text "public_notes"
+    t.integer "activity_type_id"
+    t.integer "last_edited_by"
     t.boolean "occur_at_tbd"
     t.datetime "control_date"
-    t.integer "last_edited_by"
     t.index ["activity_type_id"], name: "index_activities_on_activity_type_id"
     t.index ["region_id"], name: "index_activities_on_region_id"
   end
@@ -450,7 +450,6 @@ ActiveRecord::Schema.define(version: 2021_04_10_145814) do
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
-    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["password_changed_at"], name: "index_users_on_password_changed_at"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true

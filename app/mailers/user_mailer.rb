@@ -6,4 +6,9 @@ class UserMailer < ApplicationMailer
 
     mail(to: admin_emails, subject: "Account lockdown warning")
   end
+
+  def insecure_admins_email(target_admin_emails, insecure_admins)
+    @insecure_admins = insecure_admins
+    mail(to: target_admin_emails, subject: "Report: Insecure Region Admins -- Fix ASAP")
+  end
 end
