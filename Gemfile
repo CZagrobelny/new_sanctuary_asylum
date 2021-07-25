@@ -38,11 +38,10 @@ group :development, :test do
   gem 'factory_bot_rails', require: false
   gem 'rspec-rails', require: false
   gem 'rubocop'
-  gem 'selenium-webdriver', '3.141.0' # version locked bc/ https://stackoverflow.com/questions/56445641/ruby-watir-selenium-webdriver-depricated-warning/
+  gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'webdrivers'
-  gem 'webmock', '~> 2.1', require: false
 end
 
 group :production do
@@ -54,6 +53,6 @@ end
 group :development do
   gem 'brakeman'
   gem 'listen'
-  gem 'tocer', '~> 9.1' # used for the table of contents in our Readme
+  gem 'tocer' # used for the table of contents in our Readme
 end
 

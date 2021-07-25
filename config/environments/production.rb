@@ -57,7 +57,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Right now only rack-attack uses this. Probably want to change if not.
-  config.cache_store = :file_store, { expires_in: 1.day }
+  config.cache_store = :file_store, "#{root}/tmp/cache/", { expires_in: 1.day }
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque

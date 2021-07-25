@@ -37,8 +37,8 @@ class PdfDraftUploader < CarrierWave::Uploader::Base
   #   process resize_to_fit: [50, 50]
   # end
 
-  # Whitelist for permitted extensions
-  def extension_whitelist
+  # Allowlist for permitted extensions
+  def extension_allowlist
     %w[jpg jpeg gif png doc docx pdf txt pages cda mp3 zip mov mp4]
   end
 

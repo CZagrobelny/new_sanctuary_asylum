@@ -62,7 +62,7 @@
   <!-- <%= link_to '?', '#', :id => 'authy-help' %> -->
 
   <%= authy_request_sms_link %>
-  <%= submit_tag I18n.t('submit_token', {:scope => 'devise'}), :class => 'btn' %>
+  <%= submit_tag I18n.t('devise.submit_token'), :class => 'btn' %>
 <% end %>
 
 <% if @onetouch_uuid %>
