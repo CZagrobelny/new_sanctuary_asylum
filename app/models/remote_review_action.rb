@@ -1,5 +1,5 @@
 class RemoteReviewAction < ApplicationRecord
-  belongs_to :friend, dependent: :destroy
+  belongs_to :friend
   belongs_to :community
   belongs_to :region
   belongs_to :user
