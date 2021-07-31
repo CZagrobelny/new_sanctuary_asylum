@@ -51,9 +51,21 @@ class Admin::UsersController < AdminController
   def update
     @user = current_community.users.find(params[:id])
     ActiveRecord::Base.transaction do
-      @user.update!(
-        current_user.can_access_region?(current_region) || !current_community.primary? ? user_params : user_params_excluding_role
-      )
+      update_user_params = if current_user.can_access_region?(current_region) || !current_community.primary?
+        user_params
+      else
+        user_params_excluding_role
+      end
+      if current_user.can_access_region?(current_region)
+        if update_user_params[:role] == 'regional_admin'
+          UserRegion.find_or_create_by!(user_id: @user.id, region_id: current_region.id)
+          update_user_params[:role] = 'admin'
+        else
+          UserRegion.find_by(user_id: @user.id, region_id: current_region.id)&.destroy
+        end
+      end
+      @user.update!(update_user_params)
+
       if current_user.can_access_region?(current_region) && password_params.present?
         unless @user.reset_password(password_params[:password], password_params[:password])
           @user.errors.delete(:password)
@@ -123,6 +135,7 @@ class Admin::UsersController < AdminController
       :last_name,
       :email,
       :phone,
+      :agreed_to_data_entry_policies,
       :pledge_signed,
       :signed_guidelines,
       :attended_training,

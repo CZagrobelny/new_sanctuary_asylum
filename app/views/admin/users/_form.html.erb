@@ -45,21 +45,20 @@
       <div class='form-group'>
         <%= f.label :role, class: 'col-md-2 control-label required' %>
         <div class='col-md-6'>
-          <%= f.select :role, available_roles, {}, {class: 'form-control input-md'} %>
+          <%= f.select :role, available_roles, { selected: @user.can_access_region?(current_region) ? 'regional_admin' : @user.role }, {class: 'form-control input-md'} %>
         </div>
       </div>
     <% end %>
 
-    <% if current_user.can_access_region?(current_region) %>
-      <div class='form-group'>
-        <div class='col-md-6 col-md-offset-2'>
-          <%= f.check_box :agreed_to_data_entry_policies %>
-          <label>
-            Agreed to Data Entry Digital Security Policies
-          </label>
-        </div>
+
+    <div class='form-group'>
+      <div class='col-md-6 col-md-offset-2'>
+        <%= f.check_box :agreed_to_data_entry_policies %>
+        <label>
+          Agreed to Data Entry Digital Security Policies
+        </label>
       </div>
-    <% end %>
+    </div>
 
     <div class='form-group'>
       <div class='col-md-6 col-md-offset-2'>

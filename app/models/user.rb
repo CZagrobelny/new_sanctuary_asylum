@@ -7,12 +7,12 @@ class User < ApplicationRecord
     data_entry
     eoir_caller
     admin
+    regional_admin
     remote_clinic_lawyer
   ].map { |k, _v| [k.humanize.titleize, k] }.freeze
   NON_PRIMARY_ROLES = %w[
     volunteer
     data_entry
-    eoir_caller
     admin
     remote_clinic_lawyer
   ].map { |k, _v| [k.humanize.titleize, k] }.freeze
@@ -51,7 +51,7 @@ class User < ApplicationRecord
   has_many :friends, through: :user_friend_associations
   has_many :volunteer_languages, dependent: :destroy
   has_many :languages, through: :volunteer_languages
-  has_many :user_regions
+  has_many :user_regions, dependent: :destroy
   has_many :regions, through: :user_regions
   has_many :reviews
   has_many :user_event_attendances, dependent: :destroy

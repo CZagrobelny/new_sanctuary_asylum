@@ -154,7 +154,6 @@ ActiveRecord::Base.transaction do
   Lawyer.create!(first_name: 'Michelle', last_name: 'Obama', region_id: ny_region.id)
   Lawyer.create!(first_name: 'Arrabella', last_name: 'Mansfield', region_id: ny_region.id)
   Lawyer.create!(first_name: 'Amal', last_name: 'Clooney', region_id: ny_region.id)
-  Lawyer.create!(first_name: 'Hillary', last_name: 'Rodham', region_id: ny_region.id)
 
   #Locations
   Location.create!(name: '26 Federal Plaza', region_id: ny_region.id)
