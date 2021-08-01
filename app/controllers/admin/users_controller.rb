@@ -17,7 +17,7 @@ class Admin::UsersController < AdminController
     @users = current_community.users
       .order('created_at DESC')
       .filterrific_find(@filterrific)
-      .limit(30)
+      .paginate(page: params[:page])
 
     respond_to do |format|
       format.html

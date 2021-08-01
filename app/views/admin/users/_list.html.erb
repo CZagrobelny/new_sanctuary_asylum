@@ -46,6 +46,10 @@
         <% end %>
       </tbody>
     </table>
+
+    <div class='pull-right'>
+      <%= will_paginate @users %>
+    </div>
   </div>
 <% else %>
   <h3>No search results matched your criteria.</h3>

@@ -6,6 +6,7 @@ class Community < ApplicationRecord
   has_many :cohorts
   has_many :sanctuaries
   has_many :access_time_slots
+  has_many :remote_review_actions
 
   validates :region_id, :name, :slug, presence: true
   validates_uniqueness_of :slug

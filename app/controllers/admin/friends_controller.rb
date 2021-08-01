@@ -31,21 +31,7 @@ class Admin::FriendsController < AdminController
         persistence_id: false
       )
 
-    @friends = if current_community.primary?
-      if params.dig(:filterrific, :filter_detained) == '1'
-        current_community.friends.filterrific_find(@filterrific)
-      elsif params.dig(:filterrific, :filter_first_name).present? || params.dig(:filterrific, :filter_last_name).present?
-        current_community.friends
-          .filterrific_find(@filterrific)
-          .limit(100)
-      else
-        current_community.friends
-          .filterrific_find(@filterrific)
-          .limit(50)
-      end
-    else
-      current_community.friends.filterrific_find(@filterrific)
-    end
+    @friends = current_community.friends.filterrific_find(@filterrific).paginate(page: params[:page])
   end
 
   def new
