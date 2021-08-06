@@ -11,10 +11,10 @@
 
     <div class='row form-group'>
       <div class='col-md-12'>
-        <%= f.label :pdf_draft, 'File Upload', class: 'control-label required', style: 'padding-right: 20px;' %>
+        <%= f.label :document, 'File Upload', class: 'control-label required', style: 'padding-right: 20px;' %>
         <%= link_to 'Browse', '#', class: 'btn btn-primary', id: 'browse' %>
-        <span id='current-file'><%= @draft.pdf_draft.file.filename if @draft.pdf_draft.file.present? %></span>
-        <%= f.file_field :pdf_draft, class: 'form-control', style: 'display:none;' %>
+        <span id='current-file'><%= @draft.document.filename if @draft.document.present? %></span>
+        <%= f.file_field :document, class: 'form-control', style: 'display:none;' %>
       </div>
     </div>
 
@@ -56,10 +56,10 @@
     // Click on the file input browse button
     $('#browse').click(function(e) {
       e.preventDefault();
-      $('#draft_pdf_draft').click();
+      $('#draft_document').click();
     });
     // If the file input changes, display the new filename
-    $('#draft_pdf_draft').change(function() {
+    $('#draft_document').change(function() {
       var filename = $(this).val().split(/(\\|\/)/g).pop();
       $('#current-file').text(filename);
     });

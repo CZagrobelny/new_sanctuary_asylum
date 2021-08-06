@@ -25,4 +25,27 @@ namespace :temporary do
       end
     end
   end
+
+  desc 'import files'
+  task import_files: :environment do
+    Draft.all.each do |draft|
+      next if draft.document.present?
+      file = import_file(draft)
+      next unless file
+
+      draft.document.attach(
+        io:  file,
+        filename: draft.pdf_draft.file.filename,
+      )
+      puts "Attached #{ draft.pdf_draft.file.filename } to #{ draft.id } for Friend #{ draft.friend.id }"
+    end
+  end
+
+  def import_file(draft)
+    URI.open(draft.pdf_draft_url)
+  rescue => error
+    puts "Import failed for draft #{ draft.id }"
+    puts error
+    nil
+  end
 end

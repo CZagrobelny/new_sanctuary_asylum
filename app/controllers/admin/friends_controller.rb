@@ -204,7 +204,6 @@ class Admin::FriendsController < AdminController
   end
 
   def current_tab
-    # TODO: See if params[:tab] is ever an empty string, otherwise can remove the presence
     params[:tab].presence || '#basic'
   end
 end

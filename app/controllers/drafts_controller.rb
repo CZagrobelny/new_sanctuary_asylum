@@ -180,7 +180,7 @@ class DraftsController < ApplicationController
   def draft_params
     params.require(:draft).permit(
       :notes,
-      :pdf_draft,
+      :document,
       user_ids: []
     )
   end

@@ -344,6 +344,7 @@ PLATFORMS
 
 DEPENDENCIES
   american_date
+  aws-sdk-s3
   brakeman
   bundler-audit
   byebug

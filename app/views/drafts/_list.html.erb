@@ -10,13 +10,13 @@
     <% group[:drafts].each do |draft| %>
       <div class='row'>
         <div class='col-md-10'>
-          <%= draft.pdf_draft.file.filename %> -- <em><%= draft.created_at.strftime("%A, %B %-d, %Y") %></em><br>
-          <%= link_to draft.pdf_draft_url, target: '_blank' do %>
+          <%= draft.document.filename %> -- <em><%= draft.created_at.strftime("%A, %B %-d, %Y") %></em><br>
+          <%= link_to rails_blob_path(draft.document, disposition: 'preview'), target: '_blank' do %>
             <i class='fa fa-eye fa-lg'></i>
             View
           <% end %>
           <span style='padding-left:10px; padding-right:10px;'>|</span>
-          <%= link_to draft.pdf_draft.url(response_content_disposition: %Q{attachment; filename="#{ draft.pdf_draft.file.filename }"}) do %>
+          <%= link_to rails_blob_path(draft.document, disposition: 'attachment') do %>
             <i class='fa fa-download fa-lg'></i>
             Download
           <% end %>

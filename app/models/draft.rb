@@ -6,7 +6,9 @@ class Draft < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :remote_review_actions, dependent: :destroy
   mount_uploader :pdf_draft, PdfDraftUploader
-  validates :pdf_draft, presence: true
+  has_one_attached :document
+
+  validates :document, presence: true
   validates :application_id, presence: true
 
   enum status: %i[in_progress

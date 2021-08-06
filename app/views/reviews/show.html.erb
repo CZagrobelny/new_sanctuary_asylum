@@ -15,13 +15,13 @@
     <div class='review-metadata'>
       <strong>Application: </strong><%= @review.draft.application.category.titleize %>
       <br>
-      <strong>Draft: </strong><%= @review.draft.pdf_draft.file.filename %><br>
-      <%= link_to @review.draft.pdf_draft_url, target: '_blank' do %>
+      <strong>Draft: </strong><%= @review.draft.document.filename %><br>
+      <%= link_to rails_blob_path(@review.draft.document, disposition: 'preview'), target: '_blank' do %>
         <i class='fa fa-eye fa-lg'></i>
         View
       <% end %>
       <span style='padding-left:10px; padding-right:10px;'>|</span>
-      <%= link_to @review.draft.pdf_draft.url(response_content_disposition: %Q{attachment; filename="#{ @review.draft.pdf_draft.file.filename }"}) do %>
+      <%= link_to rails_blob_path(@review.draft.document, disposition: 'preview') do %>
         <i class='fa fa-download fa-lg'></i>
         Download
       <% end %>

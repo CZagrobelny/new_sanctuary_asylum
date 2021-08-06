@@ -45,6 +45,7 @@ group :development, :test do
 end
 
 group :production do
+  gem 'aws-sdk-s3'
   gem 'rack-attack'
   gem 'sendgrid-ruby'
   gem 'skylight'
