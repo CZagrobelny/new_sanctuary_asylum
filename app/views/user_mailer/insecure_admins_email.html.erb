@@ -1,0 +1,18 @@
+<p>
+  The following users in your region do not have two factor authentication enabled and/or have not agreed to the digital security policies:
+</p>
+<p>
+  <% @insecure_admins.each do |admin| %>
+    - <%= admin.name %> (<%= admin.email %>)
+    <% if !admin.authy_enabled %>
+      Two Factor Authentication: NOT ENABLED
+    <% end %>
+    <% if !admin.agreed_to_data_entry_policies %>
+      Digital Security Policies: NOT AGREED
+    <% end %>
+    <br>
+  <% end %>
+</p>
+<p>
+  Please ask them to set up two factor authntication and/or agree to the digital security policies.  As a regional admin, you can check 'Agreed to Digital Security Policies' in the user's record to indicate that they have agreed to the digital security policies.
+</p>
